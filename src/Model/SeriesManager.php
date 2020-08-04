@@ -4,20 +4,21 @@ require_once('Model/Manager.php');
 class SeriesManager extends Manager
 {
     // On récupère les informations sur toutes les séries
-    public function getSeriesData()
+    public function getAllSeries()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", s.summary AS "summary", m.pseudo AS "member", l.name AS "publisher", s.publisher_author AS "author_publisher", m.type AS "type", ia.url AS "avatar", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.series_id = s.id LEFT JOIN tags t ON t.id = h.tag_id LEFT JOIN episodes e ON e.id_series = s.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover GROUP BY s.id');
-	    $seriesUserData = $req->fetch(\PDO::FETCH_COLUMN);
+		$req = $db->query('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", s.summary AS "summary", m.pseudo AS "member", l.name AS "publisher", s.publisher_author AS "author_publisher", m.type AS "type", ia.url AS "avatar", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag LEFT JOIN episodes e ON e.id_series = s.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover GROUP BY s.id');
+	    $getAllSeries = $req->fetch(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
-	    return $seriesUserData;
-    }
+	    return $getAllSeries;
+	}
+    // On récupère les informations de performance de toutes les séries --> A voir en mentorat
     // On récupère les informations d'une série
-	public function getOneSeriesData($id)
+	public function getOneSeriesData($idseries)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", s.summary AS "summary", m.pseudo AS "member", l.name AS "publisher", s.publisher_author AS "publisher_author", m.type AS "type", ia.url AS "avatar", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.series_id = s.id LEFT JOIN tags t ON t.id = h.tag_id LEFT JOIN episodes e ON e.id_series = s.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE s.id = ?');
-		$req->execute(array($id));
+		$req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", s.summary AS "summary", m.pseudo AS "member", l.name AS "publisher", s.publisher_author AS "publisher_author", m.type AS "type", ia.url AS "avatar", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag LEFT JOIN episodes e ON e.id_series = s.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE s.id = ?');
+		$req->execute(array($idseries));
 		$oneSeriesUserData = $req->fetch(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
 	    return $oneSeriesUserData;
@@ -26,7 +27,7 @@ class SeriesManager extends Manager
     public function getLastThreeSeriesUsers()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", s.pricing_status AS "pricing", COUNT(DISTINCT e.id) AS "numberEpisodes", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN series s ON s.id_member = m.id LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_tags h ON h.series_id = s.id LEFT JOIN tags t ON t.id = h.tag_id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "user" AND s.publishing_status = "published" GROUP BY s.id ORDER BY s.date DESC LIMIT 3');
+		$req = $db->query('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", s.pricing_status AS "pricing", COUNT(DISTINCT e.id) AS "numberEpisodes", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN series s ON s.id_member = m.id LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "user" AND s.publishing_status = "published" GROUP BY s.id ORDER BY s.date DESC LIMIT 3');
 	    $seriesLastThreeUsers = $req->fetch(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
 	    return $seriesLastThreeUsers;
@@ -35,7 +36,7 @@ class SeriesManager extends Manager
     public function getLastThreeSeriesPublishers()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", COUNT(DISTINCT e.id) AS "numberEpisodes", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_tags h ON h.series_id = s.id LEFT JOIN tags t ON t.id = h.tag_id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "publisher" AND s.publishing_status = "published" GROUP BY s.id ORDER BY s.date DESC LIMIT 3');
+		$req = $db->query('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", COUNT(DISTINCT e.id) AS "numberEpisodes", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "publisher" AND s.publishing_status = "published" GROUP BY s.id ORDER BY s.date DESC LIMIT 3');
 	    $seriesLastThreePublishers = $req->fetch(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
 	    return $seriesLastThreePublishers;
@@ -62,7 +63,7 @@ class SeriesManager extends Manager
     public function getCommonTagsSeriesUsers($tags)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.series_id = s.id LEFT JOIN tags t ON t.id = h.tag_id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "user" AND s.publishing_status = "published" AND t.name = ? GROUP BY s.id LIMIT 3');
+		$req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "user" AND s.publishing_status = "published" AND t.name = ? GROUP BY s.id LIMIT 3');
         $req->execute(array($tags));
         $seriesUserCommonTags = $req->fetch(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
@@ -72,18 +73,18 @@ class SeriesManager extends Manager
     public function getCommonTagsSeriesPublishers($tags)
     {
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.series_id = s.id LEFT JOIN tags t ON t.id = h.tag_id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "publisher" AND s.publishing_status = "published" AND t.name = ? GROUP BY s.id LIMIT 3');
+        $req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "publisher" AND s.publishing_status = "published" AND t.name = ? GROUP BY s.id LIMIT 3');
         $req->execute(array($tags));
         $seriesPublisherCommonTags = $req->fetch(\PDO::FETCH_COLUMN);
         $req->closeCursor();
         return $seriesPublisherCommonTags;
 	}
 	// On récupère la couverture d'une série
-	public function getSeriesCover($id)
+	public function getSeriesCover($idseries)
 	{
         $db = $this->dbConnect();
         $req = $db->prepare('SELECT ic.url FROM covers c INNER JOIN images ic ON ic.id = c.id_cover INNER JOIN series s ON s.id_cover = c.id WHERE s.id = ?');
-        $req->execute(array($id));
+        $req->execute(array($idseries));
         $seriesCover = $req->fetch(\PDO::FETCH_COLUMN);
         $req->closeCursor();
         return $seriesCover;		
@@ -92,20 +93,134 @@ class SeriesManager extends Manager
 	public function getResearchSeries($keywords)
 	{
         $db = $this->dbConnect();
-        $req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", s.summary AS "summary", m.pseudo AS "member", l.name AS "publisher", s.publisher_author AS "publisher_author", m.type AS "type", ia.url AS "avatar", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.series_id = s.id LEFT JOIN tags t ON t.id = h.tag_id LEFT JOIN episodes e ON e.id_series = s.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE lower(s.title) LIKE "%?%" OR lower(m.pseudo) LIKE "%?%" OR lower(l.name) LIKE "%?%" OR lower(s.publisher_author) LIKE "%?%" GROUP BY s.id');
+        $req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", s.summary AS "summary", m.pseudo AS "member", l.name AS "publisher", s.publisher_author AS "publisher_author", m.type AS "type", ia.url AS "avatar", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag LEFT JOIN episodes e ON e.id_series = s.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE lower(s.title) LIKE "%?%" OR lower(m.pseudo) LIKE "%?%" OR lower(l.name) LIKE "%?%" OR lower(s.publisher_author) LIKE "%?%" GROUP BY s.id');
         $req->execute(array($keywords));
         $seriesResearch = $req->fetch(\PDO::FETCH_COLUMN);
         $req->closeCursor();
         return $seriesResearch;		
 	}
-	// On ajoute une série --> Question pour le mentorat	
-	// On modifie une série --> Question pour le mentorat
+	// On ajoute une série
+	public function addSeries($title, $summary, $idmemberrlated, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription)
+	{
+		$db = $this->dbConnect();
+		$addSeries = $db->prepare('INSERT INTO series(title, summary, date, id_member, pricing_status, publishing_status, authors_right, id_cover, publisher_author, publisher_author_description) VALUES(?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)');
+		$addSeries->execute(array($title, $summary, $idmemberrlated, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription));
+	    return $addSeries;
+	}	
+	// On modifie une série
+	public function updateSeries($title, $summary, $date, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription, $idseries)
+	{
+		$db = $this->dbConnect();
+		$updateSeries = $db->prepare('UPDATE series SET title = :newtitle, summary = :newsummary, date = :newdate, pricing_status = :newpricing_status, publishing_status = :newpublishing_status, authors_right = :newauthors_right, id_cover = :newid_cover, publisher_author = :newpublisher_author, publisher_author_description = :newpublisher_author_description WHERE id = :idseries');
+        $updateSeries->execute(array(
+			'newtitle' => $title,
+			'newsummary' => $summary,
+			'newdate' => $date,
+			'newpricing_status' => $pricing,
+			'newpublishing_status' => $publishing,
+			'newauthors_right' => $rights,
+			'newid_cover' => $idcoverrelated,
+			'newpublisher_author' => $publisherauthor,
+			'newpublisher_author_description' => $publisherauthordescription,
+			'idseries' => $idseries
+		)); 
+		return $updateSeries;
+	}
 	// On supprime une série
-	public function deleteSeries($id)
+	public function deleteSeries($idseries)
 	{
 		$db = $this->dbConnect();
 		$deleteSeries = $db->prepare('DELETE FROM series WHERE id = ?');
-    	$deleteSeries->execute(array($id));
+    	$deleteSeries->execute(array($idseries));
     	return $deleteSeries;
+	}
+	// On ajoute un tag
+	public function addTag($name)
+	{
+		$db = $this->dbConnect();
+		$addTag = $db->prepare('INSERT INTO tags(name) VALUES(?)');
+		$addTag->execute(array($name));
+	    return $addTag;
+	}
+	// On ajoute un tag à une série
+	public function addTagSeries($idtagrelated, $idseriesrelated)
+	{
+		$db = $this->dbConnect();
+		$addTagSeries = $db->prepare('INSERT INTO series_has_tags(id_tag, id_series) VALUES(?, ?)');
+		$addTagSeries->execute(array($idtagrelated, $idseriesrelated));
+	    return $addTagSeries;
+	}
+	// On modifie un tag
+	public function updateTag($name, $idtag)
+	{
+		$db = $this->dbConnect();
+		$updateTag = $db->prepare('UPDATE tags SET name = :newname WHERE id = :idtag');
+		$updateTag->execute(array(
+			'newname' => $name,
+			'idtag' => $idtag
+		)); 
+		return $updateTag;
+	}
+	// On modifie un tag d'une série
+	public function updateTagSeries($idtagrelated, $idseriesrelated)
+	{
+		$db = $this->dbConnect();
+		$updateTagSeries = $db->prepare('UPDATE series_has_tags SET id_tag = :newid_tag WHERE id_series = :idseries');
+		$updateTagSeries->execute(array(
+			'newid_tag' => $idtagrelated,
+			'idseries' => $idseriesrelated
+		)); 
+		return $updateTagSeries;
+	}
+	// On supprime un tag
+	public function deleteTag($idtag)
+	{
+		$db = $this->dbConnect();
+		$deleteTag= $db->prepare('DELETE FROM tags WHERE id = ?');
+    	$deleteTag->execute(array($idtag));
+    	return $deleteTag;
+	}
+	// On supprime un tag d'une série
+	public function deleteTagSeries($idtagrelated, $idseriesrelated)
+	{
+		$db = $this->dbConnect();
+		$deleteTagSeries= $db->prepare('DELETE FROM series_has_tags WHERE id_tag = ? AND id_series = ?');
+    	$deleteTagSeries->execute(array($idtagrelated, $idseriesrelated));
+    	return $deleteTagSeries;
+	}
+	// On ajoute un nouvel abonnement
+	public function addSeriesSubscription($idseries, $idmember)
+	{
+		$db = $this->dbConnect();
+		$seriesSubscription = $db->prepare('INSERT INTO series_has_members_subscription(idseries, idmember)');
+    	$seriesSubscription->execute(array($idseries, $idmember));
+    	return $seriesSubscription;
+	}
+	// On ajoute une cover
+	public function addCover($idcover)
+	{
+		$db = $this->dbConnect();
+		$addCover = $db->prepare('INSERT INTO covers(id_cover) VALUES(?)');
+	    $addCover->execute(array($idcover));
+	    return $addCover;
+	}
+	// On modifie une cover
+	public function updateCover($idcoverrelated, $idcover)
+	{
+		$db = $this->dbConnect();
+		$updateCover = $db->prepare('UPDATE covers SET id_cover = :newid_cover WHERE id = :idcover');
+		$updateCover->execute(array(
+			'newid_cover' => $idcoverrelated,
+			'idcover' => $idcover
+		)); 
+		return $updateCover;
+	}
+	// On supprime une cover
+	public function deleteCover($idcover)
+	{
+		$db = $this->dbConnect();
+		$deleteCover= $db->prepare('DELETE FROM covers WHERE id = ?');
+    	$deleteCover->execute(array($idcover));
+    	return $deleteCover;
 	}
 }
