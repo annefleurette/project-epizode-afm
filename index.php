@@ -1,24 +1,27 @@
 <?php
 session_start();
 
-include_once('Controller/FrontEndController.php');
-include_once('Controller/BackEndController.php');
+require_once('src/Controller/FrontEndController.php');
+require_once('src/Controller/BackEndController.php');
 
 use AnneFleurMarchat\Epizode\Controller\FrontendController;
 use AnneFleurMarchat\Epizode\Controller\BackendController;
 
 try {
-	$frontendController = new FrontendController();
+	//$frontendController = new FrontendController();
 	$backendController = new BackendController();
 	if(isset($_GET['action']))
 	{
 		switch($_GET['action'])
 		{
-			case :
-				// A compléter
+			case 'writeSeries':
+				$backendController->writeSeries();
 				break;	
+			case 'writeSeries_post':
+				$backendController->writeSeriesPost($_GET['id'], $_POST['author'], $_POST['descriptionAuthor'], $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['cover'], $_POST['tags'], $_POST['rights']);
+				break;
 		}
-	}else{
+	//}else{
 		// A compléter
 	}
 }catch(Exception $e){

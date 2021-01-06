@@ -192,7 +192,7 @@ class MembersManager extends Manager
 		$db = $this->dbConnect();
 		$addImage = $db->prepare('INSERT INTO images(name, type, alt, url) VALUES(?, ?, ?, ?)');
 	    $addImage->execute(array($name, $type, $alt, $url));
-	    return $addImage;
+		return $db->$addImage;
 	}
 	// On modifie une image
 	public function updateImage($name, $alt, $url, $idimage)
@@ -214,6 +214,16 @@ class MembersManager extends Manager
 		$deleteImage = $db->prepare('DELETE FROM images WHERE id = ?');
     	$deleteImage->execute(array($idimage));
     	return $deleteImage;
+	}
+	// On récupère l'id d'une image à partir de son url
+	public function getImageId($url)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT id FROM images WHERE url = ?');
+		$req->execute(array($url));
+	    $imageId = $req->fetch(\PDO::FETCH_COLUMN);
+	    $req->closeCursor();
+	    return $imageId;
 	}
 	// On ajoute un logo
 	public function addLogo($idlogo, $name)

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  mar. 28 juil. 2020 à 20:59
+-- Généré le :  mar. 04 août 2020 à 15:01
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.4.2
 
@@ -54,7 +54,7 @@ INSERT INTO `avatars` (`id`, `id_avatar`) VALUES
 CREATE TABLE `bills` (
   `id` int(11) NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `amount` int(11) NOT NULL
+  `amount` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -62,7 +62,8 @@ CREATE TABLE `bills` (
 --
 
 INSERT INTO `bills` (`id`, `date`, `amount`) VALUES
-(1, '2020-07-20 21:42:37', 30);
+(1, '2020-07-20 21:42:37', 30),
+(2, '2020-08-04 14:15:07', 50);
 
 -- --------------------------------------------------------
 
@@ -130,7 +131,7 @@ CREATE TABLE `episodes` (
   `publishing_status` enum('published','inprogress','deleted') NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_series` int(11) NOT NULL,
-  `price` int(11) DEFAULT NULL,
+  `price` float DEFAULT NULL,
   `likes_number` int(11) DEFAULT NULL,
   `alert_status` tinyint(4) NOT NULL DEFAULT '0',
   `promotion` int(11) DEFAULT NULL,
@@ -147,7 +148,7 @@ INSERT INTO `episodes` (`id`, `number`, `title`, `content`, `publishing_status`,
 (3, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:41', 3, NULL, NULL, 0, NULL, 3000),
 (4, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:58', 4, NULL, NULL, 0, NULL, 3000),
 (5, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:37:18', 5, NULL, NULL, 0, NULL, 3000),
-(6, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:37:50', 6, 3, NULL, 0, NULL, 3000),
+(6, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:37:50', 6, 3.25, NULL, 0, NULL, 3000),
 (7, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:07', 7, 3, NULL, 0, NULL, 3000),
 (8, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:24', 8, 3, NULL, 0, NULL, 3000),
 (9, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:38', 9, 3, NULL, 0, NULL, 3000),
@@ -257,15 +258,15 @@ INSERT INTO `members` (`id`, `pseudo`, `email`, `password`, `type`, `date_subscr
 --
 
 CREATE TABLE `members_has_bills` (
-  `member_id` int(11) NOT NULL,
-  `bill_id` int(11) NOT NULL
+  `id_member` int(11) NOT NULL,
+  `id_bill` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `members_has_bills`
 --
 
-INSERT INTO `members_has_bills` (`member_id`, `bill_id`) VALUES
+INSERT INTO `members_has_bills` (`id_member`, `id_bill`) VALUES
 (1, 1);
 
 -- --------------------------------------------------------
@@ -298,8 +299,8 @@ INSERT INTO `packs` (`id`, `name`, `price`, `coins_number`, `promotion`) VALUES
 --
 
 CREATE TABLE `sales` (
-  `members_id` int(11) NOT NULL,
-  `episodes_id` int(11) NOT NULL,
+  `id_member` int(11) NOT NULL,
+  `id_episode` int(11) NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -307,9 +308,10 @@ CREATE TABLE `sales` (
 -- Déchargement des données de la table `sales`
 --
 
-INSERT INTO `sales` (`members_id`, `episodes_id`, `date`) VALUES
+INSERT INTO `sales` (`id_member`, `id_episode`, `date`) VALUES
 (1, 6, '2020-07-20 21:44:08'),
-(1, 7, '2020-07-20 21:44:18');
+(1, 7, '2020-07-20 21:44:18'),
+(2, 7, '2020-08-04 16:44:17');
 
 -- --------------------------------------------------------
 
@@ -322,7 +324,7 @@ CREATE TABLE `series` (
   `title` varchar(100) NOT NULL,
   `summary` longtext NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `id_author` int(11) NOT NULL,
+  `id_member` int(11) NOT NULL,
   `pricing_status` enum('free','paying') NOT NULL,
   `publishing_status` enum('published','inprogress','deleted') NOT NULL DEFAULT 'inprogress',
   `authors_right` enum('public','CC','CC_NoCommercial','CC_NoCommercial_NoUpdate','CC_NoCommercial_Share','CC_NoUpdate') NOT NULL DEFAULT 'public',
@@ -335,7 +337,7 @@ CREATE TABLE `series` (
 -- Déchargement des données de la table `series`
 --
 
-INSERT INTO `series` (`id`, `title`, `summary`, `date`, `id_author`, `pricing_status`, `publishing_status`, `authors_right`, `id_cover`, `publisher_author`, `publisher_author_description`) VALUES
+INSERT INTO `series` (`id`, `title`, `summary`, `date`, `id_member`, `pricing_status`, `publishing_status`, `authors_right`, `id_cover`, `publisher_author`, `publisher_author_description`) VALUES
 (1, 'Geek', 'Sed in diam odio. Phasellus tempus magna commodo suscipit egestas. Morbi quis lacus nec lacus sodales iaculis. Quisque hendrerit sed nulla ut ornare. Sed ullamcorper mi varius leo ultricies tempor. Aliquam at odio tempus, semper felis eu, accumsan risus. Donec eget ante enim. Phasellus ex est, tincidunt ut ullamcorper sit amet, semper quis neque. Aliquam vestibulum arcu at ligula dictum ullamcorper. Sed sit amet eleifend erat, a bibendum dui. Nulla euismod porttitor nulla, et bibendum tortor rutrum tincidunt. Vivamus pulvinar vitae quam sit amet pulvinar.', '2020-07-20 21:00:54', 1, 'free', 'published', 'public', 1, NULL, NULL),
 (2, 'Prophetia', 'Phasellus et tortor vel dolor commodo dapibus eu vel lorem. In neque ipsum, elementum at lorem sed, tempor pellentesque lectus. Morbi imperdiet vehicula porttitor. Etiam justo risus, cursus vel quam in, scelerisque hendrerit lorem. Etiam eu dictum metus. Curabitur imperdiet accumsan sagittis. Donec mattis velit tortor, eu posuere arcu luctus eget. Nulla suscipit neque ut metus luctus, ut rhoncus odio sollicitudin. Ut ante arcu, fringilla non ultrices a, tincidunt at eros. Ut sagittis urna cursus convallis vehicula. Vivamus ac mi ornare, porttitor urna ultricies, suscipit massa. Vestibulum id tincidunt leo.', '2020-07-20 21:01:36', 1, 'free', 'published', 'CC', 2, NULL, NULL),
 (3, 'Elysée', 'Duis cursus efficitur lacus in fringilla. Duis vehicula varius ultrices. Integer auctor in diam quis gravida. Mauris congue vestibulum erat, sit amet dignissim massa tristique et. Integer tempor risus mauris. Proin eu blandit elit. Donec id orci sodales, interdum nisl ac, dignissim felis. Ut volutpat sed nisl ut porttitor. Ut erat ex, tempor vitae nisi ut, posuere malesuada lectus.', '2020-07-20 21:02:14', 1, 'free', 'published', 'CC_NoCommercial_NoUpdate', 3, NULL, NULL),
@@ -386,16 +388,15 @@ INSERT INTO `series_has_members_subscription` (`id_series`, `id_member`, `subscr
 --
 
 CREATE TABLE `series_has_tags` (
-  `tag_id` int(11) NOT NULL,
-  `series_id` int(11) NOT NULL
+  `id_tag` int(11) NOT NULL,
+  `id_series` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `series_has_tags`
 --
 
-INSERT INTO `series_has_tags` (`tag_id`, `series_id`) VALUES
-(6, 1),
+INSERT INTO `series_has_tags` (`id_tag`, `id_series`) VALUES
 (1, 2),
 (2, 2),
 (11, 2),
@@ -510,9 +511,9 @@ ALTER TABLE `members`
 -- Index pour la table `members_has_bills`
 --
 ALTER TABLE `members_has_bills`
-  ADD PRIMARY KEY (`member_id`,`bill_id`),
-  ADD KEY `fk_members_has_bills_bills1_idx` (`bill_id`),
-  ADD KEY `fk_members_has_bills_members1_idx` (`member_id`);
+  ADD PRIMARY KEY (`id_member`,`id_bill`),
+  ADD KEY `fk_members_has_bills_bills1_idx` (`id_bill`),
+  ADD KEY `fk_members_has_bills_members1_idx` (`id_member`);
 
 --
 -- Index pour la table `packs`
@@ -525,16 +526,16 @@ ALTER TABLE `packs`
 -- Index pour la table `sales`
 --
 ALTER TABLE `sales`
-  ADD PRIMARY KEY (`members_id`,`episodes_id`),
-  ADD KEY `fk_members_has_episodes_episodes1_idx` (`episodes_id`),
-  ADD KEY `fk_members_has_episodes_members1_idx` (`members_id`);
+  ADD PRIMARY KEY (`id_member`,`id_episode`),
+  ADD KEY `fk_members_has_episodes_episodes1_idx` (`id_episode`),
+  ADD KEY `fk_members_has_episodes_members1_idx` (`id_member`);
 
 --
 -- Index pour la table `series`
 --
 ALTER TABLE `series`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_series_members_idx` (`id_author`),
+  ADD KEY `fk_series_members_idx` (`id_member`),
   ADD KEY `fk_series_images1_idx` (`id_cover`);
 
 --
@@ -549,9 +550,9 @@ ALTER TABLE `series_has_members_subscription`
 -- Index pour la table `series_has_tags`
 --
 ALTER TABLE `series_has_tags`
-  ADD PRIMARY KEY (`tag_id`,`series_id`),
-  ADD KEY `fk_tags_has_series_series1_idx` (`series_id`),
-  ADD KEY `fk_tags_has_series_tags1_idx` (`tag_id`);
+  ADD PRIMARY KEY (`id_tag`,`id_series`),
+  ADD KEY `fk_tags_has_series_series1_idx` (`id_series`),
+  ADD KEY `fk_tags_has_series_tags1_idx` (`id_tag`);
 
 --
 -- Index pour la table `tags`
@@ -574,7 +575,7 @@ ALTER TABLE `avatars`
 -- AUTO_INCREMENT pour la table `bills`
 --
 ALTER TABLE `bills`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT pour la table `comments`
@@ -598,13 +599,13 @@ ALTER TABLE `episodes`
 -- AUTO_INCREMENT pour la table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT pour la table `logos`
 --
 ALTER TABLE `logos`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT pour la table `members`
@@ -676,21 +677,21 @@ ALTER TABLE `members`
 -- Contraintes pour la table `members_has_bills`
 --
 ALTER TABLE `members_has_bills`
-  ADD CONSTRAINT `fk_members_has_bills_bills1` FOREIGN KEY (`bill_id`) REFERENCES `bills` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_members_has_bills_members1` FOREIGN KEY (`member_id`) REFERENCES `members` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_members_has_bills_bills1` FOREIGN KEY (`id_bill`) REFERENCES `bills` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_members_has_bills_members1` FOREIGN KEY (`id_member`) REFERENCES `members` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `sales`
 --
 ALTER TABLE `sales`
-  ADD CONSTRAINT `fk_members_has_episodes_episodes1` FOREIGN KEY (`episodes_id`) REFERENCES `episodes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_members_has_episodes_members1` FOREIGN KEY (`members_id`) REFERENCES `members` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_members_has_episodes_episodes1` FOREIGN KEY (`id_episode`) REFERENCES `episodes` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_members_has_episodes_members1` FOREIGN KEY (`id_member`) REFERENCES `members` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `series`
 --
 ALTER TABLE `series`
-  ADD CONSTRAINT `fk_series_members` FOREIGN KEY (`id_author`) REFERENCES `members` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_series_members` FOREIGN KEY (`id_member`) REFERENCES `members` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `series_ibfk_1` FOREIGN KEY (`id_cover`) REFERENCES `covers` (`id`);
 
 --
@@ -704,8 +705,8 @@ ALTER TABLE `series_has_members_subscription`
 -- Contraintes pour la table `series_has_tags`
 --
 ALTER TABLE `series_has_tags`
-  ADD CONSTRAINT `fk_tags_has_series_series1` FOREIGN KEY (`series_id`) REFERENCES `series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tags_has_series_tags1` FOREIGN KEY (`tag_id`) REFERENCES `tags` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_tags_has_series_series1` FOREIGN KEY (`id_series`) REFERENCES `series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tags_has_series_tags1` FOREIGN KEY (`id_tag`) REFERENCES `tags` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

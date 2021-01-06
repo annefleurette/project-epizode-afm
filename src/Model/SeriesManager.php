@@ -1,6 +1,6 @@
 <?php
 namespace AnneFleurMarchat\Epizode\Model;
-require_once('Model/Manager.php');
+require_once('Manager.php');
 class SeriesManager extends Manager
 {
     // On récupère les informations sur toutes les séries
@@ -100,11 +100,11 @@ class SeriesManager extends Manager
         return $seriesResearch;		
 	}
 	// On ajoute une série
-	public function addSeries($title, $summary, $idmemberrlated, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription)
+	public function addSeries($title, $summary, $idmemberrelated, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription)
 	{
 		$db = $this->dbConnect();
 		$addSeries = $db->prepare('INSERT INTO series(title, summary, date, id_member, pricing_status, publishing_status, authors_right, id_cover, publisher_author, publisher_author_description) VALUES(?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)');
-		$addSeries->execute(array($title, $summary, $idmemberrlated, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription));
+		$addSeries->execute(array($title, $summary, $idmemberrelated, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription));
 	    return $addSeries;
 	}	
 	// On modifie une série
@@ -222,5 +222,15 @@ class SeriesManager extends Manager
 		$deleteCover= $db->prepare('DELETE FROM covers WHERE id = ?');
     	$deleteCover->execute(array($idcover));
     	return $deleteCover;
+	}
+	// On récupère l'id d'une cover à partir de l'id de l'image
+	public function getCoverId($idcover)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT id FROM covers WHERE id_cover = ?');
+		$req->execute(array($idcover));
+	    $coverId = $req->fetch(\PDO::FETCH_COLUMN);
+	    $req->closeCursor();
+	    return $coverId;
 	}
 }

@@ -7,8 +7,6 @@
         <ul>
             <li><a href="#">Accueil</a></li>
             <li><a href="#">Recherche</a></li>
-        </ul>
-        <ul>
             <?php if(isset($_SESSION['pseudo']) AND ($_SESSION['type'] == "user" OR $_SESSION['type'] == "publisher"))
             {
             ?>
