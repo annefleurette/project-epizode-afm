@@ -134,6 +134,18 @@ class SeriesManager extends Manager
     	$deleteSeries->execute(array($idseries));
     	return $deleteSeries;
 	}
+
+	// On récupère l'id d'une série à partir de son auteur et de son titre
+	public function getSeriesId($seriestitle, $memberid)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT id FROM series WHERE title = ? AND id_member = ?');
+		$req->execute(array($seriestitle, $memberid));
+		$seriesId = $req->fetch(\PDO::FETCH_COLUMN);
+	    $req->closeCursor();
+	    return $seriesId;
+    }
+
 	// On ajoute un tag
 	public function addTag($name)
 	{
@@ -142,6 +154,18 @@ class SeriesManager extends Manager
 		$addTag->execute(array($name));
 	    return $addTag;
 	}
+
+	// On récupère l'id d'un tag à partir du nom du tag
+	public function getTagId($name)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT id FROM tags WHERE name = ?');
+		$req->execute(array($name));
+		$tagId = $req->fetch(\PDO::FETCH_COLUMN);
+		$req->closeCursor();
+		return $tagId;
+	}
+
 	// On ajoute un tag à une série
 	public function addTagSeries($idtagrelated, $idseriesrelated)
 	{

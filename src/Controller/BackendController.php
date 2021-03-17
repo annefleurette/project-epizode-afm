@@ -1,7 +1,7 @@
 <?php
 namespace AnneFleurMarchat\Epizode\Controller;
 
-require('src/Model/SeriesManager.php');
+require_once('src/Model/SeriesManager.php');
 //require_once('Model/EpisodesManager.php');
 //require_once('src/Model/CommentsManager.php');
 require_once('src/Model/MembersManager.php');
@@ -50,6 +50,9 @@ class BackendController {
                                 $n = 20; 
                                 $newname = bin2hex(random_bytes($n));
                                 move_uploaded_file($_FILES['cover']['tmp_name'], '../../public/images/' . basename($_FILES['cover'][$newname]));
+                                $imagealt = $postseriestitle;
+                                $imageurl = '../../public/images/' . basename($_FILES['cover'][$newname]);
+                                $imagetype = "cover";
                             }else{
                                 echo "Le fichier n'est pas une image !";
                             }
@@ -59,10 +62,29 @@ class BackendController {
                     }else{
                         echo "Il y a eu un problème dans l'envoi du fichier";
                     }
-                    $idcoverrelated = 
+                    // On enregistre une image
+                    $addImage = $membersManager->addImage($newname, $imagetype, $imagealt, $imageurl);
+                    // On récupère l'id d'une image sur la base de son url
+                    $imageId = $membersManager->getImageId($imageurl);
+                    // On enregistre une cover
+                    $addCover = $seriesManager->addCover($imageId);
+                    // On récupère l'id d'une cover sur la base de l'id de l'image
+                    $coverId = $seriesManager->getCoverId($imageId);
                     // On enregistre la nouvelle série
-                    $addSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, $getidmember, $pricing, $publishing, $postseriesrights, $idcoverrelated, $postauthorname, $postauthordescription);
-                    header('Location: src/View/writeSeriesView.php'); // A modifier
+                    $addSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, $getidmember, $pricing, $publishing, $postseriesrights, $coverId, $postauthorname, $postauthordescription);
+                    // On récupère l'id de la série à partir de son titre et de l'id de l'auteur
+                    $seriesId = $seriesManager->getSeriesId($postseriestitle, $getidmember);
+                    // Enregsitrement des tags
+                    $tagname = explode(",", $postseriestag);
+                    for ($i = 1; $i < count($tagname); $i++) {
+                        // On enregistre le tag
+                        $addTag = $seriesManager->addTag($tagname[$i]);
+                        // On récupère l'id du tag
+                        $tagId = $seriesManager->getTagId($tagname[$i]);
+                        // On associe le tag à la série
+                        $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
+                    }
+                    header('Location: src/View/writeSeriesView.php');
                 }
             }
             if($_SESSION['type'] === "user")
@@ -116,7 +138,19 @@ class BackendController {
                     $coverId = $seriesManager->getCoverId($imageId);
                     // On enregistre la nouvelle série
                     $addSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, $getidmember, $pricing, $publishing, $postseriesrights, $coverId, $postauthorname, $postauthordescription);
-                    header('Location: src/View/writeSeriesView.php');
+                    // On récupère l'id de la série à partir de son titre et de l'id de l'auteur
+                    $seriesId = $seriesManager->getSeriesId($postseriestitle, $getidmember);
+                    // Enregsitrement des tags
+                    $tagname = explode(",", $postseriestag);
+                    for ($i = 1; $i < count($tagname); $i++) {
+                        // On enregistre le tag
+                        $addTag = $seriesManager->addTag($tagname[$i]);
+                        // On récupère l'id du tag
+                        $tagId = $seriesManager->getTagId($tagname[$i]);
+                        // On associe le tag à la série
+                        $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
+                     }
+                     header('Location: src/View/writeSeriesView.php');
                 }
             }
         }
