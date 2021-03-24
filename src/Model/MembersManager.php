@@ -1,6 +1,6 @@
 <?php
 namespace AnneFleurMarchat\Epizode\Model;
-require_once('Model/Manager.php');
+require_once('Manager.php');
 class MembersManager extends Manager
 {
     // On récupère les informations d'un membre
@@ -19,7 +19,7 @@ class MembersManager extends Manager
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT s.publisher_author AS "author", s.publisher_author_description AS "description" FROM series s INNER JOIN members m ON m.id = s.id_member WHERE m.id = ?');
 		$req->execute(array($idmember));
-	    $authorsList = $req->fetch(\PDO::FETCH_COLUMN);
+	    $authorsList = $req->fetchAll();
 	    $req->closeCursor();
 	    return $authorsList;
 	}
@@ -59,7 +59,7 @@ class MembersManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT m.id AS "id", m.pseudo AS "pseudo", m.type as "type", COUNT(DISTINCT has.id_series) AS "numberSubscriptions", COUNT(DISTINCT s.id) AS "numberWritings", COUNT(DISTINCT s.publisher_author) AS "numberAuthors", m.date_subscription AS "subscriptionDate", m.coins_number AS "coinsNumber" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN series_has_members_subscription has ON has.id_member = m.id GROUP BY m.id');
-	    $usersData = $req->fetch(\PDO::FETCH_COLUMN);
+	    $usersData = $req->fetchAll();
 	    $req->closeCursor();
 	    return $$usersData;
 	}
@@ -81,6 +81,8 @@ class MembersManager extends Manager
 	    $addBill->execute(array($amount));
 	    return $addBill;
 	}
+
+	// On ajoute une dépense à un membre
 	public function addMemberBill($idmemberrelated, $idbillrelated)
 	{
 		$db = $this->dbConnect();
@@ -192,7 +194,7 @@ class MembersManager extends Manager
 		$db = $this->dbConnect();
 		$addImage = $db->prepare('INSERT INTO images(name, type, alt, url) VALUES(?, ?, ?, ?)');
 	    $addImage->execute(array($name, $type, $alt, $url));
-		return $db->$addImage;
+		return $addImage;
 	}
 	// On modifie une image
 	public function updateImage($name, $alt, $url, $idimage)
@@ -277,7 +279,7 @@ class MembersManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT pseudo FROM members');
-	    $getPseudos = $req->fetchAll(\PDO::FETCH_COLUMN);
+	    $getPseudos = $req->fetchAll();
 	    $req->closeCursor();
 	    return $getPseudos;
 	}
@@ -286,7 +288,7 @@ class MembersManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT email FROM members');
-	    $getEmails = $req->fetchAll(\PDO::FETCH_COLUMN);
+	    $getEmails = $req->fetchAll();
 	    $req->closeCursor();
 	    return $getEmails;
 	}

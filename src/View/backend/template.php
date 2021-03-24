@@ -11,10 +11,10 @@
         <meta name="robots" content="noindex">
     </head>
     <body>
-        <div>
-        <?php require("../header.php");?>
-           <?php echo $body_content; ?>
-        <?php require("../footer.php");?>
+    <div>
+        <?php require("./src/View/header.php");?>
+    	   <?php echo $body_content; ?>
+        <?php require("./src/View/footer.php");?>
         </div>
     </body>
   </html>

@@ -12,21 +12,7 @@ ob_start();
 </nav>
 
 <section>
-    <form action="writeSeries_post" method="post" enctype="multipart/form-data">
-        <?php
-        if($_SESSION['type'] === "publisher") {
-        ?>
-        <p>
-            <label for="author">Auteur</label><br />
-            <input type="text" id="author" name="author" minlength="2" maxlength="50" required>
-        </p>
-        <p>
-            <label for="descriptionAuthor">Description de l'auteur</label><br />
-            <textarea id="descriptionAuthor" name="descriptionAuthor" minlength="1" maxlength="1200" required></textarea>
-        </p>
-        <?php
-        }
-        ?>
+    <form action="index.php?action=writeSeries_post" method="post" enctype="multipart/form-data">
         <p>
             <label for="title">Titre</label><br />
             <input type="text" id="title" name="titleSeries" minlength="1" maxlength="100" required>

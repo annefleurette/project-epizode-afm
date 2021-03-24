@@ -1,6 +1,6 @@
 <?php
 namespace AnneFleurMarchat\Epizode\Model;
-require_once('Model/Manager.php');
+require_once('Manager.php');
 class EpisodesManager extends Manager
 {
 	// On récupère la liste de tous les épisodes
@@ -8,7 +8,7 @@ class EpisodesManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT e.id AS "id", ic.url AS "cover", s.title AS "series", m.pseudo AS "pseudo", ia.url AS "avatar", l.name AS "publisher", il.url AS "logo", s.publisher_author AS "author", e.number AS "number", e.title AS "title", e.content AS "content", e.publishing_status AS "publishing", m.type AS "type", e.likes_number AS "numberLikes", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COUNT(DISTINCT sal.id_member) AS "salesNumber", ROUND((COALESCE(e.price, 0) - COALESCE(e.promotion, 0))*COUNT(DISTINCT sal.id_member), 2) AS "totalGain", COUNT(DISTINCT com.id_episode) AS "numberComments", ROUND(e.words_number/300) AS "timeReading" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN comments com ON com.id_episode = e.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover LEFT JOIN sales sal ON sal.id_episode = e.id GROUP BY e.id');
-	    $getAllEpisodes = $req->fetch(\PDO::FETCH_COLUMN);
+	    $getAllEpisodes = $req->fetchAll();
 	    $req->closeCursor();
 	    return $getAllEpisodes;
 	}
@@ -17,7 +17,7 @@ class EpisodesManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT s.title AS "series", m.pseudo AS "pseudo", l.name AS "publisher", s.publisher_author AS "author", e.number AS "number", e.title AS "title", e.content AS "content", m.type AS "type", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COUNT(DISTINCT sal.id_member) AS "salesNumber", ROUND((COALESCE(e.price, 0) - COALESCE(e.promotion, 0))*COUNT(DISTINCT sal.id_member), 2) AS "totalGain" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN sales sal ON sal.id_episode = e.id LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE e.alert_status = 1 GROUP BY e.id');
-	    $getAlertEpisodes = $req->fetch(\PDO::FETCH_COLUMN);
+	    $getAlertEpisodes = $req->fetchAll();
 	    $req->closeCursor();
 	    return $getAlertEpisodes;
 	}
@@ -27,9 +27,19 @@ class EpisodesManager extends Manager
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT e.number AS "number", e.title AS "title", e.publishing_status AS "publishing", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COALESCE(e.likes_number, 0) AS "likesNumber", e.date AS "lastUpdate" FROM episodes e LEFT JOIN series s ON s.id = e.id_series WHERE s.id = ? ORDER BY e.number');
 		$req->execute(array($idseries));
-	    $episodesList = $req->fetch(\PDO::FETCH_COLUMN);
+	    $episodesList = $req->fetchAll();
 	    $req->closeCursor();
 	    return $episodesList;
+	}
+	// On récupère la liste de tous les épisodes publiés d'une série
+    public function getEpisodesPublishedList($idseries)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT e.number AS "number", e.title AS "title", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COALESCE(e.likes_number, 0) AS "likesNumber", e.date AS "lastUpdate" FROM episodes e LEFT JOIN series s ON s.id = e.id_series WHERE s.id = ? AND e.publishing_status = "published" ORDER BY e.number');
+		$req->execute(array($idseries));
+	    $episodesPublishedList = $req->fetchAll();
+	    $req->closeCursor();
+	    return $episodesPublishedList;
 	}
 	// On récupère les information d'un épisode d'une série avec l'id
 	public function getEpisodeId($idepisode)
@@ -46,7 +56,7 @@ class EpisodesManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT name AS "name", ROUND(COALESCE(price, 0) - COALESCE(promotion, 0), 2) AS "price", coins_number AS "coinsNumber" FROM packs');
-	    $getPacks = $req->fetch(\PDO::FETCH_COLUMN);
+	    $getPacks = $req->fetchAll();
 	    $req->closeCursor();
 	    return $getPacks;
 	}

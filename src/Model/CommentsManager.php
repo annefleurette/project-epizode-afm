@@ -1,6 +1,6 @@
 <?php
 namespace AnneFleurMarchat\Epizode\Model;
-require_once('Model/Manager.php');
+require_once('Manager.php');
 class CommentsManager extends Manager
 {
 	// On récupère la liste de tous les commentaires
@@ -8,7 +8,7 @@ class CommentsManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT com.id AS "id", m.pseudo AS "pseudo", l.name AS "name", com.date AS "date", s.title AS "series", e.number AS "episode", com.content AS "content", m.type AS "type" FROM comments com LEFT JOIN episodes e ON e.id = com.id_episode LEFT JOIN members m ON m.id = com.id_member LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id = e.id_series GROUP BY com.id');
-	    $getAllComments = $req->fetch(\PDO::FETCH_COLUMN);
+	    $getAllComments = $req->fetchAll();
 	    $req->closeCursor();
 	    return $getAllComments;
 	}
@@ -17,7 +17,7 @@ class CommentsManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT com.id AS "id", m.pseudo AS "pseudo", l.name AS "name", com.date AS "date", s.title AS "series", e.number AS "episode", com.content AS "content", m.type AS "type" FROM comments com LEFT JOIN episodes e ON e.id = com.id_episode LEFT JOIN members m ON m.id = com.id_member LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id = e.id_series WHERE com.alert_status = 1 GROUP BY com.id');
-	    $getAlertComments = $req->fetch(\PDO::FETCH_COLUMN);
+	    $getAlertComments = $req->fetchAll();
 	    $req->closeCursor();
 	    return $getAlertComments;
 	}
@@ -27,7 +27,7 @@ class CommentsManager extends Manager
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT m.pseudo AS "pseudo", ia.url AS "avatar", l.name AS "name", il.url AS "logo", com.date AS "date", com.content AS "content", m.type AS "type" FROM comments com LEFT JOIN episodes e ON e.id = com.id_episode LEFT JOIN members m ON m.id = com.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE e.id = ? ORDER BY com.date');
 		$req->execute(array($idepisode));
-	    $episodeCommentsList = $req->fetch(\PDO::FETCH_COLUMN);
+	    $episodeCommentsList = $req->fetchAll();
 	    $req->closeCursor();
 	    return $episodeCommentsList;
 	}

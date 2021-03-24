@@ -8,7 +8,7 @@ use AnneFleurMarchat\Epizode\Controller\FrontendController;
 use AnneFleurMarchat\Epizode\Controller\BackendController;
 
 try {
-	//$frontendController = new FrontendController();
+	$frontendController = new FrontendController();
 	$backendController = new BackendController();
 	if(isset($_GET['action']))
 	{
@@ -18,11 +18,15 @@ try {
 				$backendController->writeSeries();
 				break;	
 			case 'writeSeries_post':
-				$backendController->writeSeriesPost($_GET['id'], $_POST['author'], $_POST['descriptionAuthor'], $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['cover'], $_POST['tags'], $_POST['rights']);
+				//$backendController->writeSeriesPost(1, $_POST['author'], $_POST['descriptionAuthor'], $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['tags'], $_POST['rights']);
+				$backendController->writeSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['tags'], $_POST['rights']);
 				break;
+			case 'displaySeries':
+				$frontendController->displaySeries(12);
+			break;
 		}
-	//}else{
-		// A compléter
+	}else{
+		echo "Erreur sur la page";
 	}
 }catch(Exception $e){
 	$errorMessage = $e->getMessage();

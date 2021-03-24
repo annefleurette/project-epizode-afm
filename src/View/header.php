@@ -1,7 +1,6 @@
-
 <header>
     <nav>
-        <a href="index">
+        <a href="#">
             <img src="#" alt="Epizode"/>
         </a>
         <ul>
