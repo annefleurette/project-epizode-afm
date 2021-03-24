@@ -115,7 +115,7 @@ class SeriesManager extends Manager
 		$db = $this->dbConnect();
 		$addNewSeries = $db->prepare('INSERT INTO series(title, summary, date, id_member, pricing_status, publishing_status, authors_right, id_cover, publisher_author, publisher_author_description) VALUES(?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)');
 		$addNewSeries->execute(array($title, $summary, $idmemberrelated, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription));
-	    return $addNewSeries;
+		return $addNewSeries;
 	}	
 	// On modifie une série
 	public function updateSeries($title, $summary, $date, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription, $idseries)
@@ -145,13 +145,13 @@ class SeriesManager extends Manager
     	return $deleteSeries;
 	}
 
-	// On récupère l'id d'une série à partir de son auteur et de son titre
-	public function getSeriesId($seriestitle, $memberid)
+	// On récupère l'id d'une série à partir de sa cover
+	public function getSeriesId($coverid)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT id FROM series WHERE title = ? AND id_member = ?');
-		$req->execute(array($seriestitle, $memberid));
-		$seriesId = $req->fetch();
+		$req = $db->prepare('SELECT id FROM series WHERE id_cover = ?');
+		$req->execute(array($coverid));
+		$seriesId = $req->fetch(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
 	    return $seriesId;
 	}
@@ -185,7 +185,6 @@ class SeriesManager extends Manager
 		$req->closeCursor();
 		return $tagId;
 	}
-
 	// On ajoute un tag à une série
 	public function addTagSeries($idtagrelated, $idseriesrelated)
 	{

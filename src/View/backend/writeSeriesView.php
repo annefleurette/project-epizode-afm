@@ -34,12 +34,12 @@ ob_start();
             <select name="rights" required>
                 <option value="reserved">Tous droits réservés</option>
                 <option value="public">Domaine public</option>
-                <option value="CC1">Creative Commons Attribution</option>
-                <option value="CC2">Creative Commons Attribution - Pas de modification</option>
-                <option value="CC3">Creative Commons Attribution - Pas d'utilisation commerciale - Pas de modification</option>
-                <option value="CC4">Creative Commons Attribution - Pas d'utilisation commerciale</option>
-                <option value="CC5">Creative Commons Attribution - Pas d'utilisation commerciale - Partage dans les mêmes conditions</option>
-                <option value="CC6">Creative Commons Attribution - Partage dans les mêmes conditions</option>
+                <option value="CC">Creative Commons Attribution</option>
+                <option value="CC1">Creative Commons Attribution - Pas de modification</option>
+                <option value="CC2">Creative Commons Attribution - Pas d'utilisation commerciale - Pas de modification</option>
+                <option value="CC3">Creative Commons Attribution - Pas d'utilisation commerciale</option>
+                <option value="CC4">Creative Commons Attribution - Pas d'utilisation commerciale - Partage dans les mêmes conditions</option>
+                <option value="CC5">Creative Commons Attribution - Partage dans les mêmes conditions</option>
             </select>  
         </p>
         <p>

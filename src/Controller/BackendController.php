@@ -17,8 +17,8 @@ class BackendController {
         {
             require('./src/View/backend/writeSeriesView.php');
         }
-
-        public function writeSeriesPost($getidmember = 1, $postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriestag, $postseriesright)
+        
+        public function writeSeriesPost($getidmember = 1, $postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag)
         {
             $seriesManager = new SeriesManager();
             $membersManager = new MembersManager();
@@ -32,8 +32,8 @@ class BackendController {
                     $postauthordescription = htmlspecialchars($postauthordescription);
                     $postseriestitle = htmlspecialchars($postseriestitle);
                     $postseriessummary = htmlspecialchars($postseriessummary);
-                    $postseriestag = htmlspecialchars($postseriestag);
                     $postseriesright = htmlspecialchars($postseriesright);
+                    $postseriestag = htmlspecialchars($postseriestag);
                     $pricing = "paying";
                     $publishing = "inprogress";
                     // Testons si l'image a bien été envoyée et s'il n'y a pas d'erreur
@@ -62,21 +62,12 @@ class BackendController {
                                 $imageId = $membersManager->getImageId($imageurl);
                                 // On enregistre une cover
                                 $addCover = $seriesManager->addCover($imageId);
-                                // On récupère l'id d'une cover sur la base de l'id de l'image
+                                // On récupère l'id d'une cover sur la base de l'id_cover
                                 $coverId = $seriesManager->getCoverId($imageId);
-                                var_dump($postseriestitle);
-                                var_dump($postseriessummary);
-                                var_dump($getidmember);
-                                var_dump($pricing);
-                                var_dump($publishing);
-                                var_dump($postseriesright);
-                                var_dump($coverId);
-                                var_dump($postauthorname);
-                                var_dump($postauthordescription);
                                 // On enregistre la nouvelle série
                                 $addNewSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, $getidmember, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription);
-                                // On récupère l'id de la série à partir de son titre et de l'id de l'auteur
-                                $seriesId = $seriesManager->getSeriesId($postseriestitle, $getidmember);
+                                // On récupère l'id de la série à partir de son titre, de l'id de l'auteur et de l'id_cover
+                                $seriesId = $seriesManager->getSeriesId($coverId);
                                 // Enregistrement des tags
                                 $tagname = explode(",", $postseriestag);
                                 for ($i = 0; $i < count($tagname); $i++) {
@@ -90,7 +81,7 @@ class BackendController {
                                     }
                                     // On récupère l'id du tag
                                     $tagId = $seriesManager->getTagId($newtag[$i]);
-                                    // On associe le tag à la série
+;                                   // On associe le tag à la série
                                     $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
                                 }
                             }else{

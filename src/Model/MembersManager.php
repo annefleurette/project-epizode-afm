@@ -218,11 +218,11 @@ class MembersManager extends Manager
     	return $deleteImage;
 	}
 	// On récupère l'id d'une image à partir de son url
-	public function getImageId($url)
+	public function getImageId($urlimage)
 	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT id FROM images WHERE url = ?');
-		$req->execute(array($url));
+		$req->execute(array($urlimage));
 	    $imageId = $req->fetch(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
 	    return $imageId;

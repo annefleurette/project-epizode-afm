@@ -65,19 +65,20 @@ ob_start();
     <h2>Recommandations <?php echo $oneSeriesUserData['tags']; ?></h2>
     <ul>
         <?php
-        foreach ($seriesCommonTags as $seriesTags)
+        var_dump($seriesCommonTags);
+        foreach ($seriesCommonTags as $seriesTag)
         {
         ?>
             <li>
                 <article>
-                    <p><?php echo $seriesTags['title']; ?></p>
-                    <p><img src="<?php echo $seriesTags['cover']; ?>" alt="Blabla"/></p>
-                    <p><img src="<?php echo $seriesTags['avatar']; ?>" alt="blabla"/></p>  
-                    <p><?php echo $seriesTags['member']; ?></p>
-                    <p><?php echo $seriesTags['numberEpisodes']; ?> épisodes</p>
-                    <p><?php echo $seriesTags['numberSubscribers']; ?> abonnés</p>
-                    <p><?php echo $seriesTags['tags']; ?></p>
-                    <p><?php echo $seriesTags['pricing']; ?></p>
+                    <p><?php echo $seriesTag['title']; ?></p>
+                    <p><img src="<?php echo $seriesTag['cover']; ?>" alt="Blabla"/></p>
+                    <p><img src="<?php echo $seriesTag['avatar']; ?>" alt="blabla"/></p>  
+                    <p><?php echo $seriesTag['member']; ?></p>
+                    <p><?php echo $seriesTag['numberEpisodes']; ?> épisodes</p>
+                    <p><?php echo $seriesTag['numberSubscribers']; ?> abonnés</p>
+                    <p><?php echo $seriesTag['tags']; ?></p>
+                    <p><?php echo $seriesTag['pricing']; ?></p>
                 </article>
             </li>
         <?php
