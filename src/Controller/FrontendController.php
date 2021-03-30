@@ -26,8 +26,10 @@ class FrontendController {
         // On récupère des informations sur des séries qui ont des tags en commun
         $tags = explode(', ', $oneSeriesUserData['tags']);
         $nbtags = count($tags);
+        $allTagsSeries = [];
         for ($i = 0; $i < $nbtags; $i++) {
-            $seriesCommonTags = $seriesManager->getCommonTagsSeries($tags[$i]);
+            $seriesCommonTags[$i] = $seriesManager->getCommonTagsSeries($tags[$i]);
+            $allTagsSeries += $seriesCommonTags[$i];
         }    
 		require('./src/View/frontend/displaySeriesView.php');
 	}

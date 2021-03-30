@@ -31,6 +31,16 @@ class EpisodesManager extends Manager
 	    $req->closeCursor();
 	    return $episodesList;
 	}
+	//On compte le nombre d'épisodes d'une série qui ont été publiés
+	public function countEpisodesPublished($idseries)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT COUNT(*) FROM episodes WHERE publishing_status = "published" AND id_series = ?');
+		$req->execute(array($idseries));
+		$nbepisodes = $req->fetch(\PDO::FETCH_COLUMN);
+		$req->closeCursor();
+		return $nbepisodes;
+	}
 	// On récupère la liste de tous les épisodes publiés d'une série
     public function getEpisodesPublishedList($idseries)
 	{
@@ -41,7 +51,7 @@ class EpisodesManager extends Manager
 	    $req->closeCursor();
 	    return $episodesPublishedList;
 	}
-	// On récupère les information d'un épisode d'une série avec l'id
+	// On récupère les informations d'un épisode d'une série avec l'id
 	public function getEpisodeId($idepisode)
 	{
 		$db = $this->dbConnect();

@@ -162,4 +162,61 @@ class BackendController {
                 }
             }*/
         }
+        public function writeEpisode()
+        {
+            require('./src/View/backend/writeEpisodeView.php');
+        }
+
+        public function writeEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice)
+        {
+            $seriesManager = new SeriesManager();
+            $episodesManager = new EpisodesManager();
+            //On compte le nombre d'épisodes de la série qui ont été publiés
+            $nbepisodes = $episodesManager->countEpisodesPublished($idseries);
+            $count_episode_published = intval($nbepisodes);
+            $count_episode_publishable = $count_episode_published + 1;
+            if(isset($postsave))
+            { // Si le bouton Enregistrer est choisi
+                // Enregistrement de l'épisode dans la base de données
+                // Si les données ont bien été saisies
+                if(isset($postnumber) AND isset($posttitle) AND isset($postcontent) AND isset($postprice))
+                {
+                    //Si le numéro d'épisode n'existe pas déjà parmi les épisodes publiés
+                    $postnumber = htmlspecialchars($postnumber);
+                    $posttitle = htmlspecialchars($posttitle);
+                    $postprice = htmlspecialchars($postprice);
+                    $episode_unitary_published = $episodesManager->getEpisodePublished($postnumber);
+                    if (empty($episode_unitary_published))
+                    {
+                        // On enregistre le nouvel épisode
+                        $req_add_episode = $episodeManager->addEpisodeInprogress($postnumber, $posttitle, $postcontent);
+                        header('Location: http://www.jeanforteroche.com/admin');
+                    }else{
+                        echo '<div><p style="font-family: Lato; color: #122459; text-align: center; margin-top: 54px; margin-bottom: 50px; padding: 0 15px;">Vous avez déjà publié ce numéro d\'épisode !</p><p style="font-family: Lato; text-align: center; color: #122459; padding: 0 15px;"><a href="http://www.jeanforteroche.com/write">Recommencer</a></p></div>';
+                    }
+                }else{
+                    echo '<div><p style="font-family: Lato; color: #122459; text-align: center; margin-top: 54px; margin-bottom: 50px; padding: 0 15px;">Vous n\'avez pas rempli tous les champs</p><p style="font-family: Lato; text-align: center; color: #122459; padding: 0 15px;"><a href="http://www.jeanforteroche.com/write">Recommencer</a></p></div>';
+                }
+            }else{ // Si le bouton Publier est choisi
+                // Enregistrement de l'épisode à publier dans la base de données
+                // Si les données ont bien été saisies
+                if(isset($postnumber) AND isset($posttitle) AND isset($postcontent))
+                {
+                    // Si le numéro d'épisode n'existe pas déjà parmi les épisodes publiés et si ce numéro est bien le +1 du dernier épisode publié
+                    $postnumber = htmlspecialchars($postnumber);
+                    $posttitle = htmlspecialchars($posttitle);
+                    $episode_unitary_published = $episodeManager->getEpisodePublished($postnumber);
+                    $current_episode = intval($postnumber);
+                    if(empty($episode_unitary_published) AND ($current_episode == $count_episode_publishable))
+                    { // On publie un nouvel épisode
+                        $req_add_episode_published = $episodeManager->addEpisodePublished($postnumber, $posttitle, $postcontent);
+                        header('Location: http://www.jeanforteroche.com/admin');
+                    }else{
+                        echo '<div><p style="font-family: Lato; color: #122459; text-align: center; margin-top: 54px; margin-bottom: 50px; padding: 0 15px;">Vous avez déjà publié ce numéro d\'épisode ou cet épisode n\'est pas le suivant du dernier épisode publié !</p><p style="font-family: Lato; text-align: center; color: #122459; padding: 0 15px;"><a href="http://www.jeanforteroche.com/write">Recommencer</a></p></div>';
+                    }
+                }else{
+                    echo '<div><p style="font-family: Lato; color: #122459; text-align: center; margin-top: 54px; margin-bottom: 50px; padding: 0 15px;">Vous n\'avez pas rempli tous les champs</p><p style="font-family: Lato; text-align: center; color: #122459; padding: 0 15px;"><a href="http://www.jeanforteroche.com/write">Recommencer</a></p></div>';
+                }
+            }
+        }
 }

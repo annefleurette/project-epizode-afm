@@ -65,8 +65,7 @@ ob_start();
     <h2>Recommandations <?php echo $oneSeriesUserData['tags']; ?></h2>
     <ul>
         <?php
-        var_dump($seriesCommonTags);
-        foreach ($seriesCommonTags as $seriesTag)
+        foreach ($allTagsSeries as $seriesTag)
         {
         ?>
             <li>

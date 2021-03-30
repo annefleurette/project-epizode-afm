@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  mer. 24 mars 2021 à 13:43
+-- Généré le :  mar. 30 mars 2021 à 19:43
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.4.2
 
@@ -170,7 +170,46 @@ INSERT INTO `covers` (`id`, `id_cover`) VALUES
 (62, 72),
 (63, 73),
 (64, 74),
-(65, 75);
+(65, 75),
+(66, 76),
+(67, 77),
+(68, 78),
+(69, 79),
+(70, 80),
+(71, 81),
+(72, 82),
+(73, 83),
+(74, 84),
+(75, 85),
+(76, 86),
+(77, 87),
+(78, 88),
+(79, 89),
+(80, 90),
+(81, 91),
+(82, 92),
+(83, 93),
+(84, 94),
+(85, 95),
+(86, 96),
+(87, 97),
+(88, 98),
+(89, 99),
+(90, 100),
+(91, 101),
+(92, 102),
+(93, 103),
+(94, 104),
+(95, 105),
+(96, 106),
+(97, 107),
+(98, 108),
+(99, 109),
+(100, 110),
+(101, 111),
+(102, 112),
+(103, 113),
+(104, 114);
 
 -- --------------------------------------------------------
 
@@ -304,7 +343,46 @@ INSERT INTO `images` (`id`, `name`, `type`, `alt`, `url`) VALUES
 (72, 'cbd5a4cea4b235a3387ae5e5e5c571c71882835b', 'cover', 'NewTest', './public/images/cbd5a4cea4b235a3387ae5e5e5c571c71882835b_AdobeStock_206294095_Preview.jpeg'),
 (73, '87cab7536310232d4896bfd77c6699020c5168a6', 'cover', 'NewTest', './public/images/87cab7536310232d4896bfd77c6699020c5168a6_AdobeStock_206294095_Preview.jpeg'),
 (74, '3c24ddd21c6ab5cb52cb8b2eccccb6fc6bb773bb', 'cover', 'Nouvelle série', './public/images/3c24ddd21c6ab5cb52cb8b2eccccb6fc6bb773bb_AdobeStock_206294095_Preview.jpeg'),
-(75, '78ab87cad60fc38a39e0af34e5f81a1d14fecc0c', 'cover', 'Nouvelle série', './public/images/78ab87cad60fc38a39e0af34e5f81a1d14fecc0c_AdobeStock_206294095_Preview.jpeg');
+(75, '78ab87cad60fc38a39e0af34e5f81a1d14fecc0c', 'cover', 'Nouvelle série', './public/images/78ab87cad60fc38a39e0af34e5f81a1d14fecc0c_AdobeStock_206294095_Preview.jpeg'),
+(76, 'a82abfd58458343d34a98bf94a0948c7f6610d9b', 'cover', 'Hello', './public/images/a82abfd58458343d34a98bf94a0948c7f6610d9b_AdobeStock_206294095_Preview.jpeg'),
+(77, '035d780135e975ad0fc50754a583051d28ad05cf', 'cover', 'Hello', './public/images/035d780135e975ad0fc50754a583051d28ad05cf_AdobeStock_206294095_Preview.jpeg'),
+(78, '624a42df6ff03b797222c5e9c19d959782ad19c2', 'cover', 'Hello', './public/images/624a42df6ff03b797222c5e9c19d959782ad19c2_AdobeStock_206294095_Preview.jpeg'),
+(79, 'd14d4a59c300cdb175aecc413b2d03a91ee13b5c', 'cover', 'Hello', './public/images/d14d4a59c300cdb175aecc413b2d03a91ee13b5c_AdobeStock_206294095_Preview.jpeg'),
+(80, '3e88452db6b03f0854bb4dae3e4579b7e2d2cf14', 'cover', 'Hello', './public/images/3e88452db6b03f0854bb4dae3e4579b7e2d2cf14_AdobeStock_206294095_Preview.jpeg'),
+(81, '0a26ac8b958ae4775094c38eb6c103ebe3facaa2', 'cover', 'Hello', './public/images/0a26ac8b958ae4775094c38eb6c103ebe3facaa2_AdobeStock_206294095_Preview.jpeg'),
+(82, '40b4a696b24eaac82f3342cef2a45d5b945bc3b5', 'cover', 'Hello', './public/images/40b4a696b24eaac82f3342cef2a45d5b945bc3b5_AdobeStock_206294095_Preview.jpeg'),
+(83, '5078798b886308c08da632568e60fd9d23c6a13d', 'cover', 'Hello', './public/images/5078798b886308c08da632568e60fd9d23c6a13d_AdobeStock_206294095_Preview.jpeg'),
+(84, 'cc9da0a07848dff11b3047b102702436e432a0c3', 'cover', 'Hello', './public/images/cc9da0a07848dff11b3047b102702436e432a0c3_AdobeStock_206294095_Preview.jpeg'),
+(85, '063f29f88bd564a266fb463f0408a4636a1ef27b', 'cover', 'Hello', './public/images/063f29f88bd564a266fb463f0408a4636a1ef27b_AdobeStock_206294095_Preview.jpeg'),
+(86, 'bb747ba1f4d7c9f902111cfb84e6b419a3ca8f76', 'cover', 'Hello', './public/images/bb747ba1f4d7c9f902111cfb84e6b419a3ca8f76_AdobeStock_206294095_Preview.jpeg'),
+(87, 'dda58829753aeb7df86b1114538fad0539ebe231', 'cover', 'Hello', './public/images/dda58829753aeb7df86b1114538fad0539ebe231_AdobeStock_206294095_Preview.jpeg'),
+(88, '2d0e021bd8b742ebc8a107e6123f2e17e66138e4', 'cover', 'Hello', './public/images/2d0e021bd8b742ebc8a107e6123f2e17e66138e4_AdobeStock_206294095_Preview.jpeg'),
+(89, '9a64f346223ae1a645c5cc64c06e720a484bc4f6', 'cover', 'Hello', './public/images/9a64f346223ae1a645c5cc64c06e720a484bc4f6_AdobeStock_206294095_Preview.jpeg'),
+(90, '87ddc3730814f6b0b939baeab32dd4c863213c49', 'cover', 'Hello', './public/images/87ddc3730814f6b0b939baeab32dd4c863213c49_AdobeStock_206294095_Preview.jpeg'),
+(91, '6296c27e67e4002fa5b142d68372975aa265a21c', 'cover', 'Hello', './public/images/6296c27e67e4002fa5b142d68372975aa265a21c_AdobeStock_206294095_Preview.jpeg'),
+(92, '71569ae68a21fc6261704e54d4cbc461d3f2c3a9', 'cover', 'Hello', './public/images/71569ae68a21fc6261704e54d4cbc461d3f2c3a9_AdobeStock_206294095_Preview.jpeg'),
+(93, '04336fe172281fec136e93b26fc55f46ceac6028', 'cover', 'Hello', './public/images/04336fe172281fec136e93b26fc55f46ceac6028_AdobeStock_206294095_Preview.jpeg'),
+(94, '28b2e1660759da62158f671f8115f428855423a4', 'cover', 'Hello', './public/images/28b2e1660759da62158f671f8115f428855423a4_AdobeStock_206294095_Preview.jpeg'),
+(95, 'b3f9b9886067ccd91ccff4aacdecb7b988deeb39', 'cover', 'Hello', './public/images/b3f9b9886067ccd91ccff4aacdecb7b988deeb39_AdobeStock_206294095_Preview.jpeg'),
+(96, 'beadfbaf7fdac03bd84b404f13df9a19cf2ec79e', 'cover', 'Hello', './public/images/beadfbaf7fdac03bd84b404f13df9a19cf2ec79e_AdobeStock_206294095_Preview.jpeg'),
+(97, '6795c5732774a3c5456da602fac795543d0df1e6', 'cover', 'Hello', './public/images/6795c5732774a3c5456da602fac795543d0df1e6_AdobeStock_206294095_Preview.jpeg'),
+(98, '33bcb746e2601b853dfaf03591847ae1d709de6a', 'cover', 'Nouveau test', './public/images/33bcb746e2601b853dfaf03591847ae1d709de6a_AdobeStock_206294095_Preview.jpeg'),
+(99, '9b8dd3850ae40e1bc303ff59b584ae176a74e2a3', 'cover', 'Nouveau test', './public/images/9b8dd3850ae40e1bc303ff59b584ae176a74e2a3_AdobeStock_206294095_Preview.jpeg'),
+(100, 'c7995d8674133b213d7c2603e7782efd9df30f1f', 'cover', 'Nouveau test', './public/images/c7995d8674133b213d7c2603e7782efd9df30f1f_AdobeStock_206294095_Preview.jpeg'),
+(101, '768deb9ff3afa6cf0d01234219cd1301f1de2a29', 'cover', 'Nouveau test', './public/images/768deb9ff3afa6cf0d01234219cd1301f1de2a29_AdobeStock_206294095_Preview.jpeg'),
+(102, '2233de820d85be81a539d76a0ce9741d2c6cf57e', 'cover', 'Nouveau test', './public/images/2233de820d85be81a539d76a0ce9741d2c6cf57e_AdobeStock_206294095_Preview.jpeg'),
+(103, 'a683e2713bd6675e312e7017b2cfa79051f8cc51', 'cover', 'Nouveau test', './public/images/a683e2713bd6675e312e7017b2cfa79051f8cc51_AdobeStock_206294095_Preview.jpeg'),
+(104, 'dcfe5f3ed169bf046206b6b14ab74857780b0bb0', 'cover', 'Nouveau test', './public/images/dcfe5f3ed169bf046206b6b14ab74857780b0bb0_AdobeStock_206294095_Preview.jpeg'),
+(105, '4056e541cd466307f4afc0254062ebbda6716e9a', 'cover', 'Nouveau test', './public/images/4056e541cd466307f4afc0254062ebbda6716e9a_AdobeStock_206294095_Preview.jpeg'),
+(106, '75dbf0fc584785d8eafcd7d4661a3dc75e504a12', 'cover', 'Nouveau test', './public/images/75dbf0fc584785d8eafcd7d4661a3dc75e504a12_AdobeStock_206294095_Preview.jpeg'),
+(107, '8d407c9b257a691528c0836bed4cd39d3aeba317', 'cover', 'Nouveau test', './public/images/8d407c9b257a691528c0836bed4cd39d3aeba317_AdobeStock_206294095_Preview.jpeg'),
+(108, '8d5e7b65767ac99f5ed7e274435fd7ed8b260c48', 'cover', 'Nouveau test', './public/images/8d5e7b65767ac99f5ed7e274435fd7ed8b260c48_AdobeStock_206294095_Preview.jpeg'),
+(109, 'e6c841e1dd82a152387608caff24a11f42768a56', 'cover', 'Nouveau test', './public/images/e6c841e1dd82a152387608caff24a11f42768a56_AdobeStock_206294095_Preview.jpeg'),
+(110, 'f911cb398f5e9e8b6f19b262b72ea37c09bfd242', 'cover', 'Nouveau test', './public/images/f911cb398f5e9e8b6f19b262b72ea37c09bfd242_AdobeStock_206294095_Preview.jpeg'),
+(111, '0be56291ebfb509523ab2aba41670f99d04bc2ec', 'cover', 'Nouveau test', './public/images/0be56291ebfb509523ab2aba41670f99d04bc2ec_AdobeStock_206294095_Preview.jpeg'),
+(112, 'c0efcde812268beb7f08b8fcca8f102829cb8a8e', 'cover', 'Nouveau test', './public/images/c0efcde812268beb7f08b8fcca8f102829cb8a8e_AdobeStock_206294095_Preview.jpeg'),
+(113, 'b63a148712828db31b35464dfbe0132234764898', 'cover', 'Nouveau test', './public/images/b63a148712828db31b35464dfbe0132234764898_AdobeStock_206294095_Preview.jpeg'),
+(114, '6576bbf0b2efb01586a204d1b52d69571b53b74b', 'cover', 'Nouveau test', './public/images/6576bbf0b2efb01586a204d1b52d69571b53b74b_AdobeStock_206294095_Preview.jpeg');
 
 -- --------------------------------------------------------
 
@@ -439,7 +517,7 @@ CREATE TABLE `series` (
   `id_member` int(11) NOT NULL,
   `pricing_status` enum('free','paying') NOT NULL,
   `publishing_status` enum('published','inprogress','deleted') NOT NULL DEFAULT 'inprogress',
-  `authors_right` enum('public','CC','CC_NoCommercial','CC_NoCommercial_NoUpdate','CC_NoCommercial_Share','CC_NoUpdate') NOT NULL DEFAULT 'public',
+  `authors_right` enum('public','CC','CC1','CC2','CC3','CC4','CC5','reserved') NOT NULL DEFAULT 'public',
   `id_cover` int(11) NOT NULL,
   `publisher_author` varchar(200) DEFAULT NULL,
   `publisher_author_description` longtext
@@ -452,8 +530,8 @@ CREATE TABLE `series` (
 INSERT INTO `series` (`id`, `title`, `summary`, `date`, `id_member`, `pricing_status`, `publishing_status`, `authors_right`, `id_cover`, `publisher_author`, `publisher_author_description`) VALUES
 (1, 'Geek', 'Sed in diam odio. Phasellus tempus magna commodo suscipit egestas. Morbi quis lacus nec lacus sodales iaculis. Quisque hendrerit sed nulla ut ornare. Sed ullamcorper mi varius leo ultricies tempor. Aliquam at odio tempus, semper felis eu, accumsan risus. Donec eget ante enim. Phasellus ex est, tincidunt ut ullamcorper sit amet, semper quis neque. Aliquam vestibulum arcu at ligula dictum ullamcorper. Sed sit amet eleifend erat, a bibendum dui. Nulla euismod porttitor nulla, et bibendum tortor rutrum tincidunt. Vivamus pulvinar vitae quam sit amet pulvinar.', '2020-07-20 21:00:54', 1, 'free', 'published', 'public', 1, NULL, NULL),
 (2, 'Prophetia', 'Phasellus et tortor vel dolor commodo dapibus eu vel lorem. In neque ipsum, elementum at lorem sed, tempor pellentesque lectus. Morbi imperdiet vehicula porttitor. Etiam justo risus, cursus vel quam in, scelerisque hendrerit lorem. Etiam eu dictum metus. Curabitur imperdiet accumsan sagittis. Donec mattis velit tortor, eu posuere arcu luctus eget. Nulla suscipit neque ut metus luctus, ut rhoncus odio sollicitudin. Ut ante arcu, fringilla non ultrices a, tincidunt at eros. Ut sagittis urna cursus convallis vehicula. Vivamus ac mi ornare, porttitor urna ultricies, suscipit massa. Vestibulum id tincidunt leo.', '2020-07-20 21:01:36', 1, 'free', 'published', 'CC', 2, NULL, NULL),
-(3, 'Elysée', 'Duis cursus efficitur lacus in fringilla. Duis vehicula varius ultrices. Integer auctor in diam quis gravida. Mauris congue vestibulum erat, sit amet dignissim massa tristique et. Integer tempor risus mauris. Proin eu blandit elit. Donec id orci sodales, interdum nisl ac, dignissim felis. Ut volutpat sed nisl ut porttitor. Ut erat ex, tempor vitae nisi ut, posuere malesuada lectus.', '2020-07-20 21:02:14', 1, 'free', 'published', 'CC_NoCommercial_NoUpdate', 3, NULL, NULL),
-(4, 'Renaissance', 'Quisque neque tortor, convallis eu mauris nec, mattis condimentum magna. Suspendisse a massa eu justo placerat bibendum. Vestibulum dictum dignissim lectus, eget tincidunt urna gravida eget. Mauris in eros sit amet urna faucibus commodo in ac turpis. Duis porttitor interdum tellus id ultricies. Morbi orci dui, accumsan sit amet feugiat at, mollis eu lacus. Curabitur fringilla condimentum urna, sit amet dapibus elit volutpat et.', '2020-07-20 21:03:12', 1, 'free', 'published', 'CC_NoCommercial_Share', 4, NULL, NULL),
+(3, 'Elysée', 'Duis cursus efficitur lacus in fringilla. Duis vehicula varius ultrices. Integer auctor in diam quis gravida. Mauris congue vestibulum erat, sit amet dignissim massa tristique et. Integer tempor risus mauris. Proin eu blandit elit. Donec id orci sodales, interdum nisl ac, dignissim felis. Ut volutpat sed nisl ut porttitor. Ut erat ex, tempor vitae nisi ut, posuere malesuada lectus.', '2020-07-20 21:02:14', 1, 'free', 'published', 'public', 3, NULL, NULL),
+(4, 'Renaissance', 'Quisque neque tortor, convallis eu mauris nec, mattis condimentum magna. Suspendisse a massa eu justo placerat bibendum. Vestibulum dictum dignissim lectus, eget tincidunt urna gravida eget. Mauris in eros sit amet urna faucibus commodo in ac turpis. Duis porttitor interdum tellus id ultricies. Morbi orci dui, accumsan sit amet feugiat at, mollis eu lacus. Curabitur fringilla condimentum urna, sit amet dapibus elit volutpat et.', '2020-07-20 21:03:12', 1, 'free', 'published', 'CC', 4, NULL, NULL),
 (5, 'New Boss', 'Mauris nec ex convallis, dictum libero a, ultricies metus. Donec risus enim, consequat sit amet turpis ac, aliquet gravida eros. Vestibulum egestas ipsum elementum, aliquet mi eu, elementum massa. Quisque at nulla sodales, dignissim dolor vel, placerat velit. Vestibulum nec metus lacinia, commodo odio id, cursus eros. Nullam mauris nibh, ultrices non mauris sit amet, fermentum laoreet lacus. Suspendisse vel urna a dui cursus sollicitudin sed id sapien. Nunc quis ante ac velit volutpat placerat eget sed erat. Praesent sodales nulla vel sapien commodo, id auctor nisl tristique.', '2020-07-20 21:03:38', 1, 'free', 'published', 'public', 5, NULL, NULL),
 (6, 'L\'île au trésor', 'Suspendisse a rutrum sem. Nulla tincidunt mauris et tempus ullamcorper. Phasellus fermentum ornare aliquet. Mauris mollis non purus nec molestie. Suspendisse vel leo tempus, hendrerit ipsum dignissim, iaculis nulla. Duis et nisi dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed venenatis ante quis sem pulvinar posuere. Ut imperdiet dolor ut ante tempor gravida. Quisque lacinia nunc eget diam ultricies, vel commodo orci porta. Vestibulum vel augue ut risus finibus elementum.', '2020-07-20 21:13:31', 2, 'paying', 'published', 'public', 6, 'Robert Louis Stevenson', 'Fusce metus odio, vehicula eu ultrices eget, ultricies quis massa. Ut at felis vitae risus semper interdum et eget nunc. Curabitur blandit aliquam tortor, sed viverra felis laoreet ut. Donec nec dictum ante. In bibendum turpis at eros gravida pellentesque. Vestibulum eu lacus scelerisque, interdum nunc et, hendrerit ex.'),
 (7, 'Le chien des Baskerville', 'Cras at scelerisque mauris. Nulla semper ante vel erat porta, auctor posuere dolor gravida. Mauris nunc neque, lacinia sed condimentum ac, semper tincidunt ex. Suspendisse pretium, nulla nec aliquam sollicitudin, mauris nisl interdum tellus, feugiat maximus erat augue nec dui. Duis gravida metus sed ante tempor lacinia. Phasellus vitae nisl vitae augue interdum fringilla. Praesent mi risus, tincidunt a libero non, ultrices lobortis ipsum. Curabitur congue ex in odio porta, sit amet consectetur neque semper. Morbi rhoncus lacus sed dui pulvinar, non porta sem consectetur.', '2020-07-20 21:20:02', 2, 'paying', 'published', 'public', 7, 'Sir Arthur Conan Doyle', 'Fusce metus odio, vehicula eu ultrices eget, ultricies quis massa. Ut at felis vitae risus semper interdum et eget nunc. Curabitur blandit aliquam tortor, sed viverra felis laoreet ut. Donec nec dictum ante. In bibendum turpis at eros gravida pellentesque. Vestibulum eu lacus scelerisque, interdum nunc et, hendrerit ex. Donec nunc odio, sollicitudin sit amet molestie sit amet, lobortis vel urna. Sed ornare ante eget ex efficitur, in consequat odio ultricies.'),
@@ -461,7 +539,33 @@ INSERT INTO `series` (`id`, `title`, `summary`, `date`, `id_member`, `pricing_st
 (9, 'Dracula', 'Praesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', '2020-07-20 21:21:53', 2, 'paying', 'published', 'public', 9, 'Bram Stoker', 'Proin id pulvinar urna. Donec vel enim erat. Morbi lacinia, augue in sodales commodo, quam mauris porta nisl, non maximus mauris lectus sit amet magna. Etiam ut suscipit enim, sit amet feugiat velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.'),
 (10, 'Le fantôme de l\'opéra', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.', '2020-07-20 21:22:52', 2, 'paying', 'published', 'public', 10, 'Gaston Leroux', 'Cras at scelerisque mauris. Nulla semper ante vel erat porta, auctor posuere dolor gravida. Mauris nunc neque, lacinia sed condimentum ac, semper tincidunt ex. Suspendisse pretium, nulla nec aliquam sollicitudin, mauris nisl interdum tellus, feugiat maximus erat augue nec dui.'),
 (11, 'Try1', 'Hola', '2021-03-21 14:35:41', 1, 'paying', 'inprogress', 'public', 13, '', ''),
-(12, 'TestNew', 'Hello', '2021-03-22 20:27:21', 1, 'paying', 'inprogress', 'public', 63, NULL, NULL);
+(12, 'TestNew', 'Hello', '2021-03-22 20:27:21', 1, 'paying', 'inprogress', 'public', 63, NULL, NULL),
+(15, 'Hello', 'Bonjour', '2021-03-24 16:29:48', 1, 'free', 'inprogress', 'public', 30, NULL, NULL),
+(16, 'Hello', 'Bonjour', '2021-03-24 16:59:29', 1, 'free', 'inprogress', 'public', 30, '', ''),
+(17, 'Hello', 'Bonjour', '2021-03-24 17:00:09', 1, 'free', 'inprogress', 'public', 30, '', ''),
+(18, 'Hello', 'Hello', '2021-03-24 17:00:40', 1, 'free', 'inprogress', 'public', 30, '', ''),
+(19, 'Hello', 'Hello', '2021-03-24 17:01:23', 1, 'paying', 'inprogress', 'public', 30, '', ''),
+(20, 'Hello', 'Hello', '2021-03-24 17:02:00', 1, 'paying', 'inprogress', 'public', 30, '', ''),
+(21, 'Hello', 'Hello', '2021-03-24 17:04:26', 1, 'paying', 'inprogress', 'public', 30, '', ''),
+(22, 'Hello', 'Hello', '2021-03-24 17:04:53', 1, 'paying', 'inprogress', 'public', 30, '', ''),
+(23, 'Hello', 'Hello', '2021-03-24 17:05:23', 1, 'paying', 'inprogress', 'public', 86, '', ''),
+(24, 'Hello', 'Hello', '2021-03-24 17:05:51', 1, 'paying', 'inprogress', 'public', 87, '', ''),
+(25, 'Nouveau test', 'Hola', '2021-03-24 17:06:32', 1, 'paying', 'inprogress', 'public', 88, '', ''),
+(26, 'Nouveau test', 'Hola', '2021-03-24 17:08:43', 1, 'paying', 'inprogress', 'public', 89, '', ''),
+(27, 'Nouveau test', 'Hola', '2021-03-24 17:27:55', 1, 'paying', 'inprogress', 'public', 91, '', ''),
+(28, 'Nouveau test', 'Hola', '2021-03-24 17:28:09', 1, 'paying', 'inprogress', 'CC4', 92, '', ''),
+(29, 'Nouveau test', 'Hola', '2021-03-24 17:28:38', 1, 'paying', 'inprogress', 'CC4', 93, '', ''),
+(30, 'Nouveau test', 'Hola', '2021-03-24 20:33:10', 1, 'paying', 'inprogress', 'CC4', 94, '', ''),
+(31, 'Nouveau test', 'Hola', '2021-03-24 20:34:44', 1, 'paying', 'inprogress', 'CC4', 95, '', ''),
+(32, 'Nouveau test', 'Hola', '2021-03-24 20:38:06', 1, 'paying', 'inprogress', 'CC4', 96, '', ''),
+(33, 'Nouveau test', 'Hola', '2021-03-24 20:38:45', 1, 'paying', 'inprogress', 'CC4', 97, '', ''),
+(34, 'Nouveau test', 'Hola', '2021-03-24 20:39:30', 1, 'paying', 'inprogress', 'CC4', 98, '', ''),
+(35, 'Nouveau test', 'Hola', '2021-03-24 20:40:45', 1, 'paying', 'inprogress', 'CC4', 99, '', ''),
+(36, 'Nouveau test', 'Hola', '2021-03-24 20:42:32', 1, 'paying', 'inprogress', 'CC4', 100, '', ''),
+(37, 'Nouveau test', 'Hola', '2021-03-24 20:43:22', 1, 'paying', 'inprogress', 'CC4', 101, '', ''),
+(38, 'Nouveau test', 'Hola', '2021-03-24 20:44:53', 1, 'paying', 'inprogress', 'CC4', 102, '', ''),
+(39, 'Nouveau test', 'Hola', '2021-03-24 20:46:53', 1, 'paying', 'inprogress', 'CC4', 103, '', ''),
+(40, 'Nouveau test', 'Hola', '2021-03-24 20:48:38', 1, 'paying', 'inprogress', 'CC4', 104, '', '');
 
 -- --------------------------------------------------------
 
@@ -511,6 +615,7 @@ CREATE TABLE `series_has_tags` (
 --
 
 INSERT INTO `series_has_tags` (`id_tag`, `id_series`) VALUES
+(85, 1),
 (2, 2),
 (11, 2),
 (16, 2),
@@ -529,7 +634,8 @@ INSERT INTO `series_has_tags` (`id_tag`, `id_series`) VALUES
 (4, 9),
 (3, 10),
 (15, 12),
-(16, 12);
+(16, 12),
+(85, 40);
 
 -- --------------------------------------------------------
 
@@ -555,6 +661,7 @@ INSERT INTO `tags` (`id`, `name`) VALUES
 (1, 'fantastique'),
 (12, 'femme'),
 (9, 'histoire'),
+(85, 'jolitag'),
 (11, 'mystère'),
 (17, 'Plusieurs'),
 (3, 'policier'),
@@ -571,6 +678,7 @@ INSERT INTO `tags` (`id`, `name`) VALUES
 (18, 'tags'),
 (6, 'technologie'),
 (47, 'test'),
+(80, 'test1'),
 (14, 'Test2'),
 (5, 'travail'),
 (4, 'vampire');
@@ -718,7 +826,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT pour la table `covers`
 --
 ALTER TABLE `covers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
 
 --
 -- AUTO_INCREMENT pour la table `episodes`
@@ -730,7 +838,7 @@ ALTER TABLE `episodes`
 -- AUTO_INCREMENT pour la table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
 
 --
 -- AUTO_INCREMENT pour la table `logos`
@@ -754,13 +862,13 @@ ALTER TABLE `packs`
 -- AUTO_INCREMENT pour la table `series`
 --
 ALTER TABLE `series`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT pour la table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
 
 --
 -- Contraintes pour les tables déchargées

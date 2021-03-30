@@ -24,6 +24,9 @@ try {
 			case 'displaySeries':
 				$frontendController->displaySeries(12);
 			break;
+			case 'writeEpisode':
+				$backendController->writeEpisode();
+				break;
 		}
 	}else{
 		echo "Erreur sur la page";

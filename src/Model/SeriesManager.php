@@ -59,13 +59,13 @@ class SeriesManager extends Manager
 	    $req->closeCursor();
 	    return $seriesTopTenPublishers;
 	}
-	// On récupère toutes utes séries publiées qui possèdent des tags définis (recommandation)
+	// On récupère toutes les séries publiées qui possèdent des tags définis (recommandation)
 	public function getCommonTagsSeries($tags)
 	{
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", m.pseudo AS "member", ia.url AS "avatar", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE t.name = ? GROUP BY s.id');
 		$req->execute(array($tags));
-		$seriesCommonTags = $req->fetchAll();
+		$seriesCommonTags = $req->fetchAll(\PDO::FETCH_GROUP);
 		$req->closeCursor();
 		return $seriesCommonTags;
 	}
