@@ -21,8 +21,8 @@ ob_start();
     <?php
     }
     ?>
-    <p><?php echo $oneSeriesUserData['numberEpisodes']; ?> épisodes</p>
-    <p><?php echo $oneSeriesUserData['numberSubscribers']; ?> abonnés</p>
+    <p><?php echo $oneSeriesUserData['numberEpisodes']; ?> épisode(s)</p>
+    <p><?php echo $oneSeriesUserData['numberSubscribers']; ?> abonné(s)</p>
     <p><?php echo $oneSeriesUserData['tags']; ?></p>
     <p><?php echo $oneSeriesUserData['pricing']; ?></p>
     <p><?php echo $oneSeriesUserData['publishing']; ?></p>
@@ -65,23 +65,29 @@ ob_start();
     <h2>Recommandations <?php echo $oneSeriesUserData['tags']; ?></h2>
     <ul>
         <?php
-        foreach ($allTagsSeries as $seriesTag)
+        for ($i = 0; $i < $nbtags; $i++)
         {
-        ?>
-            <li>
-                <article>
-                    <p><?php echo $seriesTag['title']; ?></p>
-                    <p><img src="<?php echo $seriesTag['cover']; ?>" alt="Blabla"/></p>
-                    <p><img src="<?php echo $seriesTag['avatar']; ?>" alt="blabla"/></p>  
-                    <p><?php echo $seriesTag['member']; ?></p>
-                    <p><?php echo $seriesTag['numberEpisodes']; ?> épisodes</p>
-                    <p><?php echo $seriesTag['numberSubscribers']; ?> abonnés</p>
-                    <p><?php echo $seriesTag['tags']; ?></p>
-                    <p><?php echo $seriesTag['pricing']; ?></p>
-                </article>
-            </li>
-        <?php
-        }
+            for ($j = 0; $j < 3; $j++)
+            {
+                if (isset($allTagsSeries[$i][$j]['title']))
+                {   
+                ?>
+                    <li>
+                        <article>
+                            <p><?php echo $allTagsSeries[$i][$j]['title']; ?></p>
+                            <p><img src="<?php echo $allTagsSeries[$i][$j]['cover']; ?>" alt="Blabla"/></p>
+                            <p><img src="<?php echo $allTagsSeries[$i][$j]['avatar']; ?>" alt="blabla"/></p>  
+                            <p><?php echo $allTagsSeries[$i][$j]['member']; ?></p>
+                            <p><?php echo $allTagsSeries[$i][$j]['numberEpisodes']; ?> épisode(s)</p>
+                            <p><?php echo $allTagsSeries[$i][$j]['numberSubscribers']; ?> abonné(s)</p>
+                            <p><?php echo $allTagsSeries[$i][$j]['tags']; ?></p>
+                            <p><?php echo $allTagsSeries[$i][$j]['pricing']; ?></p>
+                        </article>
+                    </li>
+                <?php
+                }
+            }
+        }    
         ?>
     </ul>
 </section>

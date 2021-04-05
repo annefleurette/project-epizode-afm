@@ -3,14 +3,12 @@
 $head_title = 'Epizode - Créer une nouvelle série';
 ob_start();
 ?>
-
 <nav>
     <ul>
         <li>Ma série</li>
         <li>Mes épisodes</li>
     </ul>
 </nav>
-
 <section>
     <form action="index.php?action=writeSeries_post" method="post" enctype="multipart/form-data">
         <p>

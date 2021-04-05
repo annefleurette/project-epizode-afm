@@ -29,8 +29,8 @@ class FrontendController {
         $allTagsSeries = [];
         for ($i = 0; $i < $nbtags; $i++) {
             $seriesCommonTags[$i] = $seriesManager->getCommonTagsSeries($tags[$i]);
-            $allTagsSeries += $seriesCommonTags[$i];
-        }    
+            array_push($allTagsSeries, $seriesCommonTags[$i]);
+        }  
 		require('./src/View/frontend/displaySeriesView.php');
 	}
 	

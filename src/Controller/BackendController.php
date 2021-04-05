@@ -81,9 +81,10 @@ class BackendController {
                                     }
                                     // On récupère l'id du tag
                                     $tagId = $seriesManager->getTagId($newtag[$i]);
-;                                   // On associe le tag à la série
+                                    // On associe le tag à la série
                                     $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
                                 }
+                                header("Location: index.php?action=updateSeries&id=" .$seriesId);
                             }else{
                                 echo "Le fichier n'est pas une image !";
                             }
@@ -161,6 +162,17 @@ class BackendController {
                      header('Location: src/View/writeSeriesView.php');
                 }
             }*/
+        }
+        public function updateSeries($getid)
+        {
+            $seriesManager = new SeriesManager();
+            // On affiche la série
+            $getid = htmlspecialchars($getid);
+            $oneSeriesUserData = $seriesManager->getOneSeriesData($getid);
+            $seriesCover = $seriesManager->getSeriesCover($getid);
+            $tagSeries = $seriesManager->getTagSeries($getid);
+            $alltags = implode(",", $tagSeries);
+            require('./src/View/backend/updateSeriesView.php');
         }
         public function writeEpisode()
         {

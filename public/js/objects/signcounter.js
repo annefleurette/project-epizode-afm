@@ -3,20 +3,41 @@
  * Represents a sign counter.
  * @constructor
  * @param {string} targetElt - the id of the element which displays the text.
- * @param {string} listenElt - the id of the element which listen the text tap.
+ * @param {string} showElt - the id of the element which shows the text tap.
  * @method [start] - manages working signcounter.
  */
 
 // Class Signcounter
 
 class Signcounter {
-  constructor(targetElt, listenElt) {
+  constructor(targetElt, showElt) {
     this.targetElt = document.getElementById(targetElt);
-    this.listenElt = document.getElementById(triggerElt); 
+    this.showElt = document.getElementById(showElt); 
   }
 
   start(){
-    let total = this.targetElt.value.length;
-    this.listenElt.innerHTML = total;
+    // For keyboards
+    this.targetElt.addEventListener("keyup", ()=> {
+      let total = this.targetElt.value.length;
+      if (total === 1) {
+        let message = total + " caractère";
+        this.showElt.innerHTML = message;
+      }else{
+        let message = total + " caractères";
+        this.showElt.innerHTML = message;
+      }
+    });
+    // For mobile/tablets
+    this.targetElt.addEventListener("touchend", ()=> {
+      this.showElt.style.display = "block";
+      let total = this.targetElt.value.length;
+      if (total = 1) {
+        let message = total + " caractère";
+        this.showElt.innerHTML = message;
+      }else{
+        let message = total + " caractères";
+        this.showElt.innerHTML = message;
+      }
+    });
   }
 }

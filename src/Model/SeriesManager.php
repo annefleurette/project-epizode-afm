@@ -63,31 +63,11 @@ class SeriesManager extends Manager
 	public function getCommonTagsSeries($tags)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", m.pseudo AS "member", ia.url AS "avatar", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE t.name = ? GROUP BY s.id');
+		$req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", m.pseudo AS "member", ia.url AS "avatar", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE t.name = ? GROUP BY s.id ORDER BY "numberSubscribers" DESC LIMIT 3');
 		$req->execute(array($tags));
-		$seriesCommonTags = $req->fetchAll(\PDO::FETCH_GROUP);
+		$seriesCommonTags = $req->fetchAll();
 		$req->closeCursor();
 		return $seriesCommonTags;
-	}
-    // On récupère 3 séries amateurs publiées qui possèdent des tags définis (recommandation)
-    public function getCommonTagsSeriesUsers($tags)
-	{
-		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "user" AND s.publishing_status = "published" AND t.name = ? GROUP BY s.id LIMIT 3');
-        $req->execute(array($tags));
-        $seriesUserCommonTags = $req->fetchAll();
-	    $req->closeCursor();
-	    return $seriesUserCommonTags;
-    }
-    // On récupère 3 séries éditeurs publiées qui possèdent des tags définis (recommandation)
-    public function getCommonTagsSeriesPublishers($tags)
-    {
-        $db = $this->dbConnect();
-        $req = $db->prepare('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", s.authors_right AS "rights", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "publisher" AND s.publishing_status = "published" AND t.name = ? GROUP BY s.id LIMIT 3');
-        $req->execute(array($tags));
-        $seriesPublisherCommonTags = $req->fetchAll();
-        $req->closeCursor();
-        return $seriesPublisherCommonTags;
 	}
 	// On récupère la couverture d'une série
 	public function getSeriesCover($idseries)
@@ -155,7 +135,6 @@ class SeriesManager extends Manager
 	    $req->closeCursor();
 	    return $seriesId;
 	}
-	
 	// On récupère tous les tags existants
 	public function getAllTags()
 	{
@@ -165,7 +144,6 @@ class SeriesManager extends Manager
 	    $req->closeCursor();
 	    return $getAllTags;
 	}
-
 	// On ajoute un tag
 	public function addTag($name)
 	{
@@ -174,7 +152,6 @@ class SeriesManager extends Manager
 		$addNewTag->execute(array($name));
 	    return $addNewTag;
 	}
-
 	// On récupère l'id d'un tag à partir du nom du tag
 	public function getTagId($name)
 	{
@@ -184,6 +161,16 @@ class SeriesManager extends Manager
 		$tagId = $req->fetch(\PDO::FETCH_COLUMN);
 		$req->closeCursor();
 		return $tagId;
+	}
+	// On récupère les tags d'une série
+	public function getTagSeries($idseries)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT t.name AS "tag" FROM tags t LEFT JOIN series_has_tags st ON t.id = st.id_tag LEFT JOIN series s ON s.id = st.id_series WHERE s.id = ?');
+		$req->execute(array($idseries));
+		$tagSeries = $req->fetchAll();
+		$req->closeCursor();
+		return $tagSeries;
 	}
 	// On ajoute un tag à une série
 	public function addTagSeries($idtagrelated, $idseriesrelated)
