@@ -10,7 +10,7 @@ ob_start();
     </ul>
 </nav>
 <section class="writeSeries">
-    <form action="index.php?action=updateSeries_post&id=$getid" method="post" enctype="multipart/form-data">
+    <form action="index.php?action=updateSeries_post&id=<?php echo $getid; ?>" method="post" enctype="multipart/form-data">
         <p>
             <label for="title">Titre</label><br />
             <input type="text" id="title" name="titleSeries" minlength="1" maxlength="100" value="<?php echo $oneSeriesUserData['title']; ?>" required>
