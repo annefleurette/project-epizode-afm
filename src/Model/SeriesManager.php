@@ -79,6 +79,16 @@ class SeriesManager extends Manager
         $req->closeCursor();
         return $seriesCover;		
 	}
+	// On récupère l'id de la couverture d'une série
+	public function getSeriesIdCover($idseries)
+	{
+        $db = $this->dbConnect();
+        $req = $db->prepare('SELECT id_cover FROM series WHERE id = ?');
+        $req->execute(array($idseries));
+        $seriesIdCover = $req->fetch(\PDO::FETCH_COLUMN);
+        $req->closeCursor();
+        return $seriesIdCover;		
+	}
 	// On récupère des résultats de recherche de série avec des mots clés
 	public function getResearchSeries($keywords)
 	{
@@ -191,13 +201,13 @@ class SeriesManager extends Manager
 		return $updateTag;
 	}
 	// On modifie un tag d'une série
-	public function updateTagSeries($idtagrelated, $idseriesrelated)
+	public function updateTagSeries($idtag, $idseries)
 	{
 		$db = $this->dbConnect();
 		$updateTagSeries = $db->prepare('UPDATE series_has_tags SET id_tag = :newid_tag WHERE id_series = :idseries');
 		$updateTagSeries->execute(array(
-			'newid_tag' => $idtagrelated,
-			'idseries' => $idseriesrelated
+			'newid_tag' => $idtag,
+			'idseries' => $idseries
 		)); 
 		return $updateTagSeries;
 	}
@@ -234,11 +244,12 @@ class SeriesManager extends Manager
 	    return $addCover;
 	}
 	// On modifie une cover
-	public function updateCover($idcover)
+	public function updateCover($idimage, $idcover)
 	{
 		$db = $this->dbConnect();
 		$updateCover = $db->prepare('UPDATE covers SET id_cover = :newid_cover WHERE id = :idcover');
 		$updateCover->execute(array(
+			'newid_cover' => $idimage,
 			'idcover' => $idcover
 		)); 
 		return $updateCover;

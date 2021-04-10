@@ -174,7 +174,7 @@ class BackendController {
             $alltags = implode(",", $tagSeries);
             require('./src/View/backend/updateSeriesView.php');
         }
-        public function upadateSeriesPost($getidmember = 1, $postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag)
+        public function updateSeriesPost($getidmember = 1, $postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag, $seriesId)
         {
             $seriesManager = new SeriesManager();
             $membersManager = new MembersManager();
@@ -182,7 +182,8 @@ class BackendController {
             if(true)
             { // Si le créateur est un éditeur
                 if(isset($postseriestitle) AND isset($postseriessummary) AND isset($postseriestag) AND isset($postseriesright))
-                { // Si les données existent
+                { // Si l'image de couverture change
+                    // Si les données existent
                     $getidmember = htmlspecialchars($getidmember);
                     $postauthorname = htmlspecialchars($postauthorname);
                     $postauthordescription = htmlspecialchars($postauthordescription);
@@ -212,18 +213,16 @@ class BackendController {
                                 $imagealt = $postseriestitle;
                                 $imageurl = './public/images/' .$newname;
                                 $imagetype = "cover";
+                                // On récupère l'id de l'image déjà enregistrée pour la série
+                                $imageSeriesId = $membersManager->getImageSeriesId($seriesId);
                                 // On modifie une image
-                                $updateImage = $membersManager->updateImage($code, $imagetype, $imagealt, $imageurl);
-                                // On récupère l'id d'une image sur la base de son url
-                                $imageId = $membersManager->getImageId($imageurl);
+                                $updateImage = $membersManager->updateImage($code, $imagetype, $imagealt, $imageurl, $imageSeriesId);
+                                // On récupère l'id de la cover déjà enregistrée pour la série
+                                $coverId = $seriesManager->getCoverId($imageSeriesId);
                                 // On modifie une cover
-                                $updateCover = $seriesManager->updateCover($imageId);
-                                // On récupère l'id d'une cover sur la base de l'id_cover
-                                $coverId = $seriesManager->getCoverId($imageId);
+                                $updateCover = $seriesManager->updateCover($imageSeriesId, $coverId);
                                 // On modifie la série
-                                $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription, $getid);
-                                // On récupère l'id de la série à partir de son titre, de l'id de l'auteur et de l'id_cover
-                                $seriesId = $seriesManager->getSeriesId($coverId);
+                                $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription, $seriesId);
                                 // Enregistrement des tags
                                 $tagname = explode(",", $postseriestag);
                                 for ($i = 0; $i < count($tagname); $i++) {
@@ -231,9 +230,9 @@ class BackendController {
                                     $getAllTags = $seriesManager->getAllTags();
                                     if(!in_array(strtolower($postseriestag), $getAllTags))
                                     {
-                                        // On modifie le tag
+                                        // On crée le tag
                                         $newtag[$i] = strtolower($tagname[$i]);
-                                        $updateTag = $seriesManager->updateTag($newtag[$i]);
+                                        $addTag = $seriesManager->addTag($newtag[$i]);
                                     }
                                     // On récupère l'id du tag
                                     $tagId = $seriesManager->getTagId($newtag[$i]);
@@ -250,9 +249,30 @@ class BackendController {
                     }else{
                         echo "Il y a eu un problème dans l'envoi du fichier";
                     }
+                    // Si l'image de couverture ne change pas
+                    // On récupère l'id d'une cover sur la base de l'id_cover
+                    $seriesIdCover = $seriesManager->getSeriesIdCover($seriesId);
+                    // On modifie la série
+                     $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $seriesIdCover, $postauthorname, $postauthordescription, $seriesId);
+                    // Enregistrement des tags
+                    $tagname = explode(",", $postseriestag);
+                    for ($i = 0; $i < count($tagname); $i++) {
+                        // On vérifie que le tag n'existe pas déjà
+                        $getAllTags = $seriesManager->getAllTags();
+                        if(!in_array(strtolower($postseriestag), $getAllTags))
+                        {
+                            // On crée le tag
+                            $newtag[$i] = strtolower($tagname[$i]);
+                            $addTag = $seriesManager->addTag($newtag[$i]);
+                        }
+                        // On récupère l'id du tag
+                        $tagId = $seriesManager->getTagId($newtag[$i]);
+                        // On modifie le tag associé à la série
+                        $updateTagSeries = $seriesManager->updateTagSeries($tagId, $seriesId);
+                    }
+                    header("Location: index.php?action=updateSeries&id=" .$seriesId);
                 }
             }
-
         }
         public function writeEpisode()
         {

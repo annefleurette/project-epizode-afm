@@ -197,17 +197,28 @@ class MembersManager extends Manager
 		return $addImage;
 	}
 	// On modifie une image
-	public function updateImage($name, $alt, $url, $idimage)
+	public function updateImage($name, $type, $alt, $url, $idimage)
 	{
 		$db = $this->dbConnect();
-		$updateImage = $db->prepare('UPDATE images SET name = :newname, alt = :newalt, url = :newurl WHERE id = :idimage');
+		$updateImage = $db->prepare('UPDATE images SET name = :newname, type = :newtype, alt = :newalt, url = :newurl WHERE id = :idimage');
 		$updateImage->execute(array(
 			'newname' => $name,
+			'newtype' => $type,
 			'newalt' => $alt,
 			'newurl' => $url,
 			'idimage' => $idimage
 		)); 
 		return $updateImage;
+	}
+	//On récuère l'id d'une image pour une série donnée
+	public function getImageSeriesId($idseries)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT ic.id AS "id" FROM series s LEFT JOIN covers c ON s.id_cover = c.id LEFT JOIN images ic ON ic.id = c.id_cover WHERE s.id = ?');
+		$req->execute(array($idseries));
+	    $imageSeriesId = $req->fetch(\PDO::FETCH_COLUMN);
+	    $req->closeCursor();
+	    return $imageSeriesId;
 	}
 	// On supprime une image
 	public function deleteImage($idimage)

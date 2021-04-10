@@ -10,7 +10,7 @@ ob_start();
     </ul>
 </nav>
 <section class="writeSeries">
-    <form action="index.php?action=updateSeries_post" method="post" enctype="multipart/form-data">
+    <form action="index.php?action=updateSeries_post&id=$getid" method="post" enctype="multipart/form-data">
         <p>
             <label for="title">Titre</label><br />
             <input type="text" id="title" name="titleSeries" minlength="1" maxlength="100" value="<?php echo $oneSeriesUserData['title']; ?>" required>
@@ -22,7 +22,7 @@ ob_start();
         <p>
             <p><img src="<?php echo $seriesCover; ?>" /></p>
             <label for="cover">Modifier le visuel (1 Mo maximum, formats JPEG et PNG exclusivement)</label>
-            <input type="file" id="cover" name="cover" accept=".jpg, .jpeg, .png" size="1000000" required>
+            <input type="file" id="cover" name="cover" accept=".jpg, .jpeg, .png" size="1000000">
         </p>
         <p>
             <label for="tags">Catégories/Tags (séparer chaque tag par une virgule)</label><br />
