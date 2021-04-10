@@ -24,6 +24,9 @@ try {
 			case 'updateSeries':
 				$backendController->updateSeries($_GET['id']);
 				break;
+			case 'updateSeries_post':
+				$backendController->updateSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags']);
+				break;
 			case 'displaySeries':
 				$frontendController->displaySeries(12);
 				break;

@@ -98,14 +98,13 @@ class SeriesManager extends Manager
 		return $addNewSeries;
 	}	
 	// On modifie une série
-	public function updateSeries($title, $summary, $date, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription, $idseries)
+	public function updateSeries($title, $summary, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription, $idseries)
 	{
 		$db = $this->dbConnect();
-		$updateSeries = $db->prepare('UPDATE series SET title = :newtitle, summary = :newsummary, date = :newdate, pricing_status = :newpricing_status, publishing_status = :newpublishing_status, authors_right = :newauthors_right, id_cover = :newid_cover, publisher_author = :newpublisher_author, publisher_author_description = :newpublisher_author_description WHERE id = :idseries');
+		$updateSeries = $db->prepare('UPDATE series SET title = :newtitle, summary = :newsummary, date = NOW(), pricing_status = :newpricing_status, publishing_status = :newpublishing_status, authors_right = :newauthors_right, id_cover = :newid_cover, publisher_author = :newpublisher_author, publisher_author_description = :newpublisher_author_description WHERE id = :idseries');
         $updateSeries->execute(array(
 			'newtitle' => $title,
 			'newsummary' => $summary,
-			'newdate' => $date,
 			'newpricing_status' => $pricing,
 			'newpublishing_status' => $publishing,
 			'newauthors_right' => $rights,
@@ -168,7 +167,7 @@ class SeriesManager extends Manager
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT t.name AS "tag" FROM tags t LEFT JOIN series_has_tags st ON t.id = st.id_tag LEFT JOIN series s ON s.id = st.id_series WHERE s.id = ?');
 		$req->execute(array($idseries));
-		$tagSeries = $req->fetchAll();
+		$tagSeries = $req->fetchAll(\PDO::FETCH_COLUMN);
 		$req->closeCursor();
 		return $tagSeries;
 	}
@@ -235,12 +234,11 @@ class SeriesManager extends Manager
 	    return $addCover;
 	}
 	// On modifie une cover
-	public function updateCover($idcoverrelated, $idcover)
+	public function updateCover($idcover)
 	{
 		$db = $this->dbConnect();
 		$updateCover = $db->prepare('UPDATE covers SET id_cover = :newid_cover WHERE id = :idcover');
 		$updateCover->execute(array(
-			'newid_cover' => $idcoverrelated,
 			'idcover' => $idcover
 		)); 
 		return $updateCover;
