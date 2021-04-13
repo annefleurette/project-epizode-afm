@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  mar. 30 mars 2021 à 19:43
+-- Généré le :  mar. 13 avr. 2021 à 19:49
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.4.2
 
@@ -135,7 +135,6 @@ INSERT INTO `covers` (`id`, `id_cover`) VALUES
 (27, 37),
 (28, 38),
 (29, 39),
-(30, 40),
 (31, 41),
 (32, 42),
 (33, 43),
@@ -209,7 +208,67 @@ INSERT INTO `covers` (`id`, `id_cover`) VALUES
 (101, 111),
 (102, 112),
 (103, 113),
-(104, 114);
+(104, 114),
+(105, 115),
+(106, 116),
+(107, 117),
+(108, 118),
+(109, 119),
+(110, 120),
+(111, 121),
+(112, 122),
+(113, 123),
+(114, 124),
+(115, 125),
+(116, 126),
+(117, 127),
+(118, 128),
+(119, 129),
+(120, 130),
+(121, 131),
+(122, 132),
+(123, 133),
+(124, 134),
+(125, 135),
+(126, 136),
+(127, 137),
+(128, 138),
+(129, 139),
+(130, 140),
+(131, 141),
+(132, 142),
+(133, 143),
+(134, 144),
+(135, 145),
+(136, 146),
+(137, 147),
+(138, 148),
+(139, 149),
+(140, 150),
+(141, 151),
+(142, 152),
+(143, 153),
+(144, 154),
+(145, 155),
+(146, 156),
+(147, 157),
+(149, 159),
+(151, 161),
+(152, 162),
+(153, 163),
+(154, 164),
+(155, 165),
+(156, 166),
+(157, 167),
+(158, 167),
+(159, 169),
+(160, 170),
+(161, 170),
+(162, 170),
+(163, 173),
+(164, 174),
+(165, 175),
+(166, 176);
 
 -- --------------------------------------------------------
 
@@ -294,7 +353,6 @@ INSERT INTO `images` (`id`, `name`, `type`, `alt`, `url`) VALUES
 (23, '899179a4d0a9e9ed539a3c8c8cad1431ccd98c7c', 'cover', 'Test 1', './public/images/899179a4d0a9e9ed539a3c8c8cad1431ccd98c7c'),
 (24, '991cb78e2221d80bce34a8609ee9ab5609a06bac', 'cover', 'Try1', './public/images/'),
 (25, 'bcfc74f829b41566ff6c205c6ed08b43d934a0c7', 'cover', 'Try2', './public/images/'),
-(26, '0b0cbf0a0de91d8f8f1e4ab14aa33186023ff3c0', 'cover', 'Try3', './public/images/'),
 (27, '7ba86a8d2c8661c34672a3905c39bb7e375d6241', 'cover', 'Try3', './public/images/'),
 (28, 'edd6a3197bff34b377e503d8bd670fdf6bf35edb', 'cover', 'Try3', './public/images/'),
 (29, '0e254943c4c591cfb16e7821b5439acd97c95052', 'cover', 'Try4', './public/images/'),
@@ -308,7 +366,6 @@ INSERT INTO `images` (`id`, `name`, `type`, `alt`, `url`) VALUES
 (37, '56819a09fcfd9d166e8d6126186018a6dc2f45d6', 'cover', 'Essai N°7', './public/images/56819a09fcfd9d166e8d6126186018a6dc2f45d6'),
 (38, '10221b51071eb201c72640fa47c633bbd63f9b48', 'cover', 'Essai N°7', './public/images/10221b51071eb201c72640fa47c633bbd63f9b48'),
 (39, '34a8298f83933cea8a9edfec5a0184ea18a4635e', 'cover', 'Essai N°8', './public/images/34a8298f83933cea8a9edfec5a0184ea18a4635e'),
-(40, '1d9f71ee4685bcee941b3e36d6072b3a3bb2e593', 'cover', 'Essai N°8', './public/images/1d9f71ee4685bcee941b3e36d6072b3a3bb2e593'),
 (41, '12b8999fe3db0e2a2d5957b938e36a4bd655323f', 'cover', 'Essai N°8', './public/images/12b8999fe3db0e2a2d5957b938e36a4bd655323f'),
 (42, 'badefcb54a6a8d9a7bc8af6d11bd350deb718586', 'cover', 'Essai N°8', './public/images/badefcb54a6a8d9a7bc8af6d11bd350deb718586'),
 (43, '526ab58b3bcc094ba30bb4efde9fb9390aa5a508', 'cover', 'Essai', './public/images/526ab58b3bcc094ba30bb4efde9fb9390aa5a508'),
@@ -382,7 +439,67 @@ INSERT INTO `images` (`id`, `name`, `type`, `alt`, `url`) VALUES
 (111, '0be56291ebfb509523ab2aba41670f99d04bc2ec', 'cover', 'Nouveau test', './public/images/0be56291ebfb509523ab2aba41670f99d04bc2ec_AdobeStock_206294095_Preview.jpeg'),
 (112, 'c0efcde812268beb7f08b8fcca8f102829cb8a8e', 'cover', 'Nouveau test', './public/images/c0efcde812268beb7f08b8fcca8f102829cb8a8e_AdobeStock_206294095_Preview.jpeg'),
 (113, 'b63a148712828db31b35464dfbe0132234764898', 'cover', 'Nouveau test', './public/images/b63a148712828db31b35464dfbe0132234764898_AdobeStock_206294095_Preview.jpeg'),
-(114, '6576bbf0b2efb01586a204d1b52d69571b53b74b', 'cover', 'Nouveau test', './public/images/6576bbf0b2efb01586a204d1b52d69571b53b74b_AdobeStock_206294095_Preview.jpeg');
+(114, '6576bbf0b2efb01586a204d1b52d69571b53b74b', 'cover', 'Nouveau test', './public/images/6576bbf0b2efb01586a204d1b52d69571b53b74b_AdobeStock_206294095_Preview.jpeg'),
+(115, '18c145367001f1141febc99e0f6e2e83cc9c7853', 'cover', 'Hello', './public/images/18c145367001f1141febc99e0f6e2e83cc9c7853_AdobeStock_206294095_Preview.jpeg'),
+(116, 'bce658db61dc4b43ac8d2f83b43986c1909975dc', 'cover', 'Hello', './public/images/bce658db61dc4b43ac8d2f83b43986c1909975dc_AdobeStock_206294095_Preview.jpeg'),
+(117, 'fdd6bb213e88a6fc04befc727ed6b92231e579f1', 'cover', 'Test du soir', './public/images/fdd6bb213e88a6fc04befc727ed6b92231e579f1_AdobeStock_206294095_Preview.jpeg'),
+(118, '5a89d611d77c39a874d22faad6740863e2ae3965', 'cover', 'Test du soir', './public/images/5a89d611d77c39a874d22faad6740863e2ae3965_AdobeStock_206294095_Preview.jpeg'),
+(119, '2f10554eec4e20db63b582324ff73f1eef01c148', 'cover', 'Test du soir', './public/images/2f10554eec4e20db63b582324ff73f1eef01c148_AdobeStock_206294095_Preview.jpeg'),
+(120, 'ec7f99514c700bb5c4480970b9fd6471a8df5d5e', 'cover', 'Test du soir', './public/images/ec7f99514c700bb5c4480970b9fd6471a8df5d5e_AdobeStock_206294095_Preview.jpeg'),
+(121, '9a295a7926f9fb12bfd33addc361a7b5b3e0e604', 'cover', 'Test du soir', './public/images/9a295a7926f9fb12bfd33addc361a7b5b3e0e604_AdobeStock_206294095_Preview.jpeg'),
+(122, '6c4cada05a537cf674faab81cb1b246de9e81aa9', 'cover', 'Test du soir', './public/images/6c4cada05a537cf674faab81cb1b246de9e81aa9_AdobeStock_206294095_Preview.jpeg'),
+(123, 'e752d45b4f7abff5b1fee2b2dae096e358767694', 'cover', 'Test du soir', './public/images/e752d45b4f7abff5b1fee2b2dae096e358767694_AdobeStock_206294095_Preview.jpeg'),
+(124, '372469a2744ef222c70b57ae00c3088b4bce0c7d', 'cover', 'Test du soir', './public/images/372469a2744ef222c70b57ae00c3088b4bce0c7d_AdobeStock_206294095_Preview.jpeg'),
+(125, '7b3c15db288b984f246934a2f32611bd7eb4a206', 'cover', 'Test du soir n°2', './public/images/7b3c15db288b984f246934a2f32611bd7eb4a206_AdobeStock_206294095_Preview.jpeg'),
+(126, '1479e5d1b4a228b4e39fa71b07700bf6b9dac27f', 'cover', 'Test du soir n°2', './public/images/1479e5d1b4a228b4e39fa71b07700bf6b9dac27f_AdobeStock_206294095_Preview.jpeg'),
+(127, '81b9aab5510f80f7fab8f714ed27ca3d05104987', 'cover', 'Test du soir n°2', './public/images/81b9aab5510f80f7fab8f714ed27ca3d05104987_AdobeStock_206294095_Preview.jpeg'),
+(128, 'a82f9cbed538cddb3b50b67599df1296bdc207aa', 'cover', 'Test du soir n°3', './public/images/a82f9cbed538cddb3b50b67599df1296bdc207aa_AdobeStock_206294095_Preview.jpeg'),
+(129, '523b5dddfc0088059dd17e18046539627414e26c', 'cover', 'Test du soir n°4', './public/images/523b5dddfc0088059dd17e18046539627414e26c_AdobeStock_206294095_Preview.jpeg'),
+(130, '1051d81578c7b1424c858ed451028b85b7b66958', 'cover', 'Test du soir n°5', './public/images/1051d81578c7b1424c858ed451028b85b7b66958_AdobeStock_206294095_Preview.jpeg'),
+(131, 'febac80de27628b8ecc1667311e35cd878c38fca', 'cover', 'Test du soir n°5', './public/images/febac80de27628b8ecc1667311e35cd878c38fca_AdobeStock_206294095_Preview.jpeg'),
+(132, 'ab30ad382c4668b3cb1fada9a37bcf49fa4cc32b', 'cover', 'Test du soir n°5', './public/images/ab30ad382c4668b3cb1fada9a37bcf49fa4cc32b_AdobeStock_206294095_Preview.jpeg'),
+(133, 'e9e5dc1141473117461b0ffe1b8d0cfabc7383cd', 'cover', 'Test du soir n°5', './public/images/e9e5dc1141473117461b0ffe1b8d0cfabc7383cd_AdobeStock_206294095_Preview.jpeg'),
+(134, '354afeef8ab170bf5c278fb716486f9d8104e3c8', 'cover', 'Test du soir n°5', './public/images/354afeef8ab170bf5c278fb716486f9d8104e3c8_AdobeStock_206294095_Preview.jpeg'),
+(135, 'abc90a384b8f68642e6ed486f7859539225e70f1', 'cover', 'Test du soir n°5', './public/images/abc90a384b8f68642e6ed486f7859539225e70f1_AdobeStock_206294095_Preview.jpeg'),
+(136, '8d9946dc23ef90e3ee3032df2514ed0db269f6cf', 'cover', 'Test du soir n°5', './public/images/8d9946dc23ef90e3ee3032df2514ed0db269f6cf_AdobeStock_206294095_Preview.jpeg'),
+(137, '369239e4157a470a53d6f1df20bdaa9d16af60c0', 'cover', 'Test du soir n°5', './public/images/369239e4157a470a53d6f1df20bdaa9d16af60c0_AdobeStock_206294095_Preview.jpeg'),
+(138, '44ea195569c758487f12b6ad412385243a0a6d1d', 'cover', 'Test du soir n°5', './public/images/44ea195569c758487f12b6ad412385243a0a6d1d_AdobeStock_206294095_Preview.jpeg'),
+(139, 'bb094746f7d4e3bf94927c059a3b1aaf30612f5e', 'cover', 'Test du soir n°5', './public/images/bb094746f7d4e3bf94927c059a3b1aaf30612f5e_AdobeStock_206294095_Preview.jpeg'),
+(140, '3ef1d2ff85a3cdc7eab207932c87ac0f9fed521c', 'cover', 'Test du soir n°5', './public/images/3ef1d2ff85a3cdc7eab207932c87ac0f9fed521c_AdobeStock_206294095_Preview.jpeg'),
+(141, '8e25526cb4f5da7a0d68a01fe320e7679ddde52b', 'cover', 'Test du soir n°5', './public/images/8e25526cb4f5da7a0d68a01fe320e7679ddde52b_AdobeStock_206294095_Preview.jpeg'),
+(142, 'd9e8be4e7e68c96f601bc614762f88d3b5e617c9', 'cover', 'Test du soir n°5', './public/images/d9e8be4e7e68c96f601bc614762f88d3b5e617c9_AdobeStock_206294095_Preview.jpeg'),
+(143, '6afb6779d67ede29cb107396a6e97c64e22025bc', 'cover', 'Samedi', './public/images/6afb6779d67ede29cb107396a6e97c64e22025bc_AdobeStock_206294095_Preview.jpeg'),
+(144, '00c4709739bed580ab8b5edcd7fc367a6b12803b', 'cover', 'Samedi', './public/images/00c4709739bed580ab8b5edcd7fc367a6b12803b_AdobeStock_206294095_Preview.jpeg'),
+(145, '6972e915ab942cfb829ff42e0c2df01231a231fc', 'cover', 'Samedi', './public/images/6972e915ab942cfb829ff42e0c2df01231a231fc_AdobeStock_206294095_Preview.jpeg'),
+(146, '3f51932965b217b08a1c3175bb171b9870a10fd7', 'cover', 'Samedi', './public/images/3f51932965b217b08a1c3175bb171b9870a10fd7_AdobeStock_206294095_Preview.jpeg'),
+(147, 'b6ea70ddc39aa9e6446dd8677a4a39179c4ebd61', 'cover', 'Samedi', './public/images/b6ea70ddc39aa9e6446dd8677a4a39179c4ebd61_AdobeStock_206294095_Preview.jpeg'),
+(148, 'c0c8f17e5fbade2e90f6aad10491bf9693521322', 'cover', 'Samedi', './public/images/c0c8f17e5fbade2e90f6aad10491bf9693521322_AdobeStock_206294095_Preview.jpeg'),
+(149, '5c2b013082abac8a993091f87e463f4bebebaba2', 'cover', 'Samedi', './public/images/5c2b013082abac8a993091f87e463f4bebebaba2_AdobeStock_206294095_Preview.jpeg'),
+(150, 'd986bb329030fccfa4c6810d1a6bc917fcc96800', 'cover', 'Samedi', './public/images/d986bb329030fccfa4c6810d1a6bc917fcc96800_AdobeStock_206294095_Preview.jpeg'),
+(151, '21b94fde1953c9043075429427b4724cf38e3090', 'cover', 'Samedi', './public/images/21b94fde1953c9043075429427b4724cf38e3090_AdobeStock_206294095_Preview.jpeg'),
+(152, '89d100001c79ffab9cda17f2917bff548ecdfd81', 'cover', 'Samedi', './public/images/89d100001c79ffab9cda17f2917bff548ecdfd81_AdobeStock_206294095_Preview.jpeg'),
+(153, 'e432fb8a76c24d055b6d312007de6f3cc8862a11', 'cover', 'Samedi', './public/images/e432fb8a76c24d055b6d312007de6f3cc8862a11_AdobeStock_206294095_Preview.jpeg'),
+(154, 'f2b22296039f6d161954a75023700ffa11bcae67', 'cover', 'Samedi', './public/images/f2b22296039f6d161954a75023700ffa11bcae67_AdobeStock_206294095_Preview.jpeg'),
+(155, 'a37e81b9c290d4d1a9b1a4b2e589bf4afa41ab5a', 'cover', 'Samedi', './public/images/a37e81b9c290d4d1a9b1a4b2e589bf4afa41ab5a_AdobeStock_206294095_Preview.jpeg'),
+(156, '50845b33301507e172f6c4256d6b74273155682b', 'cover', 'Samedi', './public/images/50845b33301507e172f6c4256d6b74273155682b_AdobeStock_206294095_Preview.jpeg'),
+(157, '2419014e1b3fa433dc856d3ea43dc643ee56ec1c', 'cover', 'Samedi', './public/images/2419014e1b3fa433dc856d3ea43dc643ee56ec1c_AdobeStock_206294095_Preview.jpeg'),
+(159, '40aa3c29c33a040e4cf0ab9222957769e0587c9c', 'cover', 'Dimanche', './public/images/40aa3c29c33a040e4cf0ab9222957769e0587c9c_AdobeStock_206294095_Preview.jpeg'),
+(161, 'e6194b5cd4e050ef7a9e56a9a39ad22e3219e408', 'cover', 'Lundi', './public/images/e6194b5cd4e050ef7a9e56a9a39ad22e3219e408_AdobeStock_206294095_Preview.jpeg'),
+(162, 'cb3adcd021708b03c17d9dcbc87052a2aef3dfd4', 'cover', 'Lundi', './public/images/cb3adcd021708b03c17d9dcbc87052a2aef3dfd4_AdobeStock_206294095_Preview.jpeg'),
+(163, 'bcbd22d4f4bf37174e1aad85d2f5c85dbf6bb7d8', 'cover', 'Lundi', './public/images/bcbd22d4f4bf37174e1aad85d2f5c85dbf6bb7d8_AdobeStock_206294095_Preview.jpeg'),
+(164, '57ffb9b793a03778eb51873f3fedc44b0bd0cb81', 'cover', 'Lundi', './public/images/57ffb9b793a03778eb51873f3fedc44b0bd0cb81_AdobeStock_206294095_Preview.jpeg'),
+(165, '55ffb940a3d85dda4bd854c64776967ecdb95ca8', 'cover', 'Lundi', './public/images/55ffb940a3d85dda4bd854c64776967ecdb95ca8_AdobeStock_206294095_Preview.jpeg'),
+(166, '2758411dc6ca8bdf5a62d4f9350ab9fe6eb706c8', 'cover', 'Mars', './public/images/2758411dc6ca8bdf5a62d4f9350ab9fe6eb706c8_AdobeStock_206294095_Preview.jpeg'),
+(167, '1_Avril_AdobeStock_206294095_Preview.jpeg', 'cover', 'Avril', './public/images/1_Avril_AdobeStock_206294095_Preview.jpeg'),
+(168, '1_Avril_AdobeStock_206294095_Preview.jpeg', 'cover', 'Avril', './public/images/1_Avril_AdobeStock_206294095_Preview.jpeg'),
+(169, '1_Juin_AdobeStock_206294095_Preview.jpeg', 'cover', 'Juin', './public/images/1_Juin_AdobeStock_206294095_Preview.jpeg'),
+(170, '1_Août_AdobeStock_206294095_Preview.jpeg', 'cover', 'Août', './public/images/1_Août_AdobeStock_206294095_Preview.jpeg'),
+(171, '1_Août_AdobeStock_206294095_Preview.jpeg', 'cover', 'Août', './public/images/1_Août_AdobeStock_206294095_Preview.jpeg'),
+(172, '1_Août_AdobeStock_206294095_Preview.jpeg', 'cover', 'Août', './public/images/1_Août_AdobeStock_206294095_Preview.jpeg'),
+(173, '2909aa8173816a3d6b68dfbb937e508610c495da', 'cover', 'Nouveau test', './public/images/2909aa8173816a3d6b68dfbb937e508610c495da'),
+(174, 'a02aa34f2946482e4a393c85548c11805d4d6332', 'cover', 'Nouveau test', './public/images/1_a02aa34f2946482e4a393c85548c11805d4d6332_AdobeStock_206294095_Preview copie.jpeg'),
+(175, 'a1132f5744435095377b219d643c671357851bb0', 'cover', 'Nouveau test', './public/images/1_a1132f5744435095377b219d643c671357851bb0_AdobeStock_206294095_Preview copie.jpeg'),
+(176, '2750e8c130150891b75d22f1e6197042fdd73ba3', 'cover', 'Nouveau test', './public/images/1_2750e8c130150891b75d22f1e6197042fdd73ba3_AdobeStock_206294095_Preview copie.jpeg');
 
 -- --------------------------------------------------------
 
@@ -518,7 +635,7 @@ CREATE TABLE `series` (
   `pricing_status` enum('free','paying') NOT NULL,
   `publishing_status` enum('published','inprogress','deleted') NOT NULL DEFAULT 'inprogress',
   `authors_right` enum('public','CC','CC1','CC2','CC3','CC4','CC5','reserved') NOT NULL DEFAULT 'public',
-  `id_cover` int(11) NOT NULL,
+  `id_cover` int(11) NOT NULL DEFAULT '10',
   `publisher_author` varchar(200) DEFAULT NULL,
   `publisher_author_description` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -540,14 +657,6 @@ INSERT INTO `series` (`id`, `title`, `summary`, `date`, `id_member`, `pricing_st
 (10, 'Le fantôme de l\'opéra', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.', '2020-07-20 21:22:52', 2, 'paying', 'published', 'public', 10, 'Gaston Leroux', 'Cras at scelerisque mauris. Nulla semper ante vel erat porta, auctor posuere dolor gravida. Mauris nunc neque, lacinia sed condimentum ac, semper tincidunt ex. Suspendisse pretium, nulla nec aliquam sollicitudin, mauris nisl interdum tellus, feugiat maximus erat augue nec dui.'),
 (11, 'Try1', 'Hola', '2021-03-21 14:35:41', 1, 'paying', 'inprogress', 'public', 13, '', ''),
 (12, 'TestNew', 'Hello', '2021-03-22 20:27:21', 1, 'paying', 'inprogress', 'public', 63, NULL, NULL),
-(15, 'Hello', 'Bonjour', '2021-03-24 16:29:48', 1, 'free', 'inprogress', 'public', 30, NULL, NULL),
-(16, 'Hello', 'Bonjour', '2021-03-24 16:59:29', 1, 'free', 'inprogress', 'public', 30, '', ''),
-(17, 'Hello', 'Bonjour', '2021-03-24 17:00:09', 1, 'free', 'inprogress', 'public', 30, '', ''),
-(18, 'Hello', 'Hello', '2021-03-24 17:00:40', 1, 'free', 'inprogress', 'public', 30, '', ''),
-(19, 'Hello', 'Hello', '2021-03-24 17:01:23', 1, 'paying', 'inprogress', 'public', 30, '', ''),
-(20, 'Hello', 'Hello', '2021-03-24 17:02:00', 1, 'paying', 'inprogress', 'public', 30, '', ''),
-(21, 'Hello', 'Hello', '2021-03-24 17:04:26', 1, 'paying', 'inprogress', 'public', 30, '', ''),
-(22, 'Hello', 'Hello', '2021-03-24 17:04:53', 1, 'paying', 'inprogress', 'public', 30, '', ''),
 (23, 'Hello', 'Hello', '2021-03-24 17:05:23', 1, 'paying', 'inprogress', 'public', 86, '', ''),
 (24, 'Hello', 'Hello', '2021-03-24 17:05:51', 1, 'paying', 'inprogress', 'public', 87, '', ''),
 (25, 'Nouveau test', 'Hola', '2021-03-24 17:06:32', 1, 'paying', 'inprogress', 'public', 88, '', ''),
@@ -565,7 +674,67 @@ INSERT INTO `series` (`id`, `title`, `summary`, `date`, `id_member`, `pricing_st
 (37, 'Nouveau test', 'Hola', '2021-03-24 20:43:22', 1, 'paying', 'inprogress', 'CC4', 101, '', ''),
 (38, 'Nouveau test', 'Hola', '2021-03-24 20:44:53', 1, 'paying', 'inprogress', 'CC4', 102, '', ''),
 (39, 'Nouveau test', 'Hola', '2021-03-24 20:46:53', 1, 'paying', 'inprogress', 'CC4', 103, '', ''),
-(40, 'Nouveau test', 'Hola', '2021-03-24 20:48:38', 1, 'paying', 'inprogress', 'CC4', 104, '', '');
+(40, 'Nouveau test', 'Hola', '2021-03-24 20:48:38', 1, 'paying', 'inprogress', 'CC4', 104, '', ''),
+(41, 'Hello', 'Bonjour', '2021-04-05 20:03:46', 1, 'paying', 'inprogress', 'reserved', 105, '', ''),
+(42, 'Hello', 'Bonjour', '2021-04-05 20:13:13', 1, 'paying', 'inprogress', 'reserved', 106, '', ''),
+(43, 'Test du soir', 'Hello', '2021-04-05 21:00:35', 1, 'paying', 'inprogress', 'reserved', 107, '', ''),
+(44, 'Test du soir', 'Hello', '2021-04-05 21:02:09', 1, 'paying', 'inprogress', 'reserved', 108, '', ''),
+(45, 'Test du soir', 'Hello', '2021-04-05 21:03:23', 1, 'paying', 'inprogress', 'reserved', 109, '', ''),
+(46, 'Test du soir', 'Hello', '2021-04-05 21:05:08', 1, 'paying', 'inprogress', 'reserved', 110, '', ''),
+(47, 'Test du soir', 'Hello', '2021-04-05 21:05:20', 1, 'paying', 'inprogress', 'reserved', 111, '', ''),
+(48, 'Test du soir', 'Hello', '2021-04-05 21:05:42', 1, 'paying', 'inprogress', 'reserved', 112, '', ''),
+(49, 'Test du soir', 'Hello', '2021-04-05 21:08:53', 1, 'paying', 'inprogress', 'reserved', 113, '', ''),
+(50, 'Test du soir', 'Hello', '2021-04-05 21:10:22', 1, 'paying', 'inprogress', 'reserved', 114, '', ''),
+(51, 'Test du soir n°2', 'Hello', '2021-04-05 21:13:29', 1, 'paying', 'inprogress', 'reserved', 115, '', ''),
+(52, 'Test du soir n°2', 'Hello', '2021-04-05 21:15:25', 1, 'paying', 'inprogress', 'reserved', 116, '', ''),
+(53, 'Test du soir n°2', 'Hello', '2021-04-05 21:16:28', 1, 'paying', 'inprogress', 'reserved', 117, '', ''),
+(54, 'Test du soir n°3', 'Hello', '2021-04-05 21:17:24', 1, 'paying', 'inprogress', 'reserved', 118, '', ''),
+(55, 'Test du soir n°4', 'Hello', '2021-04-05 21:19:26', 1, 'paying', 'inprogress', 'CC3', 119, '', ''),
+(56, 'Test du soir n°5', 'Hello', '2021-04-05 21:21:21', 1, 'paying', 'inprogress', 'CC3', 120, '', ''),
+(57, 'Test du soir n°5', 'Hello', '2021-04-05 21:22:11', 1, 'paying', 'inprogress', 'CC3', 121, '', ''),
+(58, 'Test du soir n°5', 'Hello', '2021-04-05 21:22:58', 1, 'paying', 'inprogress', 'CC3', 122, '', ''),
+(59, 'Test du soir n°5', 'Hello', '2021-04-05 21:23:25', 1, 'paying', 'inprogress', 'CC3', 123, '', ''),
+(60, 'Test du soir n°5', 'Hello', '2021-04-05 21:23:41', 1, 'paying', 'inprogress', 'CC3', 124, '', ''),
+(61, 'Test du soir n°5', 'Hello', '2021-04-05 21:24:05', 1, 'paying', 'inprogress', 'CC3', 125, '', ''),
+(62, 'Test du soir n°5', 'Hello', '2021-04-05 21:24:46', 1, 'paying', 'inprogress', 'CC3', 126, '', ''),
+(63, 'Test du soir n°5', 'Hello', '2021-04-05 21:25:10', 1, 'paying', 'inprogress', 'CC3', 127, '', ''),
+(64, 'Test du soir n°5', 'Hello', '2021-04-05 21:25:45', 1, 'paying', 'inprogress', 'CC3', 128, '', ''),
+(65, 'Test du soir n°5', 'Hello', '2021-04-05 21:26:44', 1, 'paying', 'inprogress', 'CC3', 129, '', ''),
+(66, 'Test du soir n°5', 'Hello', '2021-04-05 21:29:20', 1, 'paying', 'inprogress', 'CC3', 130, '', ''),
+(67, 'Test du soir n°5', 'Hello', '2021-04-05 21:30:01', 1, 'paying', 'inprogress', 'CC3', 131, '', ''),
+(68, 'Test du soir n°5', 'Hello', '2021-04-05 21:30:50', 1, 'paying', 'inprogress', 'CC3', 132, '', ''),
+(69, 'Samedi', 'bonjour', '2021-04-10 11:15:52', 1, 'paying', 'inprogress', 'CC4', 133, '', ''),
+(70, 'Samedi', 'bonjour', '2021-04-10 11:18:46', 1, 'paying', 'inprogress', 'CC4', 134, '', ''),
+(71, 'Samedi', 'bonjour', '2021-04-10 11:19:27', 1, 'paying', 'inprogress', 'CC4', 135, '', ''),
+(72, 'Samedi', 'bonjour', '2021-04-10 11:28:34', 1, 'paying', 'inprogress', 'CC4', 136, '', ''),
+(73, 'Samedi', 'bonjour', '2021-04-10 11:30:20', 1, 'paying', 'inprogress', 'CC4', 137, '', ''),
+(74, 'Samedi', 'bonjour', '2021-04-10 11:32:02', 1, 'paying', 'inprogress', 'CC4', 138, '', ''),
+(75, 'Samedi', 'bonjour', '2021-04-10 11:32:45', 1, 'paying', 'inprogress', 'CC4', 139, '', ''),
+(76, 'Samedi', 'bonjour', '2021-04-10 11:37:20', 1, 'paying', 'inprogress', 'CC4', 140, '', ''),
+(77, 'Samedi', 'bonjour', '2021-04-10 11:39:42', 1, 'paying', 'inprogress', 'CC4', 141, '', ''),
+(78, 'Samedi', 'bonjour', '2021-04-10 11:40:04', 1, 'paying', 'inprogress', 'CC4', 142, '', ''),
+(79, 'Samedi', 'bonjour', '2021-04-10 11:41:15', 1, 'paying', 'inprogress', 'CC4', 143, '', ''),
+(80, 'Samedi', 'bonjour', '2021-04-10 11:42:53', 1, 'paying', 'inprogress', 'CC4', 144, '', ''),
+(81, 'Samedi', 'bonjour', '2021-04-10 11:43:15', 1, 'paying', 'inprogress', 'CC4', 145, '', ''),
+(82, 'Samedi', 'bonjour', '2021-04-10 11:43:41', 1, 'paying', 'inprogress', 'CC4', 146, '', ''),
+(83, 'Samedi', 'bonjour', '2021-04-10 11:45:23', 1, 'paying', 'inprogress', 'CC4', 147, '', ''),
+(85, 'Dimanche', 'Hola', '2021-04-10 11:46:28', 1, 'paying', 'inprogress', 'CC', 149, '', ''),
+(87, 'Lundi', 'Hello', '2021-04-10 13:31:12', 1, 'paying', 'inprogress', 'CC4', 151, '', ''),
+(88, 'Lundi', 'Hello', '2021-04-10 13:34:08', 1, 'paying', 'inprogress', 'CC4', 152, '', ''),
+(89, 'Lundi', 'Hello', '2021-04-10 13:35:53', 1, 'paying', 'inprogress', 'CC4', 153, '', ''),
+(90, 'Lundi', 'Hello', '2021-04-10 13:36:39', 1, 'paying', 'inprogress', 'CC4', 154, '', ''),
+(91, 'Lundi', 'Hello', '2021-04-10 13:37:32', 1, 'paying', 'inprogress', 'CC4', 155, '', ''),
+(92, 'Mars', 'Hola', '2021-04-10 16:46:01', 1, 'paying', 'inprogress', 'CC3', 156, '', ''),
+(93, 'Avril&amp;Mai', 'Hola you', '2021-04-11 14:06:34', 1, 'paying', 'inprogress', 'CC5', 157, '', ''),
+(94, 'Avril', 'Hola', '2021-04-11 14:13:49', 1, 'paying', 'inprogress', 'public', 157, '', ''),
+(95, 'Juin et Juillet', 'Bonjour mois de juillet', '2021-04-11 14:17:09', 1, 'paying', 'inprogress', 'CC5', 159, '', ''),
+(96, 'Août&amp;Septembre&amp;Octobre', 'Bonjour mois de septembre', '2021-04-11 14:23:30', 1, 'paying', 'inprogress', 'reserved', 160, '', ''),
+(97, 'Août', 'Bonjour mois d\'août', '2021-04-11 14:23:05', 1, 'paying', 'inprogress', 'public', 160, '', ''),
+(98, 'Août', 'Bonjour mois d\'août', '2021-04-11 14:26:01', 1, 'paying', 'inprogress', 'public', 160, '', ''),
+(99, 'Nouveau test', 'Hola', '2021-04-13 20:48:01', 1, 'paying', 'inprogress', 'CC3', 163, '', ''),
+(100, 'Nouveau test', 'Hola', '2021-04-13 20:51:40', 1, 'paying', 'inprogress', 'CC3', 164, '', ''),
+(101, 'Nouveau test', 'Hola', '2021-04-13 21:00:29', 1, 'paying', 'inprogress', 'CC3', 165, '', ''),
+(102, 'Nouveau test du soir et du matin', 'Hola you, comment', '2021-04-13 21:48:07', 1, 'paying', 'inprogress', 'CC3', 166, '', '');
 
 -- --------------------------------------------------------
 
@@ -630,12 +799,122 @@ INSERT INTO `series_has_tags` (`id_tag`, `id_series`) VALUES
 (3, 7),
 (2, 8),
 (12, 8),
-(1, 9),
 (4, 9),
 (3, 10),
 (15, 12),
 (16, 12),
-(85, 40);
+(85, 40),
+(86, 41),
+(87, 41),
+(86, 42),
+(87, 42),
+(90, 43),
+(90, 44),
+(90, 45),
+(90, 46),
+(90, 47),
+(90, 48),
+(90, 49),
+(90, 50),
+(90, 51),
+(90, 52),
+(90, 53),
+(90, 54),
+(90, 55),
+(90, 56),
+(90, 57),
+(90, 58),
+(90, 59),
+(90, 60),
+(125, 60),
+(90, 61),
+(90, 62),
+(90, 63),
+(90, 64),
+(90, 65),
+(90, 66),
+(90, 67),
+(90, 68),
+(126, 69),
+(127, 69),
+(126, 70),
+(127, 70),
+(126, 71),
+(127, 71),
+(126, 72),
+(127, 72),
+(126, 73),
+(127, 73),
+(126, 74),
+(127, 74),
+(126, 75),
+(127, 75),
+(126, 76),
+(127, 76),
+(126, 77),
+(127, 77),
+(126, 78),
+(127, 78),
+(126, 79),
+(127, 79),
+(126, 80),
+(127, 80),
+(126, 81),
+(127, 81),
+(126, 82),
+(127, 82),
+(126, 83),
+(127, 83),
+(156, 85),
+(157, 85),
+(162, 87),
+(163, 87),
+(164, 87),
+(162, 88),
+(163, 88),
+(164, 88),
+(162, 89),
+(163, 89),
+(164, 89),
+(162, 90),
+(163, 90),
+(164, 90),
+(162, 91),
+(163, 91),
+(164, 91),
+(219, 92),
+(220, 92),
+(219, 93),
+(220, 93),
+(226, 95),
+(227, 95),
+(234, 96),
+(235, 96),
+(252, 99),
+(253, 99),
+(252, 100),
+(253, 100),
+(252, 101),
+(253, 101),
+(252, 102),
+(253, 102),
+(274, 102),
+(281, 102),
+(290, 102),
+(291, 102),
+(292, 102),
+(307, 102),
+(322, 102),
+(323, 102),
+(332, 102),
+(335, 102),
+(336, 102),
+(339, 102),
+(340, 102),
+(341, 102),
+(342, 102),
+(343, 102),
+(344, 102);
 
 -- --------------------------------------------------------
 
@@ -653,35 +932,80 @@ CREATE TABLE `tags` (
 --
 
 INSERT INTO `tags` (`id`, `name`) VALUES
+(235, ' août2'),
 (75, ' fantaisie'),
 (13, ' Horreur'),
-(10, 'aventure'),
+(230, ' juillet1'),
+(227, ' juin2'),
+(163, ' lundi2'),
+(164, ' lundi3'),
+(185, ' lundi4'),
+(187, ' mardi 2'),
+(190, ' mardi 3'),
+(125, ' recommence'),
+(215, ' tag2'),
+(218, ' tag3'),
+(220, ' tagb'),
+(223, ' tagc'),
+(307, ' tata'),
+(234, 'août1'),
 (44, 'Bonjour'),
+(340, 'bouhhhhh'),
+(336, 'bye'),
+(339, 'chuttttttt'),
+(156, 'dimanche1'),
+(157, 'dimanche2'),
 (43, 'enfance'),
-(1, 'fantastique'),
 (12, 'femme'),
+(290, 'gouter'),
+(335, 'hello'),
+(342, 'hey'),
+(344, 'hiiii'),
 (9, 'histoire'),
+(343, 'hoo'),
 (85, 'jolitag'),
+(252, 'jour'),
+(226, 'juin1'),
+(162, 'lundi1'),
+(292, 'maman'),
+(186, 'mardi 1'),
+(274, 'matin'),
+(87, 'mot 2'),
+(86, 'mot1'),
 (11, 'mystère'),
+(251, 'novembre1'),
+(253, 'nuit'),
+(246, 'octobre1'),
+(90, 'on'),
+(291, 'papa'),
 (17, 'Plusieurs'),
 (3, 'policier'),
 (7, 'politique'),
 (8, 'pouvoir'),
 (74, 'rêve'),
 (2, 'romance'),
+(126, 'samedi1'),
+(127, 'samedi2'),
+(236, 'septembre1'),
+(281, 'soir'),
 (15, 'Tag N°1'),
 (16, 'Tag N°2'),
 (76, 'tag1'),
 (77, 'tag2'),
 (78, 'tag3'),
 (79, 'tag4'),
+(219, 'taga'),
 (18, 'tags'),
+(332, 'tata'),
 (6, 'technologie'),
 (47, 'test'),
 (80, 'test1'),
 (14, 'Test2'),
+(322, 'tonton'),
+(341, 'top'),
 (5, 'travail'),
-(4, 'vampire');
+(4, 'vampire'),
+(323, 'youhou');
 
 --
 -- Index pour les tables déchargées
@@ -826,7 +1150,7 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT pour la table `covers`
 --
 ALTER TABLE `covers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=105;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
 
 --
 -- AUTO_INCREMENT pour la table `episodes`
@@ -838,7 +1162,7 @@ ALTER TABLE `episodes`
 -- AUTO_INCREMENT pour la table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=115;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
 
 --
 -- AUTO_INCREMENT pour la table `logos`
@@ -862,13 +1186,13 @@ ALTER TABLE `packs`
 -- AUTO_INCREMENT pour la table `series`
 --
 ALTER TABLE `series`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
 
 --
 -- AUTO_INCREMENT pour la table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=345;
 
 --
 -- Contraintes pour les tables déchargées
@@ -891,7 +1215,7 @@ ALTER TABLE `comments`
 -- Contraintes pour la table `covers`
 --
 ALTER TABLE `covers`
-  ADD CONSTRAINT `fk_covers_images1` FOREIGN KEY (`id_cover`) REFERENCES `images` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_covers_images1` FOREIGN KEY (`id_cover`) REFERENCES `images` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 --
 -- Contraintes pour la table `episodes`
@@ -930,8 +1254,8 @@ ALTER TABLE `sales`
 -- Contraintes pour la table `series`
 --
 ALTER TABLE `series`
-  ADD CONSTRAINT `fk_series_members` FOREIGN KEY (`id_member`) REFERENCES `members` (`id`),
-  ADD CONSTRAINT `series_ibfk_1` FOREIGN KEY (`id_cover`) REFERENCES `covers` (`id`);
+  ADD CONSTRAINT `fk_series_covers` FOREIGN KEY (`id_cover`) REFERENCES `covers` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `fk_series_members` FOREIGN KEY (`id_member`) REFERENCES `members` (`id`);
 
 --
 -- Contraintes pour la table `series_has_members_subscription`
@@ -944,8 +1268,8 @@ ALTER TABLE `series_has_members_subscription`
 -- Contraintes pour la table `series_has_tags`
 --
 ALTER TABLE `series_has_tags`
-  ADD CONSTRAINT `fk_tags_has_series_series1` FOREIGN KEY (`id_series`) REFERENCES `series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `fk_tags_has_series_tags1` FOREIGN KEY (`id_tag`) REFERENCES `tags` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `fk_tags_has_series_series1` FOREIGN KEY (`id_series`) REFERENCES `series` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION,
+  ADD CONSTRAINT `fk_tags_has_series_tags1` FOREIGN KEY (`id_tag`) REFERENCES `tags` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

@@ -51,7 +51,9 @@ class BackendController {
                                 // On peut valider le fichier et le stocker définitivement
                                 $n = 20;
                                 $code = bin2hex(random_bytes($n));
-                                $newname = $code . '_' . basename($_FILES['cover']['name']);
+                                $covername = $postseriestitle;
+                                $covername = str_replace(' ','_',$covername);
+                                $newname = $getidmember . '_' . $code . '_' . basename($_FILES['cover']['name']);
                                 move_uploaded_file($_FILES['cover']['tmp_name'], './public/images/' .$newname);
                                 $imagealt = $postseriestitle;
                                 $imageurl = './public/images/' .$newname;
@@ -208,13 +210,19 @@ class BackendController {
                                 // On peut valider le fichier et le stocker définitivement
                                 $n = 20;
                                 $code = bin2hex(random_bytes($n));
-                                $newname = $code . '_' . basename($_FILES['cover']['name']);
+                                $covername = $postseriestitle;
+                                $covername = str_replace(' ','_',$covername);
+                                $newname = $getidmember . '_' . $code . '_' . basename($_FILES['cover']['name']);
                                 move_uploaded_file($_FILES['cover']['tmp_name'], './public/images/' .$newname);
                                 $imagealt = $postseriestitle;
                                 $imageurl = './public/images/' .$newname;
                                 $imagetype = "cover";
                                 // On récupère l'id de l'image déjà enregistrée pour la série
                                 $imageSeriesId = $membersManager->getImageSeriesId($seriesId);
+                                // On récupère l'URL de l'image déjà enregsitrée pour la série
+                                $imageSeriesUrl = $membersManager->getImageSeriesUrl($seriesId);
+                                // On supprime l'image du dossier
+                                unlink($imageSeriesUrl);
                                 // On modifie une image
                                 $updateImage = $membersManager->updateImage($code, $imagetype, $imagealt, $imageurl, $imageSeriesId);
                                 // On récupère l'id de la cover déjà enregistrée pour la série
@@ -223,6 +231,8 @@ class BackendController {
                                 $updateCover = $seriesManager->updateCover($imageSeriesId, $coverId);
                                 // On modifie la série
                                 $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription, $seriesId);
+                                // On récupère les tags actuels de la série
+                                $tagSeries = $seriesManager->getTagSeries($seriesId);
                                 // Enregistrement des tags
                                 $tagname = explode(",", $postseriestag);
                                 for ($i = 0; $i < count($tagname); $i++) {
@@ -236,9 +246,15 @@ class BackendController {
                                     }
                                     // On récupère l'id du tag
                                     $tagId = $seriesManager->getTagId($newtag[$i]);
-                                    // On modifie le tag associé à la série
-                                    $updateTagSeries = $seriesManager->updateTagSeries($tagId, $seriesId);
+                                    // On associe le tag à la série
+                                    $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
                                 }
+                                $newTagSeries = $seriesManager->getTagSeries($seriesId);
+                                var_dump($tagname);
+                                var_dump($newTagSeries);
+                                $difference = array_diff($tagname, $newTagSeries);
+                                var_dump($difference);
+                                exit;
                                 header("Location: index.php?action=updateSeries&id=" .$seriesId);
                             }else{
                                 echo "Le fichier n'est pas une image !";
@@ -254,7 +270,9 @@ class BackendController {
                     $seriesIdCover = $seriesManager->getSeriesIdCover($seriesId);
                     // On modifie la série
                      $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $seriesIdCover, $postauthorname, $postauthordescription, $seriesId);
-                    // Enregistrement des tags
+                    // On récupère les tags actuels de la série
+                    $tagSeries = $seriesManager->getTagSeries($seriesId);
+                     // Enregistrement des tags
                     $tagname = explode(",", $postseriestag);
                     for ($i = 0; $i < count($tagname); $i++) {
                         // On vérifie que le tag n'existe pas déjà
@@ -267,9 +285,15 @@ class BackendController {
                         }
                         // On récupère l'id du tag
                         $tagId = $seriesManager->getTagId($newtag[$i]);
-                        // On modifie le tag associé à la série
-                        $updateTagSeries = $seriesManager->updateTagSeries($tagId, $seriesId);
+                        // On associe le tag à la série
+                        $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
                     }
+                    $newTagSeries = $seriesManager->getTagSeries($seriesId);
+                    var_dump($tagname);
+                    var_dump($newTagSeries);
+                    $difference = array_diff($tagname, $newTagSeries);
+                    var_dump($difference);
+                    exit;
                     header("Location: index.php?action=updateSeries&id=" .$seriesId);
                 }
             }
