@@ -133,16 +133,25 @@ class SeriesManager extends Manager
     	$deleteSeries->execute(array($idseries));
     	return $deleteSeries;
 	}
-
-	// On récupère l'id d'une série à partir de sa cover
-	public function getSeriesId($coverid)
+	// On récupère l'id d'une série à partir de l'id du membre et de son titre
+	public function getSeriesId($idmember, $title)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT id FROM series WHERE id_cover = ?');
-		$req->execute(array($coverid));
+		$req = $db->prepare('SELECT s.id AS "id" FROM series s INNER JOIN members m ON s.id_member = m.id WHERE m.id = ? AND s.title = ? LIMIT 1');
+		$req->execute(array($idmember, $title));
 		$seriesId = $req->fetch(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
 	    return $seriesId;
+	}
+	// On récupère tous les titres de série d'un membre
+	public function getAllTitles($idmember)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT s.title AS "titles" FROM series s INNER JOIN members m ON s.id_member = m.id WHERE m.id = ? ORDER BY s.id');
+		$req->execute(array($idmember));
+	    $getAllTitles = $req->fetchAll();
+	    $req->closeCursor();
+	    return $getAllTitles;
 	}
 	// On récupère tous les tags existants
 	public function getAllTags()

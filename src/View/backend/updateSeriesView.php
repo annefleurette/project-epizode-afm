@@ -21,7 +21,7 @@ ob_start();
         </p>
         <p>
             <p><img src="<?php echo $seriesCover; ?>" /></p>
-            <label for="cover">Modifier le visuel (1 Mo maximum, formats JPEG et PNG exclusivement)</label>
+            <label for="cover">Modifier l'affiche de votre série (1 Mo maximum, formats JPEG et PNG exclusivement)</label>
             <input type="file" id="cover" name="cover" accept=".jpg, .jpeg, .png" size="1000000">
         </p>
         <p>

@@ -36,6 +36,7 @@ class BackendController {
                     $postseriestag = htmlspecialchars($postseriestag);
                     $pricing = "paying";
                     $publishing = "inprogress";
+                    // Si une image est ajoutée
                     // Testons si l'image a bien été envoyée et s'il n'y a pas d'erreur
                     if (isset($_FILES['cover']) AND $_FILES['cover']['error'] == 0)
                     {
@@ -66,27 +67,6 @@ class BackendController {
                                 $addCover = $seriesManager->addCover($imageId);
                                 // On récupère l'id d'une cover sur la base de l'id_cover
                                 $coverId = $seriesManager->getCoverId($imageId);
-                                // On enregistre la nouvelle série
-                                $addNewSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, $getidmember, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription);
-                                // On récupère l'id de la série à partir de son titre, de l'id de l'auteur et de l'id_cover
-                                $seriesId = $seriesManager->getSeriesId($coverId);
-                                // Enregistrement des tags
-                                $tagname = explode(",", $postseriestag);
-                                for ($i = 0; $i < count($tagname); $i++) {
-                                    // On vérifie que le tag n'existe pas déjà
-                                    $getAllTags = $seriesManager->getAllTags();
-                                    if(!in_array(strtolower($postseriestag), $getAllTags))
-                                    {
-                                        // On enregistre le tag
-                                        $newtag[$i] = strtolower($tagname[$i]);
-                                        $addNewTag = $seriesManager->addTag($newtag[$i]);
-                                    }
-                                    // On récupère l'id du tag
-                                    $tagId = $seriesManager->getTagId($newtag[$i]);
-                                    // On associe le tag à la série
-                                    $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
-                                }
-                                header("Location: index.php?action=updateSeries&id=" .$seriesId);
                             }else{
                                 echo "Le fichier n'est pas une image !";
                             }
@@ -94,8 +74,29 @@ class BackendController {
                             echo "Le fichier est trop volumineux";
                         }
                     }else{
-                        echo "Il y a eu un problème dans l'envoi du fichier";
+                        $coverId = 10; // Affiche par défaut
                     }
+                    // On enregistre la nouvelle série
+                    $addNewSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, $getidmember, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription);
+                    // On récupère l'id de la série à partir de son titre, de l'id de l'auteur et de l'id_cover
+                    $seriesId = $seriesManager->getSeriesId($getidmember, $postseriestitle);
+                    // Enregistrement des tags
+                    $tagname = explode(",", $postseriestag);
+                    for ($i = 0; $i < count($tagname); $i++) {
+                        // On vérifie que le tag n'existe pas déjà
+                        $getAllTags = $seriesManager->getAllTags();
+                        if(!in_array(strtolower($postseriestag), $getAllTags))
+                        {
+                            // On enregistre le tag
+                            $newtag[$i] = strtolower($tagname[$i]);
+                            $addNewTag = $seriesManager->addTag($newtag[$i]);
+                        }
+                        // On récupère l'id du tag
+                        $tagId = $seriesManager->getTagId($newtag[$i]);
+                        // On associe le tag à la série
+                        $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
+                    }
+                    header("Location: index.php?action=updateSeries&id=" .$seriesId);
                 }
             }
             /*if($_SESSION['type'] === "user")
@@ -195,8 +196,8 @@ class BackendController {
                     $postseriestag = htmlspecialchars($postseriestag);
                     $pricing = "paying";
                     $publishing = "inprogress";
-                    // Testons si l'image a bien été envoyée et s'il n'y a pas d'erreur
                     // Si l'image de couverture change
+                    // Testons si l'image a bien été envoyée et s'il n'y a pas d'erreur
                     if (isset($_FILES['cover']) AND $_FILES['cover']['error'] == 0)
                     {
                         // Testons si le fichier n'est pas trop gros

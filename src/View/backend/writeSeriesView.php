@@ -20,8 +20,8 @@ ob_start();
             <textarea id="descriptionSeries" name="descriptionSeries" minlength="1" maxlength="1200" required></textarea>
         </p>
         <p>
-            <label for="cover">Ajouter un visuel (1 Mo maximum, formats JPEG et PNG exclusivement)</label>
-            <input type="file" id="cover" name="cover" accept=".jpg, .jpeg, .png" size="1000000" required>
+            <label for="cover">Ajouter l'affiche de votre série (1 Mo maximum, formats JPEG et PNG exclusivement)</label>
+            <input type="file" id="cover" name="cover" accept=".jpg, .jpeg, .png" size="1000000">
         </p>
         <p>
             <label for="tags">Catégories/Tags (séparer chaque tag par une virgule)</label><br />
