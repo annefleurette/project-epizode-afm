@@ -184,7 +184,7 @@ class BackendController {
             if(true)
             { // Si le créateur est un éditeur
                 if(isset($postseriestitle) AND isset($postseriessummary) AND isset($postseriestag) AND isset($postseriesright))
-                { // Si l'image de couverture change
+                {
                     // Si les données existent
                     $getidmember = htmlspecialchars($getidmember);
                     $postauthorname = htmlspecialchars($postauthorname);
@@ -196,6 +196,7 @@ class BackendController {
                     $pricing = "paying";
                     $publishing = "inprogress";
                     // Testons si l'image a bien été envoyée et s'il n'y a pas d'erreur
+                    // Si l'image de couverture change
                     if (isset($_FILES['cover']) AND $_FILES['cover']['error'] == 0)
                     {
                         // Testons si le fichier n'est pas trop gros
@@ -207,7 +208,16 @@ class BackendController {
                             $extensions_autorisees = array('jpg', 'jpeg', 'png');
                             if (in_array($extension_upload, $extensions_autorisees))
                             {   
-                                // On peut valider le fichier et le stocker définitivement
+                                // On récupère l'URL de l'image déjà enregistrée pour la série
+                                $imageSeriesUrl = $membersManager->getImageSeriesUrl($seriesId);
+                                $imageSeriesUrlShort = substr($imageSeriesUrl, 2);
+                                $DirUrlShort = substr(__DIR__, 0, -14);
+                                $imageUrl = $DirUrlShort.$imageSeriesUrlShort;
+                                // On supprime l'image du dossier
+                                unlink($imageUrl);
+                                // On récupère l'id de l'image associée à la série
+                                $imageSeriesId = $membersManager->getImageSeriesId($seriesId);
+                                // On peut valider le nouveau fichier et le stocker définitivement
                                 $n = 20;
                                 $code = bin2hex(random_bytes($n));
                                 $covername = $postseriestitle;
@@ -217,44 +227,39 @@ class BackendController {
                                 $imagealt = $postseriestitle;
                                 $imageurl = './public/images/' .$newname;
                                 $imagetype = "cover";
-                                // On récupère l'id de l'image déjà enregistrée pour la série
-                                $imageSeriesId = $membersManager->getImageSeriesId($seriesId);
-                                // On récupère l'URL de l'image déjà enregsitrée pour la série
-                                $imageSeriesUrl = $membersManager->getImageSeriesUrl($seriesId);
-                                // On supprime l'image du dossier
-                                unlink($imageSeriesUrl);
-                                // On modifie une image
-                                $updateImage = $membersManager->updateImage($code, $imagetype, $imagealt, $imageurl, $imageSeriesId);
-                                // On récupère l'id de la cover déjà enregistrée pour la série
-                                $coverId = $seriesManager->getCoverId($imageSeriesId);
-                                // On modifie une cover
-                                $updateCover = $seriesManager->updateCover($imageSeriesId, $coverId);
+                                // On enregistre une image
+                                $addImage = $membersManager->addImage($code, $imagetype, $imagealt, $imageurl);
+                                // On récupère l'id d'une image sur la base de son url
+                                $imageId = $membersManager->getImageId($imageurl);
+                                // On enregistre une cover
+                                $addCover = $seriesManager->addCover($imageId);
+                                // On récupère l'id d'une cover sur la base de l'id_cover
+                                $coverId = $seriesManager->getCoverId($imageId);
                                 // On modifie la série
                                 $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription, $seriesId);
-                                // On récupère les tags actuels de la série
-                                $tagSeries = $seriesManager->getTagSeries($seriesId);
-                                // Enregistrement des tags
+                                // On supprime l'ancienne image sur le serveur
+                                $deleteImage = $membersManager->deleteImage($imageSeriesId);
+                                // On récupère les id des tags d'une série
+                                $tagIdSeries = $seriesManager->getIdTagSeries($seriesId);
+                                // On supprime les tags d'une série
+                                for ($i = 0; $i < count($tagIdSeries); $i++) {
+                                    $deleteTagSeries = $seriesManager->deleteTagSeries($tagIdSeries[$i], $seriesId);
+                                }
                                 $tagname = explode(",", $postseriestag);
                                 for ($i = 0; $i < count($tagname); $i++) {
                                     // On vérifie que le tag n'existe pas déjà
                                     $getAllTags = $seriesManager->getAllTags();
                                     if(!in_array(strtolower($postseriestag), $getAllTags))
                                     {
-                                        // On crée le tag
+                                        // On enregistre le tag
                                         $newtag[$i] = strtolower($tagname[$i]);
-                                        $addTag = $seriesManager->addTag($newtag[$i]);
+                                        $addNewTag = $seriesManager->addTag($newtag[$i]);
                                     }
                                     // On récupère l'id du tag
                                     $tagId = $seriesManager->getTagId($newtag[$i]);
                                     // On associe le tag à la série
                                     $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
                                 }
-                                $newTagSeries = $seriesManager->getTagSeries($seriesId);
-                                var_dump($tagname);
-                                var_dump($newTagSeries);
-                                $difference = array_diff($tagname, $newTagSeries);
-                                var_dump($difference);
-                                exit;
                                 header("Location: index.php?action=updateSeries&id=" .$seriesId);
                             }else{
                                 echo "Le fichier n'est pas une image !";
@@ -269,31 +274,28 @@ class BackendController {
                     // On récupère l'id d'une cover sur la base de l'id_cover
                     $seriesIdCover = $seriesManager->getSeriesIdCover($seriesId);
                     // On modifie la série
-                     $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $seriesIdCover, $postauthorname, $postauthordescription, $seriesId);
-                    // On récupère les tags actuels de la série
-                    $tagSeries = $seriesManager->getTagSeries($seriesId);
-                     // Enregistrement des tags
+                    $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $seriesIdCover, $postauthorname, $postauthordescription, $seriesId);
+                    // On récupère les id des tags d'une série
+                    $tagIdSeries = $seriesManager->getIdTagSeries($seriesId);
+                    // On supprime les tags d'une série
+                    for ($i = 0; $i < count($tagIdSeries); $i++) {
+                        $deleteTagSeries = $seriesManager->deleteTagSeries($tagIdSeries[$i], $seriesId);
+                    }
                     $tagname = explode(",", $postseriestag);
                     for ($i = 0; $i < count($tagname); $i++) {
                         // On vérifie que le tag n'existe pas déjà
                         $getAllTags = $seriesManager->getAllTags();
                         if(!in_array(strtolower($postseriestag), $getAllTags))
                         {
-                            // On crée le tag
+                            // On enregistre le tag
                             $newtag[$i] = strtolower($tagname[$i]);
-                            $addTag = $seriesManager->addTag($newtag[$i]);
+                            $addNewTag = $seriesManager->addTag($newtag[$i]);
                         }
                         // On récupère l'id du tag
                         $tagId = $seriesManager->getTagId($newtag[$i]);
                         // On associe le tag à la série
                         $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
                     }
-                    $newTagSeries = $seriesManager->getTagSeries($seriesId);
-                    var_dump($tagname);
-                    var_dump($newTagSeries);
-                    $difference = array_diff($tagname, $newTagSeries);
-                    var_dump($difference);
-                    exit;
                     header("Location: index.php?action=updateSeries&id=" .$seriesId);
                 }
             }

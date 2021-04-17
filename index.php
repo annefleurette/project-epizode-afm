@@ -1,6 +1,5 @@
 <?php
 session_start();
-
 require_once('src/Controller/FrontEndController.php');
 require_once('src/Controller/BackEndController.php');
 

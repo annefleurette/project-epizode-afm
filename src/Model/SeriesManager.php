@@ -181,6 +181,16 @@ class SeriesManager extends Manager
 		$req->closeCursor();
 		return $tagSeries;
 	}
+	// On récupère les id des tags d'une série
+	public function getIdTagSeries($idseries)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT t.id AS "id" FROM tags t LEFT JOIN series_has_tags st ON t.id = st.id_tag LEFT JOIN series s ON s.id = st.id_series WHERE s.id = ?');
+		$req->execute(array($idseries));
+		$tagIdSeries = $req->fetchAll(\PDO::FETCH_COLUMN);
+		$req->closeCursor();
+		return $tagIdSeries;
+	}
 	// On ajoute un tag à une série
 	public function addTagSeries($idtagrelated, $idseriesrelated)
 	{
