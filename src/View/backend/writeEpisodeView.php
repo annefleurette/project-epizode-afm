@@ -4,7 +4,7 @@ $head_title = 'Epizode - Créer un nouvel épisode';
 ob_start();
 ?>
 <section>
-    <form action="index.php?action=writeEpisode_post" method="post">
+    <form action="index.php?action=writeEpisode_post&id=<?php echo $getid; ?>" method="post">
         <p>
             <label for="numberEpisode">Numéro de l'épisode</label><br />
             <input type="number" id="number" name="numberEpisode" min="1" required>
@@ -20,7 +20,7 @@ ob_start();
         </p>
         <p>
             <label for="priceEpisode">Prix de l'épisode</label><br />
-            <textarea id="priceEpisode" name="priceEpisode" min="1"></textarea>
+            <input type="number" id="priceEpisode" name="priceEpisode" min="0" required>
         </p>
         <p>
             <input type="submit" name="save" value="Enregistrer">

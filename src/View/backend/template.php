@@ -17,6 +17,7 @@
         <?php require("./src/View/footer.php");?>
         </div>
         <script type="text/javascript" src="./public/js/objects/signcounter.js"></script>
+        <script type="text/javascript" src="./public/js/objects/mask.js"></script>
         <script type="text/javascript" src="./public/js/script.js"></script>
     </body>
   </html>

@@ -5,11 +5,11 @@ ob_start();
 ?>
 <nav>
     <ul>
-        <li>Ma série</li>
-        <li>Mes épisodes</li>
+        <li class="seriesTab">Ma série</li>
+        <li class="seriesTab">Mes épisodes</li>
     </ul>
 </nav>
-<section class="writeSeries">
+<section class="seriesContent">
     <form action="index.php?action=updateSeries_post&id=<?php echo $getid; ?>" method="post" enctype="multipart/form-data">
         <p>
             <label for="title">Titre</label><br />
@@ -46,8 +46,8 @@ ob_start();
         </p>
     </form>
 </section>
-<section class="writeEpisodes">
-    <p><a href="index.php?action=writeEpisode">ECRIRE UN NOUVEL EPISODE</a></p>
+<section class="seriesContent">
+    <p><a href="index.php?action=writeEpisode&id=<?php echo $getid; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
     <?php
     if($oneSeriesUserData['numberEpisodes']!== "0")
     {

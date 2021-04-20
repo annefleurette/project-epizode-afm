@@ -37,7 +37,7 @@ class EpisodesManager extends Manager
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT COUNT(*) FROM episodes WHERE publishing_status = "published" AND id_series = ?');
 		$req->execute(array($idseries));
-		$nbepisodes = $req->fetch(\PDO::FETCH_COLUMN);
+		$nbepisodes = $req->fetchAll();
 		$req->closeCursor();
 		return $nbepisodes;
 	}
@@ -60,6 +60,16 @@ class EpisodesManager extends Manager
 	    $oneEpisodesUser = $req->fetch(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
 	    return $oneEpisodesUser;
+	}
+	// On récupère un épisode unitaire publié via son number
+	public function getEpisodePublished($number)
+	{
+		$db = $this->dbConnect();
+		$req_episode = $db->prepare('SELECT * FROM episodes WHERE number = ? AND publishing_status="published"');
+		$req_episode->execute(array($number));
+		$episode_unitary_published = $req_episode->fetch();
+		$req_episode->closeCursor();
+		return $episode_unitary_published;
 	}
 	// On récupère les packs prix
 	public function getCoinsPack()
@@ -101,11 +111,11 @@ class EpisodesManager extends Manager
     	return $deleteCoinsPack;
 	}
 	// On ajoute un nouvel épisode
-	public function addEpisode($number, $title, $content, $publishing_status, $date, $id_series, $price, $promotion, $words_number)
+	public function addEpisode($number, $title, $content, $publishing_status, $id_series, $price, $promotion, $words_number)
 	{
 		$db = $this->dbConnect();
-		$addEpisode = $db->prepare('INSERT INTO episodes(number, title, content, publishing_status, date, id_series, price, likes_number, promotion, words_number) VALUES(?, ?, ?, ?, ?, ?, ?, 0, ?, ?)');
-		$addEpisode->execute(array($number, $title, $content, $publishing_status, $date, $id_series, $price, $promotion, $words_number));
+		$addEpisode = $db->prepare('INSERT INTO episodes(number, title, content, publishing_status, date, id_series, price, likes_number, promotion, words_number) VALUES(?, ?, ?, NOW(), ?, ?, ?, 0, ?, ?)');
+		$addEpisode->execute(array($number, $title, $content, $publishing_status, $id_series, $price, $promotion, $words_number));
 	    return $addEpisode;
 	}
 	// On modifie un épisode

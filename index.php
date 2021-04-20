@@ -32,6 +32,9 @@ try {
 			case 'writeEpisode':
 				$backendController->writeEpisode();
 				break;
+			case 'writeEpisode_post':
+				$backendController->writeEpisodePost($_POST['save'],$_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_GET['id']);
+				break;
 		}
 	}else{
 		echo "Erreur sur la page";
