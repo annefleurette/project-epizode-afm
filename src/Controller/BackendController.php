@@ -169,16 +169,15 @@ class BackendController {
         public function updateSeries($getid)
         {
             $seriesManager = new SeriesManager();
+            $episodesManager = new EpisodesManager();
             // On affiche la série
             $getid = htmlspecialchars($getid);
             $oneSeriesUserData = $seriesManager->getOneSeriesData($getid);
-            echo "<pre>";
-            var_dump($oneSeriesUserData);
-            echo "<pre>";
-            exit;
             $seriesCover = $seriesManager->getSeriesCover($getid);
             $tagSeries = $seriesManager->getTagSeries($getid);
             $alltags = implode(",", $tagSeries);
+            // On affiche les épisodes publiés
+            $episodesList = $episodesManager->getEpisodesList($getid);
             require('./src/View/backend/updateSeriesView.php');
         }
         public function updateSeriesPost($getidmember = 1, $postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag, $seriesId)

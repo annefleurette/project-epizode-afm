@@ -54,16 +54,17 @@ ob_start();
     ?>
         <ul>
             <?php
-            foreach ($oneSeriesUserData as $episodedata)
+            foreach ($episodesList as $episodedata)
             {
             ?>
                 <li>
                     <article>
                         <p>Episode n°<?php echo $episodedata['number']; ?></p>
                         <p><?php echo $episodedata['title']; ?></p>
-                        <p><?php echo $episodedata['publishing_status']; ?></p>
-                        <p>Dernière modification : <?php echo $episodedata['date']; ?></p>
-                        <p><?php echo $episodedata['likes_number']; ?></p>
+                        <p>Statut : <?php echo $episodedata['publishing']; ?></p>
+                        <p>Dernière modification : <?php echo $episodedata['lastUpdate']; ?></p>
+                        <p><?php echo $episodedata['likesNumber']; ?> like(s)</p>
+                        <p><?php echo $episodedata['price']; ?> euro(s)</p>
                         <p><a href = #>APERCU</a></p>
                         <p><a href = #>MODIFIER</a></p>
                         <p><a href = #>SUPPRIMER</a></p>
