@@ -65,7 +65,7 @@ ob_start();
                         <p>Dernière modification : <?php echo $episodedata['lastUpdate']; ?></p>
                         <p><?php echo $episodedata['likesNumber']; ?> like(s)</p>
                         <p><?php echo $episodedata['price']; ?> euro(s)</p>
-                        <p><a href = #>APERCU</a></p>
+                        <p><a href ="index.php?action=lookEpisode&idseries=<?php echo $getid; ?>&id=<?php echo $episodedata['id']; ?>">APERCU</a></p>
                         <p><a href = #>MODIFIER</a></p>
                         <p><a href = #>SUPPRIMER</a></p>
                     </article>

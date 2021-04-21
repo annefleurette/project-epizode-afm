@@ -20,7 +20,11 @@ ob_start();
         </p>
         <p>
             <label for="priceEpisode">Prix de l'épisode</label><br />
-            <input type="number" id="priceEpisode" name="priceEpisode" min="0" required>
+            <input type="number" id="priceEpisode" name="priceEpisode" min="0" value="0" step=".01" required> euro(s)
+        </p>
+        <p>
+            <label for="promotionEpisode">Promotion</label><br />
+            Retirer <input type="number" id="promotionEpisode" name="promotionEpisode" min="0" value="0" step=".01"> euro(s)
         </p>
         <p>
             <input type="submit" name="save" value="Enregistrer">

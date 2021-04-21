@@ -33,5 +33,15 @@ class FrontendController {
         }  
 		require('./src/View/frontend/displaySeriesView.php');
 	}
+    public function displayEpisode($seriesId, $episodeId)
+    {
+        $seriesManager = new SeriesManager();
+        $episodesManager = new EpisodesManager();
+        // On affiche les informations de la série
+        $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
+        // On affiche les informations de l'épisode
+        $oneEpisodesUser = $episodesManager->getEpisodeId($episodeId);
+        require('./src/View/frontend/displayEpisodeView.php');
+    }
 	
 }

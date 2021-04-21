@@ -7,8 +7,7 @@ function showElt(target){
 	Array.from(contentElts).forEach(element => {
 		if(element.dataset.tab == eltIndex){
 			element.style.display = "block";
-		}
-		else{
+		}else{
 			element.style.display = "none";
 		}
 	});

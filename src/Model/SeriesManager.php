@@ -149,7 +149,7 @@ class SeriesManager extends Manager
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT s.title AS "titles" FROM series s INNER JOIN members m ON s.id_member = m.id WHERE m.id = ? ORDER BY s.id');
 		$req->execute(array($idmember));
-	    $getAllTitles = $req->fetchAll();
+	    $getAllTitles = $req->fetchAll(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
 	    return $getAllTitles;
 	}

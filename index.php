@@ -33,7 +33,13 @@ try {
 				$backendController->writeEpisode($_GET['idseries']);
 				break;
 			case 'writeEpisode_post':
-				$backendController->writeEpisodePost($_POST['save'], $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_GET['idseries']);
+				$backendController->writeEpisodePost($_POST['save'], $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], $_GET['idseries']);
+				break;
+			case 'lookEpisode':
+				$backendController->lookEpisode($_GET['idseries'], $_GET['id']);
+				break;
+			case 'displayEpisode':
+				$frontendController->displaySeries(1,1);
 				break;
 		}
 	}else{

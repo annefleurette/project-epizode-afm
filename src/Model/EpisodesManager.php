@@ -7,7 +7,7 @@ class EpisodesManager extends Manager
     public function getAllEpisodes()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT e.id AS "id", ic.url AS "cover", s.title AS "series", m.pseudo AS "pseudo", ia.url AS "avatar", l.name AS "publisher", il.url AS "logo", s.publisher_author AS "author", e.number AS "number", e.title AS "title", e.content AS "content", e.publishing_status AS "publishing", m.type AS "type", e.likes_number AS "numberLikes", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COUNT(DISTINCT sal.id_member) AS "salesNumber", ROUND((COALESCE(e.price, 0) - COALESCE(e.promotion, 0))*COUNT(DISTINCT sal.id_member), 2) AS "totalGain", COUNT(DISTINCT com.id_episode) AS "numberComments", ROUND(e.words_number/300) AS "timeReading" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN comments com ON com.id_episode = e.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover LEFT JOIN sales sal ON sal.id_episode = e.id GROUP BY e.id');
+		$req = $db->query('SELECT e.id AS "id", ic.url AS "cover", s.title AS "series", m.pseudo AS "pseudo", ia.url AS "avatar", l.name AS "publisher", il.url AS "logo", s.publisher_author AS "author", e.number AS "number", e.title AS "title", e.content AS "content", e.publishing_status AS "publishing", m.type AS "type", e.likes_number AS "numberLikes", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COUNT(DISTINCT sal.id_member) AS "salesNumber", ROUND((COALESCE(e.price, 0) - COALESCE(e.promotion, 0))*COUNT(DISTINCT sal.id_member), 2) AS "totalGain", COUNT(DISTINCT com.id_episode) AS "numberComments", ROUND(e.signs_number/(300*5)) AS "timeReading" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN comments com ON com.id_episode = e.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover LEFT JOIN sales sal ON sal.id_episode = e.id GROUP BY e.id');
 	    $getAllEpisodes = $req->fetchAll();
 	    $req->closeCursor();
 	    return $getAllEpisodes;
@@ -25,7 +25,7 @@ class EpisodesManager extends Manager
     public function getEpisodesList($idseries)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT e.number AS "number", e.title AS "title", e.publishing_status AS "publishing", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COALESCE(e.likes_number, 0) AS "likesNumber", e.date AS "lastUpdate" FROM episodes e LEFT JOIN series s ON s.id = e.id_series WHERE s.id = ? ORDER BY e.number');
+		$req = $db->prepare('SELECT e.id AS "id", e.number AS "number", e.title AS "title", e.publishing_status AS "publishing", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COALESCE(e.likes_number, 0) AS "likesNumber", e.date AS "lastUpdate" FROM episodes e LEFT JOIN series s ON s.id = e.id_series WHERE s.id = ? ORDER BY e.number');
 		$req->execute(array($idseries));
 	    $episodesList = $req->fetchAll();
 	    $req->closeCursor();
@@ -55,9 +55,9 @@ class EpisodesManager extends Manager
 	public function getEpisodeId($idepisode)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT ic.url AS "cover", s.title AS "series", m.pseudo AS "pseudo", ia.url AS "avatar", l.name AS "publisher", il.url AS "logo", s.publisher_author AS "author", e.number AS "number", e.title AS "title", e.content AS "content", e.publishing_status AS "publishing", m.type AS "type", e.likes_number AS "numberLikes", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COUNT(DISTINCT com.id_episode) AS "numberComments", ROUND(e.words_number/300) AS "timeReading" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN comments com ON com.id_episode = e.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE e.id = ?');
+		$req = $db->prepare('SELECT ic.url AS "cover", s.title AS "series", m.pseudo AS "pseudo", ia.url AS "avatar", l.name AS "publisher", il.url AS "logo", s.publisher_author AS "author", e.number AS "number", e.title AS "title", e.content AS "content", e.publishing_status AS "publishing", m.type AS "type", e.likes_number AS "numberLikes", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COUNT(DISTINCT com.id_episode) AS "numberComments", ROUND(e.signs_number/(300*5)) AS "timeReading" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN comments com ON com.id_episode = e.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE e.id = ?');
 		$req->execute(array($idepisode));
-	    $oneEpisodesUser = $req->fetch(\PDO::FETCH_COLUMN);
+	    $oneEpisodesUser = $req->fetch();
 	    $req->closeCursor();
 	    return $oneEpisodesUser;
 	}
