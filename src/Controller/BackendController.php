@@ -74,7 +74,7 @@ class BackendController {
                             echo "Le fichier est trop volumineux";
                         }
                     }else{
-                        $coverId = 10; // Affiche par défaut
+                        $coverId = 1; // Affiche par défaut
                     }
                     // On enregistre la nouvelle série
                     $addNewSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, $getidmember, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription);

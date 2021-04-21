@@ -5,11 +5,11 @@ ob_start();
 ?>
 <nav>
     <ul>
-        <li class="seriesTab">Ma série</li>
-        <li class="seriesTab">Mes épisodes</li>
+        <li class="seriesTab" data-index="1">Ma série</li>
+        <li class="seriesTab" data-index="2">Mes épisodes</li>
     </ul>
 </nav>
-<section class="seriesContent">
+<section class="seriesContent" data-tab="1">
     <form action="index.php?action=updateSeries_post&id=<?php echo $getid; ?>" method="post" enctype="multipart/form-data">
         <p>
             <label for="title">Titre</label><br />
@@ -46,7 +46,7 @@ ob_start();
         </p>
     </form>
 </section>
-<section class="seriesContent">
+<section class="seriesContent hidden" data-tab="2">
     <p><a href="index.php?action=writeEpisode&idseries=<?php echo $getid; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
     <?php
     if($oneSeriesUserData['numberEpisodes']!== "0")
@@ -82,6 +82,8 @@ ob_start();
     }
     ?>
 </section>
+<script type="text/javascript" src="./public/js/tools.js"></script>
+<script type="text/javascript" src="./public/js/script.js"></script>
 <?php $body_content = ob_get_clean();
 require('template.php');
 ?>
