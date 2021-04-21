@@ -47,7 +47,7 @@ ob_start();
     </form>
 </section>
 <section class="seriesContent">
-    <p><a href="index.php?action=writeEpisode&id=<?php echo $getid; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
+    <p><a href="index.php?action=writeEpisode&idseries=<?php echo $getid; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
     <?php
     if($oneSeriesUserData['numberEpisodes']!== "0")
     {
