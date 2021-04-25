@@ -46,7 +46,7 @@ ob_start();
                             <p><?php echo $allEpisodesPublished['title']; ?></p>
                             <p><?php echo $allEpisodesPublished['price']; ?> euros</p>
                             <p><?php echo $allEpisodesPublished['likesNumber']; ?> likes</p>
-                            <p><a href = #>LIRE</a></p>
+                            <p><a href = "index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>">LIRE</a></p>
                         </article>
                     </li>
                 <?php

@@ -1,7 +1,7 @@
 <?php
 $head_title = 'Epizode - Lecture de l\'épisode';
 ob_start();
-if (!empty($oneEpisodesUser))
+if (!empty($episode_unitary_published))
 {
 ?>
     <section> <!-- Section avec l'épisode en aperçu -->
@@ -21,123 +21,103 @@ if (!empty($oneEpisodesUser))
         <?php
         }
         ?>
-        <p><?php echo $oneEpisodesUser['title']; ?></p>
-        <p><?php echo $oneEpisodesUser['numberLikes']; ?> like(s)</p>
-        <p><?php echo $oneEpisodesUser['numberComments']; ?> commentaire(s)</p>
-        <p><?php echo $oneEpisodesUser['timeReading']; ?> minute(s)</p>
+        <p><?php echo $episode_unitary_published['title']; ?></p>
+        <p><?php echo $episode_unitary_published['numberLikes']; ?> like(s)</p>
+        <p><?php echo $episode_unitary_published['numberComments']; ?> commentaire(s)</p>
+        <p><?php echo $episode_unitary_published['timeReading']; ?> minute(s)</p>
+        <p><?php echo $episode_unitary_published['price']; ?> euro(s)</p>
     </section>
-    <section>
-        <p><?php echo $oneEpisodesUser['content']; ?></p>
-    </section>
-<?php
-}else{
-?>
-    <section>
-        <h1>Erreur 404</h1>
-        <p>Cette page n'existe pas !</p>
-    </section>
-<?php
-}
-$body_content = ob_get_clean();
-require('template.php');
-?>
-
-
-
-
-<?php
-$head_title = 'Billet simple pour l\'Alaska - Lecture';
-$head_description = 'Un homme malade explore l\'Alaska pendant le dernier mois qui lui reste à vivre.';
-ob_start();
-if (!empty($episode_unitary_published))
-{
-?>
-    <section id="episode-read"> <!-- Section avec l'épisode à lire -->
-        <h1>Billet simple pour l'Alaska</h1>
-        <h2>Episode n°<?php echo $getnumber;?> : <?php echo $episode_unitary_published['episode_title']; ?></h2>
-        <hr />
-        <div class="row justify-content-center no-gutters">
-            <div class="col-md-8 col-sm-10 col-xs-12">
-                <div class="episode-read__content"><p><?php echo $episode_unitary_published['episode_content']; ?></p></div>
-                <?php // Affichage des boutons épisodes précédents/suivants
-                if($episode_current <= 1)
-                {
-                    if($nbepisodes == 1)
-                    {
-                    ?>
-                        <div class="episode-read__pagination">Un seul épisode publié pour le moment !</div>
-                    <?php  
-                    }else{
-                    ?>
-                        <div class="episode-read__pagination"><a class="btn btn__read" href="episode/number-<?php echo $episode_next; ?>">Episode suivant</a><div>
-                    <?php 
-                    }   
-                }elseif($episode_current >= $nbepisodes)
-                {
-                ?>
-                    <div class="episode-read__pagination"><a class="btn btn__read" href="episode/number-<?php echo $episode_before; ?>">Episode précédent</a></div>
-                <?php
-                }else{
-                ?>
-                    <div class="btn__together episode-read__pagination">
-                        <a class="btn btn__read btn__prev" href="episode/number-<?php echo $episode_before; ?>">Episode précédent</a>
-                        <a class="btn btn__read btn__next" href="episode/number-<?php echo $episode_next; ?>">Episode suivant</a>
-                    </div>
-                <?php 
-                }
-                ?>
-            </div>
-        </div>
-    </section>
-    <section id="episode-comments" class="novel-section"> <!-- Section avec les commentaires -->
-    <h2>Commentaires</h2>
-    <hr />
-    <?php
-    if($nbcomments > 0)
-    {
-    ?>
-        <ul> <!-- On affiche les commentaires -->
-            <?php
-            foreach ($comments as $comment_data)
+    <section> <!-- Section avec le contenu de l'épisode -->
+        <p><?php echo $episode_unitary_published['content']; ?></p>
+        <p><a href="#">LIKER</a></p>
+        <p><a href="index.php?action=alertEpisode_post&id = <?php echo $episode_unitary_published['id']; ?>">SIGNALER</a><p>
+        <?php // Affichage des boutons épisodes précédents/suivants
+        if($episode_current <= 1)
+        {
+            if($totalepisodes == 1)
             {
             ?>
-                <li class="row justify-content-center no-gutters">
-                    <article class="col-md-8 col-sm-10 col-xs-12">
-                        <p><strong><?php echo $comment_data['pseudo_members']; ?></strong> le <?php echo $comment_data['date_comment_fr']; ?></p>
-                        <p><?php echo nl2br($comment_data['comment_comments']); ?></p>
-                        <form action="alert_post/<?php echo $comment_data['id_comments'];?>" method="post">
-                            <input class="btn btn__alert" type="submit" value="Signaler">
-                        </form>
-                    </article>
-                </li>
-            <?php
-            }
+                <p>Un seul épisode publié pour le moment !</p>
+            <?php  
+            }else{
             ?>
-        </ul>
-    <?php
-    }else{
-    ?>
-        <p class="data__no">Pas de commentaire</p>
-    <?php     
-    }
-    ?>
-    <h2>Laisser un commentaire</h2>
-    <hr />
+                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>">Episode suivant</a></p>
+            <?php 
+            }   
+        }elseif($episode_current >= $totalepisodes)
+        {
+        ?>
+            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>">Episode précédent</a></p>
+        <?php
+        }else{
+        ?>
+            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>">Episode précédent</a></p>
+            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>">Episode suivant</a></p>
+        <?php 
+        }
+        ?>
+    </section>
+    <section> <!-- Section avec les commentaires -->
+        <?php
+        if($totalcomments > 0)
+        {
+        ?>
+            <ul> <!-- On affiche les commentaires -->
+                <?php
+                foreach ($episodeCommentsList as $comment_data)
+                {
+                ?>
+                    <li>
+                        <article>
+                            <p>
+                            <?php
+                            if($oneSeriesUserData['type'] === "publisher")
+                            {
+                            ?>
+                                <p><img src="<?php echo $oneSeriesUserData['logo']; ?>" alt="blabla"/></p>
+                                <p><?php echo $oneSeriesUserData['publisher']; ?></p>
+                            <?php
+                            }else{
+                            ?>  
+                                <p><img src="<?php echo $oneSeriesUserData['avatar']; ?>" alt="blabla"/></p>  
+                                <p><?php echo $oneSeriesUserData['member']; ?></p>
+                            <?php
+                            }
+                            ?>
+                            <p>Le <?php echo $comment_data['date']; ?></p>
+                            <p><?php echo ($comment_data['content']); ?></p>
+                            <form action="index.php?action=alertComment_post&id=<?php echo $comment_data["id"]; ?>" method="post">
+                                <input type="submit" value="Signaler">
+                            </form>
+                        </article>
+                    </li>
+                <?php
+                }
+                ?>
+            </ul>
+        <?php
+        }else{
+        ?>
+            <p>Pas de commentaire</p>
+        <?php     
+        }
+        ?>
+        <h2>Laisser un commentaire</h2>
         <?php
         if(!isset($_SESSION['pseudo']))
         {
         ?>
-            <p class="data__no">Vous devez être connecté(e) pour laisser un commentaire. <a href="subscription">S'inscrire</a> ou <a href="login">se connecter</a>.</p>
+            <p>Vous devez être connecté(e) pour laisser un commentaire. <a href="index.php?action=subscription">S'inscrire</a> ou <a href="index.php?action=login">se connecter</a>.</p>
         <?php
         }else{
         ?>
-            <form class="post-comment" action="comment_post/number-<?php echo $getnumber;?>" method="post">
+            <form action="index.php?action=writeComment_post&id=<?php echo $comment_data["id"]; ?>" method="post">
                 <p>
                     <label for="comment">Saisissez votre commentaire</label><br />
                     <textarea id="comment" name="comment" minlength = "4" required></textarea>
                 </p>
                 <p>
-                    <input class="btn btn__CTA" type="submit" value="Envoyer">
+                    <input type="submit" value="Envoyer">
                 </p>
             </form>
         <?php
@@ -147,9 +127,9 @@ if (!empty($episode_unitary_published))
 <?php
 }else{
 ?>
-    <section id="error404">
+    <section>
         <h1>Erreur 404</h1>
-        <p class="data__no page__no">Cette page n'existe pas !</p>
+        <p>Cette page n'existe pas !</p>
     </section>
 <?php
 }

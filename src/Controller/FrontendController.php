@@ -13,34 +13,50 @@ use AnneFleurMarchat\Epizode\Model\MembersManager;
 
 class FrontendController {
 
-    public function displaySeries($idseries = 12)
+    public function displaySeries($seriesId = 1)
 	{
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager;
         $membersManager = new MembersManager();
+        $seriesId = htmlspecialchars($seriesId);
         // On récupère les informations sur la série
-        $oneSeriesUserData = $seriesManager->getOneSeriesData($idseries);
+        $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
         // On récupère tous les épisodes de la série
-        $episodesPublishedList = $episodesManager->getEpisodesPublishedList($idseries);
+        $episodesPublishedList = $episodesManager->getEpisodesPublishedList($seriesId);
         $nbepisodes_published = count($episodesPublishedList);
         // On récupère des informations sur des séries qui ont des tags en commun
         $tags = explode(', ', $oneSeriesUserData['tags']);
         $nbtags = count($tags);
         $allTagsSeries = [];
-        for ($i = 0; $i < $nbtags; $i++) {
+        for ($i = 0; $i < $nbtags; $i++)
+        {
             $seriesCommonTags[$i] = $seriesManager->getCommonTagsSeries($tags[$i]);
             array_push($allTagsSeries, $seriesCommonTags[$i]);
         }  
 		require('./src/View/frontend/displaySeriesView.php');
 	}
-    public function displayEpisode($seriesId, $episodeId)
+    public function displayEpisode($seriesId, $episodeNumber)
     {
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager();
+        $commentsManager = new CommentsManager();
+        $seriesId = htmlspecialchars($seriesId);
+        $episodeNumber = htmlspecialchars($episodeNumber);
         // On affiche les informations de la série
         $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
-        // On affiche les informations de l'épisode
-        $oneEpisodesUser = $episodesManager->getEpisodeId($episodeId);
+        // On récupère les informations de l'épisode
+        $episode_unitary_published = $episodesManager->getEpisodePublished($episodeNumber, $seriesId);
+        // On affiche les boutons précédents/suivants
+		$nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
+        $totalepisodes = intval($nbepisodes[0]);
+		$episode_current = intval($episodeNumber);
+		$episode_before = $episode_current - 1;
+		$episode_next = $episode_current + 1;
+		// On affiche les commentaires de l'épisode
+        $episodeCommentsList = $commentsManager->getCommentsEpisode($episode_unitary_published["id"]);
+		// On compte le nombre de commentaires
+		$nbcomments = $commentsManager->countCommentsPublished($episode_unitary_published["id"]);
+        $totalcomments = intval($nbcomments[0]);
         require('./src/View/frontend/displayEpisodeView.php');
     }
 	

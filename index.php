@@ -39,7 +39,7 @@ try {
 				$backendController->lookEpisode($_GET['idseries'], $_GET['id']);
 				break;
 			case 'displayEpisode':
-				$frontendController->displaySeries(1,1);
+				$frontendController->displayEpisode($_GET['idseries'], $_GET['number']);
 				break;
 		}
 	}else{

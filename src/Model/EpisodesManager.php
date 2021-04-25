@@ -37,7 +37,7 @@ class EpisodesManager extends Manager
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT COUNT(*) FROM episodes WHERE publishing_status = "published" AND id_series = ?');
 		$req->execute(array($idseries));
-		$nbepisodes = $req->fetchAll();
+		$nbepisodes = $req->fetchAll(\PDO::FETCH_COLUMN);
 		$req->closeCursor();
 		return $nbepisodes;
 	}
@@ -61,13 +61,13 @@ class EpisodesManager extends Manager
 	    $req->closeCursor();
 	    return $oneEpisodesUser;
 	}
-	// On récupère un épisode unitaire d'une série publié via son number
+	// On récupère un épisode unitaire d'une série publié via son number et l'id de la série
 	public function getEpisodePublished($number, $idseries)
 	{
 		$db = $this->dbConnect();
-		$req_episode = $db->prepare('SELECT * FROM episodes WHERE number = ? AND publishing_status="published" AND id_series = ?');
+		$req_episode = $db->prepare('SELECT e.id AS "id", e.title AS "title", e.content AS "content", e.likes_number AS "numberLikes", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COUNT(DISTINCT com.id_episode) AS "numberComments", ROUND(e.signs_number/(300*5)) AS "timeReading" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN comments com ON com.id_episode = e.id WHERE e.number = ? AND e.publishing_status="published" AND e.id_series = ? GROUP BY e.id');
 		$req_episode->execute(array($number, $idseries));
-		$episode_unitary_published = $req_episode->fetchAll();
+		$episode_unitary_published = $req_episode->fetch();
 		$req_episode->closeCursor();
 		return $episode_unitary_published;
 	}
