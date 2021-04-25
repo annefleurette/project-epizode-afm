@@ -20,7 +20,7 @@ ob_start();
             <textarea id="descriptionSeries" name="descriptionSeries" minlength="1" maxlength="1200" required><?php echo $oneSeriesUserData['summary']; ?></textarea>
         </p>
         <p>
-            <p><img src="<?php echo $seriesCover; ?>" /></p>
+            <p><img src="<?php echo $seriesCover; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
             <label for="cover">Modifier l'affiche de votre série (1 Mo maximum, formats JPEG et PNG exclusivement)</label>
             <input type="file" id="cover" name="cover" accept=".jpg, .jpeg, .png" size="1000000">
         </p>

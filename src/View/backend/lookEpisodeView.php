@@ -6,17 +6,17 @@ if (!empty($oneEpisodesUser))
 ?>
     <section> <!-- Section avec l'épisode en aperçu -->
         <h1><?php echo $oneSeriesUserData['title']; ?></h1>
-        <p><img src="<?php echo $oneSeriesUserData['cover']; ?>" alt="Cover"/></p>
+        <p><img src="<?php echo $oneSeriesUserData['cover']; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
         <?php if($oneSeriesUserData['type'] === "publisher")
         {
         ?>
-            <p><img src="<?php echo $oneSeriesUserData['logo']; ?>" alt="blabla"/></p>
+            <p><img src="<?php echo $oneSeriesUserData['logo']; ?>" alt="<?php echo $oneSeriesUserData['altlogo']; ?>"/></p>
             <p><?php echo $oneSeriesUserData['publisher']; ?></p>
             <p><?php echo $oneSeriesUserData['publisher_author']; ?></p>
         <?php
         }else{
         ?>  
-            <p><img src="<?php echo $oneSeriesUserData['avatar']; ?>" alt="blabla"/></p>  
+            <p><img src="<?php echo $oneSeriesUserData['avatar']; ?>" alt="<?php echo $oneSeriesUserData['altavatar']; ?>"/></p>  
             <p><?php echo $oneSeriesUserData['member']; ?></p>
         <?php
         }
