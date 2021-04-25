@@ -17,8 +17,31 @@ class FrontendController {
 	{
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager;
-        $membersManager = new MembersManager();
         $seriesId = htmlspecialchars($seriesId);
+        // On récupère les informations sur la série
+        $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
+        // On récupère tous les épisodes de la série
+        $episodesPublishedList = $episodesManager->getEpisodesPublishedList($seriesId);
+        $nbepisodes_published = count($episodesPublishedList);
+        // On récupère des informations sur des séries qui ont des tags en commun
+        $tags = explode(', ', $oneSeriesUserData['tags']);
+        $nbtags = count($tags);
+        $allTagsSeries = [];
+        for ($i = 0; $i < $nbtags; $i++)
+        {
+            $seriesCommonTags[$i] = $seriesManager->getCommonTagsSeries($tags[$i]);
+            array_push($allTagsSeries, $seriesCommonTags[$i]);
+        }  
+		require('./src/View/frontend/displaySeriesView.php');
+	}
+    public function subscribeSeries($memberId, $seriesId)
+	{
+        $seriesManager = new SeriesManager();
+        $episodesManager = new EpisodesManager;
+        $memberId = htmlspecialchars($memberId);
+        $seriesId = htmlspecialchars($seriesId);
+        // On ajoute l'abonnement
+        $seriesSubscription = $seriesManager->addSeriesSubscription($seriesId, $memberId);
         // On récupère les informations sur la série
         $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
         // On récupère tous les épisodes de la série

@@ -29,6 +29,9 @@ try {
 			case 'displaySeries':
 				$frontendController->displaySeries(12);
 				break;
+			case 'subscribeSeries_post':
+				$frontendController->subscribeSeries($_GET['idmember'], $_GET['id']);
+				break;
 			case 'writeEpisode':
 				$backendController->writeEpisode($_GET['idseries']);
 				break;

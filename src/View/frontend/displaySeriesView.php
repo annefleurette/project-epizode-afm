@@ -7,7 +7,8 @@ ob_start();
 <section>
     <h1><?php echo $oneSeriesUserData['title']; ?></h1>
     <p><img src="<?php echo $oneSeriesUserData['cover']; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
-    <?php if($oneSeriesUserData['type'] === "publisher")
+    <?php
+    if($oneSeriesUserData['type'] === "publisher")
     {
     ?>
         <p><img src="<?php echo $oneSeriesUserData['logo']; ?>" alt="<?php echo $oneSeriesUserData['altlogo']; ?>"/></p>
@@ -27,7 +28,25 @@ ob_start();
     <p><?php echo $oneSeriesUserData['pricing']; ?></p>
     <p><?php echo $oneSeriesUserData['publishing']; ?></p>
     <p><?php echo $oneSeriesUserData['rights']; ?></p>
-    <p><a href=#>S'ABONNER</a></p>
+    <?php
+    if(!isset($_SESSION['pseudo']))
+    {
+    ?>
+        <p>S'ABONNER</p>
+    <?php
+    }else{
+        if(isset($seriesSubscription))
+        {
+        ?>    
+            <p>ABONNÉ(E)</p>
+        <?php
+        }else{
+        ?>
+            <p><a href="index.php?action=subscribeSeries_post&idmember=<?php echo $oneSeriesUserData['idmember']; ?>&id=<?php echo $seriesId; ?>">S'ABONNER</a></p>
+        <?php    
+        }
+    }
+    ?>
 </section>
 <section>
     <h2>Episodes de <?php echo $oneSeriesUserData['title']; ?></h2>
@@ -46,7 +65,7 @@ ob_start();
                             <p><?php echo $allEpisodesPublished['title']; ?></p>
                             <p><?php echo $allEpisodesPublished['price']; ?> euros</p>
                             <p><?php echo $allEpisodesPublished['likesNumber']; ?> likes</p>
-                            <p><a href = "index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>">LIRE</a></p>
+                            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>">LIRE</a></p>
                         </article>
                     </li>
                 <?php
@@ -91,6 +110,7 @@ ob_start();
         ?>
     </ul>
 </section>
-<?php $body_content = ob_get_clean();
+<?php
+$body_content = ob_get_clean();
 require('template.php');
 ?>
