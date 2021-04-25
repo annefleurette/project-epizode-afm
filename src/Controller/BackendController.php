@@ -203,6 +203,7 @@ class BackendController {
                     $postseriessummary = htmlspecialchars($postseriessummary);
                     $postseriesright = htmlspecialchars($postseriesright);
                     $postseriestag = htmlspecialchars($postseriestag);
+                    $seriesId = htmlspecialchars($seriesId);
                     $pricing = "paying";
                     $publishing = "inprogress";
                     // Testons si le titre est bien unique pour l'utilisateur
@@ -339,6 +340,7 @@ class BackendController {
                     $posttitle = htmlspecialchars($posttitle);
                     $postprice = htmlspecialchars($postprice);
                     $postpromotion = htmlspecialchars($postpromotion);
+                    $seriesId = htmlspecialchars($seriesId);
                     $episode_unitary_published = $episodesManager->getEpisodePublished($postnumber, $seriesId);
                     if (empty($episode_unitary_published))
                     {
@@ -379,6 +381,8 @@ class BackendController {
         {
             $seriesManager = new SeriesManager();
             $episodesManager = new EpisodesManager();
+            $seriesId = htmlspecialchars($seriesId);
+            $episodeId = htmlspecialchars($episodeId);
             // On affiche les informations de la série
             $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
             // On affiche les informations de l'épisode
