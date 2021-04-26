@@ -44,6 +44,10 @@ try {
 			case 'displayEpisode':
 				$frontendController->displayEpisode($_GET['idseries'], $_GET['number']);
 				break;
+			case 'likeEpisode_post':
+				$frontendController->likeEpisode($_GET['idseries'], $_GET['number'], $_GET['id']);
+				break;
+				
 		}
 	}else{
 		echo "Erreur sur la page";

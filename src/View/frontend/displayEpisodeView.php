@@ -29,7 +29,18 @@ if (!empty($episode_unitary_published))
     </section>
     <section> <!-- Section avec le contenu de l'épisode -->
         <p><?php echo $episode_unitary_published['content']; ?></p>
-        <p><a href="#">LIKER</a></p>
+        <?php
+            if(isset($updateLikesEpisode))
+            {
+            ?>    
+                <p>LIKÉ(E)</p>
+            <?php
+            }else{
+            ?>
+                <p><a href="index.php?action=likeEpisode_post&idseries=<?php echo intval($seriesId); ?>&number=<?php echo intval($episodeNumber); ?>&id=<?php echo intval($episode_unitary_published['id']); ?>">LIKER</a></p>
+            <?php    
+            }
+            ?>
         <p><a href="index.php?action=alertEpisode_post&id = <?php echo $episode_unitary_published['id']; ?>">SIGNALER</a><p>
         <?php // Affichage des boutons épisodes précédents/suivants
         if($episode_current <= 1)
