@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  mar. 13 avr. 2021 à 19:49
+-- Généré le :  mar. 27 avr. 2021 à 20:01
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.4.2
 
@@ -88,7 +88,8 @@ INSERT INTO `comments` (`id`, `id_member`, `id_episode`, `content`, `date`, `ale
 (1, 1, 6, 'Au top j\'adore !', '2020-07-20 21:41:08', 0),
 (2, 1, 7, 'Passionnant !', '2020-07-20 21:41:22', 0),
 (3, 2, 1, 'Blurk', '2020-07-20 21:41:38', 1),
-(4, 2, 6, 'Merci !', '2020-07-20 21:41:55', 0);
+(4, 2, 6, 'Merci !', '2020-07-20 21:41:55', 0),
+(5, 1, 10, 'Super ton épisode, j\'adore !', '2021-04-25 12:36:59', 0);
 
 -- --------------------------------------------------------
 
@@ -268,7 +269,42 @@ INSERT INTO `covers` (`id`, `id_cover`) VALUES
 (163, 173),
 (164, 174),
 (165, 175),
-(166, 176);
+(166, 176),
+(167, 177),
+(168, 178),
+(169, 179),
+(170, 180),
+(171, 181),
+(172, 182),
+(174, 184),
+(176, 186),
+(179, 190),
+(181, 192),
+(183, 194),
+(185, 196),
+(187, 198),
+(192, 203),
+(195, 206),
+(196, 207),
+(197, 208),
+(198, 209),
+(199, 210),
+(200, 211),
+(201, 212),
+(202, 213),
+(203, 214),
+(204, 215),
+(205, 216),
+(206, 217),
+(207, 218),
+(208, 219),
+(209, 220),
+(210, 221),
+(211, 222),
+(212, 223),
+(213, 224),
+(214, 225),
+(215, 226);
 
 -- --------------------------------------------------------
 
@@ -284,30 +320,45 @@ CREATE TABLE `episodes` (
   `publishing_status` enum('published','inprogress','deleted') NOT NULL,
   `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_series` int(11) NOT NULL,
-  `price` float DEFAULT NULL,
-  `likes_number` int(11) DEFAULT NULL,
+  `price` float NOT NULL DEFAULT '0',
+  `likes_number` int(11) NOT NULL DEFAULT '0',
   `alert_status` tinyint(4) NOT NULL DEFAULT '0',
-  `promotion` float DEFAULT NULL,
-  `words_number` int(11) NOT NULL
+  `promotion` float NOT NULL DEFAULT '0',
+  `signs_number` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Déchargement des données de la table `episodes`
 --
 
-INSERT INTO `episodes` (`id`, `number`, `title`, `content`, `publishing_status`, `date`, `id_series`, `price`, `likes_number`, `alert_status`, `promotion`, `words_number`) VALUES
-(1, 1, 'Premier épisode', 'Proin id pulvinar urna. Donec vel enim erat. Morbi lacinia, augue in sodales commodo, quam mauris porta nisl, non maximus mauris lectus sit amet magna. Etiam ut suscipit enim, sit amet feugiat velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc in augue sit amet augue accumsan finibus. Fusce a pharetra nunc. Pellentesque et sapien dapibus, dignissim ligula in, fermentum lacus. Pellentesque consectetur at sem dignissim auctor. Nam mollis neque sit amet euismod faucibus. Morbi et dolor id lectus dictum accumsan. Cras ut magna vitae erat aliquet lobortis.\r\n\r\nVestibulum dui quam, semper et neque at, tincidunt fermentum quam. Praesent tincidunt fermentum augue, et tincidunt ipsum suscipit sagittis. Integer nec auctor ex. Ut nec cursus quam. Vivamus eu facilisis purus. Donec facilisis, ipsum sit amet egestas pretium, leo nunc ultricies justo, vitae facilisis metus nulla nec nunc. Vestibulum pellentesque libero ligula, ac volutpat orci viverra sed. Suspendisse dictum semper erat. Duis sodales tristique odio sed pellentesque. Donec ut consectetur orci, at luctus lectus. Nulla placerat augue erat, et congue nibh lobortis eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 'published', '2020-07-20 21:35:20', 1, 3, NULL, 0, NULL, 3000),
-(2, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:17', 2, NULL, NULL, 0, NULL, 3000),
-(3, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:41', 3, NULL, NULL, 0, NULL, 3000),
-(4, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:58', 4, NULL, NULL, 0, NULL, 3000),
-(5, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:37:18', 5, NULL, NULL, 0, NULL, 3000),
-(6, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:37:50', 6, 3.25, NULL, 0, NULL, 3000),
-(7, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:07', 7, 3, NULL, 0, NULL, 3000),
-(8, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:24', 8, 3, NULL, 0, NULL, 3000),
-(9, 2, 'Deuxième épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:38', 12, 6, NULL, 0, NULL, 3000),
-(10, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:39:02', 12, 3, NULL, 0, NULL, 3000),
-(11, 2, 'Deuxième épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:40:01', 1, NULL, NULL, 0, NULL, 3000),
-(12, 3, 'Troisième épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:40:23', 1, NULL, NULL, 1, NULL, 3000);
+INSERT INTO `episodes` (`id`, `number`, `title`, `content`, `publishing_status`, `date`, `id_series`, `price`, `likes_number`, `alert_status`, `promotion`, `signs_number`) VALUES
+(1, 1, 'Premier épisode', 'Proin id pulvinar urna. Donec vel enim erat. Morbi lacinia, augue in sodales commodo, quam mauris porta nisl, non maximus mauris lectus sit amet magna. Etiam ut suscipit enim, sit amet feugiat velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc in augue sit amet augue accumsan finibus. Fusce a pharetra nunc. Pellentesque et sapien dapibus, dignissim ligula in, fermentum lacus. Pellentesque consectetur at sem dignissim auctor. Nam mollis neque sit amet euismod faucibus. Morbi et dolor id lectus dictum accumsan. Cras ut magna vitae erat aliquet lobortis.\r\n\r\nVestibulum dui quam, semper et neque at, tincidunt fermentum quam. Praesent tincidunt fermentum augue, et tincidunt ipsum suscipit sagittis. Integer nec auctor ex. Ut nec cursus quam. Vivamus eu facilisis purus. Donec facilisis, ipsum sit amet egestas pretium, leo nunc ultricies justo, vitae facilisis metus nulla nec nunc. Vestibulum pellentesque libero ligula, ac volutpat orci viverra sed. Suspendisse dictum semper erat. Duis sodales tristique odio sed pellentesque. Donec ut consectetur orci, at luctus lectus. Nulla placerat augue erat, et congue nibh lobortis eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 'published', '2020-07-20 21:35:20', 1, 3, 0, 0, 0, 3000),
+(2, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:17', 2, 0, 0, 0, 0, 3000),
+(3, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:41', 3, 0, 0, 0, 0, 3000),
+(4, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:58', 4, 0, 0, 0, 0, 3000),
+(5, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:37:18', 5, 0, 0, 0, 0, 3000),
+(6, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:37:50', 6, 3.25, 0, 0, 0, 3000),
+(7, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:07', 7, 3, 0, 0, 0, 3000),
+(8, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:24', 8, 3, 0, 0, 0, 3000),
+(9, 2, 'Deuxième épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:38', 12, 6, 4, 0, 0, 3000),
+(10, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:39:02', 12, 3, 8, 0, 0, 3000),
+(11, 2, 'Deuxième épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:40:01', 1, 0, 0, 0, 0, 3000),
+(12, 3, 'Troisième épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:40:23', 12, 0, 0, 1, 0, 3000),
+(13, 1, 'Premier épisode', 'On essaye', 'inprogress', '2021-04-21 11:56:38', 138, 1, 0, 0, 0, 100),
+(14, 1, 'Premier épisode encore', 'Blabla', 'inprogress', '2021-04-21 11:59:11', 138, 0, 0, 0, 0, 100),
+(15, 2, 'Premier épisode encore', 'Blabla', 'published', '2021-04-21 12:00:46', 138, 0, 0, 0, 0, 100),
+(16, 1, 'Test', 'Encore', 'published', '2021-04-21 12:06:20', 138, 2, 0, 0, 0, 100),
+(17, 1, 'Test', 'Encore', 'inprogress', '2021-04-21 12:08:05', 138, 2, 0, 0, 0, 100),
+(18, 3, 'Test', 'Encore', 'inprogress', '2021-04-21 12:10:16', 138, 2, 0, 0, 0, 100),
+(19, 4, 'Bonjour', 'Blabla', 'inprogress', '2021-04-21 12:15:49', 138, 4, 0, 0, 0, 100),
+(20, 1, 'Premier épisode', 'Il était une fois', 'inprogress', '2021-04-21 14:53:50', 143, 5, 0, 0, 0, 100),
+(21, 1, 'Premier épisode', 'Il était une fois', 'inprogress', '2021-04-21 15:05:23', 151, 1, 0, 0, 0, 100),
+(22, 2, 'hola', 'Ca va ?', 'published', '2021-04-21 15:05:47', 151, 0, 0, 0, 0, 100),
+(23, 1, 'Premier épisode', 'he', 'inprogress', '2021-04-21 15:12:33', 151, 1, 0, 0, 0, 100),
+(24, 1, 'Premier épisode', 'Blabla', 'inprogress', '2021-04-21 15:30:56', 151, 1, 0, 0, 1, 100),
+(25, 1, 'Test promotion', 'Hello', 'inprogress', '2021-04-21 15:32:29', 151, 2, 0, 0, 2, 100),
+(26, 1, 'Bonjour', 'Hola', 'inprogress', '2021-04-21 15:36:33', 151, 10, 0, 0, 2, 100),
+(27, 1, 'Premier épisode', 'Bonjour', 'inprogress', '2021-04-21 16:54:58', 153, 10, 0, 0, 2, 100);
 
 -- --------------------------------------------------------
 
@@ -499,7 +550,43 @@ INSERT INTO `images` (`id`, `name`, `type`, `alt`, `url`) VALUES
 (173, '2909aa8173816a3d6b68dfbb937e508610c495da', 'cover', 'Nouveau test', './public/images/2909aa8173816a3d6b68dfbb937e508610c495da'),
 (174, 'a02aa34f2946482e4a393c85548c11805d4d6332', 'cover', 'Nouveau test', './public/images/1_a02aa34f2946482e4a393c85548c11805d4d6332_AdobeStock_206294095_Preview copie.jpeg'),
 (175, 'a1132f5744435095377b219d643c671357851bb0', 'cover', 'Nouveau test', './public/images/1_a1132f5744435095377b219d643c671357851bb0_AdobeStock_206294095_Preview copie.jpeg'),
-(176, '2750e8c130150891b75d22f1e6197042fdd73ba3', 'cover', 'Nouveau test', './public/images/1_2750e8c130150891b75d22f1e6197042fdd73ba3_AdobeStock_206294095_Preview copie.jpeg');
+(176, '2750e8c130150891b75d22f1e6197042fdd73ba3', 'cover', 'Nouveau test', './public/images/1_2750e8c130150891b75d22f1e6197042fdd73ba3_AdobeStock_206294095_Preview copie.jpeg'),
+(177, 'bd2d5758ba8b4dd24fc63c84add3b71e17896c11', 'cover', 'Bonjour', './public/images/1_bd2d5758ba8b4dd24fc63c84add3b71e17896c11_AdobeStock_206294095_Preview copie.jpeg'),
+(178, 'c11c0b5a2a8f0565d958b39d5214110843461d2a', 'cover', 'Hola', './public/images/1_c11c0b5a2a8f0565d958b39d5214110843461d2a_numero1.jpeg'),
+(179, '2d35e58c5248240729258e3a98711bb3d1223a8d', 'cover', 'Hola', './public/images/1_2d35e58c5248240729258e3a98711bb3d1223a8d_numero1.jpeg'),
+(180, '1018de05719a0adba1ff902e33583b7fb4af94bf', 'cover', 'Série du samedi', './public/images/1_1018de05719a0adba1ff902e33583b7fb4af94bf_numero1.jpeg'),
+(181, '867f6fe92f6027b96204a0ff4cdac458ce5a4249', 'cover', 'Nouveau test', './public/images/1_867f6fe92f6027b96204a0ff4cdac458ce5a4249_numero1.jpeg'),
+(182, '7d6a3197e1b8a2aa1f9971fd7015ebdb562ade3c', 'cover', 'Nouveau test', './public/images/1_7d6a3197e1b8a2aa1f9971fd7015ebdb562ade3c_numero2.png'),
+(184, '5d89ce7bb5aaca3bbdd0726693cf1e8de8eba240', 'cover', 'Nouveau test encore', './public/images/1_5d89ce7bb5aaca3bbdd0726693cf1e8de8eba240_numero2.png'),
+(186, 'dc837e6e046140076368cd0cdc60ebb442eb7d74', 'cover', 'new', './public/images/1_dc837e6e046140076368cd0cdc60ebb442eb7d74_numero2.png'),
+(188, '990c4d1f51c8e31b523094ec6a255418ee24500c', 'cover', 'new', './public/images/1_990c4d1f51c8e31b523094ec6a255418ee24500c_numero2.png'),
+(190, '87963544716b71500a09dca555f535fb93f48407', 'cover', 'again', './public/images/1_87963544716b71500a09dca555f535fb93f48407_numero2.png'),
+(192, '54705c01ac2e18cbb06660f67562e9f911b7ee58', 'cover', 'Test du matin', './public/images/1_54705c01ac2e18cbb06660f67562e9f911b7ee58_numero1.jpeg'),
+(194, 'fdf1be9c26ad66d78fa20a610cb2a2ed75cf4a4b', 'cover', 'Test du matin', './public/images/1_fdf1be9c26ad66d78fa20a610cb2a2ed75cf4a4b_numero1.jpeg'),
+(196, 'b76ff3af5be72828f6dce4c47bf524dc38286542', 'cover', 'Bonjour', './public/images/1_b76ff3af5be72828f6dce4c47bf524dc38286542_numero2.png'),
+(198, '13ea6d141de52e9c1aae27a9fbe12770b39d1c06', 'cover', 'Nouveau test', './public/images/1_13ea6d141de52e9c1aae27a9fbe12770b39d1c06_numero2.png'),
+(203, '8243a7e505f614ddf56f01275e4b1b8e2cd052c1', 'cover', 'Nouveau test du soir', './public/images/1_8243a7e505f614ddf56f01275e4b1b8e2cd052c1_numero1.jpeg'),
+(206, 'e14960191e87e73d96bb6a4380830e5891388a97', 'cover', 'Test', './public/images/1_e14960191e87e73d96bb6a4380830e5891388a97_numero1.jpeg'),
+(207, '330ffe711e335c58ccd4e93315421e5c8cd4ae51', 'cover', 'Bonjour', './public/images/1_330ffe711e335c58ccd4e93315421e5c8cd4ae51_numero1.jpeg'),
+(208, '4015e70c23bb933be754392d3875b14486f6c976', 'cover', 'Ceci est une nouvelle série', './public/images/1_4015e70c23bb933be754392d3875b14486f6c976_numero1.jpeg'),
+(209, '56236a0a0b9afa0e05b9f86b9b626eb188af2f70', 'cover', 'Bnojour', './public/images/1_56236a0a0b9afa0e05b9f86b9b626eb188af2f70_numero1.jpeg'),
+(210, '3655f8a83510cdb09684ce1e26b647f6ca71ebbc', 'cover', 'Bonjour', './public/images/1_3655f8a83510cdb09684ce1e26b647f6ca71ebbc_numero1.jpeg'),
+(211, '81568fb94f71963db12dc5cc35debbb25eddfb70', 'cover', 'Hello', './public/images/1_81568fb94f71963db12dc5cc35debbb25eddfb70_numero1.jpeg'),
+(212, '2eba95a1f457ee9a9bfa63def861d583613ccf99', 'cover', 'Test', './public/images/1_2eba95a1f457ee9a9bfa63def861d583613ccf99_numero1.jpeg'),
+(213, '5700db725b10f4f831325b3e589aa2b9ed725723', 'cover', 'Test', './public/images/1_5700db725b10f4f831325b3e589aa2b9ed725723_numero1.jpeg'),
+(214, '6386c22312476d736acdf1ce3519fb5c462d3a23', 'cover', 'Test', './public/images/1_6386c22312476d736acdf1ce3519fb5c462d3a23_numero1.jpeg'),
+(215, '1a2b78fd040f616a7c163fdff0ec996db954ad60', 'cover', 'hé', './public/images/1_1a2b78fd040f616a7c163fdff0ec996db954ad60_numero1.jpeg'),
+(216, '51f637f24cc398025b863677ba6bc4489cc8644a', 'cover', 'hé', './public/images/1_51f637f24cc398025b863677ba6bc4489cc8644a_numero1.jpeg'),
+(217, 'eeeac1918f51aa7f3c11ad0d6aefdf782e714f33', 'cover', 'You', './public/images/1_eeeac1918f51aa7f3c11ad0d6aefdf782e714f33_numero1.jpeg'),
+(218, '4268fa34002240fe37c7509223f6fc6e8bab270e', 'cover', 'You', './public/images/1_4268fa34002240fe37c7509223f6fc6e8bab270e_numero1.jpeg'),
+(219, 'a5a28afcae7a36e6b4d5351d9197babe776a04dd', 'cover', 'You', './public/images/1_a5a28afcae7a36e6b4d5351d9197babe776a04dd_numero1.jpeg'),
+(220, '59e8f682bd3efc3ddd42a24e29e035e1c21bfe56', 'cover', 'essai', './public/images/1_59e8f682bd3efc3ddd42a24e29e035e1c21bfe56_numero1.jpeg'),
+(221, '9f876e9fd353b88b37d6b83f205fd611906ea2d6', 'cover', 'New', './public/images/1_9f876e9fd353b88b37d6b83f205fd611906ea2d6_numero1.jpeg'),
+(222, '773d193fdd60b871e6c8c45995cf6163ac73083d', 'cover', 'New series', './public/images/1_773d193fdd60b871e6c8c45995cf6163ac73083d_numero1.jpeg'),
+(223, '3cb29bc4f060c8100df6561b1f60c22b85c9beca', 'cover', 'New series', './public/images/1_3cb29bc4f060c8100df6561b1f60c22b85c9beca_numero1.jpeg'),
+(224, '273b4771b4691b2a8876e5a4b1422b2500d00256', 'cover', 'Again new seriess', './public/images/1_273b4771b4691b2a8876e5a4b1422b2500d00256_numero1.jpeg'),
+(225, 'b134981cbcb0625f694458bd79958d309a49fde3', 'cover', 'yo', './public/images/1_b134981cbcb0625f694458bd79958d309a49fde3_numero1.jpeg'),
+(226, 'aa2bf3154bef4f8d5dbd5f3c7edd8fe7e96d8239', 'cover', 'Une nouvelle série', './public/images/1_aa2bf3154bef4f8d5dbd5f3c7edd8fe7e96d8239_numero1.jpeg');
 
 -- --------------------------------------------------------
 
@@ -635,7 +722,7 @@ CREATE TABLE `series` (
   `pricing_status` enum('free','paying') NOT NULL,
   `publishing_status` enum('published','inprogress','deleted') NOT NULL DEFAULT 'inprogress',
   `authors_right` enum('public','CC','CC1','CC2','CC3','CC4','CC5','reserved') NOT NULL DEFAULT 'public',
-  `id_cover` int(11) NOT NULL DEFAULT '10',
+  `id_cover` int(11) NOT NULL DEFAULT '1',
   `publisher_author` varchar(200) DEFAULT NULL,
   `publisher_author_description` longtext
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -659,7 +746,6 @@ INSERT INTO `series` (`id`, `title`, `summary`, `date`, `id_member`, `pricing_st
 (12, 'TestNew', 'Hello', '2021-03-22 20:27:21', 1, 'paying', 'inprogress', 'public', 63, NULL, NULL),
 (23, 'Hello', 'Hello', '2021-03-24 17:05:23', 1, 'paying', 'inprogress', 'public', 86, '', ''),
 (24, 'Hello', 'Hello', '2021-03-24 17:05:51', 1, 'paying', 'inprogress', 'public', 87, '', ''),
-(25, 'Nouveau test', 'Hola', '2021-03-24 17:06:32', 1, 'paying', 'inprogress', 'public', 88, '', ''),
 (26, 'Nouveau test', 'Hola', '2021-03-24 17:08:43', 1, 'paying', 'inprogress', 'public', 89, '', ''),
 (27, 'Nouveau test', 'Hola', '2021-03-24 17:27:55', 1, 'paying', 'inprogress', 'public', 91, '', ''),
 (28, 'Nouveau test', 'Hola', '2021-03-24 17:28:09', 1, 'paying', 'inprogress', 'CC4', 92, '', ''),
@@ -734,7 +820,50 @@ INSERT INTO `series` (`id`, `title`, `summary`, `date`, `id_member`, `pricing_st
 (99, 'Nouveau test', 'Hola', '2021-04-13 20:48:01', 1, 'paying', 'inprogress', 'CC3', 163, '', ''),
 (100, 'Nouveau test', 'Hola', '2021-04-13 20:51:40', 1, 'paying', 'inprogress', 'CC3', 164, '', ''),
 (101, 'Nouveau test', 'Hola', '2021-04-13 21:00:29', 1, 'paying', 'inprogress', 'CC3', 165, '', ''),
-(102, 'Nouveau test du soir et du matin', 'Hola you, comment', '2021-04-13 21:48:07', 1, 'paying', 'inprogress', 'CC3', 166, '', '');
+(102, 'Nouveau test du soir et du matin', 'Hola you, comment hy', '2021-04-13 21:50:49', 1, 'paying', 'inprogress', 'CC3', 166, '', ''),
+(103, 'Bonjour', 'Hola', '2021-04-14 19:35:34', 1, 'paying', 'inprogress', 'CC', 167, '', ''),
+(104, 'Hola', 'Hello', '2021-04-14 19:43:55', 1, 'paying', 'inprogress', 'CC2', 168, '', ''),
+(105, 'Hola', 'Hello', '2021-04-14 19:44:06', 1, 'paying', 'inprogress', 'CC2', 169, '', ''),
+(106, 'Série du samedi soir', 'Super série du samedi soir', '2021-04-17 10:43:16', 1, 'paying', 'inprogress', 'CC', 170, '', ''),
+(115, 'Nouveau test du soir', 'Aujourd\'hui à 11h', '2021-04-17 11:40:04', 1, 'paying', 'inprogress', 'CC2', 192, '', ''),
+(116, 'Test', 'Hola', '2021-04-17 11:48:23', 1, 'paying', 'inprogress', 'public', 195, '', ''),
+(117, 'Test', 'hello', '2021-04-17 11:54:25', 1, 'paying', 'inprogress', 'CC', 10, '', ''),
+(118, 'Bonjour', 'Ca va', '2021-04-17 11:55:40', 1, 'paying', 'inprogress', 'reserved', 196, '', ''),
+(119, 'Bonjour', 'Tu vas bien', '2021-04-17 11:55:58', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(120, 'Ceci est une nouvelle série', 'Tu vas bien', '2021-04-17 12:12:33', 1, 'paying', 'inprogress', 'reserved', 197, '', ''),
+(121, 'Nouveau test', 'hello', '2021-04-17 12:37:36', 1, 'paying', 'inprogress', 'public', 10, '', ''),
+(122, 'Nouveau test', 'hello', '2021-04-17 12:38:01', 1, 'paying', 'inprogress', 'public', 10, '', ''),
+(123, 'Nouveau test', 'hola', '2021-04-17 12:40:40', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(124, 'Héééééééé', 'hola', '2021-04-17 12:40:51', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(125, 'Nouveau test', 'hello', '2021-04-17 12:42:01', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(126, 'Bnojour', 'hola', '2021-04-17 12:49:35', 1, 'paying', 'inprogress', 'CC3', 198, '', ''),
+(127, 'Bonjour', 'hola', '2021-04-20 22:03:36', 1, 'paying', 'inprogress', 'reserved', 199, '', ''),
+(128, 'Hello', 'Bonjour', '2021-04-20 22:06:16', 1, 'paying', 'inprogress', 'CC', 200, '', ''),
+(129, 'Test', 'Bonjour', '2021-04-20 22:08:08', 1, 'paying', 'inprogress', 'reserved', 201, '', ''),
+(130, 'Test', 'Bonjour', '2021-04-20 22:09:07', 1, 'paying', 'inprogress', 'reserved', 202, '', ''),
+(131, 'Test', 'Bonjour', '2021-04-20 22:10:52', 1, 'paying', 'inprogress', 'reserved', 203, '', ''),
+(132, 'hé', 'yo', '2021-04-20 22:13:39', 1, 'paying', 'inprogress', 'reserved', 204, '', ''),
+(133, 'hé', 'yo', '2021-04-20 22:14:18', 1, 'paying', 'inprogress', 'reserved', 205, '', ''),
+(134, 'You', 'are', '2021-04-20 22:18:43', 1, 'paying', 'inprogress', 'reserved', 206, '', ''),
+(135, 'You', 'are', '2021-04-20 22:19:17', 1, 'paying', 'inprogress', 'reserved', 207, '', ''),
+(136, 'You', 'are', '2021-04-20 22:22:50', 1, 'paying', 'inprogress', 'reserved', 208, '', ''),
+(137, 'essai', 'nouveau', '2021-04-20 22:26:07', 1, 'paying', 'inprogress', 'reserved', 209, '', ''),
+(138, 'New', 'Description', '2021-04-21 11:36:33', 1, 'paying', 'inprogress', 'reserved', 210, '', ''),
+(139, 'Nouvelle série', 'Hello', '2021-04-21 13:25:38', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(140, 'New series', 'Hello', '2021-04-21 14:22:29', 1, 'paying', 'inprogress', 'CC1', 211, '', ''),
+(141, 'New series', 'Hello', '2021-04-21 14:41:25', 1, 'paying', 'inprogress', 'CC1', 212, '', ''),
+(142, 'Hello', 'Blabl', '2021-04-21 14:42:21', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(143, 'Again new series', 'Hello', '2021-04-21 14:48:38', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(144, 'Again new seriess', 'Hello', '2021-04-21 14:55:41', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(145, 'Again new seriess', 'Hello', '2021-04-21 14:57:39', 1, 'paying', 'inprogress', 'reserved', 213, '', ''),
+(146, 'Youhouuu', 'hola', '2021-04-21 15:02:24', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(147, 'yo', 'héhé', '2021-04-21 15:03:36', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(148, 'yo', 'héhé', '2021-04-21 15:03:47', 1, 'paying', 'inprogress', 'reserved', 214, '', ''),
+(149, 'yo', 'héhé', '2021-04-21 15:03:56', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(150, 'Une nouvelle série', 'Encore', '2021-04-21 15:04:40', 1, 'paying', 'inprogress', 'CC1', 215, '', ''),
+(151, 'Encore', 'et oui', '2021-04-21 15:04:57', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(152, 'Test', 'Hola', '2021-04-21 16:02:39', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(153, 'Maman', 'Hola', '2021-04-21 16:08:59', 1, 'paying', 'inprogress', 'reserved', 1, '', '');
 
 -- --------------------------------------------------------
 
@@ -766,7 +895,8 @@ INSERT INTO `series_has_members_subscription` (`id_series`, `id_member`, `subscr
 (7, 3, 0),
 (8, 3, 0),
 (9, 3, 0),
-(10, 3, 0);
+(10, 3, 0),
+(12, 1, 0);
 
 -- --------------------------------------------------------
 
@@ -801,8 +931,12 @@ INSERT INTO `series_has_tags` (`id_tag`, `id_series`) VALUES
 (12, 8),
 (4, 9),
 (3, 10),
+(395, 10),
+(396, 10),
 (15, 12),
 (16, 12),
+(395, 23),
+(396, 23),
 (85, 40),
 (86, 41),
 (87, 41),
@@ -914,7 +1048,57 @@ INSERT INTO `series_has_tags` (`id_tag`, `id_series`) VALUES
 (341, 102),
 (342, 102),
 (343, 102),
-(344, 102);
+(344, 102),
+(13, 103),
+(76, 103),
+(77, 103),
+(353, 103),
+(353, 104),
+(354, 104),
+(353, 105),
+(354, 105),
+(126, 106),
+(127, 106),
+(395, 115),
+(396, 115),
+(395, 116),
+(396, 116),
+(397, 116),
+(437, 116),
+(395, 118),
+(396, 118),
+(395, 120),
+(396, 120),
+(395, 124),
+(498, 124),
+(395, 126),
+(396, 126),
+(397, 126),
+(509, 132),
+(510, 132),
+(513, 134),
+(513, 137),
+(395, 138),
+(396, 138),
+(395, 139),
+(396, 139),
+(518, 140),
+(519, 140),
+(395, 143),
+(396, 143),
+(397, 143),
+(395, 144),
+(396, 144),
+(395, 146),
+(396, 146),
+(395, 147),
+(396, 147),
+(76, 150),
+(77, 150),
+(395, 151),
+(396, 151),
+(395, 153),
+(396, 153);
 
 -- --------------------------------------------------------
 
@@ -949,20 +1133,30 @@ INSERT INTO `tags` (`id`, `name`) VALUES
 (223, ' tagc'),
 (307, ' tata'),
 (234, 'août1'),
+(513, 'beautiful'),
 (44, 'Bonjour'),
 (340, 'bouhhhhh'),
 (336, 'bye'),
 (339, 'chuttttttt'),
+(438, 'cinq'),
+(396, 'deux'),
 (156, 'dimanche1'),
 (157, 'dimanche2'),
 (43, 'enfance'),
+(498, 'eux'),
+(353, 'fantastique'),
 (12, 'femme'),
 (290, 'gouter'),
+(510, 'ha'),
+(393, 'haha'),
 (335, 'hello'),
 (342, 'hey'),
+(509, 'hi'),
+(394, 'hihi'),
 (344, 'hiiii'),
 (9, 'histoire'),
 (343, 'hoo'),
+(354, 'horreur'),
 (85, 'jolitag'),
 (252, 'jour'),
 (226, 'juin1'),
@@ -975,17 +1169,22 @@ INSERT INTO `tags` (`id`, `name`) VALUES
 (11, 'mystère'),
 (251, 'novembre1'),
 (253, 'nuit'),
+(355, 'numéro1'),
+(356, 'numéro2'),
 (246, 'octobre1'),
 (90, 'on'),
+(518, 'one'),
 (291, 'papa'),
 (17, 'Plusieurs'),
 (3, 'policier'),
 (7, 'politique'),
 (8, 'pouvoir'),
+(437, 'quatre'),
 (74, 'rêve'),
 (2, 'romance'),
 (126, 'samedi1'),
 (127, 'samedi2'),
+(360, 'samedi3'),
 (236, 'septembre1'),
 (281, 'soir'),
 (15, 'Tag N°1'),
@@ -1004,6 +1203,9 @@ INSERT INTO `tags` (`id`, `name`) VALUES
 (322, 'tonton'),
 (341, 'top'),
 (5, 'travail'),
+(397, 'trois'),
+(519, 'two'),
+(395, 'un'),
 (4, 'vampire'),
 (323, 'youhou');
 
@@ -1144,25 +1346,25 @@ ALTER TABLE `bills`
 -- AUTO_INCREMENT pour la table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT pour la table `covers`
 --
 ALTER TABLE `covers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=167;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=216;
 
 --
 -- AUTO_INCREMENT pour la table `episodes`
 --
 ALTER TABLE `episodes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
 
 --
 -- AUTO_INCREMENT pour la table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=177;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=227;
 
 --
 -- AUTO_INCREMENT pour la table `logos`
@@ -1186,13 +1388,13 @@ ALTER TABLE `packs`
 -- AUTO_INCREMENT pour la table `series`
 --
 ALTER TABLE `series`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=103;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=154;
 
 --
 -- AUTO_INCREMENT pour la table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=345;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=520;
 
 --
 -- Contraintes pour les tables déchargées

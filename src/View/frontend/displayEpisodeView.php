@@ -33,11 +33,11 @@ if (!empty($episode_unitary_published))
             if(isset($updateLikesEpisode))
             {
             ?>    
-                <p>LIKÉ(E)</p>
+                <p><a href="index.php?action=displayEpisode&idseries=<?php echo intval($seriesId); ?>&number=<?php echo intval($episodeNumber); ?>&id=<?php echo intval($episode_unitary_published['id']); ?>&like=-1">ANNULER LE LIKE</a></p>
             <?php
             }else{
             ?>
-                <p><a href="index.php?action=likeEpisode_post&idseries=<?php echo intval($seriesId); ?>&number=<?php echo intval($episodeNumber); ?>&id=<?php echo intval($episode_unitary_published['id']); ?>">LIKER</a></p>
+                <p><a href="index.php?action=displayEpisode&idseries=<?php echo intval($seriesId); ?>&number=<?php echo intval($episodeNumber); ?>&id=<?php echo intval($episode_unitary_published['id']); ?>&like=1">LIKER</a></p>
             <?php    
             }
             ?>

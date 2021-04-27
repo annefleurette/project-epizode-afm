@@ -45,7 +45,7 @@ class EpisodesManager extends Manager
     public function getEpisodesPublishedList($idseries)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT e.number AS "number", e.title AS "title", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COALESCE(e.likes_number, 0) AS "likesNumber", e.date AS "lastUpdate" FROM episodes e LEFT JOIN series s ON s.id = e.id_series WHERE s.id = ? AND e.publishing_status = "published" ORDER BY e.number');
+		$req = $db->prepare('SELECT e.id AS "id", e.number AS "number", e.title AS "title", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COALESCE(e.likes_number, 0) AS "likesNumber", e.date AS "lastUpdate" FROM episodes e LEFT JOIN series s ON s.id = e.id_series WHERE s.id = ? AND e.publishing_status = "published" ORDER BY e.number');
 		$req->execute(array($idseries));
 	    $episodesPublishedList = $req->fetchAll();
 	    $req->closeCursor();
