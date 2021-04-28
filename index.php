@@ -36,7 +36,7 @@ try {
 				$backendController->writeEpisode($_GET['idseries']);
 				break;
 			case 'writeEpisode_post':
-				$backendController->writeEpisodePost($_POST['save'], $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], $_GET['idseries']);
+				$backendController->writeEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], $_GET['idseries']);
 				break;
 			case 'lookEpisode':
 				$backendController->lookEpisode($_GET['idseries'], $_GET['id']);

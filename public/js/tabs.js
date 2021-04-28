@@ -1,4 +1,8 @@
-// Onglets
+// ONGLETS
+Array.from(document.getElementsByClassName("seriesTab")).forEach(elt => {
+	elt.addEventListener('click', () => { 
+		showElt(elt)})
+});
 function showElt(target){
 	let eltClass = target.className;
 	let eltIndex = target.dataset.index;
@@ -11,17 +15,4 @@ function showElt(target){
 			element.style.display = "none";
 		}
 	});
-}
-// Compteur de caractères
-function signCounter(target, show){
-	let targetElt = document.getElementById(target)
-	let showElt = document.getElementById(show)
-	let total = targetElt.value.length;
-	if (total <= 1) {
-	  let message = total + " caractère";
-	  showElt.innerHTML = message;
-	}else{
-	  let message = total + " caractères";
-	  showElt.innerHTML = message;
-	}
 }

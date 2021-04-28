@@ -70,16 +70,18 @@ class FrontendController {
         // On affiche les informations de la série
         $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
         // On gère les likes
-        // On récupère le nombre de likes d'un épisode
-        $oneEpisodesUser = $episodesManager->getEpisodeId(intval($episodeId));
         if(intval($episodeLike) === 1)
         {
+            // On récupère le nombre de likes d'un épisode
+            $oneEpisodesUser = $episodesManager->getEpisodeId(intval($episodeId));
             // On ajoute un like à un épisode
             $likes_number = intval($oneEpisodesUser['numberLikes']);
             $likes_total = $likes_number + 1;
             $updateLikesEpisode = $episodesManager->updateLikesEpisode($likes_total, intval($episodeId));
         }elseif(intval($episodeLike) === -1) 
         {
+            // On récupère le nombre de likes d'un épisode
+            $oneEpisodesUser = $episodesManager->getEpisodeId(intval($episodeId));
             // On ajoute un like en moins à un épisode
             $likes_number = intval($oneEpisodesUser['numberLikes']);
             $likes_total = $likes_number - 1;
@@ -87,6 +89,7 @@ class FrontendController {
         }
         // On récupère les informations de l'épisode
         $episode_unitary_published = $episodesManager->getEpisodePublished($episodeNumber, $seriesId);
+        var_dump($episode_unitary_published['numberLikes']);
         // On affiche les boutons précédents/suivants
 		$nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
         $totalepisodes = intval($nbepisodes[0]);

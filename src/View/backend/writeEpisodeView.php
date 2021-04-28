@@ -32,8 +32,7 @@ ob_start();
         </p>
     </form>
 </section>
-<script type="text/javascript" src="./public/js/tools.js"></script>
-<script type="text/javascript" src="./public/js/script.js"></script>
+<script type="text/javascript" src="./public/js/signcounter.js"></script>
 <?php $body_content = ob_get_clean();
 require('template.php');
 ?>
