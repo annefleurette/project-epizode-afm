@@ -30,14 +30,15 @@ if (!empty($episode_unitary_published))
     <section> <!-- Section avec le contenu de l'épisode -->
         <p><?php echo $episode_unitary_published['content']; ?></p>
         <?php
-            if(isset($updateLikesEpisode))
+            if($episodeLike == 1)
             {
             ?>    
-                <p><a href="index.php?action=displayEpisode&idseries=<?php echo intval($seriesId); ?>&number=<?php echo intval($episodeNumber); ?>&id=<?php echo intval($episode_unitary_published['id']); ?>&like=-1">ANNULER LE LIKE</a></p>
+                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=-1">ANNULER LE LIKE</a></p>
             <?php
-            }else{
+            }elseif($episodeLike == -1 OR $episodeLike == 0)
+            {
             ?>
-                <p><a href="index.php?action=displayEpisode&idseries=<?php echo intval($seriesId); ?>&number=<?php echo intval($episodeNumber); ?>&id=<?php echo intval($episode_unitary_published['id']); ?>&like=1">LIKER</a></p>
+                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=1">LIKER</a></p>
             <?php    
             }
             ?>
@@ -52,18 +53,18 @@ if (!empty($episode_unitary_published))
             <?php  
             }else{
             ?>
-                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>">Episode suivant</a></p>
+                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode suivant</a></p>
             <?php 
             }   
         }elseif($episode_current >= $totalepisodes)
         {
         ?>
-            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>">Episode précédent</a></p>
+            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode précédent</a></p>
         <?php
         }else{
         ?>
-            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>">Episode précédent</a></p>
-            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>">Episode suivant</a></p>
+            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode précédent</a></p>
+            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode suivant</a></p>
         <?php 
         }
         ?>
