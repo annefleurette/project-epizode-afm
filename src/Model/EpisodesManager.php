@@ -35,9 +35,9 @@ class EpisodesManager extends Manager
 	public function countEpisodesPublished($idseries)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT COUNT(*) FROM episodes WHERE publishing_status = "published" AND id_series = ?');
+		$req = $db->prepare('SELECT COUNT(id) FROM episodes WHERE publishing_status = "published" AND id_series = ?');
 		$req->execute(array($idseries));
-		$nbepisodes = $req->fetchAll(\PDO::FETCH_COLUMN);
+		$nbepisodes = $req->fetch(\PDO::FETCH_COLUMN);
 		$req->closeCursor();
 		return $nbepisodes;
 	}

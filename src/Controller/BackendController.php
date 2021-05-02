@@ -363,9 +363,10 @@ class BackendController {
                     $posttitle = htmlspecialchars($posttitle);
                     $postprice = htmlspecialchars($postprice);
                     $postpromotion = htmlspecialchars($postpromotion);
+                    $seriesId = htmlspecialchars($seriesId);
                     $episode_unitary_published = $episodesManager->getEpisodePublished($postnumber, $seriesId);
                     $current_episode = intval($postnumber);
-                    if(empty($episode_unitary_published) AND ($current_episode == $count_episode_publishable))
+                    if(empty($episode_unitary_published) AND ($current_episode === $count_episode_publishable))
                     { // On publie un nouvel épisode
                         $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $seriesId, $postprice, $postpromotion, 100);
                         header("Location: index.php?action=updateSeries&id=" .$seriesId);
