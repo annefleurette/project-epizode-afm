@@ -322,7 +322,7 @@ class BackendController {
             require('./src/View/backend/writeEpisodeView.php');
         }
 
-        public function writeEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice, $postpromotion, $seriesId)
+        public function writeEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice, $postpromotion, $postdate, $seriesId)
         {
             $episodesManager = new EpisodesManager();
             //On compte le nombre d'épisodes de la série qui ont été publiés
@@ -345,7 +345,7 @@ class BackendController {
                     if (empty($episode_unitary_published))
                     {
                         // On enregistre le nouvel épisode
-                        $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "inprogress", $seriesId, $postprice, $postpromotion, 100);
+                        $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "inprogress", date("Y-m-d H:i:s"), $seriesId, $postprice, $postpromotion, 100);
                         header("Location: index.php?action=updateSeries&id=" .$seriesId);
                     }else{
                         echo 'Vous avez déjà publié ce numéro d\'épisode !';
@@ -356,7 +356,7 @@ class BackendController {
             }else{ // Si le bouton Publier est choisi
                 // Enregistrement de l'épisode à publier dans la base de données
                 // Si les données ont bien été saisies
-                if(isset($postnumber) AND isset($posttitle) AND isset($postcontent) AND isset($postprice))
+                if(isset($postnumber) AND isset($posttitle) AND isset($postcontent) AND isset($postprice) AND isset($postdate) AND preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9])$/", $postdate))
                 {
                     // Si le numéro d'épisode n'existe pas déjà parmi les épisodes publiés et si ce numéro est bien le +1 du dernier épisode publié
                     $postnumber = htmlspecialchars($postnumber);
@@ -368,7 +368,7 @@ class BackendController {
                     $current_episode = intval($postnumber);
                     if(empty($episode_unitary_published) AND ($current_episode === $count_episode_publishable))
                     { // On publie un nouvel épisode
-                        $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $seriesId, $postprice, $postpromotion, 100);
+                        $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $seriesId, $postprice, $postpromotion, 100);
                         header("Location: index.php?action=updateSeries&id=" .$seriesId);
                     }else{
                         echo 'Vous avez déjà publié ce numéro d\'épisode ou cet épisode n\'est pas le suivant du dernier épisode publié !';

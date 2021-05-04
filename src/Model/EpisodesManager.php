@@ -111,11 +111,11 @@ class EpisodesManager extends Manager
     	return $deleteCoinsPack;
 	}
 	// On ajoute un nouvel épisode
-	public function addEpisode($number, $title, $content, $publishing_status, $id_series, $price, $promotion, $signs_number)
+	public function addEpisode($number, $title, $content, $publishing_status, $date, $id_series, $price, $promotion, $signs_number)
 	{
 		$db = $this->dbConnect();
-		$addEpisode = $db->prepare('INSERT INTO episodes(number, title, content, publishing_status, date, id_series, price, likes_number, alert_status, promotion, signs_number) VALUES(?, ?, ?, ?, NOW(), ?, ?, 0, 0, ?, ?)');
-		$addEpisode->execute(array($number, $title, $content, $publishing_status, $id_series, $price, $promotion, $signs_number));
+		$addEpisode = $db->prepare('INSERT INTO episodes(number, title, content, publishing_status, date, id_series, price, likes_number, alert_status, promotion, signs_number) VALUES(?, ?, ?, ?, ?, ?, ?, 0, 0, ?, ?)');
+		$addEpisode->execute(array($number, $title, $content, $publishing_status, $date, $id_series, $price, $promotion, $signs_number));
 	    return $addEpisode;
 	}
 	// On modifie un épisode
