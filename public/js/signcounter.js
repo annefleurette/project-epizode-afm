@@ -18,4 +18,5 @@ function signCounter(target, show){
 	  let message = total + " caractères";
 	  showElt.innerHTML = message;
 	}
+	document.getElementById("nbCharacters").value = total;
 }

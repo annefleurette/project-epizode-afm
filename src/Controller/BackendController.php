@@ -34,6 +34,12 @@ class BackendController {
                         $postseriessummary = htmlspecialchars($postseriessummary);
                         $postseriesright = htmlspecialchars($postseriesright);
                         $postseriestag = htmlspecialchars($postseriestag);
+                        // On prépare des variables de session temporaires
+                        $_SESSION['tempAuthorname'] = $postauthorname;
+                        $_SESSION['tempAuthordescription'] = $postauthordescription;
+                        $_SESSION['tempSeriestitle'] = $postseriestitle;
+                        $_SESSION['tempSummary'] = $postseriessummary;
+                        $_SESSION['tempRights'] = $postseriesright;
                         $pricing = "paying";
                         $publishing = "inprogress";
                         // Testons si le titre est bien unique pour l'utilisateur
@@ -70,11 +76,14 @@ class BackendController {
                                         $addCover = $seriesManager->addCover($imageId);
                                         // On récupère l'id d'une cover sur la base de l'id_cover
                                         $coverId = $seriesManager->getCoverId($imageId);
+                                        // On crée une variable de session temporaire
                                     }else{
-                                        echo "Le fichier n'est pas une image !";
+                                        $_SESSION['error'] = "Le fichier n'est pas une image";
+                                        header("Location: index.php?action=writeSeries");
                                     }
                                 }else{
-                                    echo "Le fichier est trop volumineux";
+                                    $_SESSION['error'] = "Le fichier est trop volumineux";
+                                    header("Location: index.php?action=writeSeries");
                                 }
                             }else{
                                 $coverId = 1; // Affiche par défaut
@@ -83,6 +92,9 @@ class BackendController {
                             $addNewSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, $getidmember, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription);
                             // On récupère l'id de la série à partir de son titre, de l'id de l'auteur et de l'id_cover
                             $seriesId = $seriesManager->getSeriesId($getidmember, $postseriestitle);
+                            // On crée une variable de session temporaire
+                            $seriesCover = $seriesManager->getSeriesCover($seriesId);
+                            $_SESSION['tempCover'] = $seriesCover;
                             // Enregistrement des tags
                             $tagname = explode(",", $postseriestag);
                             for ($i = 0; $i < count($tagname); $i++) {
@@ -98,10 +110,17 @@ class BackendController {
                                 $tagId = $seriesManager->getTagId($newtag[$i]);
                                 // On associe le tag à la série
                                 $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
+                                // On crée une variable de session temporaire
+                                $tagSeries = $seriesManager->getTagSeries($seriesId);
+                                var_dump($tagSeries[0]);
+                                $_SESSION['tempTags'] = implode(",", $tagSeries);
+                                var_dump($_SESSION['tempTags']);
+                                exit;
                             }
                             header("Location: index.php?action=updateSeries&id=" .$seriesId);
                         }else{
-                            echo 'Vous avez déjà créé une série avec le même titre !';
+                            $_SESSION['error'] = "Vous avez déjà créé une série avec le même titre !";
+                            header("Location: index.php?action=writeSeries");
                         }
                     }
             }
@@ -319,10 +338,13 @@ class BackendController {
         }
         public function writeEpisode($getid)
         {
+            // regarder dans la bdd s'il existe
+            $getid = htmlspecialchars($getid);
             require('./src/View/backend/writeEpisodeView.php');
+            //Redirection vers créer une série
         }
 
-        public function writeEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice, $postpromotion, $postdate, $seriesId)
+        public function writeEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice, $postpromotion, $postdate, $postsigns, $seriesId)
         {
             $episodesManager = new EpisodesManager();
             //On compte le nombre d'épisodes de la série qui ont été publiés
@@ -335,46 +357,64 @@ class BackendController {
                 // Si les données ont bien été saisies
                 if(isset($postnumber) AND isset($posttitle) AND isset($postcontent) AND isset($postprice))
                 {
-                    //Si le numéro d'épisode n'existe pas déjà parmi les épisodes publiés
                     $postnumber = htmlspecialchars($postnumber);
                     $posttitle = htmlspecialchars($posttitle);
                     $postprice = htmlspecialchars($postprice);
                     $postpromotion = htmlspecialchars($postpromotion);
+                    $postsigns = htmlspecialchars($postsigns);
                     $seriesId = htmlspecialchars($seriesId);
+                    // On prépare des variables de session temporaires
+                    $_SESSION['tempNumber'] = $postnumber;
+                    $_SESSION['tempTitle'] = $posttitle;
+                    $_SESSION['tempContent'] = $postcontent;
+                    $_SESSION['tempPrice'] = $postprice;
+                    $_SESSION['tempPromotion'] = $postpromotion;
+                    //Si le numéro d'épisode n'existe pas déjà parmi les épisodes publiés
                     $episode_unitary_published = $episodesManager->getEpisodePublished($postnumber, $seriesId);
                     if (empty($episode_unitary_published))
                     {
                         // On enregistre le nouvel épisode
-                        $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "inprogress", date("Y-m-d H:i:s"), $seriesId, $postprice, $postpromotion, 100);
+                        $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "inprogress", date("Y-m-d H:i:s"), $seriesId, $postprice, $postpromotion, $postsigns);
                         header("Location: index.php?action=updateSeries&id=" .$seriesId);
                     }else{
-                        echo 'Vous avez déjà publié ce numéro d\'épisode !';
+                        $_SESSION['error'] = "Vous avez déjà publié ce numéro d'épisode !";
+                        header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
                     }
                 }else{
-                    echo 'Vous n\'avez pas rempli tous les champs';
+                    $_SESSION['error'] = "Vous n'avez pas rempli tous les champs";
+                    header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
                 }
             }else{ // Si le bouton Publier est choisi
                 // Enregistrement de l'épisode à publier dans la base de données
                 // Si les données ont bien été saisies
                 if(isset($postnumber) AND isset($posttitle) AND isset($postcontent) AND isset($postprice) AND isset($postdate) AND preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9])$/", $postdate))
                 {
-                    // Si le numéro d'épisode n'existe pas déjà parmi les épisodes publiés et si ce numéro est bien le +1 du dernier épisode publié
                     $postnumber = htmlspecialchars($postnumber);
                     $posttitle = htmlspecialchars($posttitle);
                     $postprice = htmlspecialchars($postprice);
                     $postpromotion = htmlspecialchars($postpromotion);
+                    $postsigns = htmlspecialchars($postsigns);
                     $seriesId = htmlspecialchars($seriesId);
+                    // On prépare des variables de session temporaires
+                    $_SESSION['tempNumber'] = $postnumber;
+                    $_SESSION['tempTitle'] = $posttitle;
+                    $_SESSION['tempContent'] = $postcontent;
+                    $_SESSION['tempPrice'] = $postprice;
+                    $_SESSION['tempPromotion'] = $postpromotion;
+                    // Si le numéro d'épisode n'existe pas déjà parmi les épisodes publiés et si ce numéro est bien le +1 du dernier épisode publié
                     $episode_unitary_published = $episodesManager->getEpisodePublished($postnumber, $seriesId);
                     $current_episode = intval($postnumber);
                     if(empty($episode_unitary_published) AND ($current_episode === $count_episode_publishable))
                     { // On publie un nouvel épisode
-                        $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $seriesId, $postprice, $postpromotion, 100);
+                        $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $seriesId, $postprice, $postpromotion, $postsigns);
                         header("Location: index.php?action=updateSeries&id=" .$seriesId);
                     }else{
-                        echo 'Vous avez déjà publié ce numéro d\'épisode ou cet épisode n\'est pas le suivant du dernier épisode publié !';
+                        $_SESSION['error'] = "Vous avez déjà publié ce numéro d'épisode ou cet épisode n'est pas le suivant du dernier épisode publié !";
+                        header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
                     }
                 }else{
-                    echo 'Vous n\'avez pas rempli tous les champs';
+                    $_SESSION['error'] = "Vous n'avez pas rempli tous les champs";
+                    header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
                 }
             }
         }

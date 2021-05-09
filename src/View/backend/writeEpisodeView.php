@@ -7,24 +7,30 @@ ob_start();
     <form action="index.php?action=writeEpisode_post&idseries=<?php echo $getid; ?>" method="post">
         <p>
             <label for="numberEpisode">Numéro de l'épisode</label><br />
-            <input type="number" id="number" name="numberEpisode" min="1" required>
+            <input type="number" id="number" name="numberEpisode" min="1" required value=<?php if(isset($_SESSION['tempNumber'])){echo $_SESSION['tempNumber'];}else{echo NULL;}?>>
+            <?php if(isset($_SESSION['tempNumber'])){unset($_SESSION['tempNumber']);}?>
         </p>
         <p>
             <label for="titleEpisode">Titre</label><br />
-            <input type="text" id="titleEpisode" name="titleEpisode" minlength="1" maxlength="1200" required></input>
+            <input type="text" id="titleEpisode" name="titleEpisode" minlength="1" maxlength="1200" required value=<?php if(isset($_SESSION['tempTitle'])){echo $_SESSION['tempTitle'];}else{echo NULL;}?>>
+            <?php if(isset($_SESSION['tempTitle'])){unset($_SESSION['tempTitle']);}?>
         </p>
         <p>
             <label for="contentEpisode">Contenu de l'épisode</label><br />
-            <textarea id="contentEpisode" name="contentEpisode"></textarea>
+            <textarea id="contentEpisode" name="contentEpisode"><?php if(isset($_SESSION['tempContent'])){echo $_SESSION['tempContent'];}else{echo NULL;}?></textarea>
+            <?php if(isset($_SESSION['tempContent'])){unset($_SESSION['tempContent']);}?>
             <p id="signsEpisode"></p>
+            <input type="hidden" id="nbCharacters" name="nbCharacters" value="0" />
         </p>
         <p>
             <label for="priceEpisode">Prix de l'épisode</label><br />
-            <input type="number" id="priceEpisode" name="priceEpisode" min="0" value="0" step=".01" required> euro(s)
+            <input type="number" id="priceEpisode" name="priceEpisode" min="0" step=".01" required value=<?php if(isset($_SESSION['tempPrice'])){echo $_SESSION['tempPrice'];}else{echo "0";}?>> euro(s)
+            <?php if(isset($_SESSION['tempPrice'])){unset($_SESSION['tempPrice']);}?>
         </p>
         <p>
             <label for="promotionEpisode">Promotion</label><br />
-            Retirer <input type="number" id="promotionEpisode" name="promotionEpisode" min="0" value="0" step=".01"> euro(s)
+            Retirer <input type="number" id="promotionEpisode" name="promotionEpisode" min="0" step=".01" value=<?php if(isset($_SESSION['tempPromotion'])){echo $_SESSION['tempPromotion'];}else{echo "0";}?>> euro(s)
+            <?php if(isset($_SESSION['tempPromotion'])){unset($_SESSION['tempPromotion']);}?>
         </p>
         <p id="trigger">
             <input type="submit" name="save" value="Enregistrer">

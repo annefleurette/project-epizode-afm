@@ -12,9 +12,16 @@
     </head>
     <body>
     <div>
-        <?php require("./src/View/header.php");?>
-    	   <?php echo $body_content; ?>
-        <?php require("./src/View/footer.php");?>
+        <?php require("./src/View/header.php");
+        // Pour afficher l'erreur sur la page
+        if(isset($_SESSION['error']))
+        {
+        ?>
+            <p><?php echo $_SESSION['error']; ?></p>
+            <?php unset($_SESSION['error']);
+        }
+    	echo $body_content;
+        require("./src/View/footer.php");?>
         </div>
     </body>
   </html>
