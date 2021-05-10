@@ -34,14 +34,15 @@ class BackendController {
                         $postseriessummary = htmlspecialchars($postseriessummary);
                         $postseriesright = htmlspecialchars($postseriesright);
                         $postseriestag = htmlspecialchars($postseriestag);
-                        // On prépare des variables de session temporaires
+                        $pricing = "paying";
+                        $publishing = "inprogress";
+                        // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
                         $_SESSION['tempAuthorname'] = $postauthorname;
                         $_SESSION['tempAuthordescription'] = $postauthordescription;
                         $_SESSION['tempSeriestitle'] = $postseriestitle;
                         $_SESSION['tempSummary'] = $postseriessummary;
                         $_SESSION['tempRights'] = $postseriesright;
-                        $pricing = "paying";
-                        $publishing = "inprogress";
+                        $_SESSION['tempTags'] = $postseriestag;
                         // Testons si le titre est bien unique pour l'utilisateur
                         $getAllTitles = $seriesManager->getAllTitles($getidmember);
                         if(!in_array($postseriestitle, $getAllTitles)) {
@@ -92,9 +93,6 @@ class BackendController {
                             $addNewSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, $getidmember, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription);
                             // On récupère l'id de la série à partir de son titre, de l'id de l'auteur et de l'id_cover
                             $seriesId = $seriesManager->getSeriesId($getidmember, $postseriestitle);
-                            // On crée une variable de session temporaire
-                            $seriesCover = $seriesManager->getSeriesCover($seriesId);
-                            $_SESSION['tempCover'] = $seriesCover;
                             // Enregistrement des tags
                             $tagname = explode(",", $postseriestag);
                             for ($i = 0; $i < count($tagname); $i++) {
@@ -110,12 +108,6 @@ class BackendController {
                                 $tagId = $seriesManager->getTagId($newtag[$i]);
                                 // On associe le tag à la série
                                 $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
-                                // On crée une variable de session temporaire
-                                $tagSeries = $seriesManager->getTagSeries($seriesId);
-                                var_dump($tagSeries[0]);
-                                $_SESSION['tempTags'] = implode(",", $tagSeries);
-                                var_dump($_SESSION['tempTags']);
-                                exit;
                             }
                             header("Location: index.php?action=updateSeries&id=" .$seriesId);
                         }else{
@@ -295,13 +287,27 @@ class BackendController {
                                     }
                                     header("Location: index.php?action=updateSeries&id=" .$seriesId);
                                 }else{
-                                    echo "Le fichier n'est pas une image !";
+                                    // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
+                                    $_SESSION['tempAuthorname'] = $postauthorname;
+                                    $_SESSION['tempAuthordescription'] = $postauthordescription;
+                                    $_SESSION['tempSeriestitle'] = $postseriestitle;
+                                    $_SESSION['tempSummary'] = $postseriessummary;
+                                    $_SESSION['tempRights'] = $postseriesright;
+                                    $_SESSION['tempTags'] = $postseriestag;
+                                    $_SESSION['error'] = "Le fichier n'est pas une image !";
+                                    header("Location: index.php?action=updateSeries&id=" .$seriesId);
                                 }
                             }else{
-                                echo "Le fichier est trop volumineux";
+                                // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
+                                $_SESSION['tempAuthorname'] = $postauthorname;
+                                $_SESSION['tempAuthordescription'] = $postauthordescription;
+                                $_SESSION['tempSeriestitle'] = $postseriestitle;
+                                $_SESSION['tempSummary'] = $postseriessummary;
+                                $_SESSION['tempRights'] = $postseriesright;
+                                $_SESSION['tempTags'] = $postseriestag;
+                                $_SESSION['error'] = "Le fichier est trop volumineux";
+                                header("Location: index.php?action=updateSeries&id=" .$seriesId);
                             }
-                        }else{
-                            echo "Il y a eu un problème dans l'envoi du fichier";
                         }
                         // Si l'image de couverture ne change pas
                         // On récupère l'id d'une cover sur la base de l'id_cover
@@ -331,7 +337,15 @@ class BackendController {
                         }
                         header("Location: index.php?action=updateSeries&id=" .$seriesId);
                     }else{
-                        echo 'Vous avez déjà créé une série avec le même titre !';
+                        // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
+                        $_SESSION['tempAuthorname'] = $postauthorname;
+                        $_SESSION['tempAuthordescription'] = $postauthordescription;
+                        $_SESSION['tempSeriestitle'] = $postseriestitle;
+                        $_SESSION['tempSummary'] = $postseriessummary;
+                        $_SESSION['tempRights'] = $postseriesright;
+                        $_SESSION['tempTags'] = $postseriestag;
+                        $_SESSION['error'] = "Vous avez déjà créé une série avec le même titre !";
+                        header("Location: index.php?action=updateSeries&id=" .$seriesId);
                     }
                 }
             }
@@ -363,7 +377,7 @@ class BackendController {
                     $postpromotion = htmlspecialchars($postpromotion);
                     $postsigns = htmlspecialchars($postsigns);
                     $seriesId = htmlspecialchars($seriesId);
-                    // On prépare des variables de session temporaires
+                    // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
                     $_SESSION['tempNumber'] = $postnumber;
                     $_SESSION['tempTitle'] = $posttitle;
                     $_SESSION['tempContent'] = $postcontent;
