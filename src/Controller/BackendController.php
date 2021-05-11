@@ -218,7 +218,12 @@ class BackendController {
                     $pricing = "paying";
                     $publishing = "inprogress";
                     // Testons si le titre est bien unique pour l'utilisateur
+                    // On récupère tous les titres de série publiées par l'utilisateur
                     $getAllTitles = $seriesManager->getAllTitles($getidmember);
+                    // On récupère le titre actuel
+                    $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
+                    // On l'envlève de $getAllTitles
+                    $getAllTitles = array_diff($getAllTitles, str_split($oneSeriesUserData['title'], 10000));
                     if(!in_array($postseriestitle, $getAllTitles)) {
                         // Si l'image de couverture change
                         // Testons si l'image a bien été envoyée et s'il n'y a pas d'erreur
@@ -355,7 +360,7 @@ class BackendController {
             // regarder dans la bdd s'il existe
             $getid = htmlspecialchars($getid);
             require('./src/View/backend/writeEpisodeView.php');
-            //Redirection vers créer une série
+//Redirection vers créer une série
         }
 
         public function writeEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice, $postpromotion, $postdate, $postsigns, $seriesId)
@@ -420,8 +425,16 @@ class BackendController {
                     $current_episode = intval($postnumber);
                     if(empty($episode_unitary_published) AND ($current_episode === $count_episode_publishable))
                     { // On publie un nouvel épisode
-                        $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $seriesId, $postprice, $postpromotion, $postsigns);
-                        header("Location: index.php?action=updateSeries&id=" .$seriesId);
+                        // Si la date de l'épisode à publier est bien postérieure au dernier épisode publié
+                        $episode_unitary_published = $episodesManager->getEpisodePublished($count_episode_published, $seriesId);
+                        if(strtotime($postdate) > strtotime($episode_unitary_published['date']))
+                        {
+                            $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $seriesId, $postprice, $postpromotion, $postsigns);
+                            header("Location: index.php?action=updateSeries&id=" .$seriesId);
+                        }else{
+                            $_SESSION['error'] = "Vous devez publier votre épisode à une date postérieure au dernier épisode publié, c'est-à-dire le " . $episode_unitary_published['date'];
+                            header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
+                        }
                     }else{
                         $_SESSION['error'] = "Vous avez déjà publié ce numéro d'épisode ou cet épisode n'est pas le suivant du dernier épisode publié !";
                         header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
