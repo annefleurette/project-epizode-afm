@@ -10,7 +10,7 @@ ob_start();
     </ul>
 </nav>
 <section class="seriesContent" data-tab="1">
-    <form action="index.php?action=updateSeries_post&id=<?php echo $getid; ?>" method="post" enctype="multipart/form-data">
+    <form action="index.php?action=updateSeries_post&idseries=<?php echo $seriesId; ?>" method="post" enctype="multipart/form-data">
         <p>
             <label for="title">Titre</label><br />
             <input type="text" id="title" name="titleSeries" minlength="1" maxlength="100" value="<?php if(isset($_SESSION['tempSeriestitle'])){echo $_SESSION['tempSeriestitle'];}else{echo $oneSeriesUserData['title'];}?>" required>
@@ -69,7 +69,7 @@ ob_start();
     </form>
 </section>
 <section class="seriesContent hidden" data-tab="2">
-    <p><a href="index.php?action=writeEpisode&idseries=<?php echo $getid; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
+    <p><a href="index.php?action=writeEpisode&idseries=<?php echo $seriesId; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
     <?php
     if($oneSeriesUserData['numberEpisodes']!== "0")
     {
@@ -84,11 +84,23 @@ ob_start();
                         <p>Episode n°<?php echo $episodedata['number']; ?></p>
                         <p><?php echo $episodedata['title']; ?></p>
                         <p>Statut : <?php echo $episodedata['publishing']; ?></p>
-                        <p>Dernière modification : <?php echo $episodedata['lastUpdate']; ?></p>
+                        <?php
+                        if($episodedata['publishing'] === "published")
+                        {
+                        ?>
+                            <p>Publié le : <?php echo $episodedata['lastUpdate']; ?></p>
+                        <?php
+                        }elseif ($episodedata['publishing'] === "inprogress")
+                        {
+                        ?>
+                            <p>Dernière modification : <?php echo $episodedata['lastUpdate']; ?></p>
+                        <?php
+                        }
+                        ?>
                         <p><?php echo $episodedata['likesNumber']; ?> like(s)</p>
                         <p><?php echo $episodedata['price']; ?> euro(s)</p>
-                        <p><a href ="index.php?action=lookEpisode&idseries=<?php echo $getid; ?>&id=<?php echo $episodedata['id']; ?>">APERCU</a></p>
-                        <p><a href = #>MODIFIER</a></p>
+                        <p><a href ="index.php?action=lookEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">APERCU</a></p>
+                        <p><a href ="index.php?action=updateEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">MODIFIER</a></p>
                         <p><a href = #>SUPPRIMER</a></p>
                     </article>
                 </li>

@@ -33,16 +33,16 @@ if (!empty($episode_unitary_published))
         if($episodeLikesNumber == 1)
         {
         ?>    
-            <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=-1">ANNULER LE LIKE</a></p>
+            <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=-1">ANNULER LE LIKE</a></p>
         <?php
         }elseif($episodeLikesNumber == -1 OR $episodeLikesNumber == 0)
         {
         ?>
-            <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=1">LIKER</a></p>
+            <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=1">LIKER</a></p>
         <?php    
         }
         ?>
-        <p><a href="index.php?action=alertEpisode_post&id = <?php echo $episode_unitary_published['id']; ?>">SIGNALER</a><p>
+        <p><a href="index.php?action=alertEpisode_post&idepisode = <?php echo $episode_unitary_published['id']; ?>">SIGNALER</a><p>
         <?php // Affichage des boutons épisodes précédents/suivants
         if($episode_current <= 1)
         {
@@ -53,18 +53,18 @@ if (!empty($episode_unitary_published))
             <?php  
             }else{
             ?>
-                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode suivant</a></p>
+                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode suivant</a></p>
             <?php 
             }   
         }elseif($episode_current >= $totalepisodes)
         {
         ?>
-            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode précédent</a></p>
+            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode précédent</a></p>
         <?php
         }else{
         ?>
-            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode précédent</a></p>
-            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode suivant</a></p>
+            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode précédent</a></p>
+            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode suivant</a></p>
         <?php 
         }
         ?>
@@ -98,7 +98,7 @@ if (!empty($episode_unitary_published))
                             ?>
                             <p>Le <?php echo $comment_data['date']; ?></p>
                             <p><?php echo ($comment_data['content']); ?></p>
-                            <form action="index.php?action=alertComment_post&id=<?php echo $comment_data["id"]; ?>" method="post">
+                            <form action="index.php?action=alertComment_post&idepisode=<?php echo $comment_data["id"]; ?>" method="post">
                                 <input type="submit" value="Signaler">
                             </form>
                         </article>
@@ -123,7 +123,7 @@ if (!empty($episode_unitary_published))
         <?php
         }else{
         ?>
-            <form action="index.php?action=writeComment_post&id=<?php echo $comment_data["id"]; ?>" method="post">
+            <form action="index.php?action=writeComment_post&idepisode=<?php echo $comment_data["id"]; ?>" method="post">
                 <p>
                     <label for="comment">Saisissez votre commentaire</label><br />
                     <textarea id="comment" name="comment" minlength = "4" required></textarea>

@@ -13,6 +13,7 @@ try {
 	{
 		switch($_GET['action'])
 		{
+			//Series
 			case 'writeSeries':
 				$backendController->writeSeries();
 				break;	
@@ -21,14 +22,15 @@ try {
 				$backendController->writeSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags']);
 				break;
 			case 'updateSeries':
-				$backendController->updateSeries($_GET['id']);
+				$backendController->updateSeries($_GET['idseries']);
 				break;
 			case 'updateSeries_post':
-				$backendController->updateSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_GET['id']);
+				$backendController->updateSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_GET['idseries']);
 				break;
 			case 'displaySeries':
 				$frontendController->displaySeries((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, 12, $_GET['subscription']);
 				break;
+			//Episodes
 			case 'writeEpisode':
 				$backendController->writeEpisode($_GET['idseries']);
 				break;
@@ -36,10 +38,16 @@ try {
 				$backendController->writeEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : date("Y-m-d H:i:s"), $_POST['nbCharacters'], $_GET['idseries']);
 				break;
 			case 'lookEpisode':
-				$backendController->lookEpisode($_GET['idseries'], $_GET['id']);
+				$backendController->lookEpisode($_GET['idseries'], $_GET['idepisode']);
+				break;
+			case 'updateEpisode':
+				$backendController->updateEpisode($_GET['idseries'], $_GET['idepisode']);
+				break;
+			case 'updateEpisode_post':
+				$backendController->updateEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : date('Y-m-dTH:i', strtotime('+2 hours')), $_POST['nbCharacters'], $_GET['idseries'], $_GET['idepisode']);
 				break;
 			case 'displayEpisode':
-				$frontendController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, $_GET['idseries'], $_GET['number'], $_GET['id'], $_GET['like']);
+				$frontendController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
 				break;	
 		}
 	}else{

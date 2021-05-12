@@ -25,21 +25,11 @@ class EpisodesManager extends Manager
     public function getEpisodesList($idseries)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT e.id AS "id", e.number AS "number", e.title AS "title", e.publishing_status AS "publishing", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COUNT(DISTINCT lik.id_episode) AS "numberLikers", e.date AS "lastUpdate" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN episode_has_members_likers lik ON lik.id_episode = e.id WHERE s.id = ? GROUP BY e.id');
+		$req = $db->prepare('SELECT e.id AS "id", e.number AS "number", e.title AS "title", e.publishing_status AS "publishing", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COUNT(DISTINCT lik.id_episode) AS "likesNumber", e.date AS "lastUpdate" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN episode_has_members_likers lik ON lik.id_episode = e.id WHERE s.id = ? GROUP BY e.id');
 		$req->execute(array($idseries));
 	    $episodesList = $req->fetchAll();
 	    $req->closeCursor();
 	    return $episodesList;
-	}
-	//On compte le nombre d'épisodes d'une série qui ont été publiés
-	public function countEpisodesPublished($idseries)
-	{
-		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT COUNT(id) FROM episodes WHERE publishing_status = "published" AND id_series = ?');
-		$req->execute(array($idseries));
-		$nbepisodes = $req->fetch(\PDO::FETCH_COLUMN);
-		$req->closeCursor();
-		return $nbepisodes;
 	}
 	// On récupère la liste de tous les épisodes publiés d'une série
     public function getEpisodesPublishedList($idseries)
@@ -51,15 +41,25 @@ class EpisodesManager extends Manager
 	    $req->closeCursor();
 	    return $episodesPublishedList;
 	}
+	//On compte le nombre d'épisodes d'une série qui ont été publiés
+	public function countEpisodesPublished($idseries)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT COUNT(id) FROM episodes WHERE publishing_status = "published" AND id_series = ?');
+		$req->execute(array($idseries));
+		$nbepisodes = $req->fetch(\PDO::FETCH_COLUMN);
+		$req->closeCursor();
+		return $nbepisodes;
+	}
 	// On récupère les informations d'un épisode d'une série avec l'id
 	public function getEpisodeId($idepisode)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT ic.url AS "cover", s.title AS "series", m.pseudo AS "pseudo", ia.url AS "avatar", l.name AS "publisher", il.url AS "logo", s.publisher_author AS "author", e.number AS "number", e.title AS "title", e.content AS "content", e.publishing_status AS "publishing", m.type AS "type", COUNT(DISTINCT lik.id_episode) AS "likesNumber", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COUNT(DISTINCT com.id_episode) AS "numberComments", ROUND(e.signs_number/(300*5)) AS "timeReading" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN comments com ON com.id_episode = e.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover LEFT JOIN episode_has_members_likers lik ON lik.id_episode = e.id WHERE e.id = ?');
+		$req = $db->prepare('SELECT ic.url AS "cover", s.title AS "series", m.pseudo AS "pseudo", ia.url AS "avatar", l.name AS "publisher", il.url AS "logo", s.publisher_author AS "author", e.number AS "number", e.title AS "title", e.content AS "content", e.publishing_status AS "publishing", m.type AS "type", COUNT(DISTINCT lik.id_episode) AS "likesNumber", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", e.price AS "originalPrice", e.promotion AS "promotion", COUNT(DISTINCT com.id_episode) AS "numberComments", ROUND(e.signs_number/(300*5)) AS "timeReading", e.date AS "date" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN comments com ON com.id_episode = e.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover LEFT JOIN episode_has_members_likers lik ON lik.id_episode = e.id WHERE e.id = ?');
 		$req->execute(array($idepisode));
-	    $oneEpisodesUser = $req->fetch();
+	    $oneEpisode = $req->fetch();
 	    $req->closeCursor();
-	    return $oneEpisodesUser;
+	    return $oneEpisode;
 	}
 	// On récupère un épisode unitaire d'une série publié via son number et l'id de la série
 	public function getEpisodePublished($number, $idseries)

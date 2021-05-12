@@ -59,7 +59,7 @@ ob_start();
                             <p><?php echo $allEpisodesPublished['title']; ?></p>
                             <p><?php echo $allEpisodesPublished['price']; ?> euros</p>
                             <p><?php echo $allEpisodesPublished['likesNumber']; ?> likes</p>
-                            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>&id=<?php echo $allEpisodesPublished['id']; ?>&like=0">LIRE</a></p>
+                            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>&idepisode=<?php echo $allEpisodesPublished['id']; ?>&like=0">LIRE</a></p>
                         </article>
                     </li>
                 <?php

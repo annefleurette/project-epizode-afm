@@ -4,7 +4,7 @@ $head_title = 'Epizode - Créer un nouvel épisode';
 ob_start();
 ?>
 <section>
-    <form action="index.php?action=writeEpisode_post&idseries=<?php echo $getid; ?>" method="post">
+    <form action="index.php?action=writeEpisode_post&idseries=<?php echo $seriesId; ?>" method="post">
         <p>
             <label for="numberEpisode">Numéro de l'épisode</label><br />
             <input type="number" id="number" name="numberEpisode" min="1" required value="<?php if(isset($_SESSION['tempNumber'])){echo $_SESSION['tempNumber'];}else{echo NULL;}?>">
