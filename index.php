@@ -27,10 +27,7 @@ try {
 				$backendController->updateSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_GET['id']);
 				break;
 			case 'displaySeries':
-				$frontendController->displaySeries(12);
-				break;
-			case 'subscribeSeries_post':
-				$frontendController->subscribeSeries($_GET['idmember'], $_GET['id']);
+				$frontendController->displaySeries((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, 12, $_GET['subscription']);
 				break;
 			case 'writeEpisode':
 				$backendController->writeEpisode($_GET['idseries']);
@@ -43,11 +40,7 @@ try {
 				break;
 			case 'displayEpisode':
 				$frontendController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, $_GET['idseries'], $_GET['number'], $_GET['id'], $_GET['like']);
-				break;
-			//case 'likeEpisode_post':
-				//$frontendController->likeEpisode($_GET['idseries'], $_GET['number'], $_GET['id']);
-				//break;
-				
+				break;	
 		}
 	}else{
 		echo "Erreur sur la page";

@@ -29,22 +29,16 @@ ob_start();
     <p><?php echo $oneSeriesUserData['publishing']; ?></p>
     <p><?php echo $oneSeriesUserData['rights']; ?></p>
     <?php
-    if(!isset($_SESSION['pseudo']))
+    if($seriesSubscriptionNumber == 1)
+    {
+    ?>    
+        <p><a href="index.php?action=displaySeries&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&subscription=-1">ANNULER L'ABONNEMENT</a></p>
+    <?php   
+    }elseif($seriesSubscriptionNumber == -1 OR $seriesSubscriptionNumber == 0)
     {
     ?>
-        <p>S'ABONNER</p>
-    <?php
-    }else{
-        if(isset($seriesSubscription))
-        {
-        ?>    
-            <p>ABONNÉ(E)</p>
-        <?php
-        }else{
-        ?>
-            <p><a href="index.php?action=subscribeSeries_post&idmember=<?php echo $oneSeriesUserData['idmember']; ?>&id=<?php echo $seriesId; ?>">S'ABONNER</a></p>
-        <?php    
-        }
+        <p><a href="index.php?action=displaySeries&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&subscription=1">S'ABONNER</a></p>
+    <?php    
     }
     ?>
 </section>

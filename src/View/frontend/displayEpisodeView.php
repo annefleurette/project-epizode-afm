@@ -30,18 +30,18 @@ if (!empty($episode_unitary_published))
     <section> <!-- Section avec le contenu de l'épisode -->
         <p><?php echo $episode_unitary_published['content']; ?></p>
         <?php
-            if($episodeLikesNumber == 1)
-            {
-            ?>    
-                <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=-1">ANNULER LE LIKE</a></p>
-            <?php
-            }elseif($episodeLikesNumber == -1 OR $episodeLikesNumber == 0)
-            {
-            ?>
-                <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=1">LIKER</a></p>
-            <?php    
-            }
-            ?>
+        if($episodeLikesNumber == 1)
+        {
+        ?>    
+            <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=-1">ANNULER LE LIKE</a></p>
+        <?php
+        }elseif($episodeLikesNumber == -1 OR $episodeLikesNumber == 0)
+        {
+        ?>
+            <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=1">LIKER</a></p>
+        <?php    
+        }
+        ?>
         <p><a href="index.php?action=alertEpisode_post&id = <?php echo $episode_unitary_published['id']; ?>">SIGNALER</a><p>
         <?php // Affichage des boutons épisodes précédents/suivants
         if($episode_current <= 1)

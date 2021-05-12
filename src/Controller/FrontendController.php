@@ -13,37 +13,23 @@ use AnneFleurMarchat\Epizode\Model\MembersManager;
 
 class FrontendController {
 
-    public function displaySeries($seriesId = 12)
+    public function displaySeries($memberId = 1, $seriesId = 12, $seriesSubscriptionNumber)
 	{
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager;
         $seriesId = htmlspecialchars($seriesId);
         // On récupère les informations sur la série
         $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
-        // On récupère tous les épisodes de la série
-        $episodesPublishedList = $episodesManager->getEpisodesPublishedList($seriesId);
-        $nbepisodes_published = count($episodesPublishedList);
-        // On récupère des informations sur des séries qui ont des tags en commun
-        $tags = explode(', ', $oneSeriesUserData['tags']);
-        $nbtags = count($tags);
-        $allTagsSeries = [];
-        for ($i = 0; $i < $nbtags; $i++)
-        {
-            $seriesCommonTags[$i] = $seriesManager->getCommonTagsSeries($tags[$i]);
-            array_push($allTagsSeries, $seriesCommonTags[$i]);
-        }  
-		require('./src/View/frontend/displaySeriesView.php');
-	}
-    public function subscribeSeries($memberId, $seriesId)
-	{
-        $seriesManager = new SeriesManager();
-        $episodesManager = new EpisodesManager;
-        $memberId = htmlspecialchars($memberId);
-        $seriesId = htmlspecialchars($seriesId);
-        // On ajoute l'abonnement
-        $seriesSubscription = $seriesManager->addSeriesSubscription($seriesId, $memberId);
-        // On récupère les informations sur la série
-        $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
+        // On gère les abonnements
+         if(intval($seriesSubscriptionNumber) === 1)
+         {
+             // On ajoute un abonnement à une série
+             $seriesSubscription = $seriesManager->addSeriesSubscription($seriesId, $memberId);
+         }elseif(intval($seriesSubscriptionNumber) === -1) 
+         {
+             // On supprime un abonnement à une série
+             $deleteSubscription = $seriesManager->deleteSubscription($seriesId, $memberId);
+         }
         // On récupère tous les épisodes de la série
         $episodesPublishedList = $episodesManager->getEpisodesPublishedList($seriesId);
         $nbepisodes_published = count($episodesPublishedList);

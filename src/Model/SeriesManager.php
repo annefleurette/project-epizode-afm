@@ -258,7 +258,7 @@ class SeriesManager extends Manager
 	public function deleteSubscription($idseries, $idmember)
 	{
 		$db = $this->dbConnect();
-		$deleteSubscription = $db->prepare('DELETE FROM series_has_members_subscribers WHERE id_series = ? AND id_member = ?');
+		$deleteSubscription = $db->prepare('DELETE FROM series_has_members_subscription WHERE id_series = ? AND id_member = ?');
     	$deleteSubscription->execute(array($idseries, $idmember));
     	return $deleteSubscription;
 	}
