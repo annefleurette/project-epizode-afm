@@ -66,7 +66,7 @@ class FrontendController {
         $seriesId = htmlspecialchars($seriesId);
         $episodeNumber = htmlspecialchars($episodeNumber);
         $episodeId = htmlspecialchars($episodeId);
-        $episodeLike = htmlspecialchars($episodeLike);
+        $episodeLikesNumber = htmlspecialchars($episodeLikesNumber);
         // On affiche les informations de la série
         $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
         // On gère les likes
