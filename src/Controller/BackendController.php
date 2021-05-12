@@ -213,6 +213,8 @@ class BackendController {
         }
         public function updateSeriesPost($getidmember = 1, $postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag, $seriesId)
         {
+            //var_dump($_POST);
+            //exit;
             $seriesManager = new SeriesManager();
             $membersManager = new MembersManager();
             //if($_SESSION['type'] === "publisher")
