@@ -42,7 +42,7 @@ try {
 				$backendController->lookEpisode($_GET['idseries'], $_GET['id']);
 				break;
 			case 'displayEpisode':
-				$frontendController->displayEpisode($_GET['idseries'], $_GET['number'], $_GET['id'], $_GET['like']);
+				$frontendController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, $_GET['idseries'], $_GET['number'], $_GET['id'], $_GET['like']);
 				break;
 			//case 'likeEpisode_post':
 				//$frontendController->likeEpisode($_GET['idseries'], $_GET['number'], $_GET['id']);

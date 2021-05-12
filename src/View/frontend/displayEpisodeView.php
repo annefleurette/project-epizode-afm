@@ -22,7 +22,7 @@ if (!empty($episode_unitary_published))
         }
         ?>
         <p><?php echo $episode_unitary_published['title']; ?></p>
-        <p><?php echo $episode_unitary_published['numberLikes']; ?> like(s)</p>
+        <p><?php echo $episode_unitary_published['likesNumber']; ?> like(s)</p>
         <p><?php echo $episode_unitary_published['numberComments']; ?> commentaire(s)</p>
         <p><?php echo $episode_unitary_published['timeReading']; ?> minute(s)</p>
         <p><?php echo $episode_unitary_published['price']; ?> euro(s)</p>
@@ -30,15 +30,15 @@ if (!empty($episode_unitary_published))
     <section> <!-- Section avec le contenu de l'épisode -->
         <p><?php echo $episode_unitary_published['content']; ?></p>
         <?php
-            if($episodeLike == 1)
+            if($episodeLikesNumber == 1)
             {
             ?>    
-                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=-1">ANNULER LE LIKE</a></p>
+                <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=-1">ANNULER LE LIKE</a></p>
             <?php
-            }elseif($episodeLike == -1 OR $episodeLike == 0)
+            }elseif($episodeLikesNumber == -1 OR $episodeLikesNumber == 0)
             {
             ?>
-                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=1">LIKER</a></p>
+                <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&id=<?php echo $episode_unitary_published['id']; ?>&like=1">LIKER</a></p>
             <?php    
             }
             ?>

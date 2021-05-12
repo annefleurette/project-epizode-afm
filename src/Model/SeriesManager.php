@@ -254,6 +254,14 @@ class SeriesManager extends Manager
     	$seriesSubscription->execute(array($idseries, $idmember));
     	return $seriesSubscription;
 	}
+	// On supprime un abonnement
+	public function deleteSubscription($idseries, $idmember)
+	{
+		$db = $this->dbConnect();
+		$deleteSubscription = $db->prepare('DELETE FROM series_has_members_subscribers WHERE id_series = ? AND id_member = ?');
+    	$deleteSubscription->execute(array($idseries, $idmember));
+    	return $deleteSubscription;
+	}
 	// On ajoute une cover
 	public function addCover($idcover)
 	{
