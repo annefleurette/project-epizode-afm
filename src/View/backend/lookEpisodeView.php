@@ -4,6 +4,11 @@ ob_start();
 if (!empty($oneEpisodesUser))
 {
 ?>
+    <section> <!-- Retour en arrière -->
+        <p>
+            <a href="index.php?action=updateSeries&idseries=<?php echo $seriesId; ?>">Retour</a>
+        </p>
+    </section>
     <section> <!-- Section avec l'épisode en aperçu -->
         <h1><?php echo $oneSeriesUserData['title']; ?></h1>
         <p><img src="<?php echo $oneSeriesUserData['cover']; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
@@ -22,7 +27,7 @@ if (!empty($oneEpisodesUser))
         }
         ?>
         <p><?php echo $oneEpisodesUser['title']; ?></p>
-        <p><?php echo $oneEpisodesUser['numberLikes']; ?> like(s)</p>
+        <p><?php echo $oneEpisodesUser['likesNumber']; ?> like(s)</p>
         <p><?php echo $oneEpisodesUser['numberComments']; ?> commentaire(s)</p>
         <p><?php echo $oneEpisodesUser['timeReading']; ?> minute(s)</p>
     </section>

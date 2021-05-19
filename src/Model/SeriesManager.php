@@ -27,7 +27,7 @@ class SeriesManager extends Manager
     public function getLastThreeSeriesUsers()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", s.pricing_status AS "pricing", COUNT(DISTINCT e.id) AS "numberEpisodes", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN series s ON s.id_member = m.id LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "user" AND s.publishing_status = "published" GROUP BY s.id ORDER BY s.date DESC LIMIT 3');
+		$req = $db->query('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", s.pricing_status AS "pricing", COUNT(DISTINCT e.id) AS "numberEpisodes", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN series s ON s.id_member = m.id LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "user" AND s.publishing_status = "published" GROUP BY s.id ORDER BY s.date_publication DESC LIMIT 3');
 	    $seriesLastThreeUsers = $req->fetchAll();
 	    $req->closeCursor();
 	    return $seriesLastThreeUsers;
@@ -36,7 +36,7 @@ class SeriesManager extends Manager
     public function getLastThreeSeriesPublishers()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", COUNT(DISTINCT e.id) AS "numberEpisodes", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "publisher" AND s.publishing_status = "published" GROUP BY s.id ORDER BY s.date DESC LIMIT 3');
+		$req = $db->query('SELECT s.id AS "id", ic.url AS "cover", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", s.pricing_status AS "pricing", s.publishing_status AS "publishing", COUNT(DISTINCT e.id) AS "numberEpisodes", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags" FROM members m LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "publisher" AND s.publishing_status = "published" GROUP BY s.id ORDER BY s.date_publication DESC LIMIT 3');
 	    $seriesLastThreePublishers = $req->fetchAll();
 	    $req->closeCursor();
 	    return $seriesLastThreePublishers;
@@ -103,7 +103,7 @@ class SeriesManager extends Manager
 	public function addSeries($title, $summary, $idmemberrelated, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription)
 	{
 		$db = $this->dbConnect();
-		$addNewSeries = $db->prepare('INSERT INTO series(title, summary, date, id_member, pricing_status, publishing_status, authors_right, id_cover, publisher_author, publisher_author_description) VALUES(?, ?, NOW(), ?, ?, ?, ?, ?, ?, ?)');
+		$addNewSeries = $db->prepare('INSERT INTO series(title, summary, date_publication, date_modification, id_member, pricing_status, publishing_status, authors_right, id_cover, publisher_author, publisher_author_description) VALUES(?, ?, NOW(), NOW(), ?, ?, ?, ?, ?, ?, ?)');
 		$addNewSeries->execute(array($title, $summary, $idmemberrelated, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription));
 		return $addNewSeries;
 	}	
@@ -111,7 +111,7 @@ class SeriesManager extends Manager
 	public function updateSeries($title, $summary, $pricing, $publishing, $rights, $idcoverrelated, $publisherauthor, $publisherauthordescription, $idseries)
 	{
 		$db = $this->dbConnect();
-		$updateSeries = $db->prepare('UPDATE series SET title = :newtitle, summary = :newsummary, date = NOW(), pricing_status = :newpricing_status, publishing_status = :newpublishing_status, authors_right = :newauthors_right, id_cover = :newid_cover, publisher_author = :newpublisher_author, publisher_author_description = :newpublisher_author_description WHERE id = :idseries');
+		$updateSeries = $db->prepare('UPDATE series SET title = :newtitle, summary = :newsummary, date_modification = NOW(), pricing_status = :newpricing_status, publishing_status = :newpublishing_status, authors_right = :newauthors_right, id_cover = :newid_cover, publisher_author = :newpublisher_author, publisher_author_description = :newpublisher_author_description WHERE id = :idseries');
         $updateSeries->execute(array(
 			'newtitle' => $title,
 			'newsummary' => $summary,

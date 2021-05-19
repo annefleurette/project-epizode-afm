@@ -33,14 +33,14 @@ ob_start();
         <p>
             <label for="rights">Droits d'auteurs</label><br />
             <select name="rights" required>
-                <option <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Tous droits réservés")) { ?>selected="selected" value="reserved"<?php }; ?>>Tous droits réservés</option>
-                <option <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Domaine public")) { ?>selected="selected" value="public"<?php }; ?>>Domaine public</option>
-                <option <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Creative Commons Attribution")) { ?>selected="selected" value="CC"<?php }; ?>>Creative Commons Attribution</option>
-                <option <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Creative Commons Attribution - Pas de modification")) { ?>selected="selected" value="CC1"<?php }; ?>>Creative Commons Attribution - Pas de modification</option>
-                <option <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Creative Commons Attribution - Pas d'utilisation commerciale - Pas de modification")) { ?>selected="selected" value="CC2"<?php }; ?>>Creative Commons Attribution - Pas d'utilisation commerciale - Pas de modification</option>
-                <option <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Creative Commons Attribution - Pas d'utilisation commerciale")) { ?>selected="selected" value="CC3"<?php }; ?>>Creative Commons Attribution - Pas d'utilisation commerciale</option>
-                <option <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Creative Commons Attribution - Pas d'utilisation commerciale - Partage dans les mêmes conditions")) { ?>selected="selected" value="CC4"<?php }; ?>>Creative Commons Attribution - Pas d'utilisation commerciale - Partage dans les mêmes conditions</option>
-                <option <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Creative Commons Attribution - Partage dans les mêmes conditions")) { ?>selected="selected" value="CC5"<?php }; ?>>Creative Commons Attribution - Partage dans les mêmes conditions</option>
+                <option value="reserved" <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Tous droits réservés")) { ?>selected="selected"<?php }; ?>>Tous droits réservés</option>
+                <option value="public" <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Domaine public")) { ?>selected="selected"<?php }; ?>>Domaine public</option>
+                <option value="CC" <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Creative Commons Attribution")) { ?>selected="selected"<?php }; ?>>Creative Commons Attribution</option>
+                <option value="CC1" <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Creative Commons Attribution - Pas de modification")) { ?>selected="selected"<?php }; ?>>Creative Commons Attribution - Pas de modification</option>
+                <option value="CC2" <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Creative Commons Attribution - Pas d'utilisation commerciale - Pas de modification")) { ?>selected="selected"<?php }; ?>>Creative Commons Attribution - Pas d'utilisation commerciale - Pas de modification</option>
+                <option value="CC3" <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Creative Commons Attribution - Pas d'utilisation commerciale")) { ?>selected="selected"<?php }; ?>>Creative Commons Attribution - Pas d'utilisation commerciale</option>
+                <option value="CC4" <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Creative Commons Attribution - Pas d'utilisation commerciale - Partage dans les mêmes conditions")) { ?>selected="selected"<?php }; ?>>Creative Commons Attribution - Pas d'utilisation commerciale - Partage dans les mêmes conditions</option>
+                <option value="CC5" <?php if(isset($_SESSION['tempRights']) AND ($_SESSION['tempRights'] == "Creative Commons Attribution - Partage dans les mêmes conditions")) { ?>selected="selected"<?php }; ?>>Creative Commons Attribution - Partage dans les mêmes conditions</option>
             </select>  
             <?php if(isset($_SESSION['tempRights'])){unset($_SESSION['tempRights']);}?>
         </p>
