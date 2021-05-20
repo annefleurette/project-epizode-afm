@@ -7,6 +7,10 @@ document.getElementById("contentEpisode").addEventListener('keyup', ()=> {
 document.getElementById("contentEpisode").addEventListener('touchend', ()=> {
 	signCounter("contentEpisode", "signsEpisode")	
 });
+// Chargement de la page
+window.addEventListener('load', () => {
+	signCounter("contentEpisode", "signsEpisode")
+});
 function signCounter(target, show){
 	let targetElt = document.getElementById(target)
 	let showElt = document.getElementById(show)
