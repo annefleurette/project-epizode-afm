@@ -80,40 +80,50 @@ if(!empty($seriesId))
                 <?php
                 foreach ($episodesList as $episodedata)
                 {
-                ?>
-                    <li>
-                        <article>
-                            <p>Episode n°<?php echo $episodedata['number']; ?></p>
-                            <p><?php echo $episodedata['title']; ?></p>
-                            <p>Statut : <?php echo $episodedata['publishing']; ?></p>
-                            <?php
-                            if($episodedata['publishing'] === "published")
-                            {
-                            ?>
-                                <?php if(isset($episodedata['publicationDate']))
+                    // On enlève les épisodes dont le statut est passé en supprimé
+                    if($episodedata['publishing'] !== "deleted")
+                    {
+                    ?>
+                        <li>
+                            <article>
+                                <p>Episode n°<?php echo $episodedata['number']; ?></p>
+                                <p><?php echo $episodedata['title']; ?></p>
+                                <p>Statut : <?php echo $episodedata['publishing']; ?></p>
+                                <?php
+                                if($episodedata['publishing'] === "published")
                                 {
                                 ?>
-                                    <p>Publié le : <?php echo $episodedata['publicationDate']; ?></p>
+                                    <?php if(isset($episodedata['publicationDate']))
+                                    {
+                                    ?>
+                                        <p>Publié le : <?php echo $episodedata['publicationDate']; ?></p>
+                                    <?php
+                                    }
+                                    ?>
+                                    <p>Dernière modification le : <?php echo $episodedata['lastUpdate']; ?></p>
+                                <?php
+                                }elseif ($episodedata['publishing'] === "inprogress")
+                                {
+                                ?>
+                                    <p>Dernière modification : <?php echo $episodedata['lastUpdate']; ?></p>
                                 <?php
                                 }
                                 ?>
-                                <p>Dernière modification le : <?php echo $episodedata['lastUpdate']; ?></p>
-                            <?php
-                            }elseif ($episodedata['publishing'] === "inprogress")
-                            {
-                            ?>
-                                <p>Dernière modification : <?php echo $episodedata['lastUpdate']; ?></p>
-                            <?php
-                            }
-                            ?>
-                            <p><?php echo $episodedata['likesNumber']; ?> like(s)</p>
-                            <p><?php echo $episodedata['price']; ?> euro(s)</p>
-                            <p><a href ="index.php?action=lookEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">APERCU</a></p>
-                            <p><a href ="index.php?action=updateEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">MODIFIER</a></p>
-                            <p><a href = #>SUPPRIMER</a></p>
-                        </article>
-                    </li>
-                <?php
+                                <p><?php echo $episodedata['likesNumber']; ?> like(s)</p>
+                                <p><?php echo $episodedata['price']; ?> euro(s)</p>
+                                <p><a href ="index.php?action=lookEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">APERCU</a></p>
+                                <p><a href ="index.php?action=updateEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">MODIFIER</a></p>
+                                <?php if((($episodedata['number'] == $nbepisodes) AND ($episodedata['publishing'] === "published")) OR ($episodedata['publishing'] === "inprogress"))
+                                {
+                                ?>    
+                                    <p><a href = "index.php?action=updateEpisodeDeleted&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">SUPPRIMER</a></p>
+                                <?php    
+                                }
+                                ?> 
+                            </article>
+                        </li>
+                    <?php
+                    }
                 }
                 ?>
             </ul>

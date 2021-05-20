@@ -125,6 +125,17 @@ class SeriesManager extends Manager
 		)); 
 		return $updateSeries;
 	}
+	// On passe le statut d'une série en supprimé
+	public function updateSeriesDeleted($publishing_status, $idseries)
+	{
+		$db = $this->dbConnect();
+		$updateSeriesDeleted = $db->prepare('UPDATE series SET publishing_status = :newpublishing_status WHERE id = :id');
+		$updateSeriesDeleted->execute(array(
+			'newpublishing_status' => $publishing_status,
+			'id' => $idseries
+		)); 
+		return $updateSeriesDeleted;
+	}
 	// On supprime une série
 	public function deleteSeries($idseries)
 	{

@@ -214,6 +214,8 @@ class BackendController {
             $alltags = implode(",", $tagSeries);
             // On affiche les épisodes publiés
             $episodesList = $episodesManager->getEpisodesList($seriesId);
+            // On compte le nombre d'épisodes de la série qui ont été publiés
+            $nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
             require('./src/View/backend/updateSeriesView.php');
         }
         public function updateSeriesPost($getidmember = 1, $postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag, $seriesId)
@@ -376,6 +378,24 @@ class BackendController {
                     }
                 }
             }
+        }
+// A compléter avec l'espace d'administration  
+        public function updateSeriesDeleted($seriesId)
+        {
+            $seriesManager = new SeriesManager();
+            $seriesId = htmlspecialchars($seriesId);
+            // On passe le statut de la série en supprimé
+            $updateSeriesDeleted = $seriesManager->updateSeriesDeleted("deleted", $seriesId);
+            header("Location: "); 
+        }
+// A compléter avec l'espace d'administration        
+        public function deleteSeries($seriesId)
+        {
+            $seriesManager = new SeriesManager();
+            $seriesId = htmlspecialchars($seriesId);
+            // On supprime définitivement la série
+            $deleteSeries = $seriesManager->deleteSeries($seriesId);
+            header("Location: "); 
         }
         public function writeEpisode($seriesId)
         {
@@ -629,4 +649,24 @@ class BackendController {
                 }
             }
         }
+        public function updateEpisodeDeleted($seriesId, $episodeId)
+        {
+            $episodesManager = new EpisodesManager();
+            $seriesId = htmlspecialchars($seriesId);
+            $episodeId = htmlspecialchars($episodeId);
+            // On passe le statut de l'épisode en supprimé
+            $updateEpisodeDeleted = $episodesManager->updateEpisodeDeleted("deleted", $episodeId);
+            header("Location: index.php?action=updateSeries&idseries=" .$seriesId . "&idepisode=" .$episodeId); 
+        }
+// A compléter avec l'espace d'administration        
+        public function deleteEpisode($seriesId, $episodeId)
+        {
+            $episodesManager = new EpisodesManager();
+            $seriesId = htmlspecialchars($seriesId);
+            $episodeId = htmlspecialchars($episodeId);
+            // On supprime définitivement l'épisode
+            $deleteEpisode = $episodesManager->deleteEpisode($episodeId);
+            header("Location: "); 
+        }
+
 }

@@ -152,7 +152,18 @@ class EpisodesManager extends Manager
     	$deleteLike->execute(array($idepisode, $idmember));
     	return $deleteLike;
 	}
-	// On supprime un épisode
+	// On passe le statut d'un épisode en supprimé
+	public function updateEpisodeDeleted($publishing_status, $idepisode)
+	{
+		$db = $this->dbConnect();
+		$updateEpisodeDeleted = $db->prepare('UPDATE episodes SET publishing_status = :newpublishing_status WHERE id = :id');
+		$updateEpisodeDeleted->execute(array(
+			'newpublishing_status' => $publishing_status,
+			'id' => $idepisode
+		)); 
+		return $updateEpisodeDeleted;
+	}
+	// On supprime un épisode définitivement
 	public function deleteEpisode($idepisode)
 	{
 		$db = $this->dbConnect();
