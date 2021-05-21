@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  mar. 04 mai 2021 à 20:38
+-- Généré le :  ven. 21 mai 2021 à 20:05
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.4.2
 
@@ -307,7 +307,18 @@ INSERT INTO `covers` (`id`, `id_cover`) VALUES
 (215, 226),
 (216, 227),
 (217, 228),
-(218, 229);
+(218, 229),
+(219, 230),
+(220, 231),
+(221, 232),
+(222, 233),
+(223, 234),
+(224, 235),
+(225, 236),
+(226, 237),
+(227, 238),
+(228, 239),
+(229, 240);
 
 -- --------------------------------------------------------
 
@@ -321,10 +332,10 @@ CREATE TABLE `episodes` (
   `title` varchar(255) NOT NULL,
   `content` longtext NOT NULL,
   `publishing_status` enum('published','inprogress','deleted') NOT NULL,
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_publication` datetime DEFAULT NULL,
+  `date_modification` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_series` int(11) NOT NULL,
   `price` float NOT NULL DEFAULT '0',
-  `likes_number` int(11) NOT NULL DEFAULT '0',
   `alert_status` tinyint(4) NOT NULL DEFAULT '0',
   `promotion` float NOT NULL DEFAULT '0',
   `signs_number` int(11) NOT NULL
@@ -334,47 +345,95 @@ CREATE TABLE `episodes` (
 -- Déchargement des données de la table `episodes`
 --
 
-INSERT INTO `episodes` (`id`, `number`, `title`, `content`, `publishing_status`, `date`, `id_series`, `price`, `likes_number`, `alert_status`, `promotion`, `signs_number`) VALUES
-(1, 1, 'Premier épisode', 'Proin id pulvinar urna. Donec vel enim erat. Morbi lacinia, augue in sodales commodo, quam mauris porta nisl, non maximus mauris lectus sit amet magna. Etiam ut suscipit enim, sit amet feugiat velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc in augue sit amet augue accumsan finibus. Fusce a pharetra nunc. Pellentesque et sapien dapibus, dignissim ligula in, fermentum lacus. Pellentesque consectetur at sem dignissim auctor. Nam mollis neque sit amet euismod faucibus. Morbi et dolor id lectus dictum accumsan. Cras ut magna vitae erat aliquet lobortis.\r\n\r\nVestibulum dui quam, semper et neque at, tincidunt fermentum quam. Praesent tincidunt fermentum augue, et tincidunt ipsum suscipit sagittis. Integer nec auctor ex. Ut nec cursus quam. Vivamus eu facilisis purus. Donec facilisis, ipsum sit amet egestas pretium, leo nunc ultricies justo, vitae facilisis metus nulla nec nunc. Vestibulum pellentesque libero ligula, ac volutpat orci viverra sed. Suspendisse dictum semper erat. Duis sodales tristique odio sed pellentesque. Donec ut consectetur orci, at luctus lectus. Nulla placerat augue erat, et congue nibh lobortis eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 'published', '2020-07-20 21:35:20', 1, 3, 0, 0, 0, 3000),
-(2, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:17', 2, 0, 0, 0, 0, 3000),
-(3, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:41', 3, 0, 0, 0, 0, 3000),
-(4, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:58', 4, 0, 0, 0, 0, 3000),
-(5, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:37:18', 5, 0, 0, 0, 0, 3000),
-(6, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:37:50', 6, 3.25, 0, 0, 0, 3000),
-(7, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:07', 7, 3, 0, 0, 0, 3000),
-(8, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:24', 8, 3, 0, 0, 0, 3000),
-(9, 2, 'Deuxième épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:38', 12, 6, 4, 0, 0, 3000),
-(10, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:39:02', 12, 3, 2, 0, 0, 3000),
-(11, 2, 'Deuxième épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:40:01', 1, 0, 0, 0, 0, 3000),
-(12, 3, 'Troisième épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:40:23', 12, 0, 6, 1, 0, 3000),
-(13, 1, 'Premier épisode', 'On essaye', 'inprogress', '2021-04-21 11:56:38', 138, 1, 0, 0, 0, 100),
-(14, 1, 'Premier épisode encore', 'Blabla', 'inprogress', '2021-04-21 11:59:11', 138, 0, 0, 0, 0, 100),
-(15, 2, 'Premier épisode encore', 'Blabla', 'published', '2021-04-21 12:00:46', 138, 0, 0, 0, 0, 100),
-(16, 1, 'Test', 'Encore', 'published', '2021-04-21 12:06:20', 138, 2, 0, 0, 0, 100),
-(17, 1, 'Test', 'Encore', 'inprogress', '2021-04-21 12:08:05', 138, 2, 0, 0, 0, 100),
-(18, 3, 'Test', 'Encore', 'inprogress', '2021-04-21 12:10:16', 138, 2, 0, 0, 0, 100),
-(19, 4, 'Bonjour', 'Blabla', 'inprogress', '2021-04-21 12:15:49', 138, 4, 0, 0, 0, 100),
-(20, 1, 'Premier épisode', 'Il était une fois', 'inprogress', '2021-04-21 14:53:50', 143, 5, 0, 0, 0, 100),
-(21, 1, 'Premier épisode', 'Il était une fois', 'inprogress', '2021-04-21 15:05:23', 151, 1, 0, 0, 0, 100),
-(22, 2, 'hola', 'Ca va ?', 'published', '2021-04-21 15:05:47', 151, 0, 0, 0, 0, 100),
-(23, 1, 'Premier épisode', 'he', 'inprogress', '2021-04-21 15:12:33', 151, 1, 0, 0, 0, 100),
-(24, 1, 'Premier épisode', 'Blabla', 'inprogress', '2021-04-21 15:30:56', 151, 1, 0, 0, 1, 100),
-(25, 1, 'Test promotion', 'Hello', 'inprogress', '2021-04-21 15:32:29', 151, 2, 0, 0, 2, 100),
-(26, 1, 'Bonjour', 'Hola', 'inprogress', '2021-04-21 15:36:33', 151, 10, 0, 0, 2, 100),
-(27, 1, 'Premier épisode', 'Bonjour', 'inprogress', '2021-04-21 16:54:58', 153, 10, 0, 0, 2, 100),
-(28, 1, 'Premier épisode', 'Il était une fois', 'inprogress', '2021-04-28 12:16:01', 154, 5, 0, 0, 0, 100),
-(29, 2, 'Premier épisode', 'blqblq', 'published', '2021-04-28 13:39:29', 139, 0.05, 0, 0, 0, 100),
-(30, 2, 'Episode 1', 'Blabla', 'published', '2021-04-28 14:16:14', 159, 0, 0, 0, 0, 100),
-(31, 1, 'Premier épisode', 'Blabla', 'published', '2021-05-02 11:51:31', 161, 10, 0, 0, 3, 100),
-(32, 2, 'Deuxième épisode', 'Blabla', 'published', '2021-05-02 11:52:26', 161, 4, 0, 0, 0, 100),
-(33, 3, 'Troisième épisode', 'Blabla', 'inprogress', '2021-05-02 11:53:34', 161, 0, 0, 0, 0, 100),
-(34, 3, 'Troisième épisode', 'Blabal', 'published', '2021-05-02 11:54:03', 161, 0, 0, 0, 0, 100),
-(35, 4, 'Quatrième épisode', 'Blablabla', 'published', '2021-05-02 13:35:00', 161, 15, 0, 0, 0, 100),
-(36, 5, 'Cinquième épisode', 'Blabla', 'published', '2021-05-02 13:36:00', 161, 0, 0, 0, 0, 100),
-(37, 6, 'Sixième épisode', 'Blabala', 'published', '2021-05-20 13:37:00', 161, 0, 0, 0, 0, 100),
-(38, 7, '7e épisode', 'Blabal', 'inprogress', '2021-05-02 11:38:41', 161, 0, 0, 0, 0, 100),
-(39, 1, 'Premier épisode', 'Blabla', 'published', '2021-05-03 22:24:00', 162, 10, 0, 0, 0, 100),
-(40, 2, 'Deuxième épisode', 'Blaba', 'published', '2021-05-04 22:27:00', 162, 5, 0, 0, 0, 100);
+INSERT INTO `episodes` (`id`, `number`, `title`, `content`, `publishing_status`, `date_publication`, `date_modification`, `id_series`, `price`, `alert_status`, `promotion`, `signs_number`) VALUES
+(1, 1, 'Premier épisode', 'Proin id pulvinar urna. Donec vel enim erat. Morbi lacinia, augue in sodales commodo, quam mauris porta nisl, non maximus mauris lectus sit amet magna. Etiam ut suscipit enim, sit amet feugiat velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc in augue sit amet augue accumsan finibus. Fusce a pharetra nunc. Pellentesque et sapien dapibus, dignissim ligula in, fermentum lacus. Pellentesque consectetur at sem dignissim auctor. Nam mollis neque sit amet euismod faucibus. Morbi et dolor id lectus dictum accumsan. Cras ut magna vitae erat aliquet lobortis.\r\n\r\nVestibulum dui quam, semper et neque at, tincidunt fermentum quam. Praesent tincidunt fermentum augue, et tincidunt ipsum suscipit sagittis. Integer nec auctor ex. Ut nec cursus quam. Vivamus eu facilisis purus. Donec facilisis, ipsum sit amet egestas pretium, leo nunc ultricies justo, vitae facilisis metus nulla nec nunc. Vestibulum pellentesque libero ligula, ac volutpat orci viverra sed. Suspendisse dictum semper erat. Duis sodales tristique odio sed pellentesque. Donec ut consectetur orci, at luctus lectus. Nulla placerat augue erat, et congue nibh lobortis eget. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.', 'published', '2020-07-20 21:35:20', '2021-05-19 14:45:40', 1, 3, 0, 0, 3000),
+(2, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:17', '2021-05-19 14:45:40', 2, 0, 0, 0, 3000),
+(3, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:41', '2021-05-19 14:45:40', 3, 0, 0, 0, 3000),
+(4, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:36:58', '2021-05-19 14:45:40', 4, 0, 0, 0, 3000),
+(5, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:37:18', '2021-05-19 14:45:40', 5, 0, 0, 0, 3000),
+(6, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:37:50', '2021-05-19 14:45:40', 6, 3.25, 0, 0, 3000),
+(7, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:07', '2021-05-19 14:45:40', 7, 3, 0, 0, 3000),
+(8, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:24', '2021-05-19 14:45:40', 8, 3, 0, 0, 3000),
+(9, 2, 'Deuxième épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:38:38', '2021-05-19 14:45:40', 12, 6, 0, 0, 3000),
+(10, 1, 'Premier épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:39:02', '2021-05-19 14:45:40', 12, 3, 0, 0, 3000),
+(11, 2, 'Deuxième épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:40:01', '2021-05-19 14:45:40', 1, 0, 0, 0, 3000),
+(12, 3, 'Troisième épisode', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.\r\n\r\nPraesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', 'published', '2020-07-20 21:40:23', '2021-05-19 14:45:40', 12, 0, 1, 0, 3000),
+(13, 1, 'Premier épisode', 'On essaye', 'inprogress', '2021-04-21 11:56:38', '2021-05-19 14:45:40', 138, 1, 0, 0, 100),
+(14, 1, 'Premier épisode encore', 'Blabla', 'inprogress', '2021-04-21 11:59:11', '2021-05-19 14:45:40', 138, 0, 0, 0, 100),
+(15, 2, 'Premier épisode encore', 'Blabla', 'published', '2021-04-21 12:00:46', '2021-05-19 14:45:40', 138, 0, 0, 0, 100),
+(16, 1, 'Test', 'Encore', 'published', '2021-04-21 12:06:20', '2021-05-19 14:45:40', 138, 2, 0, 0, 100),
+(17, 1, 'Test', 'Encore', 'inprogress', '2021-04-21 12:08:05', '2021-05-19 14:45:40', 138, 2, 0, 0, 100),
+(18, 3, 'Test', 'Encore', 'inprogress', '2021-04-21 12:10:16', '2021-05-19 14:45:40', 138, 2, 0, 0, 100),
+(19, 4, 'Bonjour', 'Blabla', 'inprogress', '2021-04-21 12:15:49', '2021-05-19 14:45:40', 138, 4, 0, 0, 100),
+(20, 1, 'Premier épisode', 'Il était une fois', 'inprogress', '2021-04-21 14:53:50', '2021-05-19 14:45:40', 143, 5, 0, 0, 100),
+(21, 1, 'Premier épisode', 'Il était une fois', 'inprogress', '2021-04-21 15:05:23', '2021-05-19 14:45:40', 151, 1, 0, 0, 100),
+(22, 2, 'hola', 'Ca va ?', 'published', '2021-04-21 15:05:47', '2021-05-19 14:45:40', 151, 0, 0, 0, 100),
+(23, 1, 'Premier épisode', 'he', 'inprogress', '2021-04-21 15:12:33', '2021-05-19 14:45:40', 151, 1, 0, 0, 100),
+(24, 1, 'Premier épisode', 'Blabla', 'inprogress', '2021-04-21 15:30:56', '2021-05-19 14:45:40', 151, 1, 0, 1, 100),
+(25, 1, 'Test promotion', 'Hello', 'inprogress', '2021-04-21 15:32:29', '2021-05-19 14:45:40', 151, 2, 0, 2, 100),
+(26, 1, 'Bonjour', 'Hola', 'inprogress', '2021-04-21 15:36:33', '2021-05-19 14:45:40', 151, 10, 0, 2, 100),
+(27, 1, 'Premier épisode', 'Bonjour', 'inprogress', '2021-04-21 16:54:58', '2021-05-19 14:45:40', 153, 10, 0, 2, 100),
+(28, 1, 'Premier épisode', 'Il était une fois', 'inprogress', '2021-04-28 12:16:01', '2021-05-19 14:45:40', 154, 5, 0, 0, 100),
+(29, 2, 'Premier épisode', 'blqblq', 'published', '2021-04-28 13:39:29', '2021-05-19 14:45:40', 139, 0.05, 0, 0, 100),
+(30, 2, 'Episode 1', 'Blabla', 'published', '2021-04-28 14:16:14', '2021-05-19 14:45:40', 159, 0, 0, 0, 100),
+(31, 1, 'Premier épisode', 'Blabla', 'published', '2021-05-02 11:51:31', '2021-05-19 14:45:40', 161, 10, 0, 3, 100),
+(32, 2, 'Deuxième épisode', 'Blabla', 'published', '2021-05-02 11:52:26', '2021-05-19 14:45:40', 161, 4, 0, 0, 100),
+(33, 3, 'Troisième épisode', 'Blabla', 'inprogress', '2021-05-02 11:53:34', '2021-05-19 14:45:40', 161, 0, 0, 0, 100),
+(34, 3, 'Troisième épisode', 'Blabal', 'published', '2021-05-02 11:54:03', '2021-05-19 14:45:40', 161, 0, 0, 0, 100),
+(35, 4, 'Quatrième épisode', 'Blablabla', 'published', '2021-05-02 13:35:00', '2021-05-19 14:45:40', 161, 15, 0, 0, 100),
+(36, 5, 'Cinquième épisode', 'Blabla', 'published', '2021-05-02 13:36:00', '2021-05-19 14:45:40', 161, 0, 0, 0, 100),
+(37, 6, 'Sixième épisode', 'Blabala', 'published', '2021-05-20 13:37:00', '2021-05-19 14:45:40', 161, 0, 0, 0, 100),
+(38, 7, '7e épisode', 'Blabal', 'inprogress', '2021-05-02 11:38:41', '2021-05-19 14:45:40', 161, 0, 0, 0, 100),
+(39, 1, 'Premier épisode', 'Blabla', 'published', '2021-05-03 22:24:00', '2021-05-19 14:45:40', 162, 10, 0, 0, 100),
+(40, 2, 'Deuxième épisode', 'Blaba', 'published', '2021-05-04 22:27:00', '2021-05-19 14:45:40', 162, 5, 0, 0, 100),
+(41, 1, 'Premier épisode', 'Blabla', 'inprogress', '2021-05-05 11:28:13', '2021-05-19 14:45:40', 163, 10, 0, 0, 100),
+(44, 1, 'Hello', 'Blabla', 'published', '2021-05-05 15:46:00', '2021-05-19 14:45:40', 164, 0, 0, 0, 6),
+(45, 2, 'Hola', 'Blabla', 'published', '2021-05-25 15:46:00', '2021-05-19 14:45:40', 164, 0, 0, 0, 6),
+(46, 3, 'Hello', 'Blabla', 'inprogress', '2021-05-05 15:08:33', '2021-05-19 14:45:40', 164, 0, 0, 0, 0),
+(47, 3, 'Hello', 'Blabla', 'inprogress', '2021-05-05 15:11:14', '2021-05-19 14:45:40', 164, 0, 0, 0, 0),
+(48, 4, 'Bonjour', 'Blabla', 'inprogress', '2021-05-05 15:14:10', '2021-05-19 14:45:40', 164, 0, 0, 0, 0),
+(49, 1, 'Premier épisode', 'Bllaa', 'published', NULL, '2021-05-20 08:11:12', 165, 0, 0, 0, 5),
+(50, 2, 'Deuxième épisode', 'Blabla', 'published', '2021-05-11 22:02:00', '2021-05-19 14:45:40', 165, 10, 0, 0, 0),
+(51, 3, 'Troisième épisode', 'Blabla', 'published', '2021-05-11 22:20:00', '2021-05-19 14:45:40', 165, 0, 0, 0, 6),
+(52, 4, '4e épisode', 'bla', 'published', '2021-05-11 22:23:00', '2021-05-19 14:45:40', 165, 0, 0, 0, 0),
+(53, 5, 'Cinquième épisode du matin', 'Blabla tout va bien', 'published', '2021-05-12 19:06:02', '2021-05-19 14:45:40', 165, 10, 0, 3, 19),
+(54, 1, 'Premier épisode de la série', 'Il était une fois la vie', 'published', '2021-05-19 12:18:00', '2021-05-19 14:45:40', 168, 10, 0, 5, 0),
+(55, 2, 'Deuxième épisode', 'Il était une fois', 'published', '2021-05-19 12:20:00', '2021-05-19 14:45:40', 168, 0, 0, 0, 0),
+(56, 3, '4e épisode', 'Il était une fois', 'published', '2021-05-19 15:37:00', '2021-05-19 15:37:46', 168, 10, 0, 0, 0),
+(57, 3, 'Troisième épisode', 'Il était une fois', 'published', '2021-05-19 14:39:00', '2021-05-19 14:45:40', 168, 10, 0, 0, 17),
+(58, 4, 'Quatrième épisode', 'Il était une fois', 'published', '2021-05-19 15:27:00', '2021-05-19 15:27:13', 168, 10, 0, 3, 0),
+(59, 1, 'Premier épisode de la série', 'Il était une fois la vie', 'published', NULL, '2021-05-19 15:08:40', 169, 10, 0, 5, 24),
+(60, 1, 'Premier épisode de la série', 'Il était une fois', 'published', NULL, '2021-05-19 15:24:34', 169, 10, 0, 5, 0),
+(61, 2, 'Deuxième épisode', 'Il était une fois', 'published', NULL, '2021-05-19 15:25:39', 169, 10, 0, 5, 0),
+(62, 5, '5e épisode', 'Il était une fois', 'inprogress', NULL, '2021-05-19 15:27:52', 168, 0, 0, 0, 17),
+(63, 2, 'Bonjour la terre', 'Blabla', 'published', '2021-05-19 19:02:00', '2021-05-19 19:02:54', 166, 10, 0, 5, 0),
+(64, 3, 'Troisième épisode de la série', 'Hello', 'published', '2021-05-19 19:05:00', '2021-05-19 19:05:42', 166, 10, 0, 4, 0),
+(65, 1, 'Premier épisode', 'Hello', 'published', NULL, '2021-05-19 19:08:22', 160, 10, 0, 5, 0),
+(66, 2, 'Deuxième épisode', 'Hello', 'published', '2021-05-19 19:11:00', '2021-05-19 19:12:06', 160, 7, 0, 5, 0),
+(67, 3, 'Troisième épisode', 'Hello', 'published', '2021-05-19 19:13:00', '2021-05-19 19:13:25', 160, 7, 0, 2, 5),
+(68, 4, '4e épisode', 'Hello', 'published', '2021-05-19 19:14:00', '2021-05-19 19:14:06', 160, 0, 0, 0, 0),
+(69, 2, 'Deuxième épisode', 'Hello', 'published', '2021-05-19 19:15:00', '2021-05-19 19:15:05', 158, 0, 0, 0, 0),
+(70, 1, 'Premier épisode de la série en cours', 'hola', 'published', NULL, '2021-05-19 19:25:27', 157, 0, 0, 0, 0),
+(71, 2, 'Deuxième épisode', 'hola', 'published', '2021-05-19 19:26:00', '2021-05-19 19:26:13', 157, 0, 0, 0, 0),
+(72, 6, 'Sixième épisode', 'Hello', 'deleted', NULL, '2021-05-20 22:15:53', 165, 10, 0, 3, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `episode_has_members_likers`
+--
+
+CREATE TABLE `episode_has_members_likers` (
+  `id_episode` int(11) NOT NULL,
+  `id_member` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Déchargement des données de la table `episode_has_members_likers`
+--
+
+INSERT INTO `episode_has_members_likers` (`id_episode`, `id_member`) VALUES
+(1, 1);
 
 -- --------------------------------------------------------
 
@@ -605,7 +664,18 @@ INSERT INTO `images` (`id`, `name`, `type`, `alt`, `url`) VALUES
 (226, 'aa2bf3154bef4f8d5dbd5f3c7edd8fe7e96d8239', 'cover', 'Une nouvelle série', './public/images/1_aa2bf3154bef4f8d5dbd5f3c7edd8fe7e96d8239_numero1.jpeg'),
 (227, 'cd28053865247f3cf269f281bbf4d0c70e98b855', 'cover', 'Nouvelle série du mercredi', './public/images/1_cd28053865247f3cf269f281bbf4d0c70e98b855_numero1.jpeg'),
 (228, 'cc5d42f15e719abbba4b0f3ba2a02f7cf4e17bee', 'cover', 'La nouvelle série', './public/images/1_cc5d42f15e719abbba4b0f3ba2a02f7cf4e17bee_numero1.jpeg'),
-(229, 'fbcd01e66cee01c05f98edfa3c365dc6325edf1d', 'cover', 'La nouvelle série 1', './public/images/1_fbcd01e66cee01c05f98edfa3c365dc6325edf1d_numero1.jpeg');
+(229, 'fbcd01e66cee01c05f98edfa3c365dc6325edf1d', 'cover', 'La nouvelle série 1', './public/images/1_fbcd01e66cee01c05f98edfa3c365dc6325edf1d_numero1.jpeg'),
+(230, '3fbf728fbf6ee3bf9ac652eb01df630ecae97e2c', 'cover', 'La série du mercredi', './public/images/1_3fbf728fbf6ee3bf9ac652eb01df630ecae97e2c_image1.jpeg'),
+(231, '78f7747bbbd5cfede4242c8eb940730eb2609027', 'cover', 'La série du jeudi', './public/images/1_78f7747bbbd5cfede4242c8eb940730eb2609027_image1.jpeg'),
+(232, '6f6b6a41df75e964f7d5fa01cf5a781766400b27', 'cover', 'La série du jeudi', './public/images/1_6f6b6a41df75e964f7d5fa01cf5a781766400b27_image1.jpeg'),
+(233, '6a90c07df3dab72f21563ffab84135f68696f862', 'cover', 'La série du jeudi', './public/images/1_6a90c07df3dab72f21563ffab84135f68696f862_image1.jpeg'),
+(234, '2ab405a47c86750713bb1d762b8c8d56490d83b1', 'cover', 'La série du jeudi', './public/images/1_2ab405a47c86750713bb1d762b8c8d56490d83b1_image1.jpeg'),
+(235, 'bc50126aebd6b79091117e42c00aa3b77652a6d4', 'cover', 'La série du jeudi matin', './public/images/1_bc50126aebd6b79091117e42c00aa3b77652a6d4_image1.jpeg'),
+(236, '308764f4640bab83cf021c6b5f4c5f302691aaa4', 'cover', 'La série du jeudi matin', './public/images/1_308764f4640bab83cf021c6b5f4c5f302691aaa4_image1.jpeg'),
+(237, 'b1ac6052cbdeea85166f9764722087f681844678', 'cover', 'La série du jeudi matin', './public/images/1_b1ac6052cbdeea85166f9764722087f681844678_image1.jpeg'),
+(238, '72efe61d6129e262029ec7c9216406d98ca35e4d', 'cover', 'La série du jeudi matin', './public/images/1_72efe61d6129e262029ec7c9216406d98ca35e4d_image1.jpeg'),
+(239, '86f4a3e25f2881804f211bb6693ef593214be9ca', 'cover', 'Série du mercredi après-midi', './public/images/1_86f4a3e25f2881804f211bb6693ef593214be9ca_image1.jpeg'),
+(240, 'c8c5d36106f0b4b92971155de815f94825230e97', 'cover', 'Série du mercredi après-midi', './public/images/1_c8c5d36106f0b4b92971155de815f94825230e97_image1.jpeg');
 
 -- --------------------------------------------------------
 
@@ -736,7 +806,8 @@ CREATE TABLE `series` (
   `id` int(11) NOT NULL,
   `title` varchar(100) NOT NULL,
   `summary` longtext NOT NULL,
-  `date` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_publication` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `date_modification` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `id_member` int(11) NOT NULL,
   `pricing_status` enum('free','paying') NOT NULL,
   `publishing_status` enum('published','inprogress','deleted') NOT NULL DEFAULT 'inprogress',
@@ -750,148 +821,155 @@ CREATE TABLE `series` (
 -- Déchargement des données de la table `series`
 --
 
-INSERT INTO `series` (`id`, `title`, `summary`, `date`, `id_member`, `pricing_status`, `publishing_status`, `authors_right`, `id_cover`, `publisher_author`, `publisher_author_description`) VALUES
-(1, 'Geek', 'Sed in diam odio. Phasellus tempus magna commodo suscipit egestas. Morbi quis lacus nec lacus sodales iaculis. Quisque hendrerit sed nulla ut ornare. Sed ullamcorper mi varius leo ultricies tempor. Aliquam at odio tempus, semper felis eu, accumsan risus. Donec eget ante enim. Phasellus ex est, tincidunt ut ullamcorper sit amet, semper quis neque. Aliquam vestibulum arcu at ligula dictum ullamcorper. Sed sit amet eleifend erat, a bibendum dui. Nulla euismod porttitor nulla, et bibendum tortor rutrum tincidunt. Vivamus pulvinar vitae quam sit amet pulvinar.', '2020-07-20 21:00:54', 1, 'free', 'published', 'public', 1, NULL, NULL),
-(2, 'Prophetia', 'Phasellus et tortor vel dolor commodo dapibus eu vel lorem. In neque ipsum, elementum at lorem sed, tempor pellentesque lectus. Morbi imperdiet vehicula porttitor. Etiam justo risus, cursus vel quam in, scelerisque hendrerit lorem. Etiam eu dictum metus. Curabitur imperdiet accumsan sagittis. Donec mattis velit tortor, eu posuere arcu luctus eget. Nulla suscipit neque ut metus luctus, ut rhoncus odio sollicitudin. Ut ante arcu, fringilla non ultrices a, tincidunt at eros. Ut sagittis urna cursus convallis vehicula. Vivamus ac mi ornare, porttitor urna ultricies, suscipit massa. Vestibulum id tincidunt leo.', '2020-07-20 21:01:36', 1, 'free', 'published', 'CC', 2, NULL, NULL),
-(3, 'Elysée', 'Duis cursus efficitur lacus in fringilla. Duis vehicula varius ultrices. Integer auctor in diam quis gravida. Mauris congue vestibulum erat, sit amet dignissim massa tristique et. Integer tempor risus mauris. Proin eu blandit elit. Donec id orci sodales, interdum nisl ac, dignissim felis. Ut volutpat sed nisl ut porttitor. Ut erat ex, tempor vitae nisi ut, posuere malesuada lectus.', '2020-07-20 21:02:14', 1, 'free', 'published', 'public', 3, NULL, NULL),
-(4, 'Renaissance', 'Quisque neque tortor, convallis eu mauris nec, mattis condimentum magna. Suspendisse a massa eu justo placerat bibendum. Vestibulum dictum dignissim lectus, eget tincidunt urna gravida eget. Mauris in eros sit amet urna faucibus commodo in ac turpis. Duis porttitor interdum tellus id ultricies. Morbi orci dui, accumsan sit amet feugiat at, mollis eu lacus. Curabitur fringilla condimentum urna, sit amet dapibus elit volutpat et.', '2020-07-20 21:03:12', 1, 'free', 'published', 'CC', 4, NULL, NULL),
-(5, 'New Boss', 'Mauris nec ex convallis, dictum libero a, ultricies metus. Donec risus enim, consequat sit amet turpis ac, aliquet gravida eros. Vestibulum egestas ipsum elementum, aliquet mi eu, elementum massa. Quisque at nulla sodales, dignissim dolor vel, placerat velit. Vestibulum nec metus lacinia, commodo odio id, cursus eros. Nullam mauris nibh, ultrices non mauris sit amet, fermentum laoreet lacus. Suspendisse vel urna a dui cursus sollicitudin sed id sapien. Nunc quis ante ac velit volutpat placerat eget sed erat. Praesent sodales nulla vel sapien commodo, id auctor nisl tristique.', '2020-07-20 21:03:38', 1, 'free', 'published', 'public', 5, NULL, NULL),
-(6, 'L\'île au trésor', 'Suspendisse a rutrum sem. Nulla tincidunt mauris et tempus ullamcorper. Phasellus fermentum ornare aliquet. Mauris mollis non purus nec molestie. Suspendisse vel leo tempus, hendrerit ipsum dignissim, iaculis nulla. Duis et nisi dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed venenatis ante quis sem pulvinar posuere. Ut imperdiet dolor ut ante tempor gravida. Quisque lacinia nunc eget diam ultricies, vel commodo orci porta. Vestibulum vel augue ut risus finibus elementum.', '2020-07-20 21:13:31', 2, 'paying', 'published', 'public', 6, 'Robert Louis Stevenson', 'Fusce metus odio, vehicula eu ultrices eget, ultricies quis massa. Ut at felis vitae risus semper interdum et eget nunc. Curabitur blandit aliquam tortor, sed viverra felis laoreet ut. Donec nec dictum ante. In bibendum turpis at eros gravida pellentesque. Vestibulum eu lacus scelerisque, interdum nunc et, hendrerit ex.'),
-(7, 'Le chien des Baskerville', 'Cras at scelerisque mauris. Nulla semper ante vel erat porta, auctor posuere dolor gravida. Mauris nunc neque, lacinia sed condimentum ac, semper tincidunt ex. Suspendisse pretium, nulla nec aliquam sollicitudin, mauris nisl interdum tellus, feugiat maximus erat augue nec dui. Duis gravida metus sed ante tempor lacinia. Phasellus vitae nisl vitae augue interdum fringilla. Praesent mi risus, tincidunt a libero non, ultrices lobortis ipsum. Curabitur congue ex in odio porta, sit amet consectetur neque semper. Morbi rhoncus lacus sed dui pulvinar, non porta sem consectetur.', '2020-07-20 21:20:02', 2, 'paying', 'published', 'public', 7, 'Sir Arthur Conan Doyle', 'Fusce metus odio, vehicula eu ultrices eget, ultricies quis massa. Ut at felis vitae risus semper interdum et eget nunc. Curabitur blandit aliquam tortor, sed viverra felis laoreet ut. Donec nec dictum ante. In bibendum turpis at eros gravida pellentesque. Vestibulum eu lacus scelerisque, interdum nunc et, hendrerit ex. Donec nunc odio, sollicitudin sit amet molestie sit amet, lobortis vel urna. Sed ornare ante eget ex efficitur, in consequat odio ultricies.'),
-(8, 'Orgueil et Préjugés', 'Cras at scelerisque mauris. Nulla semper ante vel erat porta, auctor posuere dolor gravida. Mauris nunc neque, lacinia sed condimentum ac, semper tincidunt ex. Suspendisse pretium, nulla nec aliquam sollicitudin, mauris nisl interdum tellus, feugiat maximus erat augue nec dui. Duis gravida metus sed ante tempor lacinia. Phasellus vitae nisl vitae augue interdum fringilla. Praesent mi risus, tincidunt a libero non, ultrices lobortis ipsum. Curabitur congue ex in odio porta, sit amet consectetur neque semper. Morbi rhoncus lacus sed dui pulvinar, non porta sem consectetur.', '2020-07-20 21:21:01', 2, 'paying', 'published', 'public', 8, 'Jane Austen', 'Proin id pulvinar urna. Donec vel enim erat. Morbi lacinia, augue in sodales commodo, quam mauris porta nisl, non maximus mauris lectus sit amet magna. Etiam ut suscipit enim, sit amet feugiat velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.'),
-(9, 'Dracula', 'Praesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', '2020-07-20 21:21:53', 2, 'paying', 'published', 'public', 9, 'Bram Stoker', 'Proin id pulvinar urna. Donec vel enim erat. Morbi lacinia, augue in sodales commodo, quam mauris porta nisl, non maximus mauris lectus sit amet magna. Etiam ut suscipit enim, sit amet feugiat velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.'),
-(10, 'Le fantôme de l\'opéra', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.', '2020-07-20 21:22:52', 2, 'paying', 'published', 'public', 10, 'Gaston Leroux', 'Cras at scelerisque mauris. Nulla semper ante vel erat porta, auctor posuere dolor gravida. Mauris nunc neque, lacinia sed condimentum ac, semper tincidunt ex. Suspendisse pretium, nulla nec aliquam sollicitudin, mauris nisl interdum tellus, feugiat maximus erat augue nec dui.'),
-(11, 'Try1', 'Hola', '2021-03-21 14:35:41', 1, 'paying', 'inprogress', 'public', 13, '', ''),
-(12, 'TestNew', 'Hello', '2021-03-22 20:27:21', 1, 'paying', 'inprogress', 'public', 63, NULL, NULL),
-(23, 'Hello', 'Hello', '2021-03-24 17:05:23', 1, 'paying', 'inprogress', 'public', 86, '', ''),
-(24, 'Hello', 'Hello', '2021-03-24 17:05:51', 1, 'paying', 'inprogress', 'public', 87, '', ''),
-(26, 'Nouveau test', 'Hola', '2021-03-24 17:08:43', 1, 'paying', 'inprogress', 'public', 89, '', ''),
-(27, 'Nouveau test', 'Hola', '2021-03-24 17:27:55', 1, 'paying', 'inprogress', 'public', 91, '', ''),
-(28, 'Nouveau test', 'Hola', '2021-03-24 17:28:09', 1, 'paying', 'inprogress', 'CC4', 92, '', ''),
-(29, 'Nouveau test', 'Hola', '2021-03-24 17:28:38', 1, 'paying', 'inprogress', 'CC4', 93, '', ''),
-(30, 'Nouveau test', 'Hola', '2021-03-24 20:33:10', 1, 'paying', 'inprogress', 'CC4', 94, '', ''),
-(31, 'Nouveau test', 'Hola', '2021-03-24 20:34:44', 1, 'paying', 'inprogress', 'CC4', 95, '', ''),
-(32, 'Nouveau test', 'Hola', '2021-03-24 20:38:06', 1, 'paying', 'inprogress', 'CC4', 96, '', ''),
-(33, 'Nouveau test', 'Hola', '2021-03-24 20:38:45', 1, 'paying', 'inprogress', 'CC4', 97, '', ''),
-(34, 'Nouveau test', 'Hola', '2021-03-24 20:39:30', 1, 'paying', 'inprogress', 'CC4', 98, '', ''),
-(35, 'Nouveau test', 'Hola', '2021-03-24 20:40:45', 1, 'paying', 'inprogress', 'CC4', 99, '', ''),
-(36, 'Nouveau test', 'Hola', '2021-03-24 20:42:32', 1, 'paying', 'inprogress', 'CC4', 100, '', ''),
-(37, 'Nouveau test', 'Hola', '2021-03-24 20:43:22', 1, 'paying', 'inprogress', 'CC4', 101, '', ''),
-(38, 'Nouveau test', 'Hola', '2021-03-24 20:44:53', 1, 'paying', 'inprogress', 'CC4', 102, '', ''),
-(39, 'Nouveau test', 'Hola', '2021-03-24 20:46:53', 1, 'paying', 'inprogress', 'CC4', 103, '', ''),
-(40, 'Nouveau test', 'Hola', '2021-03-24 20:48:38', 1, 'paying', 'inprogress', 'CC4', 104, '', ''),
-(41, 'Hello', 'Bonjour', '2021-04-05 20:03:46', 1, 'paying', 'inprogress', 'reserved', 105, '', ''),
-(42, 'Hello', 'Bonjour', '2021-04-05 20:13:13', 1, 'paying', 'inprogress', 'reserved', 106, '', ''),
-(43, 'Test du soir', 'Hello', '2021-04-05 21:00:35', 1, 'paying', 'inprogress', 'reserved', 107, '', ''),
-(44, 'Test du soir', 'Hello', '2021-04-05 21:02:09', 1, 'paying', 'inprogress', 'reserved', 108, '', ''),
-(45, 'Test du soir', 'Hello', '2021-04-05 21:03:23', 1, 'paying', 'inprogress', 'reserved', 109, '', ''),
-(46, 'Test du soir', 'Hello', '2021-04-05 21:05:08', 1, 'paying', 'inprogress', 'reserved', 110, '', ''),
-(47, 'Test du soir', 'Hello', '2021-04-05 21:05:20', 1, 'paying', 'inprogress', 'reserved', 111, '', ''),
-(48, 'Test du soir', 'Hello', '2021-04-05 21:05:42', 1, 'paying', 'inprogress', 'reserved', 112, '', ''),
-(49, 'Test du soir', 'Hello', '2021-04-05 21:08:53', 1, 'paying', 'inprogress', 'reserved', 113, '', ''),
-(50, 'Test du soir', 'Hello', '2021-04-05 21:10:22', 1, 'paying', 'inprogress', 'reserved', 114, '', ''),
-(51, 'Test du soir n°2', 'Hello', '2021-04-05 21:13:29', 1, 'paying', 'inprogress', 'reserved', 115, '', ''),
-(52, 'Test du soir n°2', 'Hello', '2021-04-05 21:15:25', 1, 'paying', 'inprogress', 'reserved', 116, '', ''),
-(53, 'Test du soir n°2', 'Hello', '2021-04-05 21:16:28', 1, 'paying', 'inprogress', 'reserved', 117, '', ''),
-(54, 'Test du soir n°3', 'Hello', '2021-04-05 21:17:24', 1, 'paying', 'inprogress', 'reserved', 118, '', ''),
-(55, 'Test du soir n°4', 'Hello', '2021-04-05 21:19:26', 1, 'paying', 'inprogress', 'CC3', 119, '', ''),
-(56, 'Test du soir n°5', 'Hello', '2021-04-05 21:21:21', 1, 'paying', 'inprogress', 'CC3', 120, '', ''),
-(57, 'Test du soir n°5', 'Hello', '2021-04-05 21:22:11', 1, 'paying', 'inprogress', 'CC3', 121, '', ''),
-(58, 'Test du soir n°5', 'Hello', '2021-04-05 21:22:58', 1, 'paying', 'inprogress', 'CC3', 122, '', ''),
-(59, 'Test du soir n°5', 'Hello', '2021-04-05 21:23:25', 1, 'paying', 'inprogress', 'CC3', 123, '', ''),
-(60, 'Test du soir n°5', 'Hello', '2021-04-05 21:23:41', 1, 'paying', 'inprogress', 'CC3', 124, '', ''),
-(61, 'Test du soir n°5', 'Hello', '2021-04-05 21:24:05', 1, 'paying', 'inprogress', 'CC3', 125, '', ''),
-(62, 'Test du soir n°5', 'Hello', '2021-04-05 21:24:46', 1, 'paying', 'inprogress', 'CC3', 126, '', ''),
-(63, 'Test du soir n°5', 'Hello', '2021-04-05 21:25:10', 1, 'paying', 'inprogress', 'CC3', 127, '', ''),
-(64, 'Test du soir n°5', 'Hello', '2021-04-05 21:25:45', 1, 'paying', 'inprogress', 'CC3', 128, '', ''),
-(65, 'Test du soir n°5', 'Hello', '2021-04-05 21:26:44', 1, 'paying', 'inprogress', 'CC3', 129, '', ''),
-(66, 'Test du soir n°5', 'Hello', '2021-04-05 21:29:20', 1, 'paying', 'inprogress', 'CC3', 130, '', ''),
-(67, 'Test du soir n°5', 'Hello', '2021-04-05 21:30:01', 1, 'paying', 'inprogress', 'CC3', 131, '', ''),
-(68, 'Test du soir n°5', 'Hello', '2021-04-05 21:30:50', 1, 'paying', 'inprogress', 'CC3', 132, '', ''),
-(69, 'Samedi', 'bonjour', '2021-04-10 11:15:52', 1, 'paying', 'inprogress', 'CC4', 133, '', ''),
-(70, 'Samedi', 'bonjour', '2021-04-10 11:18:46', 1, 'paying', 'inprogress', 'CC4', 134, '', ''),
-(71, 'Samedi', 'bonjour', '2021-04-10 11:19:27', 1, 'paying', 'inprogress', 'CC4', 135, '', ''),
-(72, 'Samedi', 'bonjour', '2021-04-10 11:28:34', 1, 'paying', 'inprogress', 'CC4', 136, '', ''),
-(73, 'Samedi', 'bonjour', '2021-04-10 11:30:20', 1, 'paying', 'inprogress', 'CC4', 137, '', ''),
-(74, 'Samedi', 'bonjour', '2021-04-10 11:32:02', 1, 'paying', 'inprogress', 'CC4', 138, '', ''),
-(75, 'Samedi', 'bonjour', '2021-04-10 11:32:45', 1, 'paying', 'inprogress', 'CC4', 139, '', ''),
-(76, 'Samedi', 'bonjour', '2021-04-10 11:37:20', 1, 'paying', 'inprogress', 'CC4', 140, '', ''),
-(77, 'Samedi', 'bonjour', '2021-04-10 11:39:42', 1, 'paying', 'inprogress', 'CC4', 141, '', ''),
-(78, 'Samedi', 'bonjour', '2021-04-10 11:40:04', 1, 'paying', 'inprogress', 'CC4', 142, '', ''),
-(79, 'Samedi', 'bonjour', '2021-04-10 11:41:15', 1, 'paying', 'inprogress', 'CC4', 143, '', ''),
-(80, 'Samedi', 'bonjour', '2021-04-10 11:42:53', 1, 'paying', 'inprogress', 'CC4', 144, '', ''),
-(81, 'Samedi', 'bonjour', '2021-04-10 11:43:15', 1, 'paying', 'inprogress', 'CC4', 145, '', ''),
-(82, 'Samedi', 'bonjour', '2021-04-10 11:43:41', 1, 'paying', 'inprogress', 'CC4', 146, '', ''),
-(83, 'Samedi', 'bonjour', '2021-04-10 11:45:23', 1, 'paying', 'inprogress', 'CC4', 147, '', ''),
-(85, 'Dimanche', 'Hola', '2021-04-10 11:46:28', 1, 'paying', 'inprogress', 'CC', 149, '', ''),
-(87, 'Lundi', 'Hello', '2021-04-10 13:31:12', 1, 'paying', 'inprogress', 'CC4', 151, '', ''),
-(88, 'Lundi', 'Hello', '2021-04-10 13:34:08', 1, 'paying', 'inprogress', 'CC4', 152, '', ''),
-(89, 'Lundi', 'Hello', '2021-04-10 13:35:53', 1, 'paying', 'inprogress', 'CC4', 153, '', ''),
-(90, 'Lundi', 'Hello', '2021-04-10 13:36:39', 1, 'paying', 'inprogress', 'CC4', 154, '', ''),
-(91, 'Lundi', 'Hello', '2021-04-10 13:37:32', 1, 'paying', 'inprogress', 'CC4', 155, '', ''),
-(92, 'Mars', 'Hola', '2021-04-10 16:46:01', 1, 'paying', 'inprogress', 'CC3', 156, '', ''),
-(93, 'Avril&amp;Mai', 'Hola you', '2021-04-11 14:06:34', 1, 'paying', 'inprogress', 'CC5', 157, '', ''),
-(94, 'Avril', 'Hola', '2021-04-11 14:13:49', 1, 'paying', 'inprogress', 'public', 157, '', ''),
-(95, 'Juin et Juillet', 'Bonjour mois de juillet', '2021-04-11 14:17:09', 1, 'paying', 'inprogress', 'CC5', 159, '', ''),
-(96, 'Août&amp;Septembre&amp;Octobre', 'Bonjour mois de septembre', '2021-04-11 14:23:30', 1, 'paying', 'inprogress', 'reserved', 160, '', ''),
-(97, 'Août', 'Bonjour mois d\'août', '2021-04-11 14:23:05', 1, 'paying', 'inprogress', 'public', 160, '', ''),
-(98, 'Août', 'Bonjour mois d\'août', '2021-04-11 14:26:01', 1, 'paying', 'inprogress', 'public', 160, '', ''),
-(99, 'Nouveau test', 'Hola', '2021-04-13 20:48:01', 1, 'paying', 'inprogress', 'CC3', 163, '', ''),
-(100, 'Nouveau test', 'Hola', '2021-04-13 20:51:40', 1, 'paying', 'inprogress', 'CC3', 164, '', ''),
-(101, 'Nouveau test', 'Hola', '2021-04-13 21:00:29', 1, 'paying', 'inprogress', 'CC3', 165, '', ''),
-(102, 'Nouveau test du soir et du matin', 'Hola you, comment hy', '2021-04-13 21:50:49', 1, 'paying', 'inprogress', 'CC3', 166, '', ''),
-(103, 'Bonjour', 'Hola', '2021-04-14 19:35:34', 1, 'paying', 'inprogress', 'CC', 167, '', ''),
-(104, 'Hola', 'Hello', '2021-04-14 19:43:55', 1, 'paying', 'inprogress', 'CC2', 168, '', ''),
-(105, 'Hola', 'Hello', '2021-04-14 19:44:06', 1, 'paying', 'inprogress', 'CC2', 169, '', ''),
-(106, 'Série du samedi soir', 'Super série du samedi soir', '2021-04-17 10:43:16', 1, 'paying', 'inprogress', 'CC', 170, '', ''),
-(115, 'Nouveau test du soir', 'Aujourd\'hui à 11h', '2021-04-17 11:40:04', 1, 'paying', 'inprogress', 'CC2', 192, '', ''),
-(116, 'Test', 'Hola', '2021-04-17 11:48:23', 1, 'paying', 'inprogress', 'public', 195, '', ''),
-(117, 'Test', 'hello', '2021-04-17 11:54:25', 1, 'paying', 'inprogress', 'CC', 10, '', ''),
-(118, 'Bonjour', 'Ca va', '2021-04-17 11:55:40', 1, 'paying', 'inprogress', 'reserved', 196, '', ''),
-(119, 'Bonjour', 'Tu vas bien', '2021-04-17 11:55:58', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
-(120, 'Ceci est une nouvelle série', 'Tu vas bien', '2021-04-17 12:12:33', 1, 'paying', 'inprogress', 'reserved', 197, '', ''),
-(121, 'Nouveau test', 'hello', '2021-04-17 12:37:36', 1, 'paying', 'inprogress', 'public', 10, '', ''),
-(122, 'Nouveau test', 'hello', '2021-04-17 12:38:01', 1, 'paying', 'inprogress', 'public', 10, '', ''),
-(123, 'Nouveau test', 'hola', '2021-04-17 12:40:40', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
-(124, 'Héééééééé', 'hola', '2021-04-17 12:40:51', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
-(125, 'Nouveau test', 'hello', '2021-04-17 12:42:01', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
-(126, 'Bnojour', 'hola', '2021-04-17 12:49:35', 1, 'paying', 'inprogress', 'CC3', 198, '', ''),
-(127, 'Bonjour', 'hola', '2021-04-20 22:03:36', 1, 'paying', 'inprogress', 'reserved', 199, '', ''),
-(128, 'Hello', 'Bonjour', '2021-04-20 22:06:16', 1, 'paying', 'inprogress', 'CC', 200, '', ''),
-(129, 'Test', 'Bonjour', '2021-04-20 22:08:08', 1, 'paying', 'inprogress', 'reserved', 201, '', ''),
-(130, 'Test', 'Bonjour', '2021-04-20 22:09:07', 1, 'paying', 'inprogress', 'reserved', 202, '', ''),
-(131, 'Test', 'Bonjour', '2021-04-20 22:10:52', 1, 'paying', 'inprogress', 'reserved', 203, '', ''),
-(132, 'hé', 'yo', '2021-04-20 22:13:39', 1, 'paying', 'inprogress', 'reserved', 204, '', ''),
-(133, 'hé', 'yo', '2021-04-20 22:14:18', 1, 'paying', 'inprogress', 'reserved', 205, '', ''),
-(134, 'You', 'are', '2021-04-20 22:18:43', 1, 'paying', 'inprogress', 'reserved', 206, '', ''),
-(135, 'You', 'are', '2021-04-20 22:19:17', 1, 'paying', 'inprogress', 'reserved', 207, '', ''),
-(136, 'You', 'are', '2021-04-20 22:22:50', 1, 'paying', 'inprogress', 'reserved', 208, '', ''),
-(137, 'essai', 'nouveau', '2021-04-20 22:26:07', 1, 'paying', 'inprogress', 'reserved', 209, '', ''),
-(138, 'New', 'Description', '2021-04-21 11:36:33', 1, 'paying', 'inprogress', 'reserved', 210, '', ''),
-(139, 'Nouvelle série', 'Hello', '2021-04-21 13:25:38', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
-(140, 'New series', 'Hello', '2021-04-21 14:22:29', 1, 'paying', 'inprogress', 'CC1', 211, '', ''),
-(141, 'New series', 'Hello', '2021-04-21 14:41:25', 1, 'paying', 'inprogress', 'CC1', 212, '', ''),
-(142, 'Hello', 'Blabl', '2021-04-21 14:42:21', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
-(143, 'Again new series', 'Hello', '2021-04-21 14:48:38', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
-(144, 'Again new seriess', 'Hello', '2021-04-21 14:55:41', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
-(145, 'Again new seriess', 'Hello', '2021-04-21 14:57:39', 1, 'paying', 'inprogress', 'reserved', 213, '', ''),
-(146, 'Youhouuu', 'hola', '2021-04-21 15:02:24', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
-(147, 'yo', 'héhé', '2021-04-21 15:03:36', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
-(148, 'yo', 'héhé', '2021-04-21 15:03:47', 1, 'paying', 'inprogress', 'reserved', 214, '', ''),
-(149, 'yo', 'héhé', '2021-04-21 15:03:56', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
-(150, 'Une nouvelle série', 'Encore', '2021-04-21 15:04:40', 1, 'paying', 'inprogress', 'CC1', 215, '', ''),
-(151, 'Encore', 'et oui', '2021-04-21 15:04:57', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
-(152, 'Test', 'Hola', '2021-04-21 16:02:39', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
-(153, 'Maman', 'Hola', '2021-04-21 16:08:59', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
-(154, 'Nouvelle série du mercredi', 'Il était une fois', '2021-04-28 12:14:48', 1, 'paying', 'inprogress', 'CC3', 216, '', ''),
-(155, 'nouvelle serie', 'blqblq', '2021-04-28 13:36:27', 1, 'paying', 'inprogress', 'CC', 1, '', ''),
-(156, 'nouvequ titre', 'blqb', '2021-04-28 13:46:20', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
-(157, '1111', 'blabla', '2021-04-28 13:49:42', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
-(158, 'La nouvelle série', 'Blabla', '2021-04-28 14:06:25', 1, 'paying', 'inprogress', 'CC1', 217, '', ''),
-(159, 'La nouvelle série 1', 'Blabla', '2021-04-28 14:15:52', 1, 'paying', 'inprogress', 'CC1', 218, '', ''),
-(160, 'Une nouvelle série se crée', 'Blabla', '2021-04-28 14:32:59', 1, 'paying', 'inprogress', 'CC', 1, '', ''),
-(161, 'Nouvelle série en test', 'Blabla', '2021-05-02 11:40:52', 1, 'paying', 'inprogress', 'public', 1, '', ''),
-(162, 'Bonjour série', 'Blabla', '2021-05-04 22:24:13', 1, 'paying', 'inprogress', 'reserved', 1, '', '');
+INSERT INTO `series` (`id`, `title`, `summary`, `date_publication`, `date_modification`, `id_member`, `pricing_status`, `publishing_status`, `authors_right`, `id_cover`, `publisher_author`, `publisher_author_description`) VALUES
+(1, 'Geek', 'Sed in diam odio. Phasellus tempus magna commodo suscipit egestas. Morbi quis lacus nec lacus sodales iaculis. Quisque hendrerit sed nulla ut ornare. Sed ullamcorper mi varius leo ultricies tempor. Aliquam at odio tempus, semper felis eu, accumsan risus. Donec eget ante enim. Phasellus ex est, tincidunt ut ullamcorper sit amet, semper quis neque. Aliquam vestibulum arcu at ligula dictum ullamcorper. Sed sit amet eleifend erat, a bibendum dui. Nulla euismod porttitor nulla, et bibendum tortor rutrum tincidunt. Vivamus pulvinar vitae quam sit amet pulvinar.', '2020-07-20 21:00:54', '2021-05-19 14:46:37', 1, 'free', 'published', 'public', 1, NULL, NULL),
+(2, 'Prophetia', 'Phasellus et tortor vel dolor commodo dapibus eu vel lorem. In neque ipsum, elementum at lorem sed, tempor pellentesque lectus. Morbi imperdiet vehicula porttitor. Etiam justo risus, cursus vel quam in, scelerisque hendrerit lorem. Etiam eu dictum metus. Curabitur imperdiet accumsan sagittis. Donec mattis velit tortor, eu posuere arcu luctus eget. Nulla suscipit neque ut metus luctus, ut rhoncus odio sollicitudin. Ut ante arcu, fringilla non ultrices a, tincidunt at eros. Ut sagittis urna cursus convallis vehicula. Vivamus ac mi ornare, porttitor urna ultricies, suscipit massa. Vestibulum id tincidunt leo.', '2020-07-20 21:01:36', '2021-05-19 14:46:37', 1, 'free', 'published', 'CC', 2, NULL, NULL),
+(3, 'Elysée', 'Duis cursus efficitur lacus in fringilla. Duis vehicula varius ultrices. Integer auctor in diam quis gravida. Mauris congue vestibulum erat, sit amet dignissim massa tristique et. Integer tempor risus mauris. Proin eu blandit elit. Donec id orci sodales, interdum nisl ac, dignissim felis. Ut volutpat sed nisl ut porttitor. Ut erat ex, tempor vitae nisi ut, posuere malesuada lectus.', '2020-07-20 21:02:14', '2021-05-19 14:46:37', 1, 'free', 'published', 'public', 3, NULL, NULL),
+(4, 'Renaissance', 'Quisque neque tortor, convallis eu mauris nec, mattis condimentum magna. Suspendisse a massa eu justo placerat bibendum. Vestibulum dictum dignissim lectus, eget tincidunt urna gravida eget. Mauris in eros sit amet urna faucibus commodo in ac turpis. Duis porttitor interdum tellus id ultricies. Morbi orci dui, accumsan sit amet feugiat at, mollis eu lacus. Curabitur fringilla condimentum urna, sit amet dapibus elit volutpat et.', '2020-07-20 21:03:12', '2021-05-19 14:46:37', 1, 'free', 'published', 'CC', 4, NULL, NULL),
+(5, 'New Boss', 'Mauris nec ex convallis, dictum libero a, ultricies metus. Donec risus enim, consequat sit amet turpis ac, aliquet gravida eros. Vestibulum egestas ipsum elementum, aliquet mi eu, elementum massa. Quisque at nulla sodales, dignissim dolor vel, placerat velit. Vestibulum nec metus lacinia, commodo odio id, cursus eros. Nullam mauris nibh, ultrices non mauris sit amet, fermentum laoreet lacus. Suspendisse vel urna a dui cursus sollicitudin sed id sapien. Nunc quis ante ac velit volutpat placerat eget sed erat. Praesent sodales nulla vel sapien commodo, id auctor nisl tristique.', '2020-07-20 21:03:38', '2021-05-19 14:46:37', 1, 'free', 'published', 'public', 5, NULL, NULL),
+(6, 'L\'île au trésor', 'Suspendisse a rutrum sem. Nulla tincidunt mauris et tempus ullamcorper. Phasellus fermentum ornare aliquet. Mauris mollis non purus nec molestie. Suspendisse vel leo tempus, hendrerit ipsum dignissim, iaculis nulla. Duis et nisi dolor. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed venenatis ante quis sem pulvinar posuere. Ut imperdiet dolor ut ante tempor gravida. Quisque lacinia nunc eget diam ultricies, vel commodo orci porta. Vestibulum vel augue ut risus finibus elementum.', '2020-07-20 21:13:31', '2021-05-19 14:46:37', 2, 'paying', 'published', 'public', 6, 'Robert Louis Stevenson', 'Fusce metus odio, vehicula eu ultrices eget, ultricies quis massa. Ut at felis vitae risus semper interdum et eget nunc. Curabitur blandit aliquam tortor, sed viverra felis laoreet ut. Donec nec dictum ante. In bibendum turpis at eros gravida pellentesque. Vestibulum eu lacus scelerisque, interdum nunc et, hendrerit ex.'),
+(7, 'Le chien des Baskerville', 'Cras at scelerisque mauris. Nulla semper ante vel erat porta, auctor posuere dolor gravida. Mauris nunc neque, lacinia sed condimentum ac, semper tincidunt ex. Suspendisse pretium, nulla nec aliquam sollicitudin, mauris nisl interdum tellus, feugiat maximus erat augue nec dui. Duis gravida metus sed ante tempor lacinia. Phasellus vitae nisl vitae augue interdum fringilla. Praesent mi risus, tincidunt a libero non, ultrices lobortis ipsum. Curabitur congue ex in odio porta, sit amet consectetur neque semper. Morbi rhoncus lacus sed dui pulvinar, non porta sem consectetur.', '2020-07-20 21:20:02', '2021-05-19 14:46:37', 2, 'paying', 'published', 'public', 7, 'Sir Arthur Conan Doyle', 'Fusce metus odio, vehicula eu ultrices eget, ultricies quis massa. Ut at felis vitae risus semper interdum et eget nunc. Curabitur blandit aliquam tortor, sed viverra felis laoreet ut. Donec nec dictum ante. In bibendum turpis at eros gravida pellentesque. Vestibulum eu lacus scelerisque, interdum nunc et, hendrerit ex. Donec nunc odio, sollicitudin sit amet molestie sit amet, lobortis vel urna. Sed ornare ante eget ex efficitur, in consequat odio ultricies.'),
+(8, 'Orgueil et Préjugés', 'Cras at scelerisque mauris. Nulla semper ante vel erat porta, auctor posuere dolor gravida. Mauris nunc neque, lacinia sed condimentum ac, semper tincidunt ex. Suspendisse pretium, nulla nec aliquam sollicitudin, mauris nisl interdum tellus, feugiat maximus erat augue nec dui. Duis gravida metus sed ante tempor lacinia. Phasellus vitae nisl vitae augue interdum fringilla. Praesent mi risus, tincidunt a libero non, ultrices lobortis ipsum. Curabitur congue ex in odio porta, sit amet consectetur neque semper. Morbi rhoncus lacus sed dui pulvinar, non porta sem consectetur.', '2020-07-20 21:21:01', '2021-05-19 14:46:37', 2, 'paying', 'published', 'public', 8, 'Jane Austen', 'Proin id pulvinar urna. Donec vel enim erat. Morbi lacinia, augue in sodales commodo, quam mauris porta nisl, non maximus mauris lectus sit amet magna. Etiam ut suscipit enim, sit amet feugiat velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.'),
+(9, 'Dracula', 'Praesent venenatis elit sed nunc varius, vel interdum sem euismod. Suspendisse eu neque vel sem congue accumsan. Maecenas aliquam felis velit, sed posuere risus dignissim ac. Donec dictum venenatis urna vel consequat. Aliquam volutpat libero ut lobortis tincidunt. Pellentesque condimentum turpis rhoncus felis fermentum, nec malesuada augue pellentesque. Nulla laoreet quis dolor ut ornare. Etiam mollis leo quis ipsum ultrices, in maximus diam molestie. Proin dapibus nulla vel nisi sodales molestie. Morbi mattis, velit a blandit bibendum, lacus lorem eleifend est, vitae commodo enim metus et ligula.', '2020-07-20 21:21:53', '2021-05-19 14:46:37', 2, 'paying', 'published', 'public', 9, 'Bram Stoker', 'Proin id pulvinar urna. Donec vel enim erat. Morbi lacinia, augue in sodales commodo, quam mauris porta nisl, non maximus mauris lectus sit amet magna. Etiam ut suscipit enim, sit amet feugiat velit. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.'),
+(10, 'Le fantôme de l\'opéra', 'Duis diam sapien, varius sit amet tempor quis, dictum eu nulla. Mauris id quam maximus, gravida quam eu, faucibus mauris. Etiam tristique tempor augue. Morbi erat quam, tempor in dignissim in, viverra bibendum metus. Suspendisse sodales quis mi eu convallis. Pellentesque risus neque, suscipit sed lacinia ut, egestas non nisl. Vestibulum ultrices mauris a vulputate dignissim. Nunc lorem nunc, placerat vel neque sit amet, scelerisque rutrum dui. Cras finibus fringilla ante id porttitor. Sed eu efficitur purus.', '2020-07-20 21:22:52', '2021-05-19 14:46:37', 2, 'paying', 'published', 'public', 10, 'Gaston Leroux', 'Cras at scelerisque mauris. Nulla semper ante vel erat porta, auctor posuere dolor gravida. Mauris nunc neque, lacinia sed condimentum ac, semper tincidunt ex. Suspendisse pretium, nulla nec aliquam sollicitudin, mauris nisl interdum tellus, feugiat maximus erat augue nec dui.'),
+(11, 'Try1', 'Hola', '2021-03-21 14:35:41', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 13, '', ''),
+(12, 'TestNew', 'Hello', '2021-03-22 20:27:21', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 63, NULL, NULL),
+(23, 'Hello', 'Hello', '2021-03-24 17:05:23', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 86, '', ''),
+(24, 'Hello', 'Hello', '2021-03-24 17:05:51', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 87, '', ''),
+(26, 'Nouveau test', 'Hola', '2021-03-24 17:08:43', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 89, '', ''),
+(27, 'Nouveau test', 'Hola', '2021-03-24 17:27:55', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 91, '', ''),
+(28, 'Nouveau test', 'Hola', '2021-03-24 17:28:09', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 92, '', ''),
+(29, 'Nouveau test', 'Hola', '2021-03-24 17:28:38', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 93, '', ''),
+(30, 'Nouveau test', 'Hola', '2021-03-24 20:33:10', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 94, '', ''),
+(31, 'Nouveau test', 'Hola', '2021-03-24 20:34:44', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 95, '', ''),
+(32, 'Nouveau test', 'Hola', '2021-03-24 20:38:06', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 96, '', ''),
+(33, 'Nouveau test', 'Hola', '2021-03-24 20:38:45', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 97, '', ''),
+(34, 'Nouveau test', 'Hola', '2021-03-24 20:39:30', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 98, '', ''),
+(35, 'Nouveau test', 'Hola', '2021-03-24 20:40:45', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 99, '', ''),
+(36, 'Nouveau test', 'Hola', '2021-03-24 20:42:32', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 100, '', ''),
+(37, 'Nouveau test', 'Hola', '2021-03-24 20:43:22', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 101, '', ''),
+(38, 'Nouveau test', 'Hola', '2021-03-24 20:44:53', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 102, '', ''),
+(39, 'Nouveau test', 'Hola', '2021-03-24 20:46:53', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 103, '', ''),
+(40, 'Nouveau test', 'Hola', '2021-03-24 20:48:38', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 104, '', ''),
+(41, 'Hello', 'Bonjour', '2021-04-05 20:03:46', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 105, '', ''),
+(42, 'Hello', 'Bonjour', '2021-04-05 20:13:13', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 106, '', ''),
+(43, 'Test du soir', 'Hello', '2021-04-05 21:00:35', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 107, '', ''),
+(44, 'Test du soir', 'Hello', '2021-04-05 21:02:09', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 108, '', ''),
+(45, 'Test du soir', 'Hello', '2021-04-05 21:03:23', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 109, '', ''),
+(46, 'Test du soir', 'Hello', '2021-04-05 21:05:08', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 110, '', ''),
+(47, 'Test du soir', 'Hello', '2021-04-05 21:05:20', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 111, '', ''),
+(48, 'Test du soir', 'Hello', '2021-04-05 21:05:42', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 112, '', ''),
+(49, 'Test du soir', 'Hello', '2021-04-05 21:08:53', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 113, '', ''),
+(50, 'Test du soir', 'Hello', '2021-04-05 21:10:22', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 114, '', ''),
+(51, 'Test du soir n°2', 'Hello', '2021-04-05 21:13:29', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 115, '', ''),
+(52, 'Test du soir n°2', 'Hello', '2021-04-05 21:15:25', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 116, '', ''),
+(53, 'Test du soir n°2', 'Hello', '2021-04-05 21:16:28', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 117, '', ''),
+(54, 'Test du soir n°3', 'Hello', '2021-04-05 21:17:24', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 118, '', ''),
+(55, 'Test du soir n°4', 'Hello', '2021-04-05 21:19:26', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 119, '', ''),
+(56, 'Test du soir n°5', 'Hello', '2021-04-05 21:21:21', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 120, '', ''),
+(57, 'Test du soir n°5', 'Hello', '2021-04-05 21:22:11', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 121, '', ''),
+(58, 'Test du soir n°5', 'Hello', '2021-04-05 21:22:58', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 122, '', ''),
+(59, 'Test du soir n°5', 'Hello', '2021-04-05 21:23:25', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 123, '', ''),
+(60, 'Test du soir n°5', 'Hello', '2021-04-05 21:23:41', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 124, '', ''),
+(61, 'Test du soir n°5', 'Hello', '2021-04-05 21:24:05', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 125, '', ''),
+(62, 'Test du soir n°5', 'Hello', '2021-04-05 21:24:46', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 126, '', ''),
+(63, 'Test du soir n°5', 'Hello', '2021-04-05 21:25:10', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 127, '', ''),
+(64, 'Test du soir n°5', 'Hello', '2021-04-05 21:25:45', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 128, '', ''),
+(65, 'Test du soir n°5', 'Hello', '2021-04-05 21:26:44', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 129, '', ''),
+(66, 'Test du soir n°5', 'Hello', '2021-04-05 21:29:20', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 130, '', ''),
+(67, 'Test du soir n°5', 'Hello', '2021-04-05 21:30:01', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 131, '', ''),
+(68, 'Test du soir n°5', 'Hello', '2021-04-05 21:30:50', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 132, '', ''),
+(69, 'Samedi', 'bonjour', '2021-04-10 11:15:52', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 133, '', ''),
+(70, 'Samedi', 'bonjour', '2021-04-10 11:18:46', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 134, '', ''),
+(71, 'Samedi', 'bonjour', '2021-04-10 11:19:27', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 135, '', ''),
+(72, 'Samedi', 'bonjour', '2021-04-10 11:28:34', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 136, '', ''),
+(73, 'Samedi', 'bonjour', '2021-04-10 11:30:20', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 137, '', ''),
+(74, 'Samedi', 'bonjour', '2021-04-10 11:32:02', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 138, '', ''),
+(75, 'Samedi', 'bonjour', '2021-04-10 11:32:45', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 139, '', ''),
+(76, 'Samedi', 'bonjour', '2021-04-10 11:37:20', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 140, '', ''),
+(77, 'Samedi', 'bonjour', '2021-04-10 11:39:42', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 141, '', ''),
+(78, 'Samedi', 'bonjour', '2021-04-10 11:40:04', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 142, '', ''),
+(79, 'Samedi', 'bonjour', '2021-04-10 11:41:15', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 143, '', ''),
+(80, 'Samedi', 'bonjour', '2021-04-10 11:42:53', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 144, '', ''),
+(81, 'Samedi', 'bonjour', '2021-04-10 11:43:15', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 145, '', ''),
+(82, 'Samedi', 'bonjour', '2021-04-10 11:43:41', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 146, '', ''),
+(83, 'Samedi', 'bonjour', '2021-04-10 11:45:23', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 147, '', ''),
+(85, 'Dimanche', 'Hola', '2021-04-10 11:46:28', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC', 149, '', ''),
+(87, 'Lundi', 'Hello', '2021-04-10 13:31:12', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 151, '', ''),
+(88, 'Lundi', 'Hello', '2021-04-10 13:34:08', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 152, '', ''),
+(89, 'Lundi', 'Hello', '2021-04-10 13:35:53', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 153, '', ''),
+(90, 'Lundi', 'Hello', '2021-04-10 13:36:39', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 154, '', ''),
+(91, 'Lundi', 'Hello', '2021-04-10 13:37:32', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC4', 155, '', ''),
+(92, 'Mars', 'Hola', '2021-04-10 16:46:01', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 156, '', ''),
+(93, 'Avril&amp;Mai', 'Hola you', '2021-04-11 14:06:34', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC5', 157, '', ''),
+(94, 'Avril', 'Hola', '2021-04-11 14:13:49', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 157, '', ''),
+(95, 'Juin et Juillet', 'Bonjour mois de juillet', '2021-04-11 14:17:09', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC5', 159, '', ''),
+(96, 'Août&amp;Septembre&amp;Octobre', 'Bonjour mois de septembre', '2021-04-11 14:23:30', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 160, '', ''),
+(97, 'Août', 'Bonjour mois d\'août', '2021-04-11 14:23:05', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 160, '', ''),
+(98, 'Août', 'Bonjour mois d\'août', '2021-04-11 14:26:01', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 160, '', ''),
+(99, 'Nouveau test', 'Hola', '2021-04-13 20:48:01', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 163, '', ''),
+(100, 'Nouveau test', 'Hola', '2021-04-13 20:51:40', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 164, '', ''),
+(101, 'Nouveau test', 'Hola', '2021-04-13 21:00:29', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 165, '', ''),
+(102, 'Nouveau test du soir et du matin', 'Hola you, comment hy', '2021-04-13 21:50:49', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 166, '', ''),
+(103, 'Bonjour', 'Hola', '2021-04-14 19:35:34', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC', 167, '', ''),
+(104, 'Hola', 'Hello', '2021-04-14 19:43:55', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC2', 168, '', ''),
+(105, 'Hola', 'Hello', '2021-04-14 19:44:06', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC2', 169, '', ''),
+(106, 'Série du samedi soir', 'Super série du samedi soir', '2021-04-17 10:43:16', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC', 170, '', ''),
+(115, 'Nouveau test du soir', 'Aujourd\'hui à 11h', '2021-04-17 11:40:04', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC2', 192, '', ''),
+(116, 'Test', 'Hola', '2021-04-17 11:48:23', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 195, '', ''),
+(117, 'Test', 'hello', '2021-04-17 11:54:25', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC', 10, '', ''),
+(118, 'Bonjour', 'Ca va', '2021-04-17 11:55:40', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 196, '', ''),
+(119, 'Bonjour', 'Tu vas bien', '2021-04-17 11:55:58', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(120, 'Ceci est une nouvelle série', 'Tu vas bien', '2021-04-17 12:12:33', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 197, '', ''),
+(121, 'Nouveau test', 'hello', '2021-04-17 12:37:36', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 10, '', ''),
+(122, 'Nouveau test', 'hello', '2021-04-17 12:38:01', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 10, '', ''),
+(123, 'Nouveau test', 'hola', '2021-04-17 12:40:40', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(124, 'Héééééééé', 'hola', '2021-04-17 12:40:51', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(125, 'Nouveau test', 'hello', '2021-04-17 12:42:01', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(126, 'Bnojour', 'hola', '2021-04-17 12:49:35', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 198, '', ''),
+(127, 'Bonjour', 'hola', '2021-04-20 22:03:36', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 199, '', ''),
+(128, 'Hello', 'Bonjour', '2021-04-20 22:06:16', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC', 200, '', ''),
+(129, 'Test', 'Bonjour', '2021-04-20 22:08:08', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 201, '', ''),
+(130, 'Test', 'Bonjour', '2021-04-20 22:09:07', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 202, '', ''),
+(131, 'Test', 'Bonjour', '2021-04-20 22:10:52', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 203, '', ''),
+(132, 'hé', 'yo', '2021-04-20 22:13:39', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 204, '', ''),
+(133, 'hé', 'yo', '2021-04-20 22:14:18', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 205, '', ''),
+(134, 'You', 'are', '2021-04-20 22:18:43', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 206, '', ''),
+(135, 'You', 'are', '2021-04-20 22:19:17', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 207, '', ''),
+(136, 'You', 'are', '2021-04-20 22:22:50', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 208, '', ''),
+(137, 'essai', 'nouveau', '2021-04-20 22:26:07', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 209, '', ''),
+(138, 'New', 'Description', '2021-04-21 11:36:33', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 210, '', ''),
+(139, 'Nouvelle série', 'Hello', '2021-04-21 13:25:38', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(140, 'New series', 'Hello', '2021-04-21 14:22:29', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC1', 211, '', ''),
+(141, 'New series', 'Hello', '2021-04-21 14:41:25', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC1', 212, '', ''),
+(142, 'Hello', 'Blabl', '2021-04-21 14:42:21', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(143, 'Again new series', 'Hello', '2021-04-21 14:48:38', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(144, 'Again new seriess', 'Hello', '2021-04-21 14:55:41', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(145, 'Again new seriess', 'Hello', '2021-04-21 14:57:39', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 213, '', ''),
+(146, 'Youhouuu', 'hola', '2021-04-21 15:02:24', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 10, '', ''),
+(147, 'yo', 'héhé', '2021-04-21 15:03:36', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(148, 'yo', 'héhé', '2021-04-21 15:03:47', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 214, '', ''),
+(149, 'yo', 'héhé', '2021-04-21 15:03:56', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(150, 'Une nouvelle série', 'Encore', '2021-04-21 15:04:40', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC1', 215, '', ''),
+(151, 'Encore', 'et oui', '2021-04-21 15:04:57', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(152, 'Test', 'Hola', '2021-04-21 16:02:39', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(153, 'Maman', 'Hola', '2021-04-21 16:08:59', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(154, 'Nouvelle série du mercredi', 'Il était une fois', '2021-04-28 12:14:48', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC3', 216, '', ''),
+(155, 'nouvelle serie', 'blqblq', '2021-04-28 13:36:27', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC', 1, '', ''),
+(156, 'nouvequ titre', 'blqb', '2021-04-28 13:46:20', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(157, '1111', 'blabla', '2021-04-28 13:49:42', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(158, 'La nouvelle série', 'Blabla', '2021-04-28 14:06:25', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC1', 217, '', ''),
+(159, 'La nouvelle série 1', 'Blabla', '2021-04-28 14:15:52', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC1', 218, '', ''),
+(160, 'Une nouvelle série se crée', 'Blabla', '2021-04-28 14:32:59', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'CC', 1, '', ''),
+(161, 'Nouvelle série en test', 'Blabla', '2021-05-02 11:40:52', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 1, '', ''),
+(162, 'Bonjour série', 'Blabla', '2021-05-04 22:24:13', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(163, 'Série du mercredi', 'Blabla', '2021-05-05 13:25:07', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(164, 'New seres', 'balba', '2021-05-05 15:46:00', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(165, 'Pleine lune', 'blabla', '2021-05-12 14:44:17', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'reserved', 1, '', ''),
+(166, 'La série du mercredi', 'Il était une fois', '2021-05-19 11:46:39', '2021-05-19 18:54:34', 1, 'paying', 'inprogress', 'CC1', 1, '', ''),
+(167, 'La série du jeudi matin', 'Il était une fois', '2021-05-19 12:12:58', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 227, '', ''),
+(168, 'La série du jeudi soir', 'Il était une fois', '2021-05-19 12:16:56', '2021-05-19 14:46:37', 1, 'paying', 'inprogress', 'public', 1, '', ''),
+(169, 'Série du mercredi après-midi', 'Il était une fois la vie', '2021-05-19 14:52:16', '2021-05-19 14:52:29', 1, 'paying', 'inprogress', 'public', 229, '', '');
 
 -- --------------------------------------------------------
 
@@ -1144,7 +1222,24 @@ INSERT INTO `series_has_tags` (`id_tag`, `id_series`) VALUES
 (397, 161),
 (395, 162),
 (396, 162),
-(397, 162);
+(397, 162),
+(395, 163),
+(396, 163),
+(397, 163),
+(395, 164),
+(396, 164),
+(395, 165),
+(396, 165),
+(397, 165),
+(395, 166),
+(396, 166),
+(397, 166),
+(395, 168),
+(396, 168),
+(397, 168),
+(395, 169),
+(396, 169),
+(397, 169);
 
 -- --------------------------------------------------------
 
@@ -1295,6 +1390,13 @@ ALTER TABLE `episodes`
   ADD KEY `fk_episodes_series1_idx` (`id_series`);
 
 --
+-- Index pour la table `episode_has_members_likers`
+--
+ALTER TABLE `episode_has_members_likers`
+  ADD PRIMARY KEY (`id_episode`,`id_member`),
+  ADD KEY `fk_episode_has_members_members1` (`id_member`);
+
+--
 -- Index pour la table `images`
 --
 ALTER TABLE `images`
@@ -1398,19 +1500,19 @@ ALTER TABLE `comments`
 -- AUTO_INCREMENT pour la table `covers`
 --
 ALTER TABLE `covers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=219;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230;
 
 --
 -- AUTO_INCREMENT pour la table `episodes`
 --
 ALTER TABLE `episodes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;
 
 --
 -- AUTO_INCREMENT pour la table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=230;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=241;
 
 --
 -- AUTO_INCREMENT pour la table `logos`
@@ -1434,13 +1536,13 @@ ALTER TABLE `packs`
 -- AUTO_INCREMENT pour la table `series`
 --
 ALTER TABLE `series`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=163;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=170;
 
 --
 -- AUTO_INCREMENT pour la table `tags`
 --
 ALTER TABLE `tags`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=523;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=520;
 
 --
 -- Contraintes pour les tables déchargées
@@ -1470,6 +1572,13 @@ ALTER TABLE `covers`
 --
 ALTER TABLE `episodes`
   ADD CONSTRAINT `fk_episodes_series1` FOREIGN KEY (`id_series`) REFERENCES `series` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+--
+-- Contraintes pour la table `episode_has_members_likers`
+--
+ALTER TABLE `episode_has_members_likers`
+  ADD CONSTRAINT `fk_episode_has_members_episodes1` FOREIGN KEY (`id_episode`) REFERENCES `episodes` (`id`),
+  ADD CONSTRAINT `fk_episode_has_members_members1` FOREIGN KEY (`id_member`) REFERENCES `members` (`id`);
 
 --
 -- Contraintes pour la table `logos`
