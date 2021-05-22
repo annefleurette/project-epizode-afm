@@ -3,6 +3,18 @@ Array.from(document.getElementsByClassName("seriesTab")).forEach(elt => {
 	elt.addEventListener('click', () => { 
 		showElt(elt)})
 });
+
+// ACTIVER LE TAB CHOISI
+window.addEventListener('load', () => {
+	const queryString = window.location.search; // on recupere toute la partie apres le ? de l'url exemple: action=updateSeries&idseries=165&tab=2
+	const urlParams = new URLSearchParams(queryString); // il transforme l'ensemble en objet avec une methode get qui permet d'appeler la cle d'un parametre
+	if(urlParams.get('tab') !== null){
+			const tabs = Array.from(document.getElementsByClassName("seriesTab"));
+			const tabSelected = tabs.find(tab => tab.dataset.index == urlParams.get('tab'));
+			showElt(tabSelected);
+	}
+})
+
 function showElt(target){
 	let eltClass = target.className;
 	let eltIndex = target.dataset.index;

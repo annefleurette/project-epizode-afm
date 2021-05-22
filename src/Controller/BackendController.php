@@ -436,7 +436,7 @@ class BackendController {
                         var_dump($postpromotion);
                         var_dump($postsigns);
                         $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "inprogress", null, $seriesId, $postprice, $postpromotion, $postsigns);
-                        header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
+                        header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
                     }else{
                         // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
                         $_SESSION['tempNumber'] = $postnumber;
@@ -479,7 +479,7 @@ class BackendController {
                         if(strtotime($postdate) > strtotime($episode_unitary_published['date']))
                         {
                             $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $seriesId, $postprice, $postpromotion, $postsigns);
-                            header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
+                            header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
                         }else{
                             // On prépare des variables de session temporaires pour anticiper les erreurs
                             $_SESSION['tempNumber'] = $postnumber;
@@ -561,7 +561,7 @@ class BackendController {
                     {
                         // On modifie l'épisode
                         $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "inprogress", null, $postprice, $postpromotion, $postsigns, $episodeId);
-                        header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
+                        header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
                     }else{
                         // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
                         $_SESSION['tempNumber'] = $postnumber;
@@ -611,7 +611,7 @@ class BackendController {
                                 // On modifie l'épisode
                                 $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "published", $oneEpisode['date'], $postprice, $postpromotion, $postsigns, $episodeId);  
                             }
-                            header("Location: index.php?action=updateSeries&idseries=" .$seriesId); 
+                            header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2"); 
                         }else{
                             // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
                             $_SESSION['tempNumber'] = $postnumber;
@@ -656,7 +656,7 @@ class BackendController {
             $episodeId = htmlspecialchars($episodeId);
             // On passe le statut de l'épisode en supprimé
             $updateEpisodeDeleted = $episodesManager->updateEpisodeDeleted("deleted", $episodeId);
-            header("Location: index.php?action=updateSeries&idseries=" .$seriesId . "&idepisode=" .$episodeId); 
+            header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2"); 
         }
 // A compléter avec l'espace d'administration        
         public function deleteEpisode($episodeId)

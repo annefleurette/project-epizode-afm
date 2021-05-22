@@ -59,7 +59,7 @@ try {
 				$backendController->deleteEpisode($_GET['idepisode']);
 				break;
 			case 'displayEpisode':
-				$frontendController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
+				$frontendController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : -1, $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
 				break;
 			case 'alertEpisode_post':
 				$frontendController->alertEpisodePost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
