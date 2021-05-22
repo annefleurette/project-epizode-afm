@@ -89,6 +89,7 @@ class FrontendController {
         $memberId = htmlspecialchars($memberId);
         $seriesId = htmlspecialchars($seriesId);
         $episodeNumber = htmlspecialchars($episodeNumber);
+        $episodeId = htmlspecialchars($episodeId);
         $episodeLikesNumber = htmlspecialchars($episodeLikesNumber);
         //if(isset($sessionpseudo)) Si l'utilisateur est bien connecté
         if(true) {
@@ -105,5 +106,32 @@ class FrontendController {
         }else{
             header('Location: index.php?action=login');
         }
+    }
+    public function alertEpisodePost($memberId, $seriesId, $episodeNumber, $episodeId, $episodeLikesNumber)
+    {
+        $episodesManager = new EpisodesManager;
+        $memberId = htmlspecialchars($memberId);
+        $seriesId = htmlspecialchars($seriesId);
+        $episodeNumber = htmlspecialchars($episodeNumber);
+        $episodeId = htmlspecialchars($episodeId);
+        $episodeLikesNumber = htmlspecialchars($episodeLikesNumber);
+        // On signale un épisode
+        $alert = 1;
+        $updateAlertEpisode = $episodesManager->updateEpisodeAlert($alert, $episodeId);
+        header("Location: index.php?action=displayEpisode&idmember=" .$memberId . "&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId. "&like=" .$episodeLikesNumber);
+    }
+    public function alertCommentPost($memberId, $seriesId, $episodeNumber, $episodeId, $episodeLikesNumber, $commentId)
+    {
+        $commentsManager = new CommentsManager;
+        $memberId = htmlspecialchars($memberId);
+        $seriesId = htmlspecialchars($seriesId);
+        $episodeNumber = htmlspecialchars($episodeNumber);
+        $episodeId = htmlspecialchars($episodeId);
+        $episodeLikesNumber = htmlspecialchars($episodeLikesNumber);
+        $commentId = htmlspecialchars($commentId);
+        // On signale un commentaire
+        $alert = 1;
+        $updateAlertComment = $commentsManager->updateCommentAlert($alert, $commentId);
+        header("Location: index.php?action=displayEpisode&idmember=" .$memberId . "&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId. "&like=" .$episodeLikesNumber);
     }
 }

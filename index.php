@@ -61,11 +61,23 @@ try {
 			case 'displayEpisode':
 				$frontendController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
 				break;
+			case 'alertEpisode_post':
+				$frontendController->alertEpisodePost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
+				break;
+			case 'removeAlertEpisode_post':
+				$backendController->removeAlertEpisodePost($_GET['idepisode']);
+				break;
 			case 'writeComment_post':
 				$frontendController->writeCommentPost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_POST['comment']);
 				break;	
 			case 'deleteComment':
-				$backendController->deleteEpisode($_GET['idcomment']);
+				$backendController->deleteComment($_GET['idcomment']);
+				break;
+			case 'alertComment_post':
+				$frontendController->alertCommentPost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_GET['idcomment']);
+				break;
+			case 'removeAlertComment_post':
+				$backendController->removeAlertCommentPost($_GET['idcomment']);
 				break;
 		}
 	}else{

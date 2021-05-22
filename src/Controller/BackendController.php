@@ -668,12 +668,32 @@ class BackendController {
             header("Location: "); 
         }
 // A compléter avec l'espace d'administration
-        public function deleteCommment($commentId)
+        public function deleteComment($commentId)
         {
             $commentsManager = new CommentsManager();
             // On supprime le commentaire
             $commentId = htmlspecialchars($commentId);
             $deleteComment = $commentsManager->deleteComment($commentId);
+            header("Location: ");
+        }
+// A compléter avec l'espace d'administration
+        public function removeAlertEpisodePost($episodeId)
+        {
+            $episodesManager = new EpisodesManager;
+            $episodeId = htmlspecialchars($episodeId);
+            // On enlève le signalement d'un épisode
+            $alert = 0;
+            $updateAlertEpisode = $episodesManager->updateEpisodeAlert($alert, $episodeId);
+            header("Location: ");
+        }
+// A compléter avec l'espace d'administration
+        public function removeAlertCommentPost($commentId)
+        {
+            $commentsManager = new CommentsManager;
+            $commentId = htmlspecialchars($commentId);
+            // On enlève le signalement d'un commentaire
+            $alert = 0;
+            $updateAlertComment = $commentsManager->updateCommentAlert($alert, $commentId);
             header("Location: ");
         }
 

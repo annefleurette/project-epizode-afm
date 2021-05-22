@@ -29,6 +29,7 @@ if (!empty($episode_unitary_published))
     </section>
     <section> <!-- Section avec le contenu de l'épisode -->
         <p><?php echo $episode_unitary_published['content']; ?></p>
+        <!-- Gestion des likes -->
         <?php
         if($episodeLikesNumber == 1)
         {
@@ -42,7 +43,8 @@ if (!empty($episode_unitary_published))
         <?php    
         }
         ?>
-        <p><a href="index.php?action=alertEpisode_post&idepisode = <?php echo $episode_unitary_published['id']; ?>">SIGNALER</a><p>
+        <!-- Gestion du signalement -->
+        <p><a href="index.php?action=alertEpisode_post&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>">SIGNALER</a><p>
         <?php // Affichage des boutons épisodes précédents/suivants
         if($episode_current <= 1)
         {
@@ -98,7 +100,7 @@ if (!empty($episode_unitary_published))
                             ?>
                             <p>Le <?php echo $comment_data['date']; ?></p>
                             <p><?php echo ($comment_data['content']); ?></p>
-                            <form action="index.php?action=alertComment_post&idepisode=<?php echo $comment_data["id"]; ?>" method="post">
+                            <form action="index.php?action=alertComment_post&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>&idcomment=<?php echo $comment_data["id"]; ?>" method="post">
                                 <input type="submit" value="Signaler">
                             </form>
                         </article>
