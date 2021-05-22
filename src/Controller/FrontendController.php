@@ -17,7 +17,9 @@ class FrontendController {
 	{
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager;
+        $memberId = htmlspecialchars($memberId);
         $seriesId = htmlspecialchars($seriesId);
+        $seriesSubscriptionNumber = htmlspecialchars($seriesSubscriptionNumber);
         // On récupère les informations sur la série
         $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
         // On gère les abonnements
@@ -49,6 +51,7 @@ class FrontendController {
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager();
         $commentsManager = new CommentsManager();
+        $memberId = htmlspecialchars($memberId);
         $seriesId = htmlspecialchars($seriesId);
         $episodeNumber = htmlspecialchars($episodeNumber);
         $episodeId = htmlspecialchars($episodeId);
@@ -80,5 +83,27 @@ class FrontendController {
         $totalcomments = intval($nbcomments[0]);
         require('./src/View/frontend/displayEpisodeView.php');
     }
-	
+    public function writeCommentPost($memberId, $seriesId, $episodeNumber, $episodeId, $episodeLikesNumber, $postcomment)
+    {
+        $commentsManager = new CommentsManager();
+        $memberId = htmlspecialchars($memberId);
+        $seriesId = htmlspecialchars($seriesId);
+        $episodeNumber = htmlspecialchars($episodeNumber);
+        $episodeLikesNumber = htmlspecialchars($episodeLikesNumber);
+        //if(isset($sessionpseudo)) Si l'utilisateur est bien connecté
+        if(true) {
+            // Si le commentaire a bien été saisi
+            if (isset($postcomment))
+            {
+                $postcomment = htmlspecialchars($postcomment);
+                $addComment = $commentsManager->addComment($memberId, $episodeId, $postcomment);
+                header("Location: index.php?action=displayEpisode&idmember=" .$memberId . "&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId. "&like=" .$episodeLikesNumber);
+            }else{
+                $_SESSION['error'] = "Vous n'avez pas saisi votre commentaire";
+                header("Location: index.php?action=displayEpisode&idmember=" .$memberId . "&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId. "&like=" .$episodeLikesNumber);
+            }
+        }else{
+            header('Location: index.php?action=login');
+        }
+    }
 }

@@ -115,15 +115,15 @@ if (!empty($episode_unitary_published))
         }
         ?>
         <h2>Laisser un commentaire</h2>
-        <?php
-        if(!isset($_SESSION['pseudo']))
-        {
+        <!-- <?php
+        // if(!isset($_SESSION['pseudo']))
+        // {
         ?>
             <p>Vous devez être connecté(e) pour laisser un commentaire. <a href="index.php?action=subscription">S'inscrire</a> ou <a href="index.php?action=login">se connecter</a>.</p>
         <?php
-        }else{
-        ?>
-            <form action="index.php?action=writeComment_post&idepisode=<?php echo $comment_data["id"]; ?>" method="post">
+        //}else{
+        ?> -->
+            <form action="index.php?action=writeComment_post&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>" method="post">
                 <p>
                     <label for="comment">Saisissez votre commentaire</label><br />
                     <textarea id="comment" name="comment" minlength = "4" required></textarea>
@@ -132,9 +132,9 @@ if (!empty($episode_unitary_published))
                     <input type="submit" value="Envoyer">
                 </p>
             </form>
-        <?php
-        }
-        ?>
+       <!-- <?php
+       // }
+        ?>-->
     </section>
 <?php
 }else{

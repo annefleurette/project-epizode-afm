@@ -45,7 +45,7 @@ class CommentsManager extends Manager
 	public function addComment($idmember, $idepisode, $content)
 	{
 		$db = $this->dbConnect();
-		$addComment = $db->prepare('INSERT INTO comments(id_member, id_episode, content, date) VALUES(?, ?, ?, NOW()');
+		$addComment = $db->prepare('INSERT INTO comments(id_member, id_episode, content, date) VALUES(?, ?, ?, NOW())');
 		$addComment->execute(array($idmember, $idepisode, $content));
 	    return $addComment;
 	}

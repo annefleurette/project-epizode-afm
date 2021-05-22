@@ -56,11 +56,17 @@ try {
 				$backendController->updateEpisodeDeleted($_GET['idseries'], $_GET['idepisode']);
 				break;
 			case 'deleteEpisode':
-				$backendController->deleteEpisode($_GET['idseries'], $_GET['idepisode']);
+				$backendController->deleteEpisode($_GET['idepisode']);
 				break;
 			case 'displayEpisode':
 				$frontendController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
+				break;
+			case 'writeComment_post':
+				$frontendController->writeCommentPost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_POST['comment']);
 				break;	
+			case 'deleteComment':
+				$backendController->deleteEpisode($_GET['idcomment']);
+				break;
 		}
 	}else{
 		echo "Erreur sur la page";

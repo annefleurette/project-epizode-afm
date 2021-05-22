@@ -659,14 +659,22 @@ class BackendController {
             header("Location: index.php?action=updateSeries&idseries=" .$seriesId . "&idepisode=" .$episodeId); 
         }
 // A compléter avec l'espace d'administration        
-        public function deleteEpisode($seriesId, $episodeId)
+        public function deleteEpisode($episodeId)
         {
             $episodesManager = new EpisodesManager();
-            $seriesId = htmlspecialchars($seriesId);
             $episodeId = htmlspecialchars($episodeId);
             // On supprime définitivement l'épisode
             $deleteEpisode = $episodesManager->deleteEpisode($episodeId);
             header("Location: "); 
+        }
+// A compléter avec l'espace d'administration
+        public function deleteCommment($commentId)
+        {
+            $commentsManager = new CommentsManager();
+            // On supprime le commentaire
+            $commentId = htmlspecialchars($commentId);
+            $deleteComment = $commentsManager->deleteComment($commentId);
+            header("Location: ");
         }
 
 }
