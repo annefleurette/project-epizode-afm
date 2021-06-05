@@ -107,6 +107,8 @@ class FrontendController {
                     { // On enregistre l'email que si l'utilisateur le souhaite
                         setcookie($postemail, time()+365*24*3600, null, null, false, true);
 					}
+                    // On inclut la gestion des authorisations
+                    include('./src/Utils/Authorization.php');
 					if($memberInfo['type'] == "admin")
 					{ // Si le membre est admin
 						header('Location: index.php?action=admin'); 
