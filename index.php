@@ -13,6 +13,22 @@ try {
 	{
 		switch($_GET['action'])
 		{
+			// Members
+			case 'subscription':
+				$frontendController->subscription();
+				break;
+			case 'subscription_post':
+				$frontendController->subscriptionPost($_POST['pseudo'], $_POST['email'], $_POST['password'], $_POST['password2']);
+				break;
+			case 'login':
+				$frontendController->login();
+				break;
+			case 'login_post':
+				$frontendController->loginPost($_POST['email'], $_POST['password'], $_POST['remember']);
+				break;
+			case 'logout':
+				$frontendController->logout();
+				break;
 			//Series
 			case 'writeSeries':
 				$backendController->writeSeries();

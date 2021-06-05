@@ -6,8 +6,8 @@ Array.from(document.getElementsByClassName("seriesTab")).forEach(elt => {
 
 // ACTIVER LE TAB CHOISI
 window.addEventListener('load', () => {
-	const queryString = window.location.search; // on recupere toute la partie apres le ? de l'url exemple: action=updateSeries&idseries=165&tab=2
-	const urlParams = new URLSearchParams(queryString); // il transforme l'ensemble en objet avec une methode get qui permet d'appeler la cle d'un parametre
+	const queryString = window.location.search; // on recupere toute la partie apres le ? de l'url exemple : action=updateSeries&idseries=165&tab=2
+	const urlParams = new URLSearchParams(queryString); // il transforme l'ensemble en objet avec une methode get qui permet d'appeler la clé d'un paramètre
 	if(urlParams.get('tab') !== null){
 			const tabs = Array.from(document.getElementsByClassName("seriesTab"));
 			const tabSelected = tabs.find(tab => tab.dataset.index == urlParams.get('tab'));

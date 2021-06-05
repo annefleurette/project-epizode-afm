@@ -55,13 +55,13 @@ class MembersManager extends Manager
 	    return $userProfile;
 	}
 	// On récupère les informations génériques de tous les membres
-	public function getMembersProfileData($idmember)
+	public function getMembersProfileData()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT m.id AS "id", m.pseudo AS "pseudo", m.type as "type", COUNT(DISTINCT has.id_series) AS "numberSubscriptions", COUNT(DISTINCT s.id) AS "numberWritings", COUNT(DISTINCT s.publisher_author) AS "numberAuthors", m.date_subscription AS "subscriptionDate", m.coins_number AS "coinsNumber" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN series_has_members_subscription has ON has.id_member = m.id GROUP BY m.id');
+		$req = $db->query('SELECT m.id AS "id", m.pseudo AS "pseudo", m.email AS "email", m.type as "type", COUNT(DISTINCT has.id_series) AS "numberSubscriptions", COUNT(DISTINCT s.id) AS "numberWritings", COUNT(DISTINCT s.publisher_author) AS "numberAuthors", m.date_subscription AS "subscriptionDate", m.coins_number AS "coinsNumber" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN series_has_members_subscription has ON has.id_member = m.id GROUP BY m.id');
 	    $usersData = $req->fetchAll();
 	    $req->closeCursor();
-	    return $$usersData;
+	    return $usersData;
 	}
 	// On récupère les informations de dépenses d'un membre
 	public function getMemberBillsData($idmember)
@@ -149,11 +149,11 @@ class MembersManager extends Manager
 		return $updateNotificationsSubscription;
 	}
 	// On ajoute un membre
-	public function addMember($pseudo, $email, $password)
+	public function addMember($pseudo, $email, $password, $type)
 	{
 		$db = $this->dbConnect();
-		$addMember = $db->prepare('INSERT INTO members(pseudo, email, password, type, date_subscription) VALUES(?, ?, ?, \'user\', NOW())');
-	    $addMember->execute(array($pseudo, $email, $password));
+		$addMember = $db->prepare('INSERT INTO members(pseudo, email, password, type, date_subscription) VALUES(?, ?, ?, ?, NOW())');
+	    $addMember->execute(array($pseudo, $email, $password, $type));
 	    return $addMember;
 	}
 	// On modifie les informations de profil d'un membre
@@ -300,7 +300,7 @@ class MembersManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT pseudo FROM members');
-	    $getPseudos = $req->fetchAll();
+	    $getPseudos = $req->fetchAll(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
 	    return $getPseudos;
 	}
@@ -309,7 +309,7 @@ class MembersManager extends Manager
 	{
 		$db = $this->dbConnect();
 		$req = $db->query('SELECT email FROM members');
-	    $getEmails = $req->fetchAll();
+	    $getEmails = $req->fetchAll(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
 	    return $getEmails;
 	}
@@ -329,7 +329,7 @@ class MembersManager extends Manager
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT pseudo, password, type FROM members WHERE email = ?');
 	    $req->execute(array($email));
-	    $memberInfo = $req->fetch(\PDO::FETCH_COLUMN);
+	    $memberInfo = $req->fetch();
 	    $req->closeCursor();
 	    return $memberInfo;
 	}

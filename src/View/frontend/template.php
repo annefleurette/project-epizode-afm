@@ -19,6 +19,12 @@
             <p><?php echo $_SESSION['error']; ?></p>
             <?php unset($_SESSION['error']);
         }
+        if(isset($_SESSION['validation']))
+        {
+        ?>
+            <p><?php echo $_SESSION['validation']; ?></p>
+            <?php unset($_SESSION['validation']);
+        }
     	echo $body_content;
         require("./src/View/footer.php");?>
         </div>

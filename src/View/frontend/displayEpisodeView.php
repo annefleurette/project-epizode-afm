@@ -1,5 +1,6 @@
 <?php
 $head_title = 'Epizode - Lecture de l\'épisode';
+$head_description = 'Blabla';
 ob_start();
 if (!empty($episode_unitary_published))
 {

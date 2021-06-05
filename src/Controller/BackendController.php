@@ -427,16 +427,21 @@ class BackendController {
                     $episode_unitary_published = $episodesManager->getEpisodePublished($postnumber, $seriesId);
                     if (empty($episode_unitary_published))
                     {
-                        // On enregistre le nouvel épisode
-                        var_dump($postnumber);
-                        var_dump($posttitle);
-                        var_dump($postcontent);
-                        var_dump($seriesId);
-                        var_dump($postprice);
-                        var_dump($postpromotion);
-                        var_dump($postsigns);
-                        $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "inprogress", null, $seriesId, $postprice, $postpromotion, $postsigns);
-                        header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
+                        // Si le montant de la promotion est bien inférieur au montant du prix
+                        if ($postpromotion <= $postprice)
+                        {
+                            // On enregistre le nouvel épisode
+                            $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "inprogress", null, $seriesId, $postprice, $postpromotion, $postsigns);
+                            header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
+                        }else{
+                            $_SESSION['tempNumber'] = $postnumber;
+                            $_SESSION['tempTitle'] = $posttitle;
+                            $_SESSION['tempContent'] = $postcontent;
+                            $_SESSION['tempPrice'] = $postprice;
+                            $_SESSION['tempPromotion'] = $postpromotion;
+                            $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
+                            header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
+                        }
                     }else{
                         // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
                         $_SESSION['tempNumber'] = $postnumber;
@@ -474,20 +479,32 @@ class BackendController {
                     $current_episode = intval($postnumber);
                     if(empty($episode_unitary_published) AND ($current_episode === $count_episode_publishable))
                     { // On publie un nouvel épisode
-                        // Si la date de l'épisode à publier est bien postérieure au dernier épisode publié
-                        $episode_unitary_published = $episodesManager->getEpisodePublished($count_episode_published, $seriesId);
-                        if(strtotime($postdate) > strtotime($episode_unitary_published['date']))
+                        // Si le montant de la promotion est bien inférieur au montant du prix
+                        if ($postpromotion <= $postprice)
                         {
-                            $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $seriesId, $postprice, $postpromotion, $postsigns);
-                            header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
+                            // Si la date de l'épisode à publier est bien postérieure au dernier épisode publié
+                            $episode_unitary_published = $episodesManager->getEpisodePublished($count_episode_published, $seriesId);
+                            if(strtotime($postdate) > strtotime($episode_unitary_published['date']))
+                            {
+                                $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $seriesId, $postprice, $postpromotion, $postsigns);
+                                header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
+                            }else{
+                                // On prépare des variables de session temporaires pour anticiper les erreurs
+                                $_SESSION['tempNumber'] = $postnumber;
+                                $_SESSION['tempTitle'] = $posttitle;
+                                $_SESSION['tempContent'] = $postcontent;
+                                $_SESSION['tempPrice'] = $postprice;
+                                $_SESSION['tempPromotion'] = $postpromotion;
+                                $_SESSION['error'] = "Vous devez publier votre épisode à une date postérieure au dernier épisode publié, c'est-à-dire le " . $episode_unitary_published['date'];
+                                header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
+                            }
                         }else{
-                            // On prépare des variables de session temporaires pour anticiper les erreurs
                             $_SESSION['tempNumber'] = $postnumber;
                             $_SESSION['tempTitle'] = $posttitle;
                             $_SESSION['tempContent'] = $postcontent;
                             $_SESSION['tempPrice'] = $postprice;
                             $_SESSION['tempPromotion'] = $postpromotion;
-                            $_SESSION['error'] = "Vous devez publier votre épisode à une date postérieure au dernier épisode publié, c'est-à-dire le " . $episode_unitary_published['date'];
+                            $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
                             header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
                         }
                     }else{
@@ -559,9 +576,21 @@ class BackendController {
                     $episode_unitary_published = $episodesManager->getEpisodePublished($postnumber, $seriesId);
                     if (empty($episode_unitary_published))
                     {
-                        // On modifie l'épisode
-                        $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "inprogress", null, $postprice, $postpromotion, $postsigns, $episodeId);
-                        header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
+                        // Si le montant de la promotion est bien inférieur au montant du prix
+                        if ($postpromotion <= $postprice)
+                        {
+                            // On modifie l'épisode
+                            $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "inprogress", null, $postprice, $postpromotion, $postsigns, $episodeId);
+                            header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
+                        }else{
+                            $_SESSION['tempNumber'] = $postnumber;
+                            $_SESSION['tempTitle'] = $posttitle;
+                            $_SESSION['tempContent'] = $postcontent;
+                            $_SESSION['tempPrice'] = $postprice;
+                            $_SESSION['tempPromotion'] = $postpromotion;
+                            $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
+                            header("Location: index.php?action=updateEpisode&idseries=" .$seriesId . "&idepisode=" .$episodeId);
+                        }
                     }else{
                         // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
                         $_SESSION['tempNumber'] = $postnumber;
@@ -602,16 +631,28 @@ class BackendController {
                         $current_episode = intval($postnumber);
                         if (empty($episode_unitary_published) AND ($current_episode === $count_episode_publishable))
                         {
-                            if(isset($postdate) AND preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9])$/", $postdate))
+                            // Si le montant de la promotion est bien inférieur au montant du prix
+                            if ($postpromotion <= $postprice)
                             {
-                                $postdate = htmlspecialchars($postdate);
-                                // On modifie l'épisode
-                                $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $postprice, $postpromotion, $postsigns, $episodeId);
+                                if(isset($postdate) AND preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9])$/", $postdate))
+                                {
+                                    $postdate = htmlspecialchars($postdate);
+                                    // On modifie l'épisode
+                                    $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $postprice, $postpromotion, $postsigns, $episodeId);
+                                }else{
+                                    // On modifie l'épisode
+                                    $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "published", $oneEpisode['date'], $postprice, $postpromotion, $postsigns, $episodeId);  
+                                }
+                                header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
                             }else{
-                                // On modifie l'épisode
-                                $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "published", $oneEpisode['date'], $postprice, $postpromotion, $postsigns, $episodeId);  
+                                $_SESSION['tempNumber'] = $postnumber;
+                                $_SESSION['tempTitle'] = $posttitle;
+                                $_SESSION['tempContent'] = $postcontent;
+                                $_SESSION['tempPrice'] = $postprice;
+                                $_SESSION['tempPromotion'] = $postpromotion;
+                                $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
+                                header("Location: index.php?action=updateEpisode&idseries=" .$seriesId . "&idepisode=" .$episodeId);
                             }
-                            header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2"); 
                         }else{
                             // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
                             $_SESSION['tempNumber'] = $postnumber;
@@ -623,16 +664,28 @@ class BackendController {
                             header("Location: index.php?action=updateEpisode&idseries=" .$seriesId . "&idepisode=" .$episodeId);
                         }
                     }else{
-                        if(isset($postdate) AND preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9])$/", $postdate))
+                        // Si le montant de la promotion est bien inférieur au montant du prix
+                        if ($postpromotion <= $postprice)
                         {
-                            $postdate = htmlspecialchars($postdate);
-                            // On modifie l'épisode
-                            $updateEpisode = $episodesManager->updateEpisode($oneEpisode['number'], $posttitle, $postcontent, "published", $postdate, $postprice, $postpromotion, $postsigns, $episodeId);
+                            if(isset($postdate) AND preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9])$/", $postdate))
+                            {
+                                $postdate = htmlspecialchars($postdate);
+                                // On modifie l'épisode
+                                $updateEpisode = $episodesManager->updateEpisode($oneEpisode['number'], $posttitle, $postcontent, "published", $postdate, $postprice, $postpromotion, $postsigns, $episodeId);
+                            }else{
+                                // On modifie l'épisode
+                                $updateEpisode = $episodesManager->updateEpisode($oneEpisode['number'], $posttitle, $postcontent, "published", $oneEpisode['date'], $postprice, $postpromotion, $postsigns, $episodeId);   
+                            }
+                            header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
                         }else{
-                            // On modifie l'épisode
-                            $updateEpisode = $episodesManager->updateEpisode($oneEpisode['number'], $posttitle, $postcontent, "published", $oneEpisode['date'], $postprice, $postpromotion, $postsigns, $episodeId);   
+                            $_SESSION['tempNumber'] = $postnumber;
+                            $_SESSION['tempTitle'] = $posttitle;
+                            $_SESSION['tempContent'] = $postcontent;
+                            $_SESSION['tempPrice'] = $postprice;
+                            $_SESSION['tempPromotion'] = $postpromotion;
+                            $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
+                            header("Location: index.php?action=updateEpisode&idseries=" .$seriesId . "&idepisode=" .$episodeId);
                         }
-                        header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
                     }   
                 }else{
                     // On prépare des variables de session temporaires pour anticiper les erreurs

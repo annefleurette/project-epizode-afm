@@ -1,0 +1,1 @@
+// Fonctions de vérification comme le Controller
