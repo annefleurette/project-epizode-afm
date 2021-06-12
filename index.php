@@ -1,14 +1,20 @@
 <?php
 session_start();
-require_once('src/Controller/FrontEndController.php');
-require_once('src/Controller/BackEndController.php');
+require_once('src/Controller/MembersController.php');
+require_once('src/Controller/SeriesController.php');
+require_once('src/Controller/EpisodesController.php');
+require_once('src/Controller/CommentsController.php');
 
-use AnneFleurMarchat\Epizode\Controller\FrontendController;
-use AnneFleurMarchat\Epizode\Controller\BackendController;
+use AnneFleurMarchat\Epizode\Controller\MembersController;
+use AnneFleurMarchat\Epizode\Controller\SeriesController;
+use AnneFleurMarchat\Epizode\Controller\EpisodesController;
+use AnneFleurMarchat\Epizode\Controller\CommentsController;
 
 try {
-	$frontendController = new FrontendController();
-	$backendController = new BackendController();
+	$membersController = new MembersController();
+	$seriesController = new SeriesController();
+	$episodesController = new EpisodesController();
+	$commentsController = new CommentsController();
 	if(isset($_GET['action']))
 	{
 		if(isset($_SESSION['level']))
@@ -18,14 +24,14 @@ try {
 				{
 					// Episodes
 					case 'removeAlertEpisode_post':
-						$backendController->removeAlertEpisodePost($_GET['idepisode']);
+						$episodesController->removeAlertEpisodePost($_GET['idepisode']);
 						break;
 					// Comments
 					case 'deleteComment':
-						$backendController->deleteComment($_GET['idcomment']);
+						$commentsController->deleteComment($_GET['idcomment']);
 						break;
 					case 'removeAlertComment_post':
-						$backendController->removeAlertCommentPost($_GET['idcomment']);
+						$commentsController->removeAlertCommentPost($_GET['idcomment']);
 						break;
 					default: break;
 				}
@@ -41,59 +47,59 @@ try {
 				{
 					// Membres
 					case 'logout':
-						$frontendController->logout();
+						$membersController->logout();
 						break;
 					// Series
 					case 'writeSeries':
-						$backendController->writeSeries();
+						$seriesController->writeSeries();
 						break;	
 					case 'writeSeries_post':
 						//$backendController->writeSeriesPost(1, $_POST['author'], $_POST['descriptionAuthor'], $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['tags'], $_POST['rights']);
-						$backendController->writeSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags']);
+						$seriesController->writeSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags']);
 						break;
 					case 'updateSeries':
-						$backendController->updateSeries($_GET['idseries']);
+						$seriesController->updateSeries($_GET['idseries']);
 						break;
 					case 'updateSeries_post':
-						$backendController->updateSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_GET['idseries']);
+						$seriesController->updateSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_GET['idseries']);
 						break;
 					case 'updateSeriesDeleted':
-						$backendController->updateSeriesDeleted($_GET['idseries']);
+						$seriesController->updateSeriesDeleted($_GET['idseries']);
 						break;
 					case 'deleteSeries':
-						$backendController->deleteSeries($_GET['idseries']);
+						$seriesController->deleteSeries($_GET['idseries']);
 						break;
 					//Episodes
 					case 'writeEpisode':
-						$backendController->writeEpisode($_GET['idseries']);
+						$episodesController->writeEpisode($_GET['idseries']);
 						break;
 					case 'writeEpisode_post':
-						$backendController->writeEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : null, $_POST['nbCharacters'], $_GET['idseries']);
+						$episodesController->writeEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : null, $_POST['nbCharacters'], $_GET['idseries']);
 						break;
 					case 'lookEpisode':
-						$backendController->lookEpisode($_GET['idseries'], $_GET['idepisode']);
+						$episodesController->lookEpisode($_GET['idseries'], $_GET['idepisode']);
 						break;
 					case 'updateEpisode':
-						$backendController->updateEpisode($_GET['idseries'], $_GET['idepisode']);
+						$episodesController->updateEpisode($_GET['idseries'], $_GET['idepisode']);
 						break;
 					case 'updateEpisode_post':
-						$backendController->updateEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, (isset($_POST['numberEpisode'])) ? $_POST['numberEpisode'] : null, $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : date('Y-m-dTH:i', strtotime('+2 hours')), $_POST['nbCharacters'], $_GET['idseries'], $_GET['idepisode']);
+						$episodesController->updateEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, (isset($_POST['numberEpisode'])) ? $_POST['numberEpisode'] : null, $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : date('Y-m-dTH:i', strtotime('+2 hours')), $_POST['nbCharacters'], $_GET['idseries'], $_GET['idepisode']);
 						break;
 					case 'updateEpisodeDeleted':
-						$backendController->updateEpisodeDeleted($_GET['idseries'], $_GET['idepisode']);
+						$episodesController->updateEpisodeDeleted($_GET['idseries'], $_GET['idepisode']);
 						break;
 					case 'deleteEpisode':
-						$backendController->deleteEpisode($_GET['idepisode']);
+						$episodesController->deleteEpisode($_GET['idepisode']);
 						break;
 					case 'alertEpisode_post':
-						$frontendController->alertEpisodePost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
+						$episodesController->alertEpisodePost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
 						break;
 					// Comments
 					case 'writeComment_post':
-						$frontendController->writeCommentPost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_POST['comment']);
+						$commentsController->writeCommentPost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_POST['comment']);
 						break;	
 					case 'alertComment_post':
-						$frontendController->alertCommentPost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_GET['idcomment']);
+						$commentsController->alertCommentPost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_GET['idcomment']);
 						break;
 					default: break;
 				}
@@ -104,24 +110,24 @@ try {
 			// Niveau visiteur
 			// Membres
             case 'subscription':
-				$frontendController->subscription();
+				$membersController->subscription();
 				break;
 			case 'subscription_post':
-				$frontendController->subscriptionPost($_POST['pseudo'], $_POST['email'], $_POST['password'], $_POST['password2']);
+				$membersController->subscriptionPost($_POST['pseudo'], $_POST['email'], $_POST['password'], $_POST['password2']);
 				break;
 			case 'login':
-				$frontendController->login();
+				$membersController->login();
 				break;
 			case 'login_post':
-				$frontendController->loginPost($_POST['email'], $_POST['password'], $_POST['remember']);
+				$membersController->loginPost($_POST['email'], $_POST['password'], $_POST['remember']);
 				break;
             // Séries
 			case 'displaySeries':
-				$frontendController->displaySeries((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, 12, $_GET['subscription']);
+				$seriesController->displaySeries((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, 12, $_GET['subscription']);
 				break;
             // Episodes
 			case 'displayEpisode':
-				$frontendController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : -1, $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
+				$episodesController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : -1, $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
 				break;
 			default:
 			require('src/View/404error.php');
