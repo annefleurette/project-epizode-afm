@@ -113,21 +113,44 @@ try {
 				$membersController->subscription();
 				break;
 			case 'subscription_post':
-				$membersController->subscriptionPost($_POST['pseudo'], $_POST['email'], $_POST['password'], $_POST['password2']);
-				break;
+				if(isset($_POST['pseudo']) AND isset($_POST['email']) AND isset($_POST['password']) AND isset($_POST['password2']))
+				{
+					$membersController->subscriptionPost($_POST['pseudo'], $_POST['email'], $_POST['password'], $_POST['password2']);
+					break;
+				}else{
+					require('src/View/404error.php');
+				}
 			case 'login':
 				$membersController->login();
 				break;
 			case 'login_post':
-				$membersController->loginPost($_POST['email'], $_POST['password'], $_POST['remember']);
-				break;
+				if(isset($_POST['email']) AND isset($_POST['password']))
+				{
+					$membersController->loginPost($_POST['email'], $_POST['password'], $_POST['remember']);
+					break;
+				}else{
+					require('src/View/404error.php');
+				}
             // Séries
 			case 'displaySeries':
-				$seriesController->displaySeries((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, 12, $_GET['subscription']);
-				break;
+				if(isset($_GET['subscription']))
+				{
+					$seriesController->displaySeries((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, 12, $_GET['subscription']);
+					break;
+				}else{
+					require('src/View/404error.php');
+				}
             // Episodes
 			case 'displayEpisode':
-				$episodesController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : -1, $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
+				if(isset($_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']))
+				{
+					$episodesController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : -1, $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
+					break;
+				}else{
+					require('src/View/404error.php');
+				}
+			case 'logout':
+				$membersController->logout();
 				break;
 			default:
 			require('src/View/404error.php');

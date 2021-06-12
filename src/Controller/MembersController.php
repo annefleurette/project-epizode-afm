@@ -104,6 +104,7 @@ class MembersController {
 				if ($isPasswordCorrect)
 				{
 					session_start();
+					$_SESSION['id'] = $memberInfo['id'];
 					$_SESSION['pseudo'] = $memberInfo['pseudo'];
 					$_SESSION['type'] = $memberInfo['type'];
 					if($postremember == "on")
@@ -111,7 +112,7 @@ class MembersController {
                         setcookie($postemail, time()+365*24*3600, null, null, false, true);
 					}
                     // On inclut la gestion des authorisations
-                    include('./src/Utils/Authorization.php');
+                    include('./src/Utils/authorization.php');
 					if($memberInfo['type'] == "admin")
 					{ // Si le membre est admin
 						header('Location: index.php?action=admin'); 

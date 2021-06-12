@@ -25,6 +25,7 @@ ob_start();
                 <label for="remember">Se souvenir de moi</label>
             </p>
         </form>
+        <p><a href ="index.php?action=subscription">Créer un compte</a></p>
     <?php
     }else{
     ?>

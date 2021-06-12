@@ -14,5 +14,5 @@ if(isset($_SESSION['type']))
             $_SESSION['level'] == 10;
             break;
     }
-} 
+}
 ?>

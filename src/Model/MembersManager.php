@@ -327,7 +327,7 @@ class MembersManager extends Manager
 	public function getMemberInfo($email)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT pseudo, password, type FROM members WHERE email = ?');
+		$req = $db->prepare('SELECT id, pseudo, password, type FROM members WHERE email = ?');
 	    $req->execute(array($email));
 	    $memberInfo = $req->fetch();
 	    $req->closeCursor();

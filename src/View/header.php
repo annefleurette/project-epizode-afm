@@ -12,15 +12,15 @@
                 <li>Coins (+ valeur calculée)</li>
                 <li><a href="#">Mon compte</a></li>
             <?php
-            } elseif(isset($_SESSION['pseudo']) AND $_SESSION['type'] == "admin")
+            }elseif(isset($_SESSION['pseudo']) AND $_SESSION['type'] == "admin")
             {
             ?>
-                <li><a href="#">Déconnexion</a></li>
+                <li><a href="index.php?action=logout">Déconnexion</a></li>
             <?php
-            } else {
+            }else{
             ?>
                 <li><a href="#">Découvrir</a></li>
-                <li><a href="#">Connexion</a></li>
+                <li><a href="index.php?action=login">Connexion</a></li>
             <?php  
             }
             ?>
