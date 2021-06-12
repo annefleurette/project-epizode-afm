@@ -5,13 +5,13 @@ if(isset($_SESSION['type']))
     switch($_SESSION['type'])
 	{
         case 'admin':
-            $_SESSION['level'] == 30;
+            $_SESSION['level'] = 30;
             break;
         case 'publisher':
-            $_SESSION['level'] == 20;
+            $_SESSION['level'] = 20;
             break;
         case 'user':
-            $_SESSION['level'] == 10;
+            $_SESSION['level'] = 10;
             break;
     }
 }

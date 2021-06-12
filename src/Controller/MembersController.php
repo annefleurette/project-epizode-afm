@@ -6,9 +6,6 @@ require_once('src/Model/EpisodesManager.php');
 require_once('src/Model/CommentsManager.php');
 require_once('src/Model/MembersManager.php');
 
-use AnneFleurMarchat\Epizode\Model\SeriesManager;
-use AnneFleurMarchat\Epizode\Model\EpisodesManager;
-use AnneFleurMarchat\Epizode\Model\CommentsManager;
 use AnneFleurMarchat\Epizode\Model\MembersManager;
 
 class MembersController {
@@ -103,7 +100,6 @@ class MembersController {
 				$isPasswordCorrect = password_verify($postpassword, $memberInfo['password']);
 				if ($isPasswordCorrect)
 				{
-					session_start();
 					$_SESSION['id'] = $memberInfo['id'];
 					$_SESSION['pseudo'] = $memberInfo['pseudo'];
 					$_SESSION['type'] = $memberInfo['type'];
@@ -111,7 +107,7 @@ class MembersController {
                     { // On enregistre l'email que si l'utilisateur le souhaite
                         setcookie($postemail, time()+365*24*3600, null, null, false, true);
 					}
-                    // On inclut la gestion des authorisations
+                    // On inclut la gestion des autorisations
                     include('./src/Utils/authorization.php');
 					if($memberInfo['type'] == "admin")
 					{ // Si le membre est admin

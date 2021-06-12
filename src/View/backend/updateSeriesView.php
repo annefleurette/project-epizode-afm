@@ -96,16 +96,28 @@ if(!empty($seriesId))
                                     <?php if(isset($episodedata['publicationDate']))
                                     {
                                     ?>
-                                        <p>Publié le : <?php echo $episodedata['publicationDate']; ?></p>
+                                        <p>Publié le :
+                                        <?php 
+                                        $date = new DateTime($episodedata['publicationDate']);
+                                        echo $date->format('d/m/Y à H:i'); ?>
+                                        </p>
                                     <?php
                                     }
                                     ?>
-                                    <p>Dernière modification le : <?php echo $episodedata['lastUpdate']; ?></p>
+                                    <p>Dernière modification le :
+                                    <?php
+                                    $date = new DateTime($episodedata['lastUpdate']);
+                                    echo $date->format('d/m/Y à H:i'); ?>
+                                    </p>
                                 <?php
                                 }elseif ($episodedata['publishing'] === "inprogress")
                                 {
                                 ?>
-                                    <p>Dernière modification : <?php echo $episodedata['lastUpdate']; ?></p>
+                                    <<p>Dernière modification le :
+                                    <?php
+                                    $date = new DateTime($episodedata['lastUpdate']);
+                                    echo $date->format('d/m/Y à H:i'); ?>
+                                    </p>
                                 <?php
                                 }
                                 ?>

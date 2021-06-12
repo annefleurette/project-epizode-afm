@@ -8,7 +8,6 @@ require_once('src/Model/MembersManager.php');
 
 use AnneFleurMarchat\Epizode\Model\SeriesManager;
 use AnneFleurMarchat\Epizode\Model\EpisodesManager;
-use AnneFleurMarchat\Epizode\Model\CommentsManager;
 use AnneFleurMarchat\Epizode\Model\MembersManager;
 
 class SeriesController {

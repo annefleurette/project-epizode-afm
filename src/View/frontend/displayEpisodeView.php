@@ -99,7 +99,9 @@ if (!empty($episode_unitary_published))
                             <?php
                             }
                             ?>
-                            <p>Le <?php echo $comment_data['date']; ?></p>
+                            <p>Le <?php 
+                            $date = new DateTime($comment_data['date']);
+                            echo $date->format('d/m/Y à H:i'); ?></p>
                             <p><?php echo ($comment_data['content']); ?></p>
                             <form action="index.php?action=alertComment_post&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>&idcomment=<?php echo $comment_data["id"]; ?>" method="post">
                                 <input type="submit" value="Signaler">

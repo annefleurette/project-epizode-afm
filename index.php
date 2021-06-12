@@ -133,13 +133,13 @@ try {
 				}
             // Séries
 			case 'displaySeries':
-				if(isset($_GET['subscription']))
-				{
+				//if(isset($_GET['subscription']))
+				//{
 					$seriesController->displaySeries((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, 12, $_GET['subscription']);
 					break;
-				}else{
-					require('src/View/404error.php');
-				}
+				//}else{
+					//require('src/View/404error.php');
+				//}
             // Episodes
 			case 'displayEpisode':
 				if(isset($_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']))
