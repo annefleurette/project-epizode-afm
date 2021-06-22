@@ -24,15 +24,30 @@ try {
 				{
 					// Episodes
 					case 'removeAlertEpisode_post':
-						$episodesController->removeAlertEpisodePost($_GET['idepisode']);
-						break;
+						if(isset($_GET['idepisode']))
+						{
+							$episodesController->removeAlertEpisodePost($_GET['idepisode']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					// Comments
 					case 'deleteComment':
-						$commentsController->deleteComment($_GET['idcomment']);
-						break;
+						if(isset($_GET['idcomment']))
+						{
+							$commentsController->deleteComment($_GET['idcomment']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'removeAlertComment_post':
-						$commentsController->removeAlertCommentPost($_GET['idcomment']);
-						break;
+						if(isset($_GET['idcomment']))
+						{
+							$commentsController->removeAlertCommentPost($_GET['idcomment']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					default: break;
 				}
 			}
@@ -54,53 +69,128 @@ try {
 						$seriesController->writeSeries();
 						break;	
 					case 'writeSeries_post':
-						//$backendController->writeSeriesPost(1, $_POST['author'], $_POST['descriptionAuthor'], $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['tags'], $_POST['rights']);
-						$seriesController->writeSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags']);
-						break;
+						if(isset($_POST['titleSeries']) AND isset($_POST['descriptionSeries']) AND isset($_POST['rights']) AND isset($_POST['tags']))
+						{
+							//$backendController->writeSeriesPost(1, $_POST['author'], $_POST['descriptionAuthor'], $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['tags'], $_POST['rights']);
+							$seriesController->writeSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'updateSeries':
-						$seriesController->updateSeries($_GET['idseries']);
-						break;
+						if(isset($_GET['idseries']))
+						{
+							$seriesController->updateSeries($_GET['idseries']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'updateSeries_post':
-						$seriesController->updateSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_GET['idseries']);
-						break;
+						if(isset($_POST['titleSeries']) AND isset($_POST['descriptionSeries']) AND isset($_POST['rights']) AND isset($_POST['tags']) AND isset($_GET['idseries']))
+						{
+							$seriesController->updateSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_GET['idseries']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'updateSeriesDeleted':
-						$seriesController->updateSeriesDeleted($_GET['idseries']);
-						break;
+						if(isset($_GET['idseries']))
+						{
+							$seriesController->updateSeriesDeleted($_GET['idseries']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'deleteSeries':
-						$seriesController->deleteSeries($_GET['idseries']);
-						break;
+						if(isset($_GET['idseries']))
+						{
+							$seriesController->deleteSeries($_GET['idseries']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					//Episodes
 					case 'writeEpisode':
-						$episodesController->writeEpisode($_GET['idseries']);
-						break;
+						if(isset($_GET['idseries']))
+						{
+							$episodesController->writeEpisode($_GET['idseries']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'writeEpisode_post':
-						$episodesController->writeEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : null, $_POST['nbCharacters'], $_GET['idseries']);
-						break;
+						if(isset($_POST['numberEpisode']) AND isset($_POST['titleEpisode']) AND isset($_POST['contenEpisode']) AND isset($_POST['priceEpisode']) AND isset($_POST['nbCharacters']) AND isset($_GET['idseries']))
+						{
+							$episodesController->writeEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : null, $_POST['nbCharacters'], $_GET['idseries']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'lookEpisode':
-						$episodesController->lookEpisode($_GET['idseries'], $_GET['idepisode']);
-						break;
+						if(isset($_GET['idseries']) AND isset($_GET['idepisode']))
+						{
+							$episodesController->lookEpisode($_GET['idseries'], $_GET['idepisode']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'updateEpisode':
-						$episodesController->updateEpisode($_GET['idseries'], $_GET['idepisode']);
-						break;
+						if(isset($_GET['idseries']) AND isset($_GET['idepisode']))
+						{
+							$episodesController->updateEpisode($_GET['idseries'], $_GET['idepisode']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'updateEpisode_post':
-						$episodesController->updateEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, (isset($_POST['numberEpisode'])) ? $_POST['numberEpisode'] : null, $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : date('Y-m-dTH:i', strtotime('+2 hours')), $_POST['nbCharacters'], $_GET['idseries'], $_GET['idepisode']);
-						break;
+						if(isset($_POST['titleEpisode']) AND isset($_POST['contenEpisode']) AND isset($_POST['priceEpisode']) AND isset($_POST['nbCharacters']) AND isset($_GET['idseries']) AND isset($_GET['idepisode']))
+						{
+							$episodesController->updateEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, (isset($_POST['numberEpisode'])) ? $_POST['numberEpisode'] : null, $_POST['titleEpisode'], $_POST['contentEpisode'], $_POST['priceEpisode'], $_POST['promotionEpisode'], (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : date('Y-m-dTH:i', strtotime('+2 hours')), $_POST['nbCharacters'], $_GET['idseries'], $_GET['idepisode']);
+							break;						
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'updateEpisodeDeleted':
-						$episodesController->updateEpisodeDeleted($_GET['idseries'], $_GET['idepisode']);
-						break;
+						if(isset($_GET['idseries']) AND isset($_GET['idepisode']))
+						{
+							$episodesController->updateEpisodeDeleted($_GET['idseries'], $_GET['idepisode']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'deleteEpisode':
-						$episodesController->deleteEpisode($_GET['idepisode']);
-						break;
+						if(isset($_GET['idepisode']))
+						{
+							$episodesController->deleteEpisode($_GET['idepisode']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'alertEpisode_post':
-						$episodesController->alertEpisodePost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
-						break;
+						if(isset($_SESSION['idmember']) AND isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']) AND isset($_GET['like'])) 
+						{
+							$episodesController->alertEpisodePost($_SESSION['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					// Comments
 					case 'writeComment_post':
-						$commentsController->writeCommentPost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_POST['comment']);
-						break;	
+						if(isset($_SESSION['idmember']) AND isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']) AND isset($_GET['like']) AND isset($_POST['comment']))
+						{
+							$commentsController->writeCommentPost($_SESSION['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_POST['comment']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					case 'alertComment_post':
-						$commentsController->alertCommentPost($_GET['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_GET['idcomment']);
-						break;
+						if(isset($_SESSION['idmember']) AND isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']) AND isset($_GET['like']) AND isset($_GET['idcomment']))
+						{
+							$commentsController->alertCommentPost($_SESSION['idmember'], $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_GET['idcomment']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					default: break;
 				}
 			}
@@ -133,25 +223,22 @@ try {
 				}
             // Séries
 			case 'displaySeries':
-				//if(isset($_GET['subscription']))
-				//{
-					$seriesController->displaySeries((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, 12, $_GET['subscription']);
+				if(isset($_GET['idseries']) AND isset($_GET['subscription']))
+				{
+					$seriesController->displaySeries((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, $_GET['idseries'], $_GET['subscription']);
 					break;
-				//}else{
-					//require('src/View/404error.php');
-				//}
+				}else{
+					require('src/View/404error.php');
+				}
             // Episodes
 			case 'displayEpisode':
-				if(isset($_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']))
+				if(isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']) AND isset($_GET['like']))
 				{
 					$episodesController->displayEpisode((isset($_GET['idmember'])) ? $_GET['idmember'] : -1, $_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
 					break;
 				}else{
 					require('src/View/404error.php');
 				}
-			case 'logout':
-				$membersController->logout();
-				break;
 			default:
 			require('src/View/404error.php');
 		}

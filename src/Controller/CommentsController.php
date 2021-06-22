@@ -18,21 +18,9 @@ class CommentsController {
         $episodeNumber = htmlspecialchars($episodeNumber);
         $episodeId = htmlspecialchars($episodeId);
         $episodeLikesNumber = htmlspecialchars($episodeLikesNumber);
-        //if(isset($sessionpseudo)) Si l'utilisateur est bien connecté
-        if(true) {
-            // Si le commentaire a bien été saisi
-            if (isset($postcomment))
-            {
-                $postcomment = htmlspecialchars($postcomment);
-                $addComment = $commentsManager->addComment($memberId, $episodeId, $postcomment);
-                header("Location: index.php?action=displayEpisode&idmember=" .$memberId . "&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId. "&like=" .$episodeLikesNumber);
-            }else{
-                $_SESSION['error'] = "Vous n'avez pas saisi votre commentaire";
-                header("Location: index.php?action=displayEpisode&idmember=" .$memberId . "&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId. "&like=" .$episodeLikesNumber);
-            }
-        }else{
-            header('Location: index.php?action=login');
-        }
+        $postcomment = htmlspecialchars($postcomment);
+        $addComment = $commentsManager->addComment($memberId, $episodeId, $postcomment);
+        header("Location: index.php?action=displayEpisode&idmember=" .$memberId . "&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId. "&like=" .$episodeLikesNumber);
     }
 
 // A compléter avec l'espace d'administration
