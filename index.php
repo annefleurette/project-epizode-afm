@@ -22,6 +22,15 @@ try {
 			if($_SESSION['level'] >=30){ // Niveau admin
 				switch($_GET['action'])
 				{
+					// Series
+					case 'deleteSeries':
+						if(isset($_GET['idseries']))
+						{
+							$seriesController->deleteSeries($_GET['idseries']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					// Episodes
 					case 'removeAlertEpisode_post':
 						if(isset($_GET['idepisode']))
@@ -62,49 +71,49 @@ try {
 				{
 					// Membres
 					case 'logout':
-						$membersController->logout();
-						break;
+						if(isset($_SESSION)){
+							$membersController->logout();
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
 					// Series
 					case 'writeSeries':
-						$seriesController->writeSeries();
-						break;	
-					case 'writeSeries_post':
-						if(isset($_POST['titleSeries']) AND isset($_POST['descriptionSeries']) AND isset($_POST['rights']) AND isset($_POST['tags']))
+						if(isset($_SESSION['idmember']) AND ($_SESSION['idmember'] == $_GET['idmember']))
 						{
-							//$backendController->writeSeriesPost(1, $_POST['author'], $_POST['descriptionAuthor'], $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['tags'], $_POST['rights']);
-							$seriesController->writeSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags']);
+							$seriesController->writeSeries($_SESSION['idmember']);
+							break;
+						}else{
+							require('src/View/404error.php');
+						}
+					case 'writeSeries_post':
+						if(isset($_SESSION['idmember']) AND isset($_POST['titleSeries']) AND isset($_POST['descriptionSeries']) AND isset($_POST['rights']) AND isset($_POST['tags']))
+						{
+							$seriesController->writeSeriesPost($_SESSION['idmember'], $_POST['author'], $_POST['descriptionAuthor'], $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags']);
 							break;
 						}else{
 							require('src/View/404error.php');
 						}
 					case 'updateSeries':
-						if(isset($_GET['idseries']))
+						if(isset($_SESSION['idmember']) AND isset($_GET['idseries']) AND ($_SESSION['idmember'] == $_GET['idmember']))
 						{
-							$seriesController->updateSeries($_GET['idseries']);
+							$seriesController->updateSeries($_SESSION['idmember'], $_GET['idseries']);
 							break;
 						}else{
 							require('src/View/404error.php');
 						}
 					case 'updateSeries_post':
-						if(isset($_POST['titleSeries']) AND isset($_POST['descriptionSeries']) AND isset($_POST['rights']) AND isset($_POST['tags']) AND isset($_GET['idseries']))
+						if(isset($_SESSION['idmember']) AND isset($_POST['titleSeries']) AND isset($_POST['descriptionSeries']) AND isset($_POST['rights']) AND isset($_POST['tags']) AND isset($_GET['idseries']))
 						{
-							$seriesController->updateSeriesPost(1, null, null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_GET['idseries']);
+							$seriesController->updateSeriesPost($_SESSION['idmember'], $_POST['author'], $_POST['descriptionAuthor'], $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_GET['idseries']);
 							break;
 						}else{
 							require('src/View/404error.php');
 						}
 					case 'updateSeriesDeleted':
-						if(isset($_GET['idseries']))
+						if(isset($_SESSION['idmember'], $_GET['idseries']) AND ($_SESSION['idmember'] == $_GET['idmember']))
 						{
-							$seriesController->updateSeriesDeleted($_GET['idseries']);
-							break;
-						}else{
-							require('src/View/404error.php');
-						}
-					case 'deleteSeries':
-						if(isset($_GET['idseries']))
-						{
-							$seriesController->deleteSeries($_GET['idseries']);
+							$seriesController->updateSeriesDeleted($_SESSION['idmember'], $_GET['idseries']);
 							break;
 						}else{
 							require('src/View/404error.php');
@@ -225,7 +234,7 @@ try {
 			case 'displaySeries':
 				if(isset($_GET['idseries']) AND isset($_GET['subscription']))
 				{
-					$seriesController->displaySeries((isset($_GET['idmember'])) ? $_GET['idmember'] : 1, $_GET['idseries'], $_GET['subscription']);
+					$seriesController->displaySeries((isset($_SESSION['idmember'])) ? $_GET['idmember'] : 1, $_GET['idseries'], $_GET['subscription']);
 					break;
 				}else{
 					require('src/View/404error.php');

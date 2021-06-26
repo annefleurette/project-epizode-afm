@@ -144,6 +144,15 @@ class SeriesManager extends Manager
     	$deleteSeries->execute(array($idseries));
     	return $deleteSeries;
 	}
+    // On récupère les id de toutes les séries
+    public function getAllIdSeries()
+	{
+		$db = $this->dbConnect();
+		$req = $db->query('SELECT s.id AS "id"FROM series s ORDER BY s.id');
+	    $getAllIdSeries = $req->fetchAll(\PDO::FETCH_COLUMN);
+	    $req->closeCursor();
+	    return $getAllIdSeries;
+	}
 	// On récupère l'id d'une série à partir de l'id du membre et de son titre
 	public function getSeriesId($idmember, $title)
 	{
@@ -153,6 +162,16 @@ class SeriesManager extends Manager
 		$seriesId = $req->fetch(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
 	    return $seriesId;
+	}
+	// On récupère tous les id de série d'un membre
+	public function getAllSeriesId($idmember)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT s.id AS "ids" FROM series s INNER JOIN members m ON s.id_member = m.id WHERE m.id = ? ORDER BY s.id');
+		$req->execute(array($idmember));
+	    $getAllSeriesId = $req->fetchAll(\PDO::FETCH_COLUMN);
+	    $req->closeCursor();
+	    return $getAllSeriesId;
 	}
 	// On récupère tous les titres de série d'un membre
 	public function getAllTitles($idmember)

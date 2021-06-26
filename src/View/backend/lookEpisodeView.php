@@ -1,8 +1,6 @@
 <?php
 $head_title = 'Epizode - Aperçu de l\'épisode';
 ob_start();
-if (!empty($oneEpisodesUser))
-{
 ?>
     <section> <!-- Retour en arrière -->
         <p>
@@ -35,14 +33,6 @@ if (!empty($oneEpisodesUser))
         <p><?php echo $oneEpisodesUser['content']; ?></p>
     </section>
 <?php
-}else{
-?>
-    <section>
-        <h1>Erreur 404</h1>
-        <p>Cette page n'existe pas !</p>
-    </section>
-<?php
-}
 $body_content = ob_get_clean();
 require('template.php');
 ?>

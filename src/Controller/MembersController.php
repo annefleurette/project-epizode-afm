@@ -105,7 +105,7 @@ class MembersController {
 				{ // Si le membre est admin
 					header('Location: index.php?action=admin'); 
 				}else{ // Si le membre est éditeur ou utilisateur
-					header('Location: index.php?action=writeSeries');
+					header('Location: index.php?action=writeSeries&idmember=' .$_SESSION['idmember']);
 				}
 			}else{
                 $_SESSION['tempEmail'] = $postemail;
@@ -113,7 +113,6 @@ class MembersController {
                 header("Location: index.php?action=login");
 			}
 		}
-
 	}
 
 	public function logout()

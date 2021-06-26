@@ -2,8 +2,6 @@
 $head_title = 'Epizode - Lecture de l\'épisode';
 $head_description = 'Blabla';
 ob_start();
-if (!empty($episode_unitary_published))
-{
 ?>
     <section> <!-- Section avec l'épisode en aperçu -->
         <h1><?php echo $oneSeriesUserData['title']; ?></h1>
@@ -142,14 +140,6 @@ if (!empty($episode_unitary_published))
         ?>-->
     </section>
 <?php
-}else{
-?>
-    <section>
-        <h1>Erreur 404</h1>
-        <p>Cette page n'existe pas !</p>
-    </section>
-<?php
-}
 $body_content = ob_get_clean();
 require('template.php');
 ?>
