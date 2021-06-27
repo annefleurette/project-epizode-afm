@@ -10,7 +10,7 @@ ob_start();
     </ul>
 </nav>
 <section class="seriesContent" data-tab="1">
-    <form action="index.php?action=updateSeries_post&idmember=<?php echo $getidmember; ?>&idseries=<?php echo $seriesId; ?>" method="post" enctype="multipart/form-data">
+    <form action="index.php?action=updateSeries_post" method="post" enctype="multipart/form-data">
         <p>
             <label for="title">Titre</label><br />
             <input type="text" id="title" name="titleSeries" minlength="1" maxlength="100" value="<?php if(isset($_SESSION['tempSeriestitle'])){echo $_SESSION['tempSeriestitle'];}else{echo $oneSeriesUserData['title'];}?>" required>
@@ -69,7 +69,7 @@ ob_start();
     </form>
 </section>
 <section class="seriesContent hidden" data-tab="2">
-    <p><a href="index.php?action=writeEpisode&idseries=<?php echo $seriesId; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
+    <p><a href="index.php?action=writeEpisode&idmember=<?php echo $getidmember; ?>&idseries=<?php echo $seriesId; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
     <?php
     if($oneSeriesUserData['numberEpisodes']!== "0")
     {

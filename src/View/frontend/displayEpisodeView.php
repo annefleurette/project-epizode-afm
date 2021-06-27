@@ -30,16 +30,23 @@ ob_start();
         <p><?php echo $episode_unitary_published['content']; ?></p>
         <!-- Gestion des likes -->
         <?php
-        if($episodeLikesNumber == 1)
+        if(isset($_SESSION))
         {
-        ?>    
-            <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=-1">ANNULER LE LIKE</a></p>
-        <?php
-        }elseif($episodeLikesNumber == -1 OR $episodeLikesNumber == 0)
-        {
-        ?>
-            <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=1">LIKER</a></p>
-        <?php    
+            if($episodeLikesNumber == 1)
+            {
+            ?>    
+                <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=-1">ANNULER LE LIKE</a></p>
+            <?php
+            }elseif($episodeLikesNumber == -1 OR $episodeLikesNumber == 0)
+            {
+            ?>
+                <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=1">LIKER</a></p>
+            <?php    
+            }
+        }else{
+            ?>
+                <p><a href="index.php?action=login">CONNECTEZ-VOUS</a>pour vous liker un épisode !</p>
+            <?php
         }
         ?>
         <!-- Gestion du signalement -->

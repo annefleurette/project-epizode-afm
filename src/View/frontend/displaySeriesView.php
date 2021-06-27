@@ -29,16 +29,23 @@ ob_start();
     <p><?php echo $oneSeriesUserData['publishing']; ?></p>
     <p><?php echo $oneSeriesUserData['rights']; ?></p>
     <?php
-    if($seriesSubscriptionNumber == 1)
+    if(isset($_SESSION))
     {
-    ?>    
-        <p><a href="index.php?action=displaySeries&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&subscription=-1">ANNULER L'ABONNEMENT</a></p>
-    <?php   
-    }elseif($seriesSubscriptionNumber == -1 OR $seriesSubscriptionNumber == 0)
-    {
+        if($seriesSubscriptionNumber == 1)
+        {
+        ?>    
+            <p><a href="index.php?action=displaySeries&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&subscription=-1">ANNULER L'ABONNEMENT</a></p>
+        <?php   
+        }elseif($seriesSubscriptionNumber == -1 OR $seriesSubscriptionNumber == 0)
+        {
+        ?>
+            <p><a href="index.php?action=displaySeries&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&subscription=1">S'ABONNER</a></p>
+        <?php    
+        }
+    }else{
     ?>
-        <p><a href="index.php?action=displaySeries&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&subscription=1">S'ABONNER</a></p>
-    <?php    
+        <p><a href="index.php?action=login">CONNECTEZ-VOUS</a>pour vous abonner à une série !</p>
+    <?php
     }
     ?>
 </section>

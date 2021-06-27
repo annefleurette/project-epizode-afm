@@ -14,8 +14,15 @@ class EpisodesController {
 
     public function writeEpisode($seriesId)
     {
+        $seriesManager = new SeriesManager();
         $seriesId = htmlspecialchars($seriesId);
-        require('./src/View/backend/writeEpisodeView.php');
+        // On vérifie que la série est bien une série créée par le membre
+        $getAllSeriesId = $seriesManager->getAllSeriesId($_SESSION['idmember']);
+        if (in_array($seriesId, $getAllSeriesId)) {
+            require('./src/View/backend/writeEpisodeView.php');
+        }else{
+            require('./src/View/404error.php');
+        }
     }
 
     public function writeEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice, $postpromotion, $postdate, $postsigns, $seriesId)
@@ -53,7 +60,7 @@ class EpisodesController {
                     $_SESSION['tempPrice'] = $postprice;
                     $_SESSION['tempPromotion'] = $postpromotion;
                     $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
-                    header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
+                    header("Location: index.php?action=writeEpisode&idmember&idseries=" .$seriesId);
                 }
             }else{
                 // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
@@ -63,7 +70,7 @@ class EpisodesController {
                 $_SESSION['tempPrice'] = $postprice;
                 $_SESSION['tempPromotion'] = $postpromotion;
                 $_SESSION['error'] = "Vous avez déjà publié ce numéro d'épisode ou cet épisode n'est pas le suivant du dernier épisode publié ! Le dernier épisode de la série publié est le numéro " . $count_episode_published;
-                header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
+                header("Location: index.php?action=writeEpisode&idmember&idseries=" .$seriesId);
             }
         }else{ // Si le bouton Publier est choisi
             // Enregistrement de l'épisode à publier dans la base de données
@@ -303,12 +310,11 @@ class EpisodesController {
         header("Location: "); 
     }
 
-    public function displayEpisode($memberId, $seriesId, $episodeNumber, $episodeId, $episodeLikesNumber)
+    public function displayEpisode($seriesId, $episodeNumber, $episodeId, $episodeLikesNumber)
     {
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager();
         $commentsManager = new CommentsManager();
-        $memberId = htmlspecialchars($memberId);
         $seriesId = htmlspecialchars($seriesId);
         $episodeNumber = htmlspecialchars($episodeNumber);
         $episodeId = htmlspecialchars($episodeId);
@@ -316,14 +322,17 @@ class EpisodesController {
         // On affiche les informations de la série
         $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
         // On gère les likes
-        if(intval($episodeLikesNumber) === 1)
+        if(isset($_SESSION))
         {
-            // On ajoute un like à un épisode
-            $episodeLike = $episodesManager->addEpisodeLike($episodeId, $memberId);
-        }elseif(intval($episodeLikesNumber) === -1) 
-        {
-            // On supprime un like à un épisode
-            $deleteLike = $episodesManager->deleteLike($episodeId, $memberId);
+            if(intval($episodeLikesNumber) === 1)
+            {
+                // On ajoute un like à un épisode
+                $episodeLike = $episodesManager->addEpisodeLike($episodeId, $_SESSION['idmember']);
+            }elseif(intval($episodeLikesNumber) === -1) 
+            {
+                // On supprime un like à un épisode
+                $deleteLike = $episodesManager->deleteLike($episodeId, $_SESSION['idmember']);
+            }
         }
         // On récupère les informations de l'épisode
         $episode_unitary_published = $episodesManager->getEpisodePublished($episodeNumber, $seriesId);
@@ -341,10 +350,9 @@ class EpisodesController {
         require('./src/View/frontend/displayEpisodeView.php');
     }
 
-    public function alertEpisodePost($memberId, $seriesId, $episodeNumber, $episodeId, $episodeLikesNumber)
+    public function alertEpisodePost($seriesId, $episodeNumber, $episodeId, $episodeLikesNumber)
     {
         $episodesManager = new EpisodesManager;
-        $memberId = htmlspecialchars($memberId);
         $seriesId = htmlspecialchars($seriesId);
         $episodeNumber = htmlspecialchars($episodeNumber);
         $episodeId = htmlspecialchars($episodeId);
@@ -352,7 +360,7 @@ class EpisodesController {
         // On signale un épisode
         $alert = 1;
         $updateAlertEpisode = $episodesManager->updateEpisodeAlert($alert, $episodeId);
-        header("Location: index.php?action=displayEpisode&idmember=" .$memberId . "&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId. "&like=" .$episodeLikesNumber);
+        header("Location: index.php?action=displayEpisode&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId. "&like=" .$episodeLikesNumber);
     }
 
 // A compléter avec l'espace d'administration

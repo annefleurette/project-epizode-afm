@@ -12,17 +12,15 @@ use AnneFleurMarchat\Epizode\Model\MembersManager;
 
 class SeriesController {
 
-    public function writeSeries($getidmember)
+    public function writeSeries()
     {
-        $getidmember = htmlspecialchars($getidmember);
         require('./src/View/backend/writeSeriesView.php');
     }
     
-    public function writeSeriesPost($getidmember, $postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag)
+    public function writeSeriesPost($postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag)
     {
         $seriesManager = new SeriesManager();
         $membersManager = new MembersManager();
-        $getidmember = htmlspecialchars($getidmember);
         $postauthorname = htmlspecialchars($postauthorname);
         $postauthordescription = htmlspecialchars($postauthordescription);
         $postseriestitle = htmlspecialchars($postseriestitle);
@@ -32,7 +30,7 @@ class SeriesController {
         $pricing = "paying";
         $publishing = "inprogress";
         // Testons si le titre est bien unique pour l'utilisateur
-        $getAllTitles = $seriesManager->getAllTitles($getidmember);
+        $getAllTitles = $seriesManager->getAllTitles($_SESSION['idmember']);
         if(!in_array($postseriestitle, $getAllTitles))
         {
             // Si une image est ajoutée
@@ -53,7 +51,7 @@ class SeriesController {
                         $code = bin2hex(random_bytes($n));
                         $covername = $postseriestitle;
                         $covername = str_replace(' ','_',$covername);
-                        $newname = $getidmember . '_' . $code . '_' . basename($_FILES['cover']['name']);
+                        $newname = $_SESSION['idmember'] . '_' . $code . '_' . basename($_FILES['cover']['name']);
                         move_uploaded_file($_FILES['cover']['tmp_name'], './public/images/' .$newname);
                         $imagealt = $postseriestitle;
                         $imageurl = './public/images/' .$newname;
@@ -76,7 +74,7 @@ class SeriesController {
                         $_SESSION['tempRights'] = $postseriesright;
                         $_SESSION['tempTags'] = $postseriestag;
                         $_SESSION['error'] = "Le fichier n'est pas une image";
-                        header("Location: index.php?action=writeSeries&idmember=" . $getidmember);
+                        header("Location: index.php?action=writeSeries");
                     }
                 }else{
                     // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
@@ -87,15 +85,15 @@ class SeriesController {
                     $_SESSION['tempRights'] = $postseriesright;
                     $_SESSION['tempTags'] = $postseriestag;
                     $_SESSION['error'] = "Le fichier est trop volumineux";
-                    header("Location: index.php?action=writeSeries&idmember=" . $getidmember);
+                    header("Location: index.php?action=writeSeries");
                 }
             }else{
                 $coverId = 1; // Affiche par défaut
             }
             // On enregistre la nouvelle série
-            $addNewSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, intval($getidmember), $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription);
+            $addNewSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, intval($_SESSION['idmember']), $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription);
             // On récupère l'id de la série à partir de son titre, de l'id de l'auteur et de l'id_cover
-            $seriesId = $seriesManager->getSeriesId($getidmember, $postseriestitle);
+            $seriesId = $seriesManager->getSeriesId($_SESSION['idmember'], $postseriestitle);
             // Enregistrement des tags
             $tagname = explode(",", $postseriestag);
             for ($i = 0; $i < count($tagname); $i++)
@@ -113,7 +111,7 @@ class SeriesController {
                 // On associe le tag à la série
                 $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
             }
-            header("Location: index.php?action=updateSeries&idmember=" . $getidmember . "&idseries=" .$seriesId);
+            header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
         }else{
             // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
             $_SESSION['tempAuthorname'] = $postauthorname;
@@ -123,18 +121,17 @@ class SeriesController {
             $_SESSION['tempRights'] = $postseriesright;
             $_SESSION['tempTags'] = $postseriestag;
             $_SESSION['error'] = "Vous avez déjà créé une série avec le même titre !";
-            header("Location: index.php?action=writeSeries&idmember=" . $getidmember);
+            header("Location: index.php?action=writeSeries");
         }
     }
 
-    public function updateSeries($getidmember, $seriesId)
+    public function updateSeries($seriesId)
     {
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager();
-        $getidmember = htmlspecialchars($getidmember);
         $seriesId = htmlspecialchars($seriesId);
         // On vérifie que la série est bien une série créée par le membre
-        $getAllSeriesId = $seriesManager->getAllSeriesId($getidmember);
+        $getAllSeriesId = $seriesManager->getAllSeriesId($_SESSION['idmember']);
         if (in_array($seriesId, $getAllSeriesId)) {
             // On affiche la série
             $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
@@ -151,11 +148,10 @@ class SeriesController {
         }
     }
 
-    public function updateSeriesPost($getidmember, $postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag, $seriesId)
+    public function updateSeriesPost($postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag, $seriesId)
     {
         $seriesManager = new SeriesManager();
         $membersManager = new MembersManager();
-        $getidmember = htmlspecialchars($getidmember);
         $postauthorname = htmlspecialchars($postauthorname);
         $postauthordescription = htmlspecialchars($postauthordescription);
         $postseriestitle = htmlspecialchars($postseriestitle);
@@ -167,7 +163,7 @@ class SeriesController {
         $publishing = "inprogress";
         // Testons si le titre est bien unique pour l'utilisateur
         // On récupère tous les titres de série publiées par l'utilisateur
-        $getAllTitles = $seriesManager->getAllTitles($getidmember);
+        $getAllTitles = $seriesManager->getAllTitles($_SESSION['idmember']);
         // On récupère le titre actuel
         $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
         // On l'envlève de $getAllTitles
@@ -201,7 +197,7 @@ class SeriesController {
                         $code = bin2hex(random_bytes($n));
                         $covername = $postseriestitle;
                         $covername = str_replace(' ','_',$covername);
-                        $newname = $getidmember . '_' . $code . '_' . basename($_FILES['cover']['name']);
+                        $newname = $_SESSION['idmember'] . '_' . $code . '_' . basename($_FILES['cover']['name']);
                         move_uploaded_file($_FILES['cover']['tmp_name'], './public/images/' .$newname);
                         $imagealt = $postseriestitle;
                         $imageurl = './public/images/' .$newname;
@@ -239,7 +235,7 @@ class SeriesController {
                                 // On associe le tag à la série
                                 $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
                             }
-                            header("Location: index.php?action=updateSeries&idmember=" .$getidmember. "&idseries=" .$seriesId);
+                            header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
                     }else{
                         // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
                         $_SESSION['tempAuthorname'] = $postauthorname;
@@ -249,7 +245,7 @@ class SeriesController {
                         $_SESSION['tempRights'] = $postseriesright;
                         $_SESSION['tempTags'] = $postseriestag;
                         $_SESSION['error'] = "Le fichier n'est pas une image !";
-                        header("Location: index.php?action=updateSeries&idmember=" .$getidmember. "&idseries=" .$seriesId);
+                        header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
                     }
                 }else{
                     // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
@@ -260,7 +256,7 @@ class SeriesController {
                     $_SESSION['tempRights'] = $postseriesright;
                     $_SESSION['tempTags'] = $postseriestag;
                     $_SESSION['error'] = "Le fichier est trop volumineux";
-                    header("Location: index.php?action=updateSeries&idmember=" .$getidmember. "&idseries=" .$seriesId);
+                    header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
                 }
             }
             // Si l'image de couverture ne change pas
@@ -291,7 +287,7 @@ class SeriesController {
                 // On associe le tag à la série
                 $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
             }
-            header("Location: index.php?action=updateSeries&idmember=" .$getidmember. "&idseries=" .$seriesId);
+            header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
         }else{
             // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
             $_SESSION['tempAuthorname'] = $postauthorname;
@@ -301,18 +297,17 @@ class SeriesController {
             $_SESSION['tempRights'] = $postseriesright;
             $_SESSION['tempTags'] = $postseriestag;
             $_SESSION['error'] = "Vous avez déjà créé une série avec le même titre !";
-            header("Location: index.php?action=updateSeries&idmember=" .$getidmember. "&idseries=" .$seriesId);
+            header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
         }
     }
 
 // A compléter avec l'espace d'administration  
-    public function updateSeriesDeleted($getidmember, $seriesId)
+    public function updateSeriesDeleted($seriesId)
     {
         $seriesManager = new SeriesManager();
-        $getidmember = htmlspecialchars($getidmember);
         $seriesId = htmlspecialchars($seriesId);
         // On vérifie que la série est bien une série créée par le membre
-        $getAllSeriesId = $seriesManager->getAllSeriesId($getidmember);
+        $getAllSeriesId = $seriesManager->getAllSeriesId($_SESSION['idmember']);
         if (in_array($seriesId, $getAllSeriesId)) {
             // On passe le statut de la série en supprimé
             $updateSeriesDeleted = $seriesManager->updateSeriesDeleted("deleted", $seriesId);
@@ -332,11 +327,10 @@ class SeriesController {
         header("Location: "); 
     }
 
-    public function displaySeries($memberId, $seriesId = 12, $seriesSubscriptionNumber)
+    public function displaySeries($seriesId, $seriesSubscriptionNumber)
     {
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager;
-        $memberId = htmlspecialchars($memberId);
         $seriesId = htmlspecialchars($seriesId);
         // On vérifie que la série existe bien en récupérant les id de toutes les séries publiées
         $getAllIdSeries = $seriesManager->getAllIdSeries();
@@ -348,17 +342,20 @@ class SeriesController {
                 $seriesSubscriptionNumber = htmlspecialchars($seriesSubscriptionNumber);
                 // On récupère les informations sur la série
                 $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
-                // On gère les abonnements
-                if(intval($seriesSubscriptionNumber) === 1)
+                if(isset($_SESSION))
                 {
-                    // On ajoute un abonnement à une série
-                    $seriesSubscription = $seriesManager->addSeriesSubscription($seriesId, $memberId);
-                }elseif(intval($seriesSubscriptionNumber) === -1) 
-                {
-                    // On supprime un abonnement à une série
-                    $deleteSubscription = $seriesManager->deleteSubscription($seriesId, $memberId);
+                    // On gère les abonnements
+                    if(intval($seriesSubscriptionNumber) === 1)
+                    {
+                        // On ajoute un abonnement à une série
+                        $seriesSubscription = $seriesManager->addSeriesSubscription($seriesId, $_SESSION['idmember']);
+                    }elseif(intval($seriesSubscriptionNumber) === -1)
+                    {
+                        // On supprime un abonnement à une série
+                        $deleteSubscription = $seriesManager->deleteSubscription($seriesId,$_SESSION['idmember']);
+                    }
                 }
-                // On récupère tous les épisodes de la série
+                // On récupère tous les épisodes de la sérifde
                 $episodesPublishedList = $episodesManager->getEpisodesPublishedList($seriesId);
                 $nbepisodes_published = count($episodesPublishedList);
                 // On récupère des informations sur des séries qui ont des tags en commun
@@ -377,7 +374,6 @@ class SeriesController {
         }else{
             require('./src/View/404error.php');
         }
-
     }
     
 }
