@@ -30,6 +30,7 @@ ob_start();
             </p>
         </form>
         <p>Vous avez déjà un compte, <a href="index.php?action=login">connectez-vous</a></p>
+        <p>Si vous êtes un éditeur, contactez-nous directement : editeur@epizode.fr</p>
     <?php
     }else{
     ?>
@@ -40,5 +41,5 @@ ob_start();
     ?>
 </section>
 <?php $body_content = ob_get_clean();
-require('template.php');
+require('./src/View/template.php');
 ?>

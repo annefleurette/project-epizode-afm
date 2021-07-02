@@ -30,28 +30,35 @@ ob_start();
         <p><?php echo $episode_unitary_published['content']; ?></p>
         <!-- Gestion des likes -->
         <?php
-        if(isset($_SESSION))
+        if($_SESSION != NULL)
         {
             if($episodeLikesNumber == 1)
             {
             ?>    
-                <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=-1">ANNULER LE LIKE</a></p>
+                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=-1">ANNULER LE LIKE</a></p>
             <?php
             }elseif($episodeLikesNumber == -1 OR $episodeLikesNumber == 0)
             {
             ?>
-                <p><a href="index.php?action=displayEpisode&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=1">LIKER</a></p>
+                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=1">LIKER</a></p>
             <?php    
             }
         }else{
             ?>
-                <p><a href="index.php?action=login">CONNECTEZ-VOUS</a>pour vous liker un épisode !</p>
+                <p><a href="index.php?action=login">CONNECTEZ-VOUS</a> pour liker un épisode !</p>
             <?php
         }
         ?>
         <!-- Gestion du signalement -->
-        <p><a href="index.php?action=alertEpisode_post&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>">SIGNALER</a><p>
-        <?php // Affichage des boutons épisodes précédents/suivants
+        <?php
+        if($_SESSION != NULL)
+        {
+        ?>
+            <p><a href="index.php?action=alertEpisode_post&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>">SIGNALER</a><p>
+        <?php
+        }
+        ?>
+            <?php // Affichage des boutons épisodes précédents/suivants
         if($episode_current <= 1)
         {
             if($totalepisodes == 1)
@@ -108,9 +115,16 @@ ob_start();
                             $date = new DateTime($comment_data['date']);
                             echo $date->format('d/m/Y à H:i'); ?></p>
                             <p><?php echo ($comment_data['content']); ?></p>
-                            <form action="index.php?action=alertComment_post&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>&idcomment=<?php echo $comment_data["id"]; ?>" method="post">
-                                <input type="submit" value="Signaler">
-                            </form>
+                            <?php
+                            if ($_SESSION != NULL)
+                            {
+                            ?>
+                                <form action="index.php?action=alertComment_post&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>&idcomment=<?php echo $comment_data["id"]; ?>" method="post">
+                                    <input type="submit" value="Signaler">
+                                </form>
+                            <?php
+                            }
+                            ?>
                         </article>
                     </li>
                 <?php
@@ -125,15 +139,15 @@ ob_start();
         }
         ?>
         <h2>Laisser un commentaire</h2>
-        <!-- <?php
-        // if(!isset($_SESSION['pseudo']))
-        // {
+        <?php
+        if(!isset($_SESSION['pseudo']))
+        {
         ?>
             <p>Vous devez être connecté(e) pour laisser un commentaire. <a href="index.php?action=subscription">S'inscrire</a> ou <a href="index.php?action=login">se connecter</a>.</p>
         <?php
-        //}else{
-        ?> -->
-            <form action="index.php?action=writeComment_post&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>" method="post">
+        }else{
+        ?>
+            <form action="index.php?action=writeComment_post&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>" method="post">
                 <p>
                     <label for="comment">Saisissez votre commentaire</label><br />
                     <textarea id="comment" name="comment" minlength = "4" required></textarea>
@@ -142,11 +156,11 @@ ob_start();
                     <input type="submit" value="Envoyer">
                 </p>
             </form>
-       <!-- <?php
-       // }
-        ?>-->
+        <?php
+        }
+        ?>
     </section>
 <?php
 $body_content = ob_get_clean();
-require('template.php');
+require('./src/View/template.php');
 ?>

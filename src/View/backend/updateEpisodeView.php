@@ -33,16 +33,22 @@ ob_start();
             <p id="signsEpisode"></p>
             <input type="hidden" id="nbCharacters" name="nbCharacters" value="0" />
         </p>
-        <p>
-            <label for="priceEpisode">Prix de l'épisode</label><br />
-            <input type="number" id="priceEpisode" name="priceEpisode" min="0" step=".01" required value="<?php if(isset($_SESSION['tempPrice'])){echo $_SESSION['tempPrice'];}else{echo $oneEpisode['originalPrice'];}?>"> euro(s)
-            <?php if(isset($_SESSION['tempPrice'])){unset($_SESSION['tempPrice']);}?>
-        </p>
-        <p>
-            <label for="promotionEpisode">Promotion</label><br />
-            Retirer <input type="number" id="promotionEpisode" name="promotionEpisode" min="0" step=".01" value="<?php if(isset($_SESSION['tempPromotion'])){echo $_SESSION['tempPromotion'];}else{echo $oneEpisode['promotion'];}?>"> euro(s)
-            <?php if(isset($_SESSION['tempPromotion'])){unset($_SESSION['tempPromotion']);}?>
-        </p>
+        <?php if($_SESSION['level'] == 20)
+        {
+        ?>
+            <p>
+                <label for="priceEpisode">Prix de l'épisode</label><br />
+                <input type="number" id="priceEpisode" name="priceEpisode" min="0" step=".01" required value="<?php if(isset($_SESSION['tempPrice'])){echo $_SESSION['tempPrice'];}else{echo $oneEpisode['originalPrice'];}?>"> euro(s)
+                <?php if(isset($_SESSION['tempPrice'])){unset($_SESSION['tempPrice']);}?>
+            </p>
+            <p>
+                <label for="promotionEpisode">Promotion</label><br />
+                Retirer <input type="number" id="promotionEpisode" name="promotionEpisode" min="0" step=".01" value="<?php if(isset($_SESSION['tempPromotion'])){echo $_SESSION['tempPromotion'];}else{echo $oneEpisode['promotion'];}?>"> euro(s)
+                <?php if(isset($_SESSION['tempPromotion'])){unset($_SESSION['tempPromotion']);}?>
+            </p>
+        <?php
+        }
+        ?>
         <p id="trigger">
             <?php
             if($oneEpisode['publishing'] === "published")
@@ -72,5 +78,5 @@ ob_start();
 <script type="text/javascript" src="./public/js/signcounter.js"></script>
 <script type="text/javascript" src="./public/js/trigger.js"></script>
 <?php $body_content = ob_get_clean();
-require('template.php');
+require('./src/View/template.php');
 ?>

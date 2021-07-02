@@ -31,6 +31,16 @@ class EpisodesManager extends Manager
 	    $req->closeCursor();
 	    return $episodesList;
 	}
+	// On récupère la liste de tous les numéros d'épisodes d'une série
+    public function getEpisodesIdList($idseries)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT e.id FROM episodes e ORDER BY e.id');
+		$req->execute(array($idseries));
+	    $episodesIdList = $req->fetchAll(\PDO::FETCH_COLUMN);
+	    $req->closeCursor();
+	    return $episodesIdList;
+	}
 	// On récupère la liste de tous les épisodes publiés d'une série
     public function getEpisodesPublishedList($idseries)
 	{
@@ -178,7 +188,7 @@ class EpisodesManager extends Manager
 		$updateAlertEpisode = $db->prepare('UPDATE episodes SET alert_status = :newalert WHERE id = :idepisode');
 		$updateAlertEpisode->execute(array(
 			'newalert' => $alert,
-			'idcomment' => $idepisode
+			'idepisode' => $idepisode
 		));
 		return $updateAlertEpisode;
 	}

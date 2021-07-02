@@ -36,5 +36,5 @@ ob_start();
     ?>
 </section>
 <?php $body_content = ob_get_clean();
-require('template.php');
+require('./src/View/template.php');
 ?>

@@ -144,7 +144,7 @@ class SeriesController {
             $nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
             require('./src/View/backend/updateSeriesView.php');
         }else{
-            require('./src/View/404error.php');
+            require('./src/View/403error.php');
         }
     }
 
@@ -166,7 +166,7 @@ class SeriesController {
         $getAllTitles = $seriesManager->getAllTitles($_SESSION['idmember']);
         // On récupère le titre actuel
         $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
-        // On l'envlève de $getAllTitles
+        // On l'enlève de $getAllTitles
         $getAllTitles = array_diff($getAllTitles, str_split($oneSeriesUserData['title'], 10000));
         if(!in_array($postseriestitle, $getAllTitles))
         {
@@ -313,7 +313,7 @@ class SeriesController {
             $updateSeriesDeleted = $seriesManager->updateSeriesDeleted("deleted", $seriesId);
             header("Location: "); 
         }else{
-            require('./src/View/404error.php');
+            require('./src/View/403error.php');
         }
     }
 
@@ -372,7 +372,7 @@ class SeriesController {
                 require('./src/View/404error.php');
             }
         }else{
-            require('./src/View/404error.php');
+            require('./src/View/403error.php');
         }
     }
     

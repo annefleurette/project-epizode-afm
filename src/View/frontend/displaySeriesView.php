@@ -29,22 +29,22 @@ ob_start();
     <p><?php echo $oneSeriesUserData['publishing']; ?></p>
     <p><?php echo $oneSeriesUserData['rights']; ?></p>
     <?php
-    if(isset($_SESSION))
+    if($_SESSION != NULL)
     {
         if($seriesSubscriptionNumber == 1)
         {
         ?>    
-            <p><a href="index.php?action=displaySeries&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&subscription=-1">ANNULER L'ABONNEMENT</a></p>
+            <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?>&subscription=-1">ANNULER L'ABONNEMENT</a></p>
         <?php   
         }elseif($seriesSubscriptionNumber == -1 OR $seriesSubscriptionNumber == 0)
         {
         ?>
-            <p><a href="index.php?action=displaySeries&idmember=<?php echo $memberId; ?>&idseries=<?php echo $seriesId; ?>&subscription=1">S'ABONNER</a></p>
+            <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?>&subscription=1">S'ABONNER</a></p>
         <?php    
         }
     }else{
     ?>
-        <p><a href="index.php?action=login">CONNECTEZ-VOUS</a>pour vous abonner à une série !</p>
+        <p><a href="index.php?action=login">CONNECTEZ-VOUS</a> pour vous abonner à une série !</p>
     <?php
     }
     ?>
@@ -113,5 +113,5 @@ ob_start();
 </section>
 <?php
 $body_content = ob_get_clean();
-require('template.php');
+require('./src/View/template.php');
 ?>

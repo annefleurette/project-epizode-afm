@@ -10,7 +10,7 @@ ob_start();
     <section> <!-- Section avec l'épisode en aperçu -->
         <h1><?php echo $oneSeriesUserData['title']; ?></h1>
         <p><img src="<?php echo $oneSeriesUserData['cover']; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
-        <?php if($oneSeriesUserData['type'] === "publisher")
+        <?php if($_SESSION['level'] == 20)
         {
         ?>
             <p><img src="<?php echo $oneSeriesUserData['logo']; ?>" alt="<?php echo $oneSeriesUserData['altlogo']; ?>"/></p>
@@ -34,5 +34,5 @@ ob_start();
     </section>
 <?php
 $body_content = ob_get_clean();
-require('template.php');
+require('./src/View/template.php');
 ?>

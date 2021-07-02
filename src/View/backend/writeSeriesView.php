@@ -16,8 +16,25 @@ ob_start();
             <input type="text" id="title" name="titleSeries" minlength="1" maxlength="100" required value="<?php if(isset($_SESSION['tempSeriestitle'])){echo $_SESSION['tempSeriestitle'];}else{echo NULL;}?>">
             <?php if(isset($_SESSION['tempSeriestitle'])){unset($_SESSION['tempSeriestitle']);}?>
         </p>
+        <?php
+        if($_SESSION['level'] == 20)
+        {
+        ?>
+            <p>
+                <label for="author">Nom de l'auteur</label><br />
+                <input type="text" id="author" name="author" minlength="1" maxlength="100" required value="<?php if(isset($_SESSION['tempAuthorname'])){echo $_SESSION['tempAuthorname'];}else{echo NULL;}?>">
+                <?php if(isset($_SESSION['tempAuthorname'])){unset($_SESSION['tempAuthorname']);}?>
+            </p>
+            <p>
+                <label for="descriptionAuthor">Présentation de l'auteur</label><br />
+                <input type="text" id="descriptionAuthor" name="descriptionAuthor" minlength="1" maxlength="10000" required value="<?php if(isset($_SESSION['tempAuthordescription'])){echo $_SESSION['tempAuthordescription'];}else{echo NULL;}?>">
+                <?php if(isset($_SESSION['tempAuthordescription'])){unset($_SESSION['tempAuthordescription']);}?>
+            </p>
+        <?php
+        }
+        ?>
         <p>
-            <label for="descriptionSeries">Description</label><br />
+            <label for="descriptionSeries">Résumé de la série</label><br />
             <textarea id="descriptionSeries" name="descriptionSeries" minlength="1" maxlength="1200" required><?php if(isset($_SESSION['tempSummary'])){echo $_SESSION['tempSummary'];}else{echo NULL;}?></textarea>
             <?php if(isset($_SESSION['tempSummary'])){unset($_SESSION['tempSummary']);}?>
         </p>
@@ -50,5 +67,5 @@ ob_start();
     </form>
 </section>
 <?php $body_content = ob_get_clean();
-require('template.php');
+require('./src/View/template.php');
 ?>

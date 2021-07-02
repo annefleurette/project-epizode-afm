@@ -4,7 +4,7 @@ $head_title = 'Epizode - Créer un nouvel épisode';
 ob_start();
 ?>
 <section>
-    <form action="index.php?action=writeEpisode_post&idmember=<?php echo $getidmember; ?>&idseries=<?php echo $seriesId; ?>" method="post">
+    <form action="index.php?action=writeEpisode_post&idseries=<?php echo $seriesId; ?>" method="post">
         <p>
             <label for="numberEpisode">Numéro de l'épisode</label><br />
             <input type="number" id="number" name="numberEpisode" min="1" required value="<?php if(isset($_SESSION['tempNumber'])){echo $_SESSION['tempNumber'];}else{echo NULL;}?>">
@@ -22,16 +22,23 @@ ob_start();
             <p id="signsEpisode"></p>
             <input type="hidden" id="nbCharacters" name="nbCharacters" value="0" />
         </p>
-        <p>
-            <label for="priceEpisode">Prix de l'épisode</label><br />
-            <input type="number" id="priceEpisode" name="priceEpisode" min="0" step=".01" required value="<?php if(isset($_SESSION['tempPrice'])){echo $_SESSION['tempPrice'];}else{echo "0";}?>"> euro(s)
-            <?php if(isset($_SESSION['tempPrice'])){unset($_SESSION['tempPrice']);}?>
-        </p>
-        <p>
-            <label for="promotionEpisode">Promotion</label><br />
-            Retirer <input type="number" id="promotionEpisode" name="promotionEpisode" min="0" step=".01" value="<?php if(isset($_SESSION['tempPromotion'])){echo $_SESSION['tempPromotion'];}else{echo "0";}?>"> euro(s)
-            <?php if(isset($_SESSION['tempPromotion'])){unset($_SESSION['tempPromotion']);}?>
-        </p>
+        <?php
+        if($_SESSION['level'] == 20)
+        {
+        ?>
+            <p>
+                <label for="priceEpisode">Prix de l'épisode</label><br />
+                <input type="number" id="priceEpisode" name="priceEpisode" min="0" step=".01" required value="<?php if(isset($_SESSION['tempPrice'])){echo $_SESSION['tempPrice'];}else{echo "0";}?>"> euro(s)
+                <?php if(isset($_SESSION['tempPrice'])){unset($_SESSION['tempPrice']);}?>
+            </p>
+            <p>
+                <label for="promotionEpisode">Promotion</label><br />
+                Retirer <input type="number" id="promotionEpisode" name="promotionEpisode" min="0" step=".01" value="<?php if(isset($_SESSION['tempPromotion'])){echo $_SESSION['tempPromotion'];}else{echo "0";}?>"> euro(s)
+                <?php if(isset($_SESSION['tempPromotion'])){unset($_SESSION['tempPromotion']);}?>
+            </p>
+        <?php
+        }
+        ?>
         <p id="trigger">
             <input type="submit" name="save" value="Enregistrer">
             <input id="triggerElt" type="button" name="button" value="Publier">
@@ -49,5 +56,5 @@ ob_start();
 <script type="text/javascript" src="./public/js/signcounter.js"></script>
 <script type="text/javascript" src="./public/js/trigger.js"></script>
 <?php $body_content = ob_get_clean();
-require('template.php');
+require('./src/View/template.php');
 ?>

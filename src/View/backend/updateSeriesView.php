@@ -10,14 +10,31 @@ ob_start();
     </ul>
 </nav>
 <section class="seriesContent" data-tab="1">
-    <form action="index.php?action=updateSeries_post" method="post" enctype="multipart/form-data">
+    <form action="index.php?action=updateSeries_post&idseries=<?php echo $seriesId; ?>" method="post" enctype="multipart/form-data">
         <p>
             <label for="title">Titre</label><br />
             <input type="text" id="title" name="titleSeries" minlength="1" maxlength="100" value="<?php if(isset($_SESSION['tempSeriestitle'])){echo $_SESSION['tempSeriestitle'];}else{echo $oneSeriesUserData['title'];}?>" required>
             <?php if(isset($_SESSION['tempSeriestitle'])){unset($_SESSION['tempSeriestitle']);}?>
         </p>
+        <?php
+        if($_SESSION['level'] == 20)
+        {
+        ?>
+            <p>
+                <label for="author">Nom de l'auteur</label><br />
+                <input type="text" id="author" name="author" minlength="1" maxlength="100" required value="<?php if(isset($_SESSION['tempAuthorname'])){echo $_SESSION['tempAuthorname'];}else{echo NULL;}?>">
+                <?php if(isset($_SESSION['tempAuthorname'])){unset($_SESSION['tempAuthorname']);}?>
+            </p>
+            <p>
+                <label for="descriptionAuthor">Présentation de l'auteur</label><br />
+                <input type="text" id="descriptionAuthor" name="descriptionAuthor" minlength="1" maxlength="10000" required value="<?php if(isset($_SESSION['tempAuthordescription'])){echo $_SESSION['tempAuthordescription'];}else{echo NULL;}?>">
+                <?php if(isset($_SESSION['tempAuthordescription'])){unset($_SESSION['tempAuthordescription']);}?>
+            </p>
+        <?php
+        }
+        ?>
         <p>
-            <label for="descriptionSeries">Description</label><br />
+            <label for="descriptionSeries">Résumé de la série</label><br />
             <textarea id="descriptionSeries" name="descriptionSeries" minlength="1" maxlength="1200" required><?php if(isset($_SESSION['tempSummary'])){echo $_SESSION['tempSummary'];}else{echo $oneSeriesUserData['summary'];}?></textarea>
             <?php if(isset($_SESSION['tempSummary'])){unset($_SESSION['tempSummary']);}?>
         </p>
@@ -69,7 +86,7 @@ ob_start();
     </form>
 </section>
 <section class="seriesContent hidden" data-tab="2">
-    <p><a href="index.php?action=writeEpisode&idmember=<?php echo $getidmember; ?>&idseries=<?php echo $seriesId; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
+    <p><a href="index.php?action=writeEpisode&idseries=<?php echo $seriesId; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
     <?php
     if($oneSeriesUserData['numberEpisodes']!== "0")
     {
@@ -146,5 +163,5 @@ ob_start();
 </section>
 <script type="text/javascript" src="./public/js/tabs.js"></script>
 <?php $body_content = ob_get_clean();
-require('template.php');
+require('./src/View/template.php');
 ?>
