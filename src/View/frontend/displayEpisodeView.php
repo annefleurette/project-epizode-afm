@@ -51,6 +51,7 @@ ob_start();
         ?>
         <!-- Gestion du signalement -->
         <?php
+        // On ne peut signaler que quand on est connecté
         if($_SESSION != NULL)
         {
         ?>
@@ -67,10 +68,26 @@ ob_start();
                 <p>Un seul épisode publié pour le moment !</p>
             <?php  
             }else{
-            ?>
-                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode suivant</a></p>
-            <?php 
-            }   
+                // On gère l'accès aux épisodes en fonction du niveau d'autorisation
+                if(!isset($_SESSION['level']) AND $episode_current > 2)
+                {
+                    // On différencie le message en fonction du type de série
+                    if($oneSeriesUserData['type'] === "publisher")
+                    {
+                    ?>
+                        <p>Cette série est payante. <a href="index.php?action=login">Connectez-vous</a> et achetez des coins pour accéder à la suite des épisodes !</p>
+                    <?php
+                    }else{
+                    ?>
+                        <p><a href="index.php?action=login">Connectez-vous</a> pour accéder à la suite des épisodes !</p>
+                    <?php
+                    }
+                }else{
+                ?>
+                    <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode suivant</a></p>
+                <?php 
+                } 
+            }  
         }elseif($episode_current >= $totalepisodes)
         {
         ?>
@@ -79,8 +96,33 @@ ob_start();
         }else{
         ?>
             <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode précédent</a></p>
-            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode suivant</a></p>
-        <?php 
+            <?php
+            if(!isset($_SESSION['level']) AND $episode_current > 2)
+            {
+            ?>
+                <p><a href="index.php?action=login">Connectez-vous</a> pour accéder à la suite des épisodes !</p>
+            <?php
+            }else{
+                // On gère l'accès aux épisodes en fonction du niveau d'autorisation
+                if(!isset($_SESSION['level']) AND $episode_current > 2)
+                {
+                    // On différencie le message en fonction du type de série
+                    if($oneSeriesUserData['type'] === "publisher")
+                    {
+                    ?>
+                        <p>Cette série est payante. <a href="index.php?action=login">Connectez-vous</a> et achetez des coins pour accéder à la suite des épisodes !</p>
+                    <?php
+                    }else{
+                    ?>
+                        <p><a href="index.php?action=login">Connectez-vous</a> pour accéder à la suite des épisodes !</p>
+                    <?php
+                    }
+                }else{
+                ?>
+                    <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode suivant</a></p>
+                <?php
+                }
+            }
         }
         ?>
     </section>
