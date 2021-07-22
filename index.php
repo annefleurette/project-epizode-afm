@@ -120,13 +120,19 @@ try {
 							}
 							break;
 						case 'displaySeries':
-							if(isset($_GET['idseries']) AND isset($_GET['subscription']))
+							if(isset($_GET['idseries']))
 							{
-								$seriesController->displaySeries($_GET['idseries'], $_GET['subscription']);
+								$seriesController->displaySeries($_GET['idseries']);
 							}else{
 								require('src/View/404error.php');
 							}
 							return;
+						case 'addSubscription':
+							$seriesController->addSubscription($_GET['idseries']);
+							break;
+						case 'removeSubscription':
+							$seriesController->removeSubscription($_GET['idseries']);
+							break;
 						//Episodes
 						case 'writeEpisode':
 							if(isset($_GET['idseries']))
@@ -186,12 +192,18 @@ try {
 							}
 							break;
 						case 'displayEpisode':
-							if(isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']) AND isset($_GET['like']))
+							if(isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']))
 							{
-								$episodesController->displayEpisode($_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
+								$episodesController->displayEpisode($_GET['idseries'], $_GET['number'], $_GET['idepisode']);
 							}else{
 								require('src/View/404error.php');
 							}
+							break;
+						case 'addLike':
+							$episodesController->addLike($_GET['idepisode']);
+							break;
+						case 'removeLike':
+							$episodesController->removeLike($_GET['idepisode']);
 							break;
 						// Comments
 						case 'writeComment_post':
@@ -245,25 +257,45 @@ try {
 					break;
 				// Séries
 				case 'displaySeries':
-					if(isset($_GET['idseries']) AND isset($_GET['subscription']) AND $_GET['subscription'] == 0)
+					if(isset($_GET['idseries']))
 					{
-						$seriesController->displaySeries($_GET['idseries'], $_GET['subscription']);
+						$seriesController->displaySeries($_GET['idseries']);
 					}else{
 						require('src/View/404error.php');
 					}
 					break;
+					case 'addSubscription':
+						$seriesController->addSubscription($_GET['idseries']);
+					break;
+					case 'removeSubscription':
+						$seriesController->removeSubscription($_GET['idseries']);
+					break;
 				// Episodes
 				case 'displayEpisode':
-					if(isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']) AND isset($_GET['like']) AND $_GET['like'] == 0)
+					if(isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']))
 					{
 						// On bloque l'accès du visiteur aux 3 premiers épisodes seulement
 						if($_GET['number'] < 4){
-							$episodesController->displayEpisode($_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
+							$episodesController->displayEpisode($_GET['idseries'], $_GET['number'], $_GET['idepisode']);
 						}else{
 							require('src/View/403error.php');
 						}
 					}else{
 						require('src/View/404error.php');
+					}
+					break;
+				case 'addLike':
+					$episodesController->addLike($_GET['idepisode']);
+					break;
+				case 'removeLike':
+					$episodesController->removeLike($_GET['idepisode']);
+					break;
+				case 'displayMember':
+					if(isset($_GET['idmember']))
+					{
+						$membersController->displayMember($_GET['idmember']);
+					}else{
+						require('src/View/403error.php');
 					}
 					break;
 				default:

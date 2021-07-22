@@ -71,6 +71,26 @@ class EpisodesManager extends Manager
 	    $req->closeCursor();
 	    return $oneEpisode;
 	}
+	// On récupère les informations de likes d'un épisode
+	public function getEpisodeLikes($idepisode)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT COUNT(DISTINCT id_episode) FROM episode_has_members_likers WHERE id_episode = ?');
+		$req->execute(array($idepisode));
+	    $episodeLikes = $req->fetch();
+	    $req->closeCursor();
+	    return $episodeLikes;
+	}
+	// On récupère les utilisateurs qui ont liké un épisode
+	public function getEpisodeLikers($idepisode)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT id_member FROM episode_has_members_likers WHERE id_episode = ?');
+		$req->execute(array($idepisode));
+	    $episodeLikers = $req->fetch();
+	    $req->closeCursor();
+	    return $episodeLikers;
+	}
 	// On récupère un épisode unitaire d'une série publié via son number et l'id de la série
 	public function getEpisodePublished($number, $idseries)
 	{

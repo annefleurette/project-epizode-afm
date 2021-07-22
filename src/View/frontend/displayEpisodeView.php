@@ -4,7 +4,7 @@ $head_description = 'Blabla';
 ob_start();
 ?>
     <section> <!-- Section avec l'épisode en aperçu -->
-        <h1><?php echo $oneSeriesUserData['title']; ?></h1>
+        <h1><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?>"><?php echo $oneSeriesUserData['title']; ?></a></h1>
         <p><img src="<?php echo $oneSeriesUserData['cover']; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
         <?php if($oneSeriesUserData['type'] === "publisher")
         {
@@ -21,27 +21,27 @@ ob_start();
         }
         ?>
         <p><?php echo $episode_unitary_published['title']; ?></p>
-        <p><?php echo $episode_unitary_published['likesNumber']; ?> like(s)</p>
+        <p><span id="nbLikes"><?php echo $episodeLikes[0]; ?></span> like(s)</p>
         <p><?php echo $episode_unitary_published['numberComments']; ?> commentaire(s)</p>
         <p><?php echo $episode_unitary_published['timeReading']; ?> minute(s)</p>
         <p><?php echo $episode_unitary_published['price']; ?> euro(s)</p>
-    </section>
-    <section> <!-- Section avec le contenu de l'épisode -->
-        <p><?php echo $episode_unitary_published['content']; ?></p>
         <!-- Gestion des likes -->
         <?php
         if($_SESSION != NULL)
         {
-            if($episodeLikesNumber == 1)
-            {
-            ?>    
-                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=-1">ANNULER LE LIKE</a></p>
+        ?>
+            <input type="hidden" id="idepisode" value=<?php echo $episodeId; ?>>
             <?php
-            }elseif($episodeLikesNumber == -1 OR $episodeLikesNumber == 0)
+            // Je peux liker si je n'ai pas déjà liké l'épisode
+            if(!in_array($_SESSION['idmember'], $episodeLikers))
             {
             ?>
-                <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=1">LIKER</a></p>
-            <?php    
+                <button id="like">J'AIME</button>
+            <?php
+            }else{
+            ?>
+                <button id="dislike">JE N'AIME PLUS</button>
+            <?php
             }
         }else{
             ?>
@@ -59,7 +59,10 @@ ob_start();
         <?php
         }
         ?>
-            <?php // Affichage des boutons épisodes précédents/suivants
+    </section>
+    <section> <!-- Section avec le contenu de l'épisode -->
+        <p><?php echo $episode_unitary_published['content']; ?></p>
+        <?php // Affichage des boutons épisodes précédents/suivants
         if($episode_current <= 1)
         {
             if($totalepisodes == 1)
@@ -202,6 +205,7 @@ ob_start();
         }
         ?>
     </section>
+    <script type="text/javascript" src="./public/js/likes.js"></script>
 <?php
 $body_content = ob_get_clean();
 require('./src/View/template.php');

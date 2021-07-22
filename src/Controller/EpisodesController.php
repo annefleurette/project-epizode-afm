@@ -354,7 +354,7 @@ class EpisodesController {
         header("Location: "); 
     }
 
-    public function displayEpisode($seriesId, $episodeNumber, $episodeId, $episodeLikesNumber)
+    public function displayEpisode($seriesId, $episodeNumber, $episodeId)
     {
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager();
@@ -362,7 +362,6 @@ class EpisodesController {
         $seriesId = htmlspecialchars($seriesId);
         $episodeNumber = htmlspecialchars($episodeNumber);
         $episodeId = htmlspecialchars($episodeId);
-        $episodeLikesNumber = htmlspecialchars($episodeLikesNumber);
         // On vérifie que la série existe bien en récupérant les id de toutes les séries publiées
         $getAllIdSeries = $seriesManager->getAllIdSeries();
         if(in_array($seriesId, $getAllIdSeries))
@@ -371,47 +370,46 @@ class EpisodesController {
             $episodesIdList = $episodesManager->getEpisodesIdList($seriesId);
             if (in_array($episodeId, $episodesIdList))
             {
-                // On vérifie les valeurs de likes
-                if($episodeLikesNumber == -1 OR $episodeLikesNumber == 0 OR $episodeLikesNumber == 1)
-                {
-                    // On affiche les informations de la série
-                    $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
-                    // On gère les likes
-                    if(isset($_SESSION))
-                    {
-                        if(intval($episodeLikesNumber) === 1)
-                        {
-                            // On ajoute un like à un épisode
-                            $episodeLike = $episodesManager->addEpisodeLike($episodeId, $_SESSION['idmember']);
-                        }elseif(intval($episodeLikesNumber) === -1) 
-                        {
-                            // On supprime un like à un épisode
-                            $deleteLike = $episodesManager->deleteLike($episodeId, $_SESSION['idmember']);
-                        }
-                    }
-                    // On récupère les informations de l'épisode
-                    $episode_unitary_published = $episodesManager->getEpisodePublished($episodeNumber, $seriesId);
-                    // On affiche les boutons précédents/suivants
-                    $nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
-                    $totalepisodes = intval($nbepisodes[0]);
-                    $episode_current = intval($episodeNumber);
-                    $episode_before = $episode_current - 1;
-                    $episode_next = $episode_current + 1;
-                    // On affiche les commentaires de l'épisode
-                    $episodeCommentsList = $commentsManager->getCommentsEpisode($episode_unitary_published["id"]);
-                    // On compte le nombre de commentaires
-                    $nbcomments = $commentsManager->countCommentsPublished($episode_unitary_published["id"]);
-                    $totalcomments = intval($nbcomments[0]);
-                    require('./src/View/frontend/displayEpisodeView.php');
-                }else{
-                    require('./src/View/404error.php');
-                }
-            }else{
-                require('./src/View/404error.php');
+                // On affiche les informations de la série
+                $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
             }
+            // On récupère les informations de l'épisode
+            $episode_unitary_published = $episodesManager->getEpisodePublished($episodeNumber, $seriesId);
+            $episodeLikes = $episodesManager->getEpisodeLikes($episodeId);
+            $episodeLikers = $episodesManager->getEpisodeLikers($episodeId);
+            // On affiche les boutons précédents/suivants
+            $nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
+            $totalepisodes = intval($nbepisodes[0]);
+            $episode_current = intval($episodeNumber);
+            $episode_before = $episode_current - 1;
+            $episode_next = $episode_current + 1;
+            // On affiche les commentaires de l'épisode
+            $episodeCommentsList = $commentsManager->getCommentsEpisode($episode_unitary_published["id"]);
+            // On compte le nombre de commentaires
+            $nbcomments = $commentsManager->countCommentsPublished($episode_unitary_published["id"]);
+            $totalcomments = intval($nbcomments[0]);
+            require('./src/View/frontend/displayEpisodeView.php');
         }else{
             require('./src/View/404error.php');
         }
+    }
+
+    public function addLike($episodeId)
+    {
+        $episodesManager = new EpisodesManager();
+        $episodeId = htmlspecialchars($episodeId);
+        $episodeLike = $episodesManager->addEpisodeLike($episodeId, $_SESSION['idmember']);
+        $episodeLikes = $episodesManager->getEpisodeLikes($episodeId);
+        echo json_encode($episodeLikes);
+    }
+
+    public function removeLike($episodeId)
+    {
+        $episodesManager = new EpisodesManager();
+        $episodeId = htmlspecialchars($episodeId);
+        $deleteLike = $episodesManager->deleteLike($episodeId, $_SESSION['idmember']);
+        $episodeLikes = $episodesManager->getEpisodeLikes($episodeId);
+        echo json_encode($episodeLikes);
     }
 
     public function alertEpisodePost($seriesId, $episodeNumber, $episodeId, $episodeLikesNumber)

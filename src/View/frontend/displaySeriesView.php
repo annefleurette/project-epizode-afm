@@ -23,29 +23,33 @@ ob_start();
     }
     ?>
     <p><?php echo $oneSeriesUserData['numberEpisodes']; ?> épisode(s)</p>
-    <p><?php echo $oneSeriesUserData['numberSubscribers']; ?> abonné(s)</p>
+    <p><span id="nbSubscriptions"><?php echo $seriesSubscription[0]; ?></span> abonné(s)</p>
     <p><?php echo $oneSeriesUserData['tags']; ?></p>
     <p><?php echo $oneSeriesUserData['pricing']; ?></p>
     <p><?php echo $oneSeriesUserData['publishing']; ?></p>
     <p><?php echo $oneSeriesUserData['rights']; ?></p>
+    <!-- Gestion des likes -->
     <?php
     if($_SESSION != NULL)
     {
-        if($seriesSubscriptionNumber == 1)
-        {
-        ?>    
-            <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?>&subscription=-1">ANNULER L'ABONNEMENT</a></p>
-        <?php   
-        }elseif($seriesSubscriptionNumber == -1 OR $seriesSubscriptionNumber == 0)
+    ?>
+        <input type="hidden" id="idseries" value=<?php echo $seriesId; ?>>
+        <?php
+        // Je peux m'abonner si je ne suis pas déjà abonné à la série
+        if(!in_array($_SESSION['idmember'], $seriesSubscribers))
         {
         ?>
-            <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?>&subscription=1">S'ABONNER</a></p>
-        <?php    
+            <button id="subscribe">AJOUTER A MA BIBLIOTHEQUE</button>
+        <?php
+        }else{
+        ?>
+            <button id="unsubscribe">RETIRER DE MA BIBLIOTHEQUE</button>
+        <?php
         }
     }else{
-    ?>
-        <p><a href="index.php?action=login">CONNECTEZ-VOUS</a> pour vous abonner à une série !</p>
-    <?php
+        ?>
+            <p><a href="index.php?action=login">CONNECTEZ-VOUS</a> pour vous abonner à une série !</p>
+        <?php
     }
     ?>
 </section>
@@ -111,6 +115,7 @@ ob_start();
         ?>
     </ul>
 </section>
+<script type="text/javascript" src="./public/js/subscriptions.js"></script>
 <?php
 $body_content = ob_get_clean();
 require('./src/View/template.php');

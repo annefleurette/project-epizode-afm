@@ -327,7 +327,7 @@ class SeriesController {
         header("Location: "); 
     }
 
-    public function displaySeries($seriesId, $seriesSubscriptionNumber)
+    public function displaySeries($seriesId)
     {
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager;
@@ -336,44 +336,44 @@ class SeriesController {
         $getAllIdSeries = $seriesManager->getAllIdSeries();
         if(in_array($seriesId, $getAllIdSeries))
         {
-            // On vérifie les valeurs de subscription
-            if($seriesSubscriptionNumber == -1 OR $seriesSubscriptionNumber == 0 OR $seriesSubscriptionNumber == 1)
+            // On récupère les informations sur la série
+            $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
+            $seriesSubscription = $seriesManager->getSeriesSubscriptions($seriesId);
+            $seriesSubscribers = $seriesManager->getSeriesSubscribers($seriesId);
+            // On récupère tous les épisodes de la sérifde
+            $episodesPublishedList = $episodesManager->getEpisodesPublishedList($seriesId);
+            $nbepisodes_published = count($episodesPublishedList);
+            // On récupère des informations sur des séries qui ont des tags en commun
+            $tags = explode(', ', $oneSeriesUserData['tags']);
+            $nbtags = count($tags);
+            $allTagsSeries = [];
+            for ($i = 0; $i < $nbtags; $i++)
             {
-                $seriesSubscriptionNumber = htmlspecialchars($seriesSubscriptionNumber);
-                // On récupère les informations sur la série
-                $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
-                if(isset($_SESSION))
-                {
-                    // On gère les abonnements
-                    if(intval($seriesSubscriptionNumber) === 1)
-                    {
-                        // On ajoute un abonnement à une série
-                        $seriesSubscription = $seriesManager->addSeriesSubscription($seriesId, $_SESSION['idmember']);
-                    }elseif(intval($seriesSubscriptionNumber) === -1)
-                    {
-                        // On supprime un abonnement à une série
-                        $deleteSubscription = $seriesManager->deleteSubscription($seriesId,$_SESSION['idmember']);
-                    }
-                }
-                // On récupère tous les épisodes de la sérifde
-                $episodesPublishedList = $episodesManager->getEpisodesPublishedList($seriesId);
-                $nbepisodes_published = count($episodesPublishedList);
-                // On récupère des informations sur des séries qui ont des tags en commun
-                $tags = explode(', ', $oneSeriesUserData['tags']);
-                $nbtags = count($tags);
-                $allTagsSeries = [];
-                for ($i = 0; $i < $nbtags; $i++)
-                {
-                    $seriesCommonTags[$i] = $seriesManager->getCommonTagsSeries($tags[$i]);
-                    array_push($allTagsSeries, $seriesCommonTags[$i]);
-                }  
-                require('./src/View/frontend/displaySeriesView.php');
-            }else{
-                require('./src/View/404error.php');
-            }
+                $seriesCommonTags[$i] = $seriesManager->getCommonTagsSeries($tags[$i]);
+                array_push($allTagsSeries, $seriesCommonTags[$i]);
+            }  
+            require('./src/View/frontend/displaySeriesView.php');
         }else{
-            require('./src/View/403error.php');
+            require('./src/View/404error.php');
         }
+    }
+
+    public function addSubscription($seriesId)
+    {
+        $seriesManager = new SeriesManager();
+        $seriesId = htmlspecialchars($seriesId);
+        $seriesSubscription = $seriesManager->addSeriesSubscription($seriesId, $_SESSION['idmember']);
+        $seriesSubscription = $seriesManager->getSeriesSubscriptions($seriesId);
+        echo json_encode($seriesSubscription);
+    }
+
+    public function removeSubscription($seriesId)
+    {
+        $seriesManager = new SeriesManager();
+        $seriesId = htmlspecialchars($seriesId);
+        $deleteSubscription = $seriesManager->deleteSubscription($seriesId, $_SESSION['idmember']);
+        $seriesSubscription = $seriesManager->getSeriesSubscriptions($seriesId);
+        echo json_encode($seriesSubscription);
     }
     
 }

@@ -123,4 +123,15 @@ class MembersController {
 		header('Location: index.php?action=subscription'); 
 	}
 
+	public function displayMember($getidmember)
+	{
+		$membersManager = new MembersManager();
+		$getidmember = htmlspecialchars($getidmember);
+		// On récupère les informations sur le type de membre
+		$userData = $membersManager->getMemberData($getidmember);
+		// On récupère toutes les séries d'un membre
+		$getAllSeriesMember = $membersManager->getAllSeriesMember($getidmember);
+		require('./src/View/frontend/displayMemberView.php');
+	}
+
 }

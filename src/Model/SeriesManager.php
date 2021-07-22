@@ -144,6 +144,26 @@ class SeriesManager extends Manager
     	$deleteSeries->execute(array($idseries));
     	return $deleteSeries;
 	}
+	// On récupère les informations d'abonnement d'une série
+	public function getSeriesSubscriptions($idseries)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT COUNT(DISTINCT id_series) FROM series_has_members_subscription WHERE id_series = ?');
+		$req->execute(array($idseries));
+	   	$seriesSubscription = $req->fetch();
+	    $req->closeCursor();
+	    return $seriesSubscription;
+	}
+	// On récupère les utilisateurs qui se sont abonnés à une série
+	public function getSeriesSubscribers($idseries)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT id_member FROM series_has_members_subscription WHERE id_series = ?');
+		$req->execute(array($idseries));
+	    $seriesSubscribers = $req->fetch();
+	    $req->closeCursor();
+	    return $seriesSubscribers;
+	}
     // On récupère les id de toutes les séries
     public function getAllIdSeries()
 	{
