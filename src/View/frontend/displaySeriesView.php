@@ -34,22 +34,13 @@ ob_start();
     {
     ?>
         <input type="hidden" id="idseries" value=<?php echo $seriesId; ?>>
-        <?php
-        // Je peux m'abonner si je ne suis pas déjà abonné à la série
-        if(!in_array($_SESSION['idmember'], $seriesSubscribers))
-        {
-        ?>
-            <button id="subscribe">AJOUTER A MA BIBLIOTHEQUE</button>
-        <?php
-        }else{
-        ?>
-            <button id="unsubscribe">RETIRER DE MA BIBLIOTHEQUE</button>
-        <?php
-        }
+        <button id="subscribe" <?php if(in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>AJOUTER A MA BIBLIOTHEQUE</button>
+        <button id="unsubscribe" <?php if(!in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>ETIRER DE MA BIBLIOTHEQU</button>
+    <?php
     }else{
-        ?>
-            <p><a href="index.php?action=login">CONNECTEZ-VOUS</a> pour vous abonner à une série !</p>
-        <?php
+    ?>
+        <p><a href="index.php?action=login">CONNECTEZ-VOUS</a> pour vous abonner à une série !</p>
+    <?php
     }
     ?>
 </section>

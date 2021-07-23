@@ -31,18 +31,9 @@ ob_start();
         {
         ?>
             <input type="hidden" id="idepisode" value=<?php echo $episodeId; ?>>
-            <?php
-            // Je peux liker si je n'ai pas déjà liké l'épisode
-            if(!in_array($_SESSION['idmember'], $episodeLikers))
-            {
-            ?>
-                <button id="like">J'AIME</button>
-            <?php
-            }else{
-            ?>
-                <button id="dislike">JE N'AIME PLUS</button>
-            <?php
-            }
+            <button id="like" <?php if(in_array($_SESSION['idmember'], $episodeLikers)){ echo 'class="hidden"'; }?>>J'AIME</button>
+            <button id="dislike" <?php if(!in_array($_SESSION['idmember'], $episodeLikers)){ echo 'class="hidden"'; }?>>JE N'AIME PLUS</button>
+        <?php
         }else{
             ?>
                 <p><a href="index.php?action=login">CONNECTEZ-VOUS</a> pour liker un épisode !</p>

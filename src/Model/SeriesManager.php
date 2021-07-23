@@ -160,7 +160,7 @@ class SeriesManager extends Manager
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT id_member FROM series_has_members_subscription WHERE id_series = ?');
 		$req->execute(array($idseries));
-	    $seriesSubscribers = $req->fetch();
+	    $seriesSubscribers = $req->fetchAll(\PDO::FETCH_COLUMN);
 	    $req->closeCursor();
 	    return $seriesSubscribers;
 	}

@@ -1,5 +1,6 @@
 <?php
 session_start();
+// var_dump($_SERVER['HTTP_REFERER']);
 require_once('src/Controller/MembersController.php');
 require_once('src/Controller/SeriesController.php');
 require_once('src/Controller/EpisodesController.php');
@@ -82,6 +83,14 @@ try {
 						// Membres
 						case 'logout':
 							$membersController->logout();
+						break;
+						case 'displayMember':
+						if(isset($_GET['idmember']))
+						{
+							$membersController->displayMember($_GET['idmember']);
+						}else{
+							require('src/View/403error.php');
+						}
 						break;
 						// Series
 						case 'writeSeries':
@@ -255,6 +264,14 @@ try {
 						require('src/View/404error.php');
 					}
 					break;
+				case 'displayMember':
+					if(isset($_GET['idmember']))
+					{
+						$membersController->displayMember($_GET['idmember']);
+					}else{
+						require('src/View/403error.php');
+					}
+					break;
 				// Séries
 				case 'displaySeries':
 					if(isset($_GET['idseries']))
@@ -289,14 +306,6 @@ try {
 					break;
 				case 'removeLike':
 					$episodesController->removeLike($_GET['idepisode']);
-					break;
-				case 'displayMember':
-					if(isset($_GET['idmember']))
-					{
-						$membersController->displayMember($_GET['idmember']);
-					}else{
-						require('src/View/403error.php');
-					}
 					break;
 				default:
 				require('src/View/404error.php');
