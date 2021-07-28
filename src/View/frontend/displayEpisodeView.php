@@ -27,7 +27,7 @@ ob_start();
         <p><?php echo $episode_unitary_published['price']; ?> euro(s)</p>
         <!-- Gestion des likes -->
         <?php
-        if($_SESSION != NULL)
+        if(isset($_SESSION['idmember']))
         {
         ?>
             <input type="hidden" id="idepisode" value=<?php echo $episodeId; ?>>

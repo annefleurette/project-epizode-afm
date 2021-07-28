@@ -1,6 +1,6 @@
 <?php
 session_start();
-// var_dump($_SERVER['HTTP_REFERER']);
+var_dump($_SERVER['HTTP_REFERER']);
 require_once('src/Controller/MembersController.php');
 require_once('src/Controller/SeriesController.php');
 require_once('src/Controller/EpisodesController.php');
@@ -81,6 +81,12 @@ try {
 					switch($_GET['action'])
 					{
 						// Membres
+						case 'subscription':
+							$seriesController->writeSeries();
+						break;
+						case 'login':
+							$seriesController->writeSeries();
+						break;
 						case 'logout':
 							$membersController->logout();
 						break;
@@ -259,7 +265,7 @@ try {
 				case 'login_post':
 					if(isset($_POST['email']) AND isset($_POST['password']))
 					{
-						$membersController->loginPost($_POST['email'], $_POST['password'], $_POST['remember']);
+						$membersController->loginPost($_POST['email'], $_POST['password'], isset($_POST['remember']) ? $_POST['remember'] : "off");
 					}else{
 						require('src/View/404error.php');
 					}

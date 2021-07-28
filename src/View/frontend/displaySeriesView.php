@@ -30,12 +30,12 @@ ob_start();
     <p><?php echo $oneSeriesUserData['rights']; ?></p>
     <!-- Gestion des likes -->
     <?php
-    if($_SESSION != NULL)
+    if(isset($_SESSION['idmember']))
     {
     ?>
         <input type="hidden" id="idseries" value=<?php echo $seriesId; ?>>
         <button id="subscribe" <?php if(in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>AJOUTER A MA BIBLIOTHEQUE</button>
-        <button id="unsubscribe" <?php if(!in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>ETIRER DE MA BIBLIOTHEQU</button>
+        <button id="unsubscribe" <?php if(!in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>RETIRER DE MA BIBLIOTHEQUE</button>
     <?php
     }else{
     ?>
@@ -61,7 +61,7 @@ ob_start();
                             <p><?php echo $allEpisodesPublished['title']; ?></p>
                             <p><?php echo $allEpisodesPublished['price']; ?> euros</p>
                             <p><?php echo $allEpisodesPublished['likesNumber']; ?> likes</p>
-                            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>&idepisode=<?php echo $allEpisodesPublished['id']; ?>&like=0">LIRE</a></p>
+                            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>&idepisode=<?php echo $allEpisodesPublished['id']; ?>">LIRE</a></p>
                         </article>
                     </li>
                 <?php

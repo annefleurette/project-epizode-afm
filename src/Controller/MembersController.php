@@ -72,6 +72,9 @@ class MembersController {
 
     public function login()
 	{
+		$previousurl = $_SERVER['HTTP_REFERER'];
+		$_SESSION['previousurl'] = $previousurl;
+		var_dump($_SESSION['previousurl']);
 		require('./src/View/frontend/loginView.php');
 	}
 
@@ -101,11 +104,22 @@ class MembersController {
 				}
                 // On inclut la gestion des autorisations
                 include('./src/Utils/authorization.php');
+				var_dump($_SESSION['previousurl']);
 				if($memberInfo['type'] == "admin")
 				{ // Si le membre est admin
-					header('Location: index.php?action=admin'); 
+					if(isset($_SESSION['previousurl'])) {
+						header('Location: '.$_SESSION['previousurl']);
+						unset($_SESSION['previousurl']);
+					}else{
+						header('Location: index.php?action=admin'); 
+						unset($_SESSION['previousurl']);
+					}
 				}else{ // Si le membre est éditeur ou utilisateur
-					header('Location: index.php?action=writeSeries');
+					if(isset($_SESSION['previousurl'])) {
+						header('Location: '.$_SESSION['previousurl']);
+					}else{
+						header('Location: index.php?action=writeSeries'); 
+					}
 				}
 			}else{
                 $_SESSION['tempEmail'] = $postemail;
@@ -131,8 +145,6 @@ class MembersController {
 		$userData = $membersManager->getMemberData($getidmember);
 		// On récupère toutes les séries d'un membre
 		$getAllSeriesMember = $membersManager->getAllSeriesMember($getidmember);
-		var_dump($getAllSeriesMember);
-		exit;
 		require('./src/View/frontend/displayMemberView.php');
 	}
 

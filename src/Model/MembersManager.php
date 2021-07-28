@@ -9,7 +9,7 @@ class MembersManager extends Manager
 		$db = $this->dbConnect();
 		$req = $db->prepare('SELECT m.id AS "id", ia.url AS "avatar", il.url AS "logo", l.name AS "name", m.pseudo AS "pseudo", m.description AS "description", m.type as "type", COUNT(DISTINCT has.id_series) AS "numberSubscriptions", COUNT(DISTINCT s.id) AS "numberWritings", COUNT(DISTINCT s.publisher_author) AS "numberAuthors", m.date_subscription AS "subscriptionDate" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN series_has_members_subscription has ON has.id_member = m.id WHERE m.id = ?');
 		$req->execute(array($idmember));
-	    $userData = $req->fetch(\PDO::FETCH_COLUMN);
+	    $userData = $req->fetch();
 	    $req->closeCursor();
 	    return $userData;
 	}
@@ -17,7 +17,7 @@ class MembersManager extends Manager
 	public function getAllSeriesMember($idmember)
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT ic.url AS "cover", ic.alt AS "altcover", s.title AS "title", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags", s.publishing_status AS "publishing" FROM series s LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN members m ON m.id = s.id_member LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag LEFT JOIN covers c ON c.id = s.id_cover LEFT JOIN images ic ON ic.id = c.id_cover LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE m.id = ? GROUP BY s.id');
+		$req = $db->prepare('SELECT ic.url AS "cover", ic.alt AS "altcover", s.title AS "title", m.pseudo AS "member", l.name AS "publisher", s.publisher_author AS "author_publisher", ia.url AS "avatar", il.url AS "logo", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags", s.publishing_status AS "publishing", m.type AS "type", s.pricing_status AS "pricing" FROM series s LEFT JOIN episodes e ON e.id_series = s.id LEFT JOIN members m ON m.id = s.id_member LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag LEFT JOIN covers c ON c.id = s.id_cover LEFT JOIN images ic ON ic.id = c.id_cover LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE m.id = ? GROUP BY s.id');
 	    $req->execute(array($idmember));
 		$getAllSeriesMember = $req->fetchAll();
 	    $req->closeCursor();
