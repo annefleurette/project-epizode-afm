@@ -147,6 +147,8 @@ class MembersController {
 		$getAllSeriesMember = $membersManager->getAllSeriesMember($getidmember);
 		// On récupère toutes les séries auxquelles un membre est abonné
 		$getAllSubscriptionSeries = $membersManager->getAllSubscriptionSeries($getidmember);
+		// On récupère la liste des auteurs d'un éditeur
+		$authorsList = $membersManager->getAuthorsList($getidmember);
 		require('./src/View/frontend/displayMemberView.php');
 	}
 

@@ -5,23 +5,23 @@ ob_start();
 ?>
 <nav>
     <ul>
-        <li class="memberTab" data-index="1">Ses séries</li>
+        <li class="seriesTab" data-index="1">Ses séries</li>
         <?php
         if($userData['type'] == "user")
         {
         ?>
-        	<li class="memberTab" data-index="2">Ses lectures</li>
+        	<li class="seriesTab" data-index="2">Ses lectures</li>
         <?php
         }elseif($userData['type'] == "publisher"){
         ?>
-       		<li class="memberTab" data-index="2">Ses auteurs</li>
+       		<li class="seriesTab" data-index="2">Ses auteurs</li>
        	<?php
        	}
        	?>
     </ul>
 </nav>
 <!-- On affiche les séries écrites par le membre -->
-<section class="seriesList" data-tab="1">
+<section class="seriesContent" data-tab="1">
 <?php
     if($getAllSeriesMember != NULL)
     {
@@ -46,7 +46,7 @@ ob_start();
                             <p><?php echo $allSeriesMember['pricing']; ?></p>
                             <p><img src="<?php echo $allSeriesMember['logo']; ?>" alt="<?php echo $allSeriesMember['altlogo']; ?>"/></p>
                             <p><?php echo $allSeriesMember['publisher']; ?></p>
-                            <p><?php echo $allSeriesMember['publisher_author']; ?></p>
+                            <p><?php echo $allSeriesMember['author_publisher']; ?></p>
                         <?php
                         }else{
                         ?>  
@@ -75,7 +75,7 @@ if($userData['type'] == "user")
 {
 ?>
     <!-- On affiche les séries auxquelles le membre est abonné -->
-	<section class="readingsList" data-tab="2">
+	<section class="seriesContent" hidden data-tab="2">
         <?php
         if($getAllSubscriptionSeries != NULL)
         {
@@ -127,7 +127,34 @@ if($userData['type'] == "user")
 <?php
 }elseif($userData['type'] == "publisher"){
 ?>
-	<section class="authorsList" data-tab="2">
+    <!-- On affiche la liste des auteurs de l'éditeur -->
+	<section class="seriesContent" hidden data-tab="2">
+        <?php
+            if($authorsList != NULL)
+            {
+            ?>    
+                <ul>
+                    <?php
+                    foreach ($authorsList as $authorPresentation)
+                    {
+                    ?>
+                        <li>
+                            <article>
+                                <p><?php echo $authorPresentation['author']; ?></p>
+                                <p><?php echo $authorPresentation['description']; ?></p>
+                            </article>
+                        </li>
+                    <?php
+                    }
+                    ?>
+                </ul>
+            <?php
+            }else{
+            ?>
+                <p>Cet éditeur n'a pas encore d'auteur.</p>
+            <?php
+            }
+            ?>
 	</section>
 <?php    
 }
