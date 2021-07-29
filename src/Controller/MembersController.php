@@ -143,8 +143,10 @@ class MembersController {
 		$getidmember = htmlspecialchars($getidmember);
 		// On récupère les informations sur le type de membre
 		$userData = $membersManager->getMemberData($getidmember);
-		// On récupère toutes les séries d'un membre
+		// On récupère toutes les séries écrites par un membre
 		$getAllSeriesMember = $membersManager->getAllSeriesMember($getidmember);
+		// On récupère toutes les séries auxquelles un membre est abonné
+		$getAllSubscriptionSeries = $membersManager->getAllSubscriptionSeries($getidmember);
 		require('./src/View/frontend/displayMemberView.php');
 	}
 
