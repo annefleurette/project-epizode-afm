@@ -96,7 +96,7 @@ class EpisodesManager extends Manager
 	public function getEpisodePublished($number, $idseries)
 	{
 		$db = $this->dbConnect();
-		$req_episode = $db->prepare('SELECT e.id AS "id", e.title AS "title", e.content AS "content", e.date_publication AS "publicationDate", e.date_modification AS "lastUpdate", COUNT(DISTINCT lik.id_episode) AS "likesNumber", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COUNT(DISTINCT com.id_episode) AS "numberComments", ROUND(e.signs_number/(300*5)) AS "timeReading" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN comments com ON com.id_episode = e.id LEFT JOIN episode_has_members_likers lik ON lik.id_episode = e.id WHERE e.number = ? AND e.publishing_status="published" AND e.id_series = ? GROUP BY e.id');
+		$req_episode = $db->prepare('SELECT e.id AS "id", e.number AS "number", e.title AS "title", e.content AS "content", e.date_publication AS "publicationDate", e.date_modification AS "lastUpdate", COUNT(DISTINCT lik.id_episode) AS "likesNumber", ROUND(COALESCE(e.price, 0) - COALESCE(e.promotion, 0), 2) AS "price", COUNT(DISTINCT com.id_episode) AS "numberComments", ROUND(e.signs_number/(300*5)) AS "timeReading" FROM episodes e LEFT JOIN series s ON s.id = e.id_series LEFT JOIN comments com ON com.id_episode = e.id LEFT JOIN episode_has_members_likers lik ON lik.id_episode = e.id WHERE e.number = ? AND e.publishing_status="published" AND e.id_series = ? GROUP BY e.id');
 		$req_episode->execute(array($number, $idseries));
 		$episode_unitary_published = $req_episode->fetch();
 		$req_episode->closeCursor();

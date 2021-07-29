@@ -6,7 +6,7 @@ ob_start();
 <section>
     <h1>CONNEXION</h1>
     <?php
-    if(!isset($_SESSION['pseudo'])) { //On vérifie que la personne n'est pas déjà connectée
+    if(!isset($_SESSION['pseudo'])) { // On vérifie que la personne n'est pas déjà connectée
     ?>
         <form action="index.php?action=login_post" method="post">
             <p>

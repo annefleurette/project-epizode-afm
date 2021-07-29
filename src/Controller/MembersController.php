@@ -70,11 +70,17 @@ class MembersController {
 		}	
 	}
 
-    public function login()
+    public function login($get)
 	{
-		$previousurl = $_SERVER['HTTP_REFERER'];
-		$_SESSION['previousurl'] = $previousurl;
-		var_dump($_SESSION['previousurl']);
+		$get = htmlspecialchars($get);
+		if(isset($get['ref']) AND (isset($get['idseries'])))
+		{
+			$_SESSION['previousurl'] = "?action=" .$get['ref']. "&idseries=" .$get['idseries'];
+		}
+		if(isset($get['ref']) AND (isset($get['idseries'])) AND (isset($get['number'])) AND (isset($get['idepisode'])))
+		{
+			$_SESSION['previousurl'] = "?action=" .$get['ref']. "&idseries=" .$get['idseries']. "&number=" .$get['number']. "&idepisode=" .$get['idepisode'];
+		}
 		require('./src/View/frontend/loginView.php');
 	}
 
@@ -108,7 +114,7 @@ class MembersController {
 				if($memberInfo['type'] == "admin")
 				{ // Si le membre est admin
 					if(isset($_SESSION['previousurl'])) {
-						header('Location: '.$_SESSION['previousurl']);
+						header('Location: index.php' .$_SESSION['previousurl']);
 						unset($_SESSION['previousurl']);
 					}else{
 						header('Location: index.php?action=admin'); 
@@ -116,7 +122,7 @@ class MembersController {
 					}
 				}else{ // Si le membre est éditeur ou utilisateur
 					if(isset($_SESSION['previousurl'])) {
-						header('Location: '.$_SESSION['previousurl']);
+						header('Location: index.php' .$_SESSION['previousurl']);
 					}else{
 						header('Location: index.php?action=writeSeries'); 
 					}

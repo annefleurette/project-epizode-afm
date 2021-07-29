@@ -1,6 +1,5 @@
 <?php
 session_start();
-var_dump($_SERVER['HTTP_REFERER']);
 require_once('src/Controller/MembersController.php');
 require_once('src/Controller/SeriesController.php');
 require_once('src/Controller/EpisodesController.php');
@@ -85,7 +84,8 @@ try {
 							$seriesController->writeSeries();
 						break;
 						case 'login':
-							$seriesController->writeSeries();
+							//$seriesController->writeSeries();
+							echo "hello";
 						break;
 						case 'logout':
 							$membersController->logout();
@@ -260,7 +260,7 @@ try {
 					}
 					break;
 				case 'login':
-					$membersController->login();
+					$membersController->login($_GET);
 					break;
 				case 'login_post':
 					if(isset($_POST['email']) AND isset($_POST['password']))

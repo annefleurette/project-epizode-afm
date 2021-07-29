@@ -1,4 +1,4 @@
-if(document.getElementById('like') != undefined) OR (document.getElementById('dislike') != undefined)
+if(document.getElementById('like') != undefined || document.getElementById('dislike') != undefined)
 {
     // LIKES
     document.getElementById('like').addEventListener('click', () => {

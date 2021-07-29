@@ -39,7 +39,7 @@ ob_start();
     <?php
     }else{
     ?>
-        <p><a href="index.php?action=login">CONNECTEZ-VOUS</a> pour vous abonner à une série !</p>
+        <p><a href="index.php?action=login&ref=displaySeries&idseries=<?php echo $seriesId; ?>">CONNECTEZ-VOUS</a> pour vous abonner à une série !</p>
     <?php
     }
     ?>

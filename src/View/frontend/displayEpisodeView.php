@@ -36,7 +36,7 @@ ob_start();
         <?php
         }else{
             ?>
-                <p><a href="index.php?action=login">CONNECTEZ-VOUS</a> pour liker un épisode !</p>
+                <p><a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_unitary_published['number']; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">CONNECTEZ-VOUS</a> pour liker un épisode !</p>
             <?php
         }
         ?>

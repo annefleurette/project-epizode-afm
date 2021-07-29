@@ -1,4 +1,5 @@
-if(document.getElementById('subscribe') != null) OR (document.getElementById('unsubscribe') != null)
+console.log(document.getElementById('subscribe'));
+if(document.getElementById('subscribe') != null || document.getElementById('unsubscribe') != null)
 { 
     // ABONNEMENT
     document.getElementById('subscribe').addEventListener('click', () => {
