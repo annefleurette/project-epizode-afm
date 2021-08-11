@@ -46,7 +46,7 @@ ob_start();
         if($_SESSION != NULL)
         {
         ?>
-            <p><a href="index.php?action=alertEpisode_post&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>">SIGNALER</a><p>
+            <p><a href="index.php?action=alertEpisode_post&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">SIGNALER</a><p>
         <?php
         }
         ?>
@@ -69,11 +69,11 @@ ob_start();
                     if($oneSeriesUserData['type'] === "publisher")
                     {
                     ?>
-                        <p>Cette série est payante. <a href="index.php?action=login">Connectez-vous</a> et achetez des coins pour accéder à la suite des épisodes !</p>
+                        <p>Cette série est payante. <a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">Connectez-vous</a> et achetez des coins pour accéder à la suite des épisodes !</p>
                     <?php
                     }else{
                     ?>
-                        <p><a href="index.php?action=login">Connectez-vous</a> pour accéder à la suite des épisodes !</p>
+                        <p><a href=href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">Connectez-vous</a> pour accéder à la suite des épisodes !</p>
                     <?php
                     }
                 }else{
@@ -94,7 +94,7 @@ ob_start();
             if(!isset($_SESSION['level']) AND $episode_current > 2)
             {
             ?>
-                <p><a href="index.php?action=login">Connectez-vous</a> pour accéder à la suite des épisodes !</p>
+                <p><a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodeId; ?>">Connectez-vous</a> pour accéder à la suite des épisodes !</p>
             <?php
             }else{
                 // On gère l'accès aux épisodes en fonction du niveau d'autorisation
@@ -104,11 +104,11 @@ ob_start();
                     if($oneSeriesUserData['type'] === "publisher")
                     {
                     ?>
-                        <p>Cette série est payante. <a href="index.php?action=login">Connectez-vous</a> et achetez des coins pour accéder à la suite des épisodes !</p>
+                        <p>Cette série est payante. <a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">Connectez-vous</a> et achetez des coins pour accéder à la suite des épisodes !</p>
                     <?php
                     }else{
                     ?>
-                        <p><a href="index.php?action=login">Connectez-vous</a> pour accéder à la suite des épisodes !</p>
+                        <p><a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">Connectez-vous</a> pour accéder à la suite des épisodes !</p>
                     <?php
                     }
                 }else{
@@ -155,7 +155,7 @@ ob_start();
                             if ($_SESSION != NULL)
                             {
                             ?>
-                                <form action="index.php?action=alertComment_post&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>&idcomment=<?php echo $comment_data["id"]; ?>" method="post">
+                                <form action="index.php?action=alertComment_post&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&idcomment=<?php echo $comment_data["id"]; ?>" method="post">
                                     <input type="submit" value="Signaler">
                                 </form>
                             <?php
@@ -179,11 +179,11 @@ ob_start();
         if(!isset($_SESSION['pseudo']))
         {
         ?>
-            <p>Vous devez être connecté(e) pour laisser un commentaire. <a href="index.php?action=subscription">S'inscrire</a> ou <a href="index.php?action=login">se connecter</a>.</p>
+            <p>Vous devez être connecté(e) pour laisser un commentaire. <a href="index.php?action=subscription">S'inscrire</a> ou <a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">se connecter</a>.</p>
         <?php
         }else{
         ?>
-            <form action="index.php?action=writeComment_post&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&like=<?php echo $episodeLikesNumber; ?>" method="post">
+            <form action="index.php?action=writeComment_post&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>" method="post">
                 <p>
                     <label for="comment">Saisissez votre commentaire</label><br />
                     <textarea id="comment" name="comment" minlength = "4" required></textarea>

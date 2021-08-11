@@ -88,7 +88,6 @@ class EpisodesManager extends Manager
 		$req = $db->prepare('SELECT id_member FROM episode_has_members_likers WHERE id_episode = ?');
 		$req->execute(array($idepisode));
 	    $episodeLikers = $req->fetchAll(\PDO::FETCH_COLUMN);
-		var_dump($episodeLikers);
 	    $req->closeCursor();
 	    return $episodeLikers;
 	}

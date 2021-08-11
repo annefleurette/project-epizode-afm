@@ -72,14 +72,14 @@ class MembersController {
 
     public function login($get)
 	{
-		$get = htmlspecialchars($get);
 		if(isset($get['ref']) AND (isset($get['idseries'])))
 		{
-			$_SESSION['previousurl'] = "?action=" .$get['ref']. "&idseries=" .$get['idseries'];
-		}
-		if(isset($get['ref']) AND (isset($get['idseries'])) AND (isset($get['number'])) AND (isset($get['idepisode'])))
-		{
-			$_SESSION['previousurl'] = "?action=" .$get['ref']. "&idseries=" .$get['idseries']. "&number=" .$get['number']. "&idepisode=" .$get['idepisode'];
+			if(isset($get['number']) AND (isset($get['idepisode'])))
+			{
+				$_SESSION['previousurl'] = "?action=" .$get['ref']. "&idseries=" .$get['idseries']. "&number=" .$get['number']. "&idepisode=" .$get['idepisode'];
+			}else{
+				$_SESSION['previousurl'] = "?action=" .$get['ref']. "&idseries=" .$get['idseries'];
+			}
 		}
 		require('./src/View/frontend/loginView.php');
 	}
@@ -110,7 +110,6 @@ class MembersController {
 				}
                 // On inclut la gestion des autorisations
                 include('./src/Utils/authorization.php');
-				var_dump($_SESSION['previousurl']);
 				if($memberInfo['type'] == "admin")
 				{ // Si le membre est admin
 					if(isset($_SESSION['previousurl'])) {
@@ -147,7 +146,7 @@ class MembersController {
 	{
 		$membersManager = new MembersManager();
 		$getidmember = htmlspecialchars($getidmember);
-		// On récupère les informations sur le type de membre
+		// On récupère les informations du membre
 		$userData = $membersManager->getMemberData($getidmember);
 		// On récupère toutes les séries écrites par un membre
 		$getAllSeriesMember = $membersManager->getAllSeriesMember($getidmember);

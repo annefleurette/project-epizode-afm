@@ -151,9 +151,6 @@ class EpisodesController {
         if (in_array($seriesId, $getAllSeriesId)) {
             // On vérifie que l'épisode existe bien
             $episodesIdList = $episodesManager->getEpisodesIdList($seriesId);
-            //var_dump($episodesIdList);
-            //var_dump($episodeId);
-            //exit;
             if (in_array($episodeId, $episodesIdList))
             {
                 // On affiche les informations de la série
@@ -412,17 +409,16 @@ class EpisodesController {
         echo json_encode($episodeLikes);
     }
 
-    public function alertEpisodePost($seriesId, $episodeNumber, $episodeId, $episodeLikesNumber)
+    public function alertEpisodePost($seriesId, $episodeNumber, $episodeId)
     {
         $episodesManager = new EpisodesManager;
         $seriesId = htmlspecialchars($seriesId);
         $episodeNumber = htmlspecialchars($episodeNumber);
         $episodeId = htmlspecialchars($episodeId);
-        $episodeLikesNumber = htmlspecialchars($episodeLikesNumber);
         // On signale un épisode
         $alert = 1;
         $updateAlertEpisode = $episodesManager->updateEpisodeAlert($alert, intval($episodeId));
-        header("Location: index.php?action=displayEpisode&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId. "&like=" .$episodeLikesNumber);
+        header("Location: index.php?action=displayEpisode&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId);
     }
 
 // A compléter avec l'espace d'administration

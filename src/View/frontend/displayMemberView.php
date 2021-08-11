@@ -3,6 +3,28 @@
 $head_title = 'Epizode - Informations sur le membre';
 ob_start();
 ?>
+<section>
+<?php
+    if($userData['type'] == "user")
+    {
+    ?>
+        <p><img src="<?php echo $userData['avatar']; ?>" alt="<?php echo $userData['altavatar']; ?>"/></p>
+        <p><?php echo $userData['pseudo']; ?></p>
+        <p><?php echo $userData['description']; ?></p>
+        <p><?php echo $userData['numberSubscriptions']; ?> abonnements</p>
+        <p><?php echo $userData['numberWritings']; ?> séries</p>
+    <?php
+    }elseif($userData['type'] == "publisher"){
+    ?>
+        <p><img src="<?php echo $userData['logo']; ?>" alt="<?php echo $userData['altlogo']; ?>"/></p>
+        <p><?php echo $userData['pseudo']; ?></p>
+        <p><?php echo $userData['description']; ?></p>
+        <p><?php echo $userData['numberAuthors']; ?> auteurs</p>
+        <p><?php echo $userData['numberWritings']; ?> séries</p>
+    <?php
+    }
+    ?>
+</section>
 <nav>
     <ul>
         <li class="seriesTab" data-index="1">Ses séries</li>

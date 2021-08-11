@@ -199,9 +199,9 @@ try {
 							}
 							break;
 						case 'alertEpisode_post':
-							if(isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']) AND isset($_GET['like']))
+							if(isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']))
 							{
-								$episodesController->alertEpisodePost($_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like']);
+								$episodesController->alertEpisodePost($_GET['idseries'], $_GET['number'], $_GET['idepisode']);
 							}else{
 								require('src/View/404error.php');
 							}
@@ -222,17 +222,17 @@ try {
 							break;
 						// Comments
 						case 'writeComment_post':
-							if(isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']) AND isset($_GET['like']) AND isset($_POST['comment']))
+							if(isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']) AND isset($_POST['comment']))
 							{
-								$commentsController->writeCommentPost($_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_POST['comment']);
+								$commentsController->writeCommentPost($_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_POST['comment']);
 							}else{
 								require('src/View/404error.php');
 							}
 							break;
 						case 'alertComment_post':
-							if(isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']) AND isset($_GET['like']) AND isset($_GET['idcomment']))
+							if(isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']) AND isset($_GET['idcomment']))
 							{
-								$commentsController->alertCommentPost($_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['like'], $_GET['idcomment']);
+								$commentsController->alertCommentPost($_GET['idseries'], $_GET['number'], $_GET['idepisode'], $_GET['idcomment']);
 							}else{
 								require('src/View/404error.php');
 							}

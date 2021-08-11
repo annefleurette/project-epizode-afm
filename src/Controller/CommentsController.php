@@ -10,16 +10,15 @@ use AnneFleurMarchat\Epizode\Model\CommentsManager;
 
 class CommentsController {
 
-    public function writeCommentPost($seriesId, $episodeNumber, $episodeId, $episodeLikesNumber, $postcomment)
+    public function writeCommentPost($seriesId, $episodeNumber, $episodeId, $postcomment)
     {
         $commentsManager = new CommentsManager();
         $seriesId = htmlspecialchars($seriesId);
         $episodeNumber = htmlspecialchars($episodeNumber);
         $episodeId = htmlspecialchars($episodeId);
-        $episodeLikesNumber = htmlspecialchars($episodeLikesNumber);
         $postcomment = htmlspecialchars($postcomment);
         $addComment = $commentsManager->addComment($_SESSION['idmember'], $episodeId, $postcomment);
-        header("Location: index.php?action=displayEpisode&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId. "&like=" .$episodeLikesNumber);
+        header("Location: index.php?action=displayEpisode&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId);
     }
 
 // A compléter avec l'espace d'administration
@@ -32,18 +31,17 @@ class CommentsController {
         header("Location: ");
     }
 
-    public function alertCommentPost($seriesId, $episodeNumber, $episodeId, $episodeLikesNumber, $commentId)
+    public function alertCommentPost($seriesId, $episodeNumber, $episodeId, $commentId)
     {
         $commentsManager = new CommentsManager;
         $seriesId = htmlspecialchars($seriesId);
         $episodeNumber = htmlspecialchars($episodeNumber);
         $episodeId = htmlspecialchars($episodeId);
-        $episodeLikesNumber = htmlspecialchars($episodeLikesNumber);
         $commentId = htmlspecialchars($commentId);
         // On signale un commentaire
         $alert = 1;
         $updateAlertComment = $commentsManager->updateCommentAlert($alert, $commentId);
-        header("Location: index.php?action=displayEpisode&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId. "&like=" .$episodeLikesNumber);
+        header("Location: index.php?action=displayEpisode&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId);
     }
 
     // A compléter avec l'espace d'administration
