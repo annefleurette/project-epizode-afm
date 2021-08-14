@@ -46,7 +46,8 @@ ob_start();
         if($_SESSION != NULL)
         {
         ?>
-            <p><a href="index.php?action=alertEpisode_post&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">SIGNALER</a><p>
+            <input type="hidden" id="idepisodealert" value=<?php echo $episodeId; ?>>
+            <button id="alertepisode">SIGNALER</button>
         <?php
         }
         ?>
@@ -155,9 +156,8 @@ ob_start();
                             if ($_SESSION != NULL)
                             {
                             ?>
-                                <form action="index.php?action=alertComment_post&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>&idcomment=<?php echo $comment_data["id"]; ?>" method="post">
-                                    <input type="submit" value="Signaler">
-                                </form>
+                                <input type="hidden" id="idcommentalert" value=<?php echo $comment_data['id']; ?>>
+                                <button id="alertcomment">SIGNALER</button>
                             <?php
                             }
                             ?>
@@ -197,6 +197,7 @@ ob_start();
         ?>
     </section>
     <script type="text/javascript" src="./public/js/likes.js"></script>
+    <script type="text/javascript" src="./public/js/alerts.js"></script>
 <?php
 $body_content = ob_get_clean();
 require('./src/View/template.php');

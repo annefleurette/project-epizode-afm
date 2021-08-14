@@ -409,16 +409,12 @@ class EpisodesController {
         echo json_encode($episodeLikes);
     }
 
-    public function alertEpisodePost($seriesId, $episodeNumber, $episodeId)
+    public function addAlertEpisode($episodeId)
     {
-        $episodesManager = new EpisodesManager;
-        $seriesId = htmlspecialchars($seriesId);
-        $episodeNumber = htmlspecialchars($episodeNumber);
+        $episodesManager = new EpisodesManager();
         $episodeId = htmlspecialchars($episodeId);
-        // On signale un épisode
         $alert = 1;
         $updateAlertEpisode = $episodesManager->updateEpisodeAlert($alert, intval($episodeId));
-        header("Location: index.php?action=displayEpisode&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId);
     }
 
 // A compléter avec l'espace d'administration

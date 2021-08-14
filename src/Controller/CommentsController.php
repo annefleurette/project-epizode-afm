@@ -31,17 +31,12 @@ class CommentsController {
         header("Location: ");
     }
 
-    public function alertCommentPost($seriesId, $episodeNumber, $episodeId, $commentId)
+    public function addAlertComment($commentId)
     {
-        $commentsManager = new CommentsManager;
-        $seriesId = htmlspecialchars($seriesId);
-        $episodeNumber = htmlspecialchars($episodeNumber);
-        $episodeId = htmlspecialchars($episodeId);
+        $commentsManager = new CommentsManager();
         $commentId = htmlspecialchars($commentId);
-        // On signale un commentaire
         $alert = 1;
-        $updateAlertComment = $commentsManager->updateCommentAlert($alert, $commentId);
-        header("Location: index.php?action=displayEpisode&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId);
+        $updateAlertComment = $commentsManager->updateCommentAlert($alert, intval($commentId));
     }
 
     // A compléter avec l'espace d'administration

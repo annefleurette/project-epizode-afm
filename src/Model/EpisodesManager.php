@@ -201,6 +201,16 @@ class EpisodesManager extends Manager
     	$deleteEpisode->execute(array($idepisode));
     	return $deleteEpisode;
 	}
+	// On récupère les informations de signalement d'un épisode
+	public function getEpisodeAlert($idepisode)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT alert_status FROM episodes WHERE id_episode = ?');
+		$req->execute(array($idepisode));
+		$episodeAlert = $req->fetch();
+		$req->closeCursor();
+		return $episodeAlert;
+	}
 	// On modifie le statut d'alerte d'un épisode
 	public function updateEpisodeAlert($alert, $idepisode)
 	{
