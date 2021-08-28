@@ -12,6 +12,14 @@ use AnneFleurMarchat\Epizode\Model\MembersManager;
 
 class SeriesController {
 
+    public function displayHomepage()
+    {
+        $seriesManager = new SeriesManager();
+        $seriesTopTenPublishers = $seriesManager->topTenSeriesPublishers();
+        $seriesTopTenUsers = $seriesManager->topTenSeriesUsers();
+        require('./src/View/frontend/displayHomepageView.php');
+    }
+    
     public function writeSeries()
     {
         require('./src/View/backend/writeSeriesView.php');
@@ -104,7 +112,10 @@ class SeriesController {
                 {
                     // On enregistre le tag
                     $newtag[$i] = strtolower($tagname[$i]);
-                    $addNewTag = $seriesManager->addTag($newtag[$i]);
+                    if($newtag[$i] != NULL)
+                    {
+                        $addNewTag = $seriesManager->addTag($newtag[$i]);
+                    }
                 }
                 // On récupère l'id du tag
                 $tagId = $seriesManager->getTagId($newtag[$i]);
@@ -228,7 +239,10 @@ class SeriesController {
                                 {
                                     // On enregistre le tag
                                     $newtag[$i] = strtolower($tagname[$i]);
-                                    $addNewTag = $seriesManager->addTag($newtag[$i]);
+                                    if($newtag[$i] != NULL)
+                                    {
+                                        $addNewTag = $seriesManager->addTag($newtag[$i]);
+                                    }
                                 }
                                 // On récupère l'id du tag
                                 $tagId = $seriesManager->getTagId($newtag[$i]);
@@ -280,7 +294,10 @@ class SeriesController {
                 {
                     // On enregistre le tag
                     $newtag[$i] = strtolower($tagname[$i]);
-                    $addNewTag = $seriesManager->addTag($newtag[$i]);
+                    if($newtag[$i] != NULL)
+                    {
+                        $addNewTag = $seriesManager->addTag($newtag[$i]);
+                    }
                 }
                 // On récupère l'id du tag
                 $tagId = $seriesManager->getTagId($newtag[$i]);
@@ -302,7 +319,7 @@ class SeriesController {
     }
 
 // A compléter avec l'espace d'administration  
-    public function updateSeriesDeleted($seriesId)
+    public function updateSeriesStatus($seriesId)
     {
         $seriesManager = new SeriesManager();
         $seriesId = htmlspecialchars($seriesId);
@@ -310,7 +327,7 @@ class SeriesController {
         $getAllSeriesId = $seriesManager->getAllSeriesId($_SESSION['idmember']);
         if (in_array($seriesId, $getAllSeriesId)) {
             // On passe le statut de la série en supprimé
-            $updateSeriesDeleted = $seriesManager->updateSeriesDeleted("deleted", $seriesId);
+            $updateSeriesDeleted = $seriesManager->updateSeriesStatus("deleted", $seriesId);
             header("Location: "); 
         }else{
             require('./src/View/403error.php');

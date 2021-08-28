@@ -45,7 +45,7 @@ class SeriesManager extends Manager
     public function topTenSeriesUsers()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT s.id AS "id", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", COUNT(DISTINCT sub.id_member) AS "numberSubscribers" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE m.type = "user" AND s.publishing_status = "published" GROUP BY s.id ORDER BY numberSubscribers DESC LIMIT 10');
+		$req = $db->query('SELECT s.id AS "id", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", ia.alt AS "alt", COUNT(DISTINCT sub.id_member) AS "numberSubscribers" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE m.type = "user" AND s.publishing_status = "published" GROUP BY s.id ORDER BY numberSubscribers DESC LIMIT 10');
 	    $seriesTopTenUsers = $req->fetchAll();
 	    $req->closeCursor();
 	    return $seriesTopTenUsers;
@@ -54,7 +54,7 @@ class SeriesManager extends Manager
     public function topTenSeriesPublishers()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT s.id AS "id", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", COUNT(DISTINCT sub.id_member) AS "numberSubscribers" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE m.type = "publisher" AND s.publishing_status = "published" GROUP BY s.id ORDER BY numberSubscribers DESC LIMIT 10');
+		$req = $db->query('SELECT s.id AS "id", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", il.alt AS "alt", COUNT(DISTINCT sub.id_member) AS "numberSubscribers" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE m.type = "publisher" AND s.publishing_status = "published" GROUP BY s.id ORDER BY numberSubscribers DESC LIMIT 10');
 	    $seriesTopTenPublishers = $req->fetchAll();
 	    $req->closeCursor();
 	    return $seriesTopTenPublishers;
@@ -125,16 +125,16 @@ class SeriesManager extends Manager
 		)); 
 		return $updateSeries;
 	}
-	// On passe le statut d'une série en supprimé
-	public function updateSeriesDeleted($publishing_status, $idseries)
+	// On modifie le statut d'une série
+	public function updateSeriesStatus($publishing_status, $idseries)
 	{
 		$db = $this->dbConnect();
-		$updateSeriesDeleted = $db->prepare('UPDATE series SET publishing_status = :newpublishing_status WHERE id = :id');
-		$updateSeriesDeleted->execute(array(
+		$updateSeriesStatus = $db->prepare('UPDATE series SET publishing_status = :newpublishing_status WHERE id = :id');
+		$updateSeriesStatus->execute(array(
 			'newpublishing_status' => $publishing_status,
 			'id' => $idseries
 		)); 
-		return $updateSeriesDeleted;
+		return $updateSeriesStatus;
 	}
 	// On supprime une série
 	public function deleteSeries($idseries)

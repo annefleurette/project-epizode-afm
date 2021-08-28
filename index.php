@@ -269,6 +269,9 @@ try {
 					}
 					break;
 				// Séries
+				case 'homepage':
+					$seriesController->displayHomepage();
+					break;
 				case 'displaySeries':
 					if(isset($_GET['idseries']))
 					{

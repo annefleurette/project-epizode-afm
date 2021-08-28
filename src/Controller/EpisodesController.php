@@ -28,6 +28,7 @@ class EpisodesController {
     public function writeEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice, $postpromotion, $postdate, $postsigns, $seriesId)
     {
         $episodesManager = new EpisodesManager();
+        $seriesManager = new SeriesManager();
         //On compte le nombre d'épisodes de la série qui ont été publiés
         $nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
         $count_episode_published = intval($nbepisodes);
@@ -97,6 +98,8 @@ class EpisodesController {
                         if(strtotime($postdate) > strtotime($episode_unitary_published['date']))
                         {
                             $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $seriesId, $postprice, $postpromotion, $postsigns);
+                            // On passe la série en publiée
+                            $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
                             header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
                         }else{
                             // On prépare des variables de session temporaires pour anticiper les erreurs
@@ -193,6 +196,7 @@ class EpisodesController {
     public function updateEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice, $postpromotion, $postdate, $postsigns, $seriesId, $episodeId)
     {
         $episodesManager = new EpisodesManager();
+        $seriesManager = new SeriesManager();
         //On compte le nombre d'épisodes de la série qui ont été publiés
         $nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
         $count_episode_published = intval($nbepisodes);
@@ -266,9 +270,11 @@ class EpisodesController {
                             $postdate = htmlspecialchars($postdate);
                             // On modifie l'épisode
                             $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $postprice, $postpromotion, $postsigns, $episodeId);
+                            $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
                         }else{
                             // On modifie l'épisode
                             $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "published", $oneEpisode['date'], $postprice, $postpromotion, $postsigns, $episodeId);  
+                            $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
                         }
                         header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
                     }else{
@@ -299,9 +305,11 @@ class EpisodesController {
                         $postdate = htmlspecialchars($postdate);
                         // On modifie l'épisode
                         $updateEpisode = $episodesManager->updateEpisode($oneEpisode['number'], $posttitle, $postcontent, "published", $postdate, $postprice, $postpromotion, $postsigns, $episodeId);
+                        $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
                     }else{
                         // On modifie l'épisode
-                        $updateEpisode = $episodesManager->updateEpisode($oneEpisode['number'], $posttitle, $postcontent, "published", $oneEpisode['date'], $postprice, $postpromotion, $postsigns, $episodeId);   
+                        $updateEpisode = $episodesManager->updateEpisode($oneEpisode['number'], $posttitle, $postcontent, "published", $oneEpisode['date'], $postprice, $postpromotion, $postsigns, $episodeId);
+                        $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
                     }
                     header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
                 }else{
@@ -332,6 +340,12 @@ class EpisodesController {
             {
                 // On passe le statut de l'épisode en supprimé
                 $updateEpisodeDeleted = $episodesManager->updateEpisodeDeleted("deleted", $episodeId);
+                // On compte le nombre d'épisodes de la série
+                $nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
+                // On repasse le statut de la série à en cours quand il n'y a plus d'épisodes publiés
+                if($nbepisodes < 1){
+                    $updateSeriesStatus = $seriesManager->updateSeriesStatus("inprogress", $seriesId);
+                }
                 header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
             }else{
                 require('./src/View/404error.php');
