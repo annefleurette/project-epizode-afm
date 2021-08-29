@@ -1,3 +1,60 @@
 .hidden, #hidden {
     display: none;
 }
+
+
+/* Mise en forme du slider */
+
+#slider-images {
+    position: relative;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+figure {
+    margin: 0;
+
+.chevron {
+	font-size: 1.5em;
+	width: 3em;
+	height: 3em;
+	border-radius: 50%;
+	background-color: rgba(0, 0, 0, 0.2);
+	position: absolute;
+	top: calc(50% - 1.5em);
+}
+
+#chevron_left {
+	left: -1.5em;
+}
+
+#chevron_right {
+	right: -1.5em;
+}
+
+.chevron i {
+	position: absolute;
+    color: black;
+	top: calc(50% - 12px);
+}
+
+#chevron_left i {
+	left: 1.8em;
+}
+
+#chevron_right i {
+	right: 1.8em;
+}
+
+.player {
+    position: absolute;
+    font-size: 1em;
+	width: 3em;
+	height: 3em;
+	border-radius: 50%;
+    position: absolute;
+    left: calc(50% - 8px);
+    bottom: 0;
+    z-index: 10;
+}

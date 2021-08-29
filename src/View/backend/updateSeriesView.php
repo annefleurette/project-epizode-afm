@@ -142,7 +142,7 @@ ob_start();
                             <?php if((($episodedata['number'] == $nbepisodes) AND ($episodedata['publishing'] === "published")) OR ($episodedata['publishing'] === "inprogress"))
                             {
                             ?>    
-                                <p><a href = "index.php?action=updateEpisodeDeleted&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">SUPPRIMER</a></p>
+                                <p><a id="deleteepisode" href = "index.php?action=updateEpisodeDeleted&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">SUPPRIMER</a></p>
                             <?php    
                             }
                             ?> 
@@ -162,6 +162,7 @@ ob_start();
     ?>
 </section>
 <script type="text/javascript" src="./public/js/tabs.js"></script>
+<script type="text/javascript" src="./public/js/delete.js"></script>
 <?php $body_content = ob_get_clean();
 require('./src/View/template.php');
 ?>

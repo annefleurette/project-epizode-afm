@@ -15,6 +15,11 @@ class SeriesController {
     public function displayHomepage()
     {
         $seriesManager = new SeriesManager();
+        // On affiche les nouvelles séries éditeurs & amateurs
+        $seriesLastThreePublishers = $seriesManager->getLastThreeSeriesPublishers();
+        $seriesLastThreeUsers = $seriesManager->getLastThreeSeriesUsers();
+        $seriesLastSix = array_merge($seriesLastThreePublishers, $seriesLastThreeUsers);
+        // On affiche les top 10 en termes de séries
         $seriesTopTenPublishers = $seriesManager->topTenSeriesPublishers();
         $seriesTopTenUsers = $seriesManager->topTenSeriesUsers();
         require('./src/View/frontend/displayHomepageView.php');
