@@ -65,6 +65,7 @@ ob_start();
             <input type="submit" name="save" value="Valider">
         </p>
     </form>
+    <p><a href="index.php?action=dashboard">ANNULER</a>
 </section>
 <?php $body_content = ob_get_clean();
 require('./src/View/template.php');

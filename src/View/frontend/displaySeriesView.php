@@ -84,15 +84,15 @@ ob_start();
         {
             for ($j = 0; $j < 3; $j++)
             {
-                if (isset($allTagsSeries[$i][$j]['title']))
+                if (isset($allTagsSeries[$i][$j]['title']) AND $allTagsSeries[$i][$j]['id'] != $seriesId)
                 {   
                 ?>
                     <li>
                         <article>
-                            <p><?php echo $allTagsSeries[$i][$j]['title']; ?></p>
+                            <p><a href="index.php?action=displaySeries&idseries=<?php echo $allTagsSeries[$i][$j]['id']; ?>"><?php echo $allTagsSeries[$i][$j]['title']; ?></a></p>
                             <p><img src="<?php echo $allTagsSeries[$i][$j]['cover']; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
                             <p><img src="<?php echo $allTagsSeries[$i][$j]['avatar']; ?>" alt="<?php echo $oneSeriesUserData['altavatar']; ?>"/></p>  
-                            <p><?php echo $allTagsSeries[$i][$j]['member']; ?></p>
+                            <p><a href="index.php?action=displayMember&idmember=<?php echo $allTagsSeries[$i][$j]['idmember']; ?>"><?php echo $allTagsSeries[$i][$j]['member']; ?></a></p>
                             <p><?php echo $allTagsSeries[$i][$j]['numberEpisodes']; ?> épisode(s)</p>
                             <p><?php echo $allTagsSeries[$i][$j]['numberSubscribers']; ?> abonné(s)</p>
                             <p><?php echo $allTagsSeries[$i][$j]['tags']; ?></p>

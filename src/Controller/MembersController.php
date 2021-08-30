@@ -110,21 +110,12 @@ class MembersController {
 				}
                 // On inclut la gestion des autorisations
                 include('./src/Utils/authorization.php');
-				if($memberInfo['type'] == "admin")
-				{ // Si le membre est admin
-					if(isset($_SESSION['previousurl'])) {
-						header('Location: index.php' .$_SESSION['previousurl']);
-						unset($_SESSION['previousurl']);
-					}else{
-						header('Location: index.php?action=admin'); 
-						unset($_SESSION['previousurl']);
-					}
-				}else{ // Si le membre est éditeur ou utilisateur
-					if(isset($_SESSION['previousurl'])) {
-						header('Location: index.php' .$_SESSION['previousurl']);
-					}else{
-						header('Location: index.php?action=writeSeries'); 
-					}
+				if(isset($_SESSION['previousurl'])) {
+					header('Location: index.php' .$_SESSION['previousurl']);
+					unset($_SESSION['previousurl']);
+				}else{
+					header('Location: index.php?action=dashboard'); 
+					unset($_SESSION['previousurl']);
 				}
 			}else{
                 $_SESSION['tempEmail'] = $postemail;
@@ -132,6 +123,18 @@ class MembersController {
                 header("Location: index.php?action=login");
 			}
 		}
+	}
+
+	public function displayDashboard()
+	{
+		$membersManager = new MembersManager();
+		// On récupère les informations du membre
+		$userData = $membersManager->getMemberData($_SESSION['idmember']);
+		// On récupère les séries auxquelles un membre est abonné
+		$getAllSubscriptionSeries = $membersManager->getAllSubscriptionSeries($_SESSION['idmember']);
+		// On récupère toutes les séries écrites par un membre
+		$getAllSeriesMember = $membersManager->getAllSeriesMember($_SESSION['idmember']);
+		require('./src/View/backend/displayDashboardView.php');
 	}
 
 	public function logout()

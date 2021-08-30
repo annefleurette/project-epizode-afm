@@ -1,7 +1,7 @@
-// DELETE EPISODE
-if(document.getElementById('deleteepisode') != undefined)
+// DELETE
+if(document.getElementById('delete') != undefined)
 {
-    document.getElementById('deleteepisode').addEventListener('click', () => {
-        confirm("Êtes-vous sûr(e) de vouloir supprimer cet épisode ?");
+    document.getElementById('delete').addEventListener('click', () => {
+        confirm("Confirmez-vous la suppression ?");
     })
 }

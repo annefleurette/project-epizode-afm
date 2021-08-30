@@ -77,7 +77,7 @@ ob_start();
                          <?php
                         }
                         ?>
-                        <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?> ?>">DECOUVRIR LA SERIE</a></p>
+                        <p><a href="index.php?action=displaySeries&idseries=<?php echo $allSeriesMember['id']; ?>">DECOUVRIR LA SERIE</a></p>
                     </article>
                 </li>
             <?php

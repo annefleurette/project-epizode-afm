@@ -81,11 +81,10 @@ try {
 					{
 						// Membres
 						case 'subscription':
-							$seriesController->writeSeries();
+							$membersController->displayDashboard();
 						break;
 						case 'login':
-							//$seriesController->writeSeries();
-							echo "hello";
+							$membersController->displayDashboard();
 						break;
 						case 'logout':
 							$membersController->logout();
@@ -99,6 +98,12 @@ try {
 						}
 						break;
 						// Series
+						case 'homepage':
+							$seriesController->displayHomepage();
+						break;
+						case 'dashboard':
+							$membersController->displayDashboard();
+						break;
 						case 'writeSeries':
 							$seriesController->writeSeries();
 						break;
@@ -126,10 +131,10 @@ try {
 								require('src/View/404error.php');
 							}
 							break;
-						case 'updateSeriesDeleted':
+						case 'updateSeriesStatus':
 							if(isset($_GET['idseries']))
 							{
-								$seriesController->updateSeriesDeleted($_GET['idseries']);
+								$seriesController->updateSeriesStatus($_GET['idseries']);
 							}else{
 								require('src/View/404error.php');
 							}
@@ -307,7 +312,7 @@ try {
 					$episodesController->removeLike($_GET['idepisode']);
 					break;
 				default:
-				require('src/View/404error.php');
+				require('src/View/403error.php');
 			}
 		}
 	}else{
