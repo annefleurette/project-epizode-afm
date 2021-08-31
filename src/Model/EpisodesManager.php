@@ -182,16 +182,16 @@ class EpisodesManager extends Manager
     	$deleteLike->execute(array($idepisode, $idmember));
     	return $deleteLike;
 	}
-	// On passe le statut d'un épisode en supprimé
-	public function updateEpisodeDeleted($publishing_status, $idepisode)
+	// On change le statut d'un épisode
+	public function updateEpisodeStatus($publishing_status, $idepisode)
 	{
 		$db = $this->dbConnect();
-		$updateEpisodeDeleted = $db->prepare('UPDATE episodes SET publishing_status = :newpublishing_status WHERE id = :id');
-		$updateEpisodeDeleted->execute(array(
+		$updateEpisodeStatus = $db->prepare('UPDATE episodes SET publishing_status = :newpublishing_status WHERE id = :id');
+		$updateEpisodeStatus->execute(array(
 			'newpublishing_status' => $publishing_status,
 			'id' => $idepisode
 		)); 
-		return $updateEpisodeDeleted;
+		return $updateEpisodeStatus;
 	}
 	// On supprime un épisode définitivement
 	public function deleteEpisode($idepisode)

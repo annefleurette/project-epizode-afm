@@ -323,7 +323,6 @@ class SeriesController {
         }
     }
 
-// A compléter avec l'espace d'administration  
     public function updateSeriesStatus($seriesId)
     {
         $seriesManager = new SeriesManager();
@@ -333,7 +332,7 @@ class SeriesController {
         if (in_array($seriesId, $getAllSeriesId)) {
             // On passe le statut de la série en supprimé
             $updateSeriesDeleted = $seriesManager->updateSeriesStatus("deleted", $seriesId);
-            header("Location: "); 
+            header("Location: index.php?action=dashboard&tab=2"); 
         }else{
             require('./src/View/403error.php');
         }
@@ -384,7 +383,7 @@ class SeriesController {
     {
         $seriesManager = new SeriesManager();
         $seriesId = htmlspecialchars($seriesId);
-        $seriesSubscription = $seriesManager->addSeriesSubscription($seriesId, $_SESSION['idmember']);
+        $addSubscription = $seriesManager->addSeriesSubscription($seriesId, $_SESSION['idmember']);
         $seriesSubscription = $seriesManager->getSeriesSubscriptions($seriesId);
         echo json_encode($seriesSubscription);
     }
@@ -396,6 +395,14 @@ class SeriesController {
         $deleteSubscription = $seriesManager->deleteSubscription($seriesId, $_SESSION['idmember']);
         $seriesSubscription = $seriesManager->getSeriesSubscriptions($seriesId);
         echo json_encode($seriesSubscription);
+    }
+
+    public function removeSubscriptionLibrary($seriesId)
+    {   
+        $seriesManager = new SeriesManager();
+        $seriesId = htmlspecialchars($seriesId);
+        $deleteSubscription = $seriesManager->deleteSubscription($seriesId, $_SESSION['idmember']);
+        header("Location: index.php?action=dashboard");
     }
     
 }

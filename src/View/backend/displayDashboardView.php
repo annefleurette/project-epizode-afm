@@ -7,9 +7,14 @@ ob_start();
 <?php
     if($userData['type'] == "user")
     {
-    ?>
-        <p><img src="<?php echo $userData['avatar']; ?>" alt="<?php echo $userData['altavatar']; ?>"/></p>
-        <p><?php echo $userData['pseudo']; ?></p>
+        if(isset($userData['avatar']))
+        {
+        ?>
+            <p><img src="<?php echo $userData['avatar']; ?>" alt="<?php echo $userData['altavatar']; ?>" /></p>
+        <?php
+        }
+        ?>
+        <p>Bonjour <?php echo $userData['pseudo']; ?>, content de vous revoir !</p>
         <p><?php echo $userData['description']; ?></p>
         <p><?php echo $userData['numberSubscriptions']; ?> abonnement(s)</p>
         <p><?php echo $userData['numberWritings']; ?> série(s) dans le studio de production</p>
@@ -22,9 +27,14 @@ ob_start();
         </p>
     <?php
     }elseif($userData['type'] == "publisher"){
-    ?>
-        <p><img src="<?php echo $userData['logo']; ?>" alt="<?php echo $userData['altlogo']; ?>"/></p>
-        <p><?php echo $userData['pseudo']; ?></p>
+        if(isset($userData['avatar']))
+        {
+        ?>
+            <p><img src="<?php echo $userData['logo']; ?>" alt="<?php echo $userData['altlogo']; ?>"/></p>
+        <?php
+        }
+        ?>
+        <p>Bonjour <?php echo $userData['pseudo']; ?>, content de vous revoir !</p>
         <p><?php echo $userData['description']; ?></p>
         <p><?php echo $userData['numberSubscriptions']; ?> abonnement(s)</p>
         <p><?php echo $userData['numberAuthors']; ?> auteur(s)</p>
@@ -53,9 +63,8 @@ ob_start();
                 <li>
                     <article>
                         <p><img src="<?php echo $subscriptionSeries['cover']; ?>" alt="<?php echo $subscriptionSeries['altcover']; ?>"/></p>
-                        <input type="hidden" id="idseries" value=<?php echo $subscriptionSeries['id']; ?>>
                         <p><a href="index.php?action=displaySeries&idseries=<?php echo $subscriptionSeries['id']; ?>">LIRE</a></p>
-                        <button id="unsubscribe">RETIRER DE MA BIBLIOTHEQUE</button>
+                        <p><a href="index.php?action=removeSubscriptionLibrary&idseries=<?php echo $subscriptionSeries['id']; ?>">RETIRER DE MA BIBLIOTHEQUE</a></p>
                     </article>
                 </li>
             <?php
@@ -91,9 +100,8 @@ ob_start();
                             <p><?php echo $seriesMember['numberEpisodes']; ?> épisode(s)</p>
                             <p><?php echo $seriesMember['numberSubscribers']; ?> abonné(s)</p>
                             <p><?php echo $seriesMember['publishing']; ?></p>
-                            <input type="hidden" id="idseries" value=<?php echo $seriesMember['id']; ?>>
-                                <p><a href="index.php?action=updateSeries&idseries=<?php echo $seriesMember['id']; ?>">CONTINUER LA SERIE</a></p>
-                                <button id="delete">SUPPRIMER LA SERIE</button>
+                            <p><a href="index.php?action=updateSeries&idseries=<?php echo $seriesMember['id']; ?>">CONTINUER LA SERIE</a></p>
+                            <p><a id="delete" href="index.php?action=updateSeriesStatus&idseries=<?php echo $seriesMember['id']; ?>">SUPPRIMER LA SERIE</a></p>
                         <?php
                         }
                         ?>
@@ -112,7 +120,6 @@ ob_start();
     ?>
 </section>
 <script type="text/javascript" src="./public/js/tabs.js"></script>
-<script type="text/javascript" src="./public/js/subscriptions.js"></script>
 <script type="text/javascript" src="./public/js/delete.js"></script>
 <?php $body_content = ob_get_clean();
 require('./src/View/template.php');

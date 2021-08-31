@@ -1,4 +1,3 @@
-console.log(document.getElementById('subscribe'));
 if(document.getElementById('subscribe') != null || document.getElementById('unsubscribe') != null)
 { 
     // ABONNEMENT

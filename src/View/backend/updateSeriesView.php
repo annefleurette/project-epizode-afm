@@ -106,7 +106,7 @@ ob_start();
                             <p>Statut : <?php echo $episodedata['publishing']; ?></p>
                             <?php
                             if($episodedata['publishing'] === "published")
-                            {require('./src/View/frontend/subscriptionView.php');
+                            {
                                 if(isset($episodedata['publicationDate']))
                                 {
                                 ?>
@@ -142,7 +142,7 @@ ob_start();
                             <?php if((($episodedata['number'] == $nbepisodes) AND ($episodedata['publishing'] === "published")) OR ($episodedata['publishing'] === "inprogress"))
                             {
                             ?>    
-                                <p><a id="delete" href = "index.php?action=updateEpisodeDeleted&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">SUPPRIMER</a></p>
+                                <p><a id="delete" href = "index.php?action=updateEpisodeStatus&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">SUPPRIMER</a></p>
                             <?php    
                             }
                             ?> 

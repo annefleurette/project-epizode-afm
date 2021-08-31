@@ -11,6 +11,7 @@
             ?>
                 <!-- <li>Coins (+ valeur calculée)</li> Sera à utiliser quand on ajoutera le paiement -->
                 <li><a href="#">Mon compte</a></li>
+                <li><a href="index.php?action=dashboard">Mon tableau de bord</a></li>
                 <li><a href="index.php?action=logout">Déconnexion</a></li>
             <?php
             }elseif(isset($_SESSION['pseudo']) AND $_SESSION['type'] == "admin")

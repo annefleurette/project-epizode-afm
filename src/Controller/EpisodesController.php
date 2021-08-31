@@ -325,7 +325,7 @@ class EpisodesController {
         } 
     }      
 
-    public function updateEpisodeDeleted($seriesId, $episodeId)
+    public function updateEpisodeStatus($seriesId, $episodeId)
     {
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager();
@@ -339,7 +339,7 @@ class EpisodesController {
             if (in_array($episodeId, $episodesIdList))
             {
                 // On passe le statut de l'épisode en supprimé
-                $updateEpisodeDeleted = $episodesManager->updateEpisodeDeleted("deleted", $episodeId);
+                $updateEpisodeStatus = $episodesManager->updateEpisodeStatus("deleted", $episodeId);
                 // On compte le nombre d'épisodes de la série
                 $nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
                 // On repasse le statut de la série à en cours quand il n'y a plus d'épisodes publiés

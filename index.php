@@ -153,6 +153,9 @@ try {
 						case 'removeSubscription':
 							$seriesController->removeSubscription($_GET['idseries']);
 							break;
+						case 'removeSubscriptionLibrary':
+							$seriesController->removeSubscriptionLibrary($_GET['idseries']);
+							break;
 						//Episodes
 						case 'writeEpisode':
 							if(isset($_GET['idseries']))
@@ -195,10 +198,10 @@ try {
 								require('src/View/404error.php');
 							}						
 							break;
-						case 'updateEpisodeDeleted':
+						case 'updateEpisodeStatus':
 							if(isset($_GET['idseries']) AND isset($_GET['idepisode']))
 							{
-								$episodesController->updateEpisodeDeleted($_GET['idseries'], $_GET['idepisode']);
+								$episodesController->updateEpisodeStatus($_GET['idseries'], $_GET['idepisode']);
 							}else{
 								require('src/View/404error.php');
 							}
