@@ -101,6 +101,9 @@ try {
 						case 'homepage':
 							$seriesController->displayHomepage();
 						break;
+						case 'research':
+							$seriesController->displayResearch();
+							break;
 						case 'dashboard':
 							$membersController->displayDashboard();
 						break;
@@ -279,6 +282,9 @@ try {
 				// Séries
 				case 'homepage':
 					$seriesController->displayHomepage();
+					break;
+				case 'research':
+					$seriesController->displayResearch();
 					break;
 				case 'displaySeries':
 					if(isset($_GET['idseries']))

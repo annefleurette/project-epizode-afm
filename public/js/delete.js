@@ -1,7 +1,10 @@
 // DELETE
 if(document.getElementById('delete') != undefined)
 {
-    document.getElementById('delete').addEventListener('click', () => {
-        confirm("Confirmez-vous la suppression ?");
+    document.getElementById('delete').addEventListener('click', (e) => {
+        let valid = confirm("Confirmez-vous la suppression ?");
+        if(!valid){
+            e.preventDefault();
+        }
     })
 }

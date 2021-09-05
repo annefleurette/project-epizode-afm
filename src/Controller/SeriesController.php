@@ -108,6 +108,8 @@ class SeriesController {
             // On récupère l'id de la série à partir de son titre, de l'id de l'auteur et de l'id_cover
             $seriesId = $seriesManager->getSeriesId($_SESSION['idmember'], $postseriestitle);
             // Enregistrement des tags
+            // On enlève les espaces en début et fin de chaîne
+            $postseriestag = trim($postseriestag);
             $tagname = explode(",", $postseriestag);
             for ($i = 0; $i < count($tagname); $i++)
             {
@@ -236,6 +238,8 @@ class SeriesController {
                             for ($i = 0; $i < count($tagIdSeries); $i++) {
                                 $deleteTagSeries = $seriesManager->deleteTagSeries($tagIdSeries[$i], $seriesId);
                             }
+                            // On enlève les espaces en début et fin de chaîne
+                            $postseriestag = trim($postseriestag);
                             $tagname = explode(",", $postseriestag);
                             for ($i = 0; $i < count($tagname); $i++) {
                                 // On vérifie que le tag n'existe pas déjà
@@ -244,6 +248,7 @@ class SeriesController {
                                 {
                                     // On enregistre le tag
                                     $newtag[$i] = strtolower($tagname[$i]);
+                                    $newtag[$i] = trim($newtag[$i]);
                                     if($newtag[$i] != NULL)
                                     {
                                         $addNewTag = $seriesManager->addTag($newtag[$i]);
@@ -290,6 +295,8 @@ class SeriesController {
             {
                 $deleteTagSeries = $seriesManager->deleteTagSeries($tagIdSeries[$i], $seriesId);
             }
+            // On enlève les espaces en début et fin de chaîne
+            $postseriestag = trim($postseriestag);
             $tagname = explode(",", $postseriestag);
             for ($i = 0; $i < count($tagname); $i++)
             {
@@ -299,6 +306,7 @@ class SeriesController {
                 {
                     // On enregistre le tag
                     $newtag[$i] = strtolower($tagname[$i]);
+                    $newtag[$i] = trim($newtag[$i]);
                     if($newtag[$i] != NULL)
                     {
                         $addNewTag = $seriesManager->addTag($newtag[$i]);

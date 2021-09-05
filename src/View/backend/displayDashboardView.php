@@ -89,24 +89,23 @@ ob_start();
             <?php
             foreach ($getAllSeriesMember as $seriesMember)
             {
-            ?>
-                <li>
-                    <article>
-                        <?php
-                        if($seriesMember['publishing'] != "deleted")
-                        {
-                        ?>
+
+                if($seriesMember['publishing'] != "deleted")
+                {
+                ?>
+                    <li>
+                        <article>
                             <p><img src="<?php echo $seriesMember['cover']; ?>" alt="<?php echo $seriesMember['altcover']; ?>"/></p>
                             <p><?php echo $seriesMember['numberEpisodes']; ?> épisode(s)</p>
                             <p><?php echo $seriesMember['numberSubscribers']; ?> abonné(s)</p>
                             <p><?php echo $seriesMember['publishing']; ?></p>
                             <p><a href="index.php?action=updateSeries&idseries=<?php echo $seriesMember['id']; ?>">CONTINUER LA SERIE</a></p>
                             <p><a id="delete" href="index.php?action=updateSeriesStatus&idseries=<?php echo $seriesMember['id']; ?>">SUPPRIMER LA SERIE</a></p>
-                        <?php
-                        }
-                        ?>
-                    </article>
-                </li>
+                        </article>
+                    </li>
+                <?php
+                }
+                ?>
             <?php
             }
             ?>
