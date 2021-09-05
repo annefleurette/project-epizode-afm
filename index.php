@@ -102,7 +102,12 @@ try {
 							$seriesController->displayHomepage();
 						break;
 						case 'research':
-							$seriesController->displayResearch();
+							if(isset($_POST['keyword']) AND $_POST['keyword'] != NULL)
+							{
+								$seriesController->displayResearch($_POST['keyword']);
+							}else{
+								require('src/View/404error.php');
+							}
 							break;
 						case 'dashboard':
 							$membersController->displayDashboard();
@@ -284,7 +289,12 @@ try {
 					$seriesController->displayHomepage();
 					break;
 				case 'research':
-					$seriesController->displayResearch();
+					if(isset($_POST['keyword']) AND $_POST['keyword'] != NULL)
+					{
+						$seriesController->displayResearch($_POST['keyword']);
+					}else{
+						$seriesController->displayHomepage();
+					}
 					break;
 				case 'displaySeries':
 					if(isset($_GET['idseries']))

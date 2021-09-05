@@ -24,6 +24,22 @@ class SeriesController {
         $seriesTopTenUsers = $seriesManager->topTenSeriesUsers();
         require('./src/View/frontend/displayHomepageView.php');
     }
+
+    public function displayResearch($postkeyword)
+    {
+        $seriesManager = new SeriesManager();
+        $postkeyword = htmlspecialchars($postkeyword);
+        // On récupère les résultats de la recherche
+        // Séries
+        $researchSeriesResults = $seriesManager->getResearchSeriesResults("%".$postkeyword."%");
+        var_dump($researchSeriesResults);
+        exit;
+        // Auteurs
+        $researchAuthorsResults = $seriesManager->getResearchAuthorsResults($postkeyword);
+        // Episodes
+        $researchEpisodesResults = $seriesManager->getResearchEpisodesResults($postkeyword);
+        require('./src/View/frontend/displayResearchView.php');
+    }
     
     public function writeSeries()
     {

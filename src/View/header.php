@@ -5,7 +5,6 @@
         </a>
         <ul>
             <li><a href="index.php?action=homepage">Accueil</a></li>
-            <li><a href="index.php?action=research">Recherche</a></li>
             <?php if(isset($_SESSION['pseudo']) AND ($_SESSION['type'] == "user" OR $_SESSION['type'] == "publisher"))
             {
             ?>
@@ -26,6 +25,12 @@
             <?php
             }
             ?>
+            <li>
+                <form action="index.php?action=research" method="post" enctype="multipart/form-data"> 
+                    <input type="search" id="site-search" name="keyword">
+                    <input type="submit" name="search" value="Rechercher">
+                </form>
+            </li>
         </ul>
     </nav>  
 </header>
