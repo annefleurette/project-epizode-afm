@@ -31,13 +31,11 @@ class SeriesController {
         $postkeyword = htmlspecialchars($postkeyword);
         // On récupère les résultats de la recherche
         // Séries
-        $researchSeriesResults = $seriesManager->getResearchSeriesResults("%".$postkeyword."%");
-        var_dump($researchSeriesResults);
-        exit;
+        $researchSeriesResults = $seriesManager->getResearchSeriesResults('%'.$postkeyword.'%');
         // Auteurs
-        $researchAuthorsResults = $seriesManager->getResearchAuthorsResults($postkeyword);
+        $researchAuthorsResults = $seriesManager->getResearchAuthorsResults('%'.$postkeyword.'%');
         // Episodes
-        $researchEpisodesResults = $seriesManager->getResearchEpisodesResults($postkeyword);
+        $researchEpisodesResults = $seriesManager->getResearchEpisodesResults('%'.$postkeyword.'%');
         require('./src/View/frontend/displayResearchView.php');
     }
     

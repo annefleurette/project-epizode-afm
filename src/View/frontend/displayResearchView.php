@@ -32,12 +32,13 @@ ob_start();
                         <p><?php echo $seriesResults['summary']; ?> abonné(s)</p>
                         <p><?php echo $seriesResults['tags']; ?></p>
                         <?php
-                        if($allSeriesMember['type'] === "publisher")
+                        if($seriesResults['type'] === "publisher")
                         {
                         ?>
                             <p><?php echo $seriesResults['pricing']; ?></p>
                             <p><img src="<?php echo $seriesResults['logo']; ?>" alt="<?php echo $seriesResults['altlogo']; ?>"/></p>
                             <p><?php echo $seriesResults['publisher']; ?></p>
+                            <p><?php echo $seriesResults['member']; ?></p>
                             <p><?php echo $seriesResults['author']; ?></p>
                         <?php
                         }else{
@@ -76,10 +77,11 @@ ob_start();
                 <li>
                     <article>
                         <?php
-                        if($allSeriesMember['type'] === "publisher")
+                        if($authorsResults['type'] === "publisher")
                         {
                         ?>
                             <p><img src="<?php echo $authorsResults['logo']; ?>" alt="<?php echo $authorsResults['altlogo']; ?>"/></p>
+                            <p><?php echo $seriesResults['member']; ?></p>
                             <p><?php echo $authorsResults['publisher']; ?></p>
                             <p><?php echo $authorsResults['author']; ?></p>
                         <?php
@@ -91,7 +93,7 @@ ob_start();
                         }
                         ?>
                         <p><?php echo $authorsResults['numberWritings']; ?> séries écrites</p>
-                        <p><a href="index.php?action=displayMemberView&idmember=<?php echo $authorsResults['id']; ?>">DECOUVRIR L'AUTEUR'</a></p>
+                        <p><a href="index.php?action=displayMemberView&idmember=<?php echo $authorsResults['id']; ?>">DECOUVRIR L'AUTEUR</a></p>
                     </article>
                 </li>
             <?php
@@ -121,12 +123,13 @@ ob_start();
                     <article>
                         <p><?php echo $episodesResults['title']; ?></p>
                         <?php
-                        if($allSeriesMember['type'] === "publisher")
+                        if($episodesResults['type'] === "publisher")
                         {
                         ?>
                             <p><?php echo $seriesResults['pricing']; ?></p>
                             <p><img src="<?php echo $seriesResults['logo']; ?>" alt="<?php echo $seriesResults['altlogo']; ?>"/></p>
                             <p><?php echo $seriesResults['publisher']; ?></p>
+                            <p><?php echo $seriesResults['member']; ?></p>
                             <p><?php echo $seriesResults['author']; ?></p>
                         <?php
                         }else{
@@ -149,7 +152,7 @@ ob_start();
     <?php
     }else{
     ?>
-        <p>Aucune série ne correspond à la recherche</p>
+        <p>Aucun épisode ne correspond à la recherche</p>
     <?php
     }
     ?>

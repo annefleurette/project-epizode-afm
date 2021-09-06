@@ -17,7 +17,7 @@ ob_start();
         <p>Bonjour <?php echo $userData['pseudo']; ?>, content de vous revoir !</p>
         <p><?php echo $userData['description']; ?></p>
         <p><?php echo $userData['numberSubscriptions']; ?> abonnement(s)</p>
-        <p><?php echo $userData['numberWritings']; ?> série(s) dans le studio de production</p>
+        <p><?php echo $userData['numberWritings']; ?> série(s) dans mon studio de production</p>
         <p>
         Membre depuis le 
         <?php

@@ -350,22 +350,11 @@ class SeriesManager extends Manager
 	    return $coverId;
 	}
 
-	// On récupère les résultats d'une recherche de mots clés
-	public function getResearchResults($keyword)
-	{
-		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT DISTINCT * FROM series s INNER JOIN episodes e ON s.id = e.id_series INNER JOIN members m ON m.id = s.id_member WHERE ? IN (s.title, s.summary, m.pseudo, s.publisher_author, e.title, e.content)');
-		$req->execute(array($keyword));
-	    $researchResults = $req->fetchAll();
-	    $req->closeCursor();
-	    return $researchResults;
-	}
-
 	// On récupère les résultats d'une recherche de mots clés parmi les séries
 	public function getResearchSeriesResults($keyword)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT DISTINCT s.title AS "title", s.id AS "id", ic.url AS "cover", ic.alt AS "alt", s.summary AS "summary", m.pseudo AS "member", s.publisher_author AS "author", l.name AS "publisher", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags", s.pricing_status AS "pricing", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers" FROM series s LEFT JOIN episodes e ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag LEFT JOIN covers c ON c.id = s.id_cover LEFT JOIN images ic ON ic.id = c.id_cover LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE CONCAT(s.title, s.summary, m.pseudo, s.publisher_author, e.title, e.content, t.name) LIKE ? GROUP BY s.id');
+		$req = $db->prepare('SELECT DISTINCT s.title AS "title", s.id AS "id", ic.url AS "cover", ic.alt AS "alt", s.summary AS "summary", m.pseudo AS "member", m.type AS "type", s.publisher_author AS "author", l.name AS "publisher", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", GROUP_CONCAT(DISTINCT t.name SEPARATOR ", ") AS "tags", s.pricing_status AS "pricing", COUNT(DISTINCT e.id) AS "numberEpisodes", COUNT(DISTINCT sub.id_member) AS "numberSubscribers" FROM series s LEFT JOIN episodes e ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series_has_tags h ON h.id_series = s.id LEFT JOIN tags t ON t.id = h.id_tag LEFT JOIN covers c ON c.id = s.id_cover LEFT JOIN images ic ON ic.id = c.id_cover LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE s.publishing_status = "published" AND CONCAT(s.title, s.summary, m.pseudo, s.publisher_author, e.title, e.content, t.name) LIKE ? GROUP BY s.id');
 		$req->execute(array($keyword));
 	    $researchSeriesResults = $req->fetchAll();
 	    $req->closeCursor();
@@ -376,7 +365,7 @@ class SeriesManager extends Manager
 	public function getResearchAuthorsResults($keyword)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT DISTINCT m.pseudo AS "member", m.id AS "id", l.name AS "publisher", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", COUNT(DISTINCT s.id) AS "numberWritings" FROM series s LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE CONCAT(m.pseudo, s.publisher_author, l.name) LIKE ? GROUP BY m.id');
+		$req = $db->prepare('SELECT DISTINCT m.pseudo AS "member", m.type AS "type", m.id AS "id", l.name AS "publisher", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", COUNT(DISTINCT s.id) AS "numberWritings" FROM series s LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE s.publishing_status = "published" AND CONCAT(m.pseudo, s.publisher_author, l.name) LIKE ? GROUP BY m.id');
 		$req->execute(array($keyword));
 		$researchAuthorsResults = $req->fetchAll();
 		$req->closeCursor();
@@ -387,7 +376,7 @@ class SeriesManager extends Manager
 	public function getResearchEpisodesResults($keyword)
 	{
 		$db = $this->dbConnect();
-	$req = $db->prepare('SELECT DISTINCT m.pseudo AS "member", l.name AS "publisher", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", s.title AS "title", e.number AS "number", e.id AS "id", e.title AS "titleEpisode", e.content AS "content" FROM series s LEFT JOIN episodes e ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE CONCAT(e.title, e.content) LIKE ?');
+		$req = $db->prepare('SELECT DISTINCT m.pseudo AS "member", m.type AS "type", l.name AS "publisher", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", s.title AS "title", e.number AS "number", e.id AS "id", e.title AS "titleEpisode", e.content AS "content" FROM series s LEFT JOIN episodes e ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE s.publishing_status = "published" AND e.publishing_status = "published" AND CONCAT(e.title, e.content) LIKE ?');
 		$req->execute(array($keyword));
 		$researchEpisodesResults = $req->fetchAll();
 		$req->closeCursor();
