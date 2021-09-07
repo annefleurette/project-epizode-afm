@@ -110,12 +110,24 @@ class MembersController {
 				}
                 // On inclut la gestion des autorisations
                 include('./src/Utils/authorization.php');
-				if(isset($_SESSION['previousurl'])) {
-					header('Location: index.php' .$_SESSION['previousurl']);
-					unset($_SESSION['previousurl']);
-				}else{
-					header('Location: index.php?action=dashboard'); 
-					unset($_SESSION['previousurl']);
+				if($_SESSION['type'] == "admin")
+				{
+					if(isset($_SESSION['previousurl'])) {
+						header('Location: index.php' .$_SESSION['previousurl']);
+						unset($_SESSION['previousurl']);
+					}else{
+						header('Location: index.php?action=admin'); 
+						unset($_SESSION['previousurl']);
+					}
+				}elseif($_SESSION['type'] == "publisher" OR $_SESSION['type'] == "user")
+				{
+					if(isset($_SESSION['previousurl'])) {
+						header('Location: index.php' .$_SESSION['previousurl']);
+						unset($_SESSION['previousurl']);
+					}else{
+						header('Location: index.php?action=dashboard'); 
+						unset($_SESSION['previousurl']);
+					}
 				}
 			}else{
                 $_SESSION['tempEmail'] = $postemail;
@@ -135,6 +147,16 @@ class MembersController {
 		// On récupère toutes les séries écrites par un membre
 		$getAllSeriesMember = $membersManager->getAllSeriesMember($_SESSION['idmember']);
 		require('./src/View/backend/displayDashboardView.php');
+	}
+
+	public function displayAdmin()
+	{
+		$membersManager = new MembersManager();
+		// On récupère les informations du membre
+		$userData = $membersManager->getMemberData($_SESSION['idmember']);
+		// On récupère les informations de tous les membres
+		$usersData = $membersManager->getMembersProfileData();
+		require('./src/View/backend/displayAdminView.php');
 	}
 
 	public function logout()
@@ -159,5 +181,14 @@ class MembersController {
 		$authorsList = $membersManager->getAuthorsList($getidmember);
 		require('./src/View/frontend/displayMemberView.php');
 	}
+
+	public function deleteMember($memberId)
+    {
+        $membersManager = new MembersManager();
+        $memberId = htmlspecialchars($memberId);
+        // On supprime définitivement le membre
+        $deleteMember = $membersManager->deleteMember($memberId);
+        header('Location: index.php?action=admin'); 
+    }
 
 }

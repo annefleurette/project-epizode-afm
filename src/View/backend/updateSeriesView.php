@@ -1,6 +1,6 @@
 
 <?php
-$head_title = 'Epizode - Créer une nouvelle série';
+$head_title = 'Epizode - Mettre à jour la série';
 ob_start();
 ?>
 <nav>

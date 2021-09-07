@@ -24,6 +24,18 @@ try {
 				if($_SESSION['level'] >=30){ // Niveau admin
 					switch($_GET['action'])
 					{
+						// Members
+						case 'admin':
+							$membersController->displayAdmin();
+						break;
+						case 'deleteMember':
+							if(isset($_GET['idmember']))
+							{
+								$membersController->deleteMember($_GET['idmember']);
+							}else{
+								require('src/View/404error.php');
+							}
+							break;
 						// Series
 						case 'deleteSeries':
 							if(isset($_GET['idseries']))

@@ -36,6 +36,8 @@ class SeriesController {
         $researchAuthorsResults = $seriesManager->getResearchAuthorsResults('%'.$postkeyword.'%');
         // Episodes
         $researchEpisodesResults = $seriesManager->getResearchEpisodesResults('%'.$postkeyword.'%');
+        // Mets en couleurs le mot clé
+        highlight_string("<?php " . $postkeyword);
         require('./src/View/frontend/displayResearchView.php');
     }
     

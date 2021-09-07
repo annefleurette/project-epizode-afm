@@ -1,5 +1,5 @@
 <?php
-$head_title = 'Epizode - Créer un nouvel épisode';
+$head_title = 'Epizode - Mettre à jour l\'épisode';
 ob_start();
 ?>
 <section>

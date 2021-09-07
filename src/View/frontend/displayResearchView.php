@@ -141,7 +141,7 @@ ob_start();
                         ?>
                         <p>Episode n°<?php echo $episodesResults['number']; ?></p>
                         <p>Titre : <?php echo $episodesResults['titleEpisode']; ?></p>
-                        <p><?php echo $episodesResults['content']; ?></p>
+                        <p><?php echo substr($episodesResults['content'], 0, 200); ?> [...]</p>
                         <p><a href="index.php?action=displayEpisodeView&idepisode=<?php echo $episodesResults['id']; ?>">DECOUVRIR L'EPISODE</a></p>
                     </article>
                 </li>

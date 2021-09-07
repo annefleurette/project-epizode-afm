@@ -15,8 +15,8 @@ ob_start();
                 foreach ($seriesLastSix as $newSeries)
                 {
                 ?>
-                    <li>
-                        <figure class="slide">
+                    <li class="slide">
+                        <figure>
                             <p><img src="<?php echo $newSeries['cover']; ?>" alt="<?php echo $newSeries['altcover']; ?>"/></p>
                             <figcaption>
                                 <h1><?php echo $newSeries['title']; ?></h1>

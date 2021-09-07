@@ -15,7 +15,8 @@
             <?php
             }elseif(isset($_SESSION['pseudo']) AND $_SESSION['type'] == "admin")
             {
-            ?>
+            ?>  
+                <li><a href="index.php?action=admin">Mon tableau de bord</a></li>
                 <li><a href="index.php?action=logout">Déconnexion</a></li>
             <?php
             }else{

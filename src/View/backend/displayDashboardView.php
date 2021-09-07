@@ -1,6 +1,6 @@
 
 <?php
-$head_title = 'Epizode - Créer une nouvelle série';
+$head_title = 'Epizode - Tableau de bord';
 ob_start();
 ?>
 <section>
