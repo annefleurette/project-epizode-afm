@@ -100,7 +100,7 @@ ob_start();
                             <p><?php echo $seriesMember['numberSubscribers']; ?> abonné(s)</p>
                             <p><?php echo $seriesMember['publishing']; ?></p>
                             <p><a href="index.php?action=updateSeries&idseries=<?php echo $seriesMember['id']; ?>">CONTINUER LA SERIE</a></p>
-                            <p><a id="delete" href="index.php?action=updateSeriesStatus&idseries=<?php echo $seriesMember['id']; ?>">SUPPRIMER LA SERIE</a></p>
+                            <p><a class="delete" href="index.php?action=updateSeriesStatus&idseries=<?php echo $seriesMember['id']; ?>">SUPPRIMER LA SERIE</a></p>
                         </article>
                     </li>
                 <?php

@@ -35,10 +35,12 @@ class SeriesController {
         // Auteurs
         $researchAuthorsResults = $seriesManager->getResearchAuthorsResults('%'.$postkeyword.'%');
         // Episodes
-        $researchEpisodesResults = $seriesManager->getResearchEpisodesResults('%'.$postkeyword.'%');
-        // Mets en couleurs le mot clé
-        highlight_string("<?php " . $postkeyword);
+        $researchEpisodesResults = $seriesManager->getResearchEpisodesResults('%'.$postkeyword.'%'); 
         require('./src/View/frontend/displayResearchView.php');
+        // Mets en couleurs le mot clé
+        $researchContentPage = file_get_contents('http://localhost:8888/p5/project-epizode-afm/index.php?action=research');
+        include('./src/Utils/colorkeyword.php');
+        highlightKeyword($postkeyword, $researchContentPage);
     }
     
     public function writeSeries()

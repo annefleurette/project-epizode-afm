@@ -141,7 +141,23 @@ ob_start();
                         ?>
                         <p>Episode n°<?php echo $episodesResults['number']; ?></p>
                         <p>Titre : <?php echo $episodesResults['titleEpisode']; ?></p>
-                        <p><?php echo substr($episodesResults['content'], 0, 200); ?> [...]</p>
+                        <?php $poskeyword = strpos(strtolower($episodesResults['content']), strtolower($postkeyword));
+                        $numbercharacter = strlen($episodesResults['content']);
+                        if ($poskeyword < 150){
+                        ?>
+                            <p><?php echo substr($episodesResults['content'], 0, 200); ?> [...]</p>
+                        <?php
+                        }elseif($poskeyword < $numbercharacter AND $poskeyword > $numbercharacter - 200)
+                        {
+                        ?>
+                            <p><?php echo substr($episodesResults['content'], -200, 200); ?> [...]</p>
+                        <?php    
+                        }else{
+                        ?>
+                            <p><?php echo substr($episodesResults['content'], $poskeyword - 50, 200); ?> [...]</p>
+                        <?php    
+                        }
+                        ?>
                         <p><a href="index.php?action=displayEpisodeView&idepisode=<?php echo $episodesResults['id']; ?>">DECOUVRIR L'EPISODE</a></p>
                     </article>
                 </li>

@@ -79,18 +79,18 @@ ob_start();
                     }
                 }else{
                 ?>
-                    <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode suivant</a></p>
+                    <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode suivant</a></p>
                 <?php 
                 } 
             }  
         }elseif($episode_current >= $totalepisodes)
         {
         ?>
-            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode précédent</a></p>
+            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode précédent</a></p>
         <?php
         }else{
         ?>
-            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode précédent</a></p>
+            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode précédent</a></p>
             <?php
             if(!isset($_SESSION['level']) AND $episode_current > 2)
             {
@@ -114,7 +114,7 @@ ob_start();
                     }
                 }else{
                 ?>
-                    <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>&like=0">Episode suivant</a></p>
+                    <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode suivant</a></p>
                 <?php
                 }
             }

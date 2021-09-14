@@ -12,7 +12,6 @@
         </script> 
         <script src="https://kit.fontawesome.com/d1f6a249f3.js" crossorigin="anonymous"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.js"></script>
-        <script type="text/javascript" src="dataTables.filter.html.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.css">
         <link rel="stylesheet" href="./public/css/style.css" />
         <link rel="shortcut icon" type="image/png" href="./public/images/logo.png"/>

@@ -58,7 +58,7 @@ ob_start();
                     if($userInfo['id'] != $_SESSION['idmember'])
                     {
                     ?>
-                        <td><a href="index.php?action=deleteMember&idmember=<?php echo $userInfo['id']; ?>"></a>SUPPRIMER</td>
+                        <td class="delete"><a href="index.php?action=deleteMember&idmember=<?php echo $userInfo['id']; ?>">SUPPRIMER</a></td>
                     <?php
                     }
                     ?>
