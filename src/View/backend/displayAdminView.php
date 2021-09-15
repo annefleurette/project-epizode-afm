@@ -31,6 +31,7 @@ ob_start();
                     <th>Nombre d'auteurs</th>
                     <th>Nombre de coins</th>
                     <th>Date d'inscription</th>
+                    <th>Action</th>
                 </tr>
             </thead>
             <tbody>
@@ -60,6 +61,8 @@ ob_start();
                     ?>
                         <td class="delete"><a href="index.php?action=deleteMember&idmember=<?php echo $userInfo['id']; ?>">SUPPRIMER</a></td>
                     <?php
+                    }else{
+                        echo "<td></td>";
                     }
                     ?>
                 </tr>

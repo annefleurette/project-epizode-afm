@@ -2,6 +2,7 @@
 <?php
 $head_title = 'Epizode - Recherche de mots clés';
 $head_description = "Résultats de recherche parmi les séries, les auteurs et les épisodes d'Epizode";
+include('./src/Utils/colorkeyword.php');
 ob_start();
 ?>
 <h1> Résultats de la recherche : "<?php echo $postkeyword; ?>"
@@ -25,7 +26,8 @@ ob_start();
             ?>
                 <li>
                     <article>
-                        <p><?php echo $seriesResults['title']; ?></p>
+                        <!-- Dans mon contenu je surligne quand le mot clé est présent -->
+                        <p><?php echo highlightKeyword($postkeyword, $seriesResults['title']); ?></p>
                         <p><img src="<?php echo $seriesResults['cover']; ?>" alt="<?php echo $seriesResults['altcover']; ?>"/></p>
                         <p><?php echo $seriesResults['numberEpisodes']; ?> épisode(s)</p>
                         <p><?php echo $seriesResults['numberSubscribers']; ?> abonné(s)</p>
@@ -37,14 +39,14 @@ ob_start();
                         ?>
                             <p><?php echo $seriesResults['pricing']; ?></p>
                             <p><img src="<?php echo $seriesResults['logo']; ?>" alt="<?php echo $seriesResults['altlogo']; ?>"/></p>
-                            <p><?php echo $seriesResults['publisher']; ?></p>
-                            <p><?php echo $seriesResults['member']; ?></p>
+                            <p><?php echo highlightKeyword($postkeyword, $seriesResults['publisher']); ?></p>
+                            <p><?php echo highlightKeyword($postkeyword, $seriesResults['member']); ?></p>
                             <p><?php echo $seriesResults['author']; ?></p>
                         <?php
                         }else{
                         ?>  
                             <p><img src="<?php echo $seriesResults['avatar']; ?>" alt="<?php echo $seriesResults['altavatar']; ?>"/></p>  
-                            <p><?php echo $seriesResults['member']; ?></p>
+                            <p><?php echo highlightKeyword($postkeyword, $seriesResults['member']); ?></p>
                             <?php
                         }
                         ?>
@@ -76,19 +78,20 @@ ob_start();
             ?>
                 <li>
                     <article>
+                        <!-- Dans mon contenu je surligne quand le mot clé est présent -->
                         <?php
                         if($authorsResults['type'] === "publisher")
                         {
                         ?>
                             <p><img src="<?php echo $authorsResults['logo']; ?>" alt="<?php echo $authorsResults['altlogo']; ?>"/></p>
-                            <p><?php echo $seriesResults['member']; ?></p>
-                            <p><?php echo $authorsResults['publisher']; ?></p>
-                            <p><?php echo $authorsResults['author']; ?></p>
+                            <p><?php echo highlightKeyword($postkeyword, $authorsResults['member']); ?></p>
+                            <p><?php echo highlightKeyword($postkeyword, $authorsResults['publisher']); ?></p>
+                            <p><?php echo highlightKeyword($postkeyword, $authorsResults['author']); ?></p>
                         <?php
                         }else{
                         ?>  
                             <p><img src="<?php echo $authorsResults['avatar']; ?>" alt="<?php echo $authorsResults['altavatar']; ?>"/></p>  
-                            <p><?php echo $authorsResults['member']; ?></p>
+                            <p><?php echo highlightKeyword($postkeyword, $authorsResults['member']); ?></p>
                             <?php
                         }
                         ?>
@@ -121,40 +124,41 @@ ob_start();
             ?>
                 <li>
                     <article>
+                        <!-- Dans mon contenu je surligne quand le mot clé est présent -->
                         <p><?php echo $episodesResults['title']; ?></p>
                         <?php
                         if($episodesResults['type'] === "publisher")
                         {
                         ?>
-                            <p><?php echo $seriesResults['pricing']; ?></p>
-                            <p><img src="<?php echo $seriesResults['logo']; ?>" alt="<?php echo $seriesResults['altlogo']; ?>"/></p>
-                            <p><?php echo $seriesResults['publisher']; ?></p>
-                            <p><?php echo $seriesResults['member']; ?></p>
-                            <p><?php echo $seriesResults['author']; ?></p>
+                            <p><?php echo $episodesResults['pricing']; ?></p>
+                            <p><img src="<?php echo $episodesResults['logo']; ?>" alt="<?php echo $seriesResults['altlogo']; ?>"/></p>
+                            <p><?php echo highlightKeyword($postkeyword, $episodesResults['publisher']); ?></p>
+                            <p><?php echo highlightKeyword($postkeyword, $episodesResults['member']); ?></p>
+                            <p><?php echo highlightKeyword($postkeyword, $episodesResults['author']); ?></p>
                         <?php
                         }else{
                         ?>  
-                            <p><img src="<?php echo $seriesResults['avatar']; ?>" alt="<?php echo $seriesResults['altavatar']; ?>"/></p>  
-                            <p><?php echo $seriesResults['member']; ?></p>
+                            <p><img src="<?php echo $episodesResults['avatar']; ?>" alt="<?php echo $episodesResults['altavatar']; ?>"/></p>  
+                            <p><?php echo highlightKeyword($postkeyword, $episodesResults['member']); ?></p>
                             <?php
                         }
                         ?>
                         <p>Episode n°<?php echo $episodesResults['number']; ?></p>
-                        <p>Titre : <?php echo $episodesResults['titleEpisode']; ?></p>
+                        <p>Titre : <?php echo highlightKeyword($postkeyword, $episodesResults['titleEpisode']); ?></p>
                         <?php $poskeyword = strpos(strtolower($episodesResults['content']), strtolower($postkeyword));
                         $numbercharacter = strlen($episodesResults['content']);
                         if ($poskeyword < 150){
                         ?>
-                            <p><?php echo substr($episodesResults['content'], 0, 200); ?> [...]</p>
+                            <p><?php echo highlightKeyword($postkeyword, substr($episodesResults['content'], 0, 200)); ?> [...]</p>
                         <?php
                         }elseif($poskeyword < $numbercharacter AND $poskeyword > $numbercharacter - 200)
                         {
                         ?>
-                            <p><?php echo substr($episodesResults['content'], -200, 200); ?> [...]</p>
+                            <p><?php echo highlightKeyword($postkeyword, substr($episodesResults['content'], -200, 200)); ?> [...]</p>
                         <?php    
                         }else{
                         ?>
-                            <p><?php echo substr($episodesResults['content'], $poskeyword - 50, 200); ?> [...]</p>
+                            <p><?php echo highlightKeyword($postkeyword, substr($episodesResults['content'], $poskeyword - 50, 200)); ?> [...]</p>
                         <?php    
                         }
                         ?>
