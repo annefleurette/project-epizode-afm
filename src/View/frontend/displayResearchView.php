@@ -43,7 +43,7 @@ ob_start();
                             <p><?php echo highlightKeyword($postkeyword, $seriesResults['member']); ?></p>
                             <p><?php echo $seriesResults['author']; ?></p>
                         <?php
-                        }else{
+                        }elseif($seriesResults['type'] === "user"){
                         ?>  
                             <p><img src="<?php echo $seriesResults['avatar']; ?>" alt="<?php echo $seriesResults['altavatar']; ?>"/></p>  
                             <p><?php echo highlightKeyword($postkeyword, $seriesResults['member']); ?></p>
@@ -88,7 +88,7 @@ ob_start();
                             <p><?php echo highlightKeyword($postkeyword, $authorsResults['publisher']); ?></p>
                             <p><?php echo highlightKeyword($postkeyword, $authorsResults['author']); ?></p>
                         <?php
-                        }else{
+                        }elseif($authorsResults['type'] === "user"){
                         ?>  
                             <p><img src="<?php echo $authorsResults['avatar']; ?>" alt="<?php echo $authorsResults['altavatar']; ?>"/></p>  
                             <p><?php echo highlightKeyword($postkeyword, $authorsResults['member']); ?></p>
@@ -136,7 +136,7 @@ ob_start();
                             <p><?php echo highlightKeyword($postkeyword, $episodesResults['member']); ?></p>
                             <p><?php echo highlightKeyword($postkeyword, $episodesResults['author']); ?></p>
                         <?php
-                        }else{
+                        }elseif($episodesResults['type'] === "user"){
                         ?>  
                             <p><img src="<?php echo $episodesResults['avatar']; ?>" alt="<?php echo $episodesResults['altavatar']; ?>"/></p>  
                             <p><?php echo highlightKeyword($postkeyword, $episodesResults['member']); ?></p>

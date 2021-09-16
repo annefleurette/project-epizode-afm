@@ -365,7 +365,7 @@ class SeriesManager extends Manager
 	public function getResearchAuthorsResults($keyword)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT DISTINCT m.pseudo AS "member", m.type AS "type", m.id AS "id", l.name AS "publisher", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", COUNT(DISTINCT s.id) AS "numberWritings" FROM series s LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE s.publishing_status = "published" AND CONCAT(m.pseudo, COALESCE(s.publisher_author, ""), l.name) LIKE ? GROUP BY m.id');
+		$req = $db->prepare('SELECT DISTINCT m.pseudo AS "member", m.type AS "type", m.id AS "id", l.name AS "publisher", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", COUNT(DISTINCT s.id) AS "numberWritings" FROM series s LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE s.publishing_status = "published" AND CONCAT(m.pseudo, COALESCE(s.publisher_author, ""), COALESCE(l.name, "")) LIKE ? GROUP BY m.id');
 		$req->execute(array($keyword));
 		$researchAuthorsResults = $req->fetchAll();
 		$req->closeCursor();
