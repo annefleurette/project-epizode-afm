@@ -7,6 +7,9 @@ require_once('src/Model/CommentsManager.php');
 require_once('src/Model/MembersManager.php');
 
 use AnneFleurMarchat\Epizode\Model\MembersManager;
+use AnneFleurMarchat\Epizode\Model\SeriesManager;
+use AnneFleurMarchat\Epizode\Model\EpisodesManager;
+use AnneFleurMarchat\Epizode\Model\CommentsManager;
 
 class MembersController {
 
@@ -152,10 +155,23 @@ class MembersController {
 	public function displayAdmin()
 	{
 		$membersManager = new MembersManager();
+		$seriesManager = new SeriesManager();
+		$episodesManager = new EpisodesManager();
+		$commentsManager = new CommentsManager();
 		// On récupère les informations du membre
 		$userData = $membersManager->getMemberData($_SESSION['idmember']);
 		// On récupère les informations de tous les membres
 		$usersData = $membersManager->getMembersProfileData();
+		// On récupère les informations de toutes les séries
+		$getAllSeries = $seriesManager->getAllSeries();
+		// On récupère l'ensemble des épisodes signalés
+		$getAlertEpisodes = $episodesManager->getAlertEpisodes();
+		// On récupère l'ensemble des épisodes
+		$getAllEpisodes = $episodesManager->getAllEpisodes();
+		// On réucpère l'ensemble des commentaires signalés
+		$getAlertComments = $commentsManager->getAlertComments();
+		// On récupère l'ensemble des commentaires
+		$getAllComments = $commentsManager->getAllComments();
 		require('./src/View/backend/displayAdminView.php');
 	}
 

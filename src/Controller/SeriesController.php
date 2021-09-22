@@ -359,15 +359,14 @@ class SeriesController {
             require('./src/View/403error.php');
         }
     }
-
-// A compléter avec l'espace d'administration        
+      
     public function deleteSeries($seriesId)
     {
         $seriesManager = new SeriesManager();
         $seriesId = htmlspecialchars($seriesId);
         // On supprime définitivement la série
         $deleteSeries = $seriesManager->deleteSeries($seriesId);
-        header("Location: "); 
+        header("Location: index.php?action=admin&tab=2"); 
     }
 
     public function displaySeries($seriesId)

@@ -354,15 +354,14 @@ class EpisodesController {
             require('./src/View/403error.php');
         }  
     }
-
-// A compléter avec l'espace d'administration        
+      
     public function deleteEpisode($episodeId)
     {
         $episodesManager = new EpisodesManager();
         $episodeId = htmlspecialchars($episodeId);
         // On supprime définitivement l'épisode
         $deleteEpisode = $episodesManager->deleteEpisode($episodeId);
-        header("Location: "); 
+        header("Location: Location: index.php?action=admin&tab=3"); 
     }
 
     public function displayEpisode($seriesId, $episodeNumber, $episodeId)
@@ -431,7 +430,6 @@ class EpisodesController {
         $updateAlertEpisode = $episodesManager->updateEpisodeAlert($alert, intval($episodeId));
     }
 
-// A compléter avec l'espace d'administration
     public function removeAlertEpisodePost($episodeId)
     {
         $episodesManager = new EpisodesManager;
@@ -439,7 +437,7 @@ class EpisodesController {
         // On enlève le signalement d'un épisode
         $alert = 0;
         $updateAlertEpisode = $episodesManager->updateEpisodeAlert($alert, $episodeId);
-        header("Location: ");
+        header("Location: Location: index.php?action=admin&tab=3"); 
     }
 
 }

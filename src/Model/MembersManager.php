@@ -102,7 +102,6 @@ class MembersManager extends Manager
 	    $addBill->execute(array($amount));
 	    return $addBill;
 	}
-
 	// On ajoute une dépense à un membre
 	public function addMemberBill($idmemberrelated, $idbillrelated)
 	{
