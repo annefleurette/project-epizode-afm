@@ -42,7 +42,9 @@ class MembersController {
 					$type = "user";
 					$postpseudo = strtolower($postpseudo);
 					$postemail = strtolower($postemail);
-					$addMember = $membersManager->addMember($postpseudo, $postemail, $pass_hache, $type);
+					$token = random_int(100000000, 999999999);
+					$confirmation = "confirmed";
+					$addMember = $membersManager->addMember($postpseudo, $postemail, $pass_hache, $type, $confirmation, $token);
 					$_SESSION['validation'] = "Merci pour votre inscription " .$postpseudo. " et bienvenue dans la communauté Epizode !";
 					header('Location: index.php?action=login');
 					//Envoi d'un email de confirmation
@@ -140,6 +142,80 @@ class MembersController {
 		}
 	}
 
+	public function forgetPassword()
+	{
+		require('./src/View/frontend/displayForgetPasswordView.php');
+	}
+
+	public function forgetPasswordPost($postemail)
+	{
+		$membersManager = new MembersManager();
+		$postemail = htmlspecialchars($postemail);
+		// On récupère les informations de membre qui correspondent à l'email saisi
+		$memberInfo = $membersManager->getMemberInfo(strtolower($postemail));
+		if(!$memberInfo)
+		{
+            $_SESSION['tempEmail'] = $postemail;
+            $_SESSION['error'] = "Mauvais identifiant";
+            header("Location: index.php?action=forgetPassword");
+		}else{
+			//Envoi d'un email de réinitialisation
+			$to      = $postemail;
+			$subject = 'Réinitialisation du mot de passe';
+			$message = 'Vous avez oublié votre mot de passe, cliquez ici pour le réinitialiser : http://localhost:8888/p5/project-epizode-afm/index.php?action=resetPassword&idmember=' .$memberInfo['id']. '&token=' .$memberInfo['token'];
+			$headers = array(
+				'From' => 'no-reply@epizode.fr',
+			);
+			mail($to, $subject, $message, $headers);
+			$_SESSION['confirm'] = "Un email de réinitialisation de mot de passe vient de vous être envoyé !";
+			header("Location: index.php?action=homepage");
+		}
+	}
+
+	public function resetPassword($getidmember, $gettoken)
+	{
+		$membersManager = new MembersManager();
+		$getidmember = htmlspecialchars($getidmember);
+		$gettoken = htmlspecialchars($gettoken);
+		// On récupère les informations du membre
+		$userProfile = $membersManager->getMemberProfileData(intval($getidmember));
+		if(!$userProfile)
+		{
+            header("Location: index.php?action=403error");
+		}else{
+			// Si le token est bien le même que celui enregistré sur la base de données
+			if($gettoken == $userProfile['token']){
+			require('./src/View/frontend/displayResetPasswordView.php');
+			}else{
+				header("Location: index.php?action=403error");
+			}
+		}
+	}
+
+	public function resetPasswordPost($getidmember, $postpassword, $postpassword2, $gettoken)
+	{
+		$membersManager = new MembersManager();
+		$getidmember = htmlspecialchars($getidmember);
+		$postpassword = htmlspecialchars($postpassword);
+		$postpassword2 = htmlspecialchars($postpassword2);
+		$gettoken = htmlspecialchars($gettoken);
+		//Si le mot de passe correspond bien à sa vérification
+		if($postpassword == $postpassword2)
+		{
+			$pass_hache = password_hash($postpassword, PASSWORD_DEFAULT);
+			// On enregistre le nouveau mot de passe
+			$updatePassword = $membersManager->updatePassword($getidmember, $pass_hache);
+			// On modifie le token
+			$token = random_int(100000000, 999999999);
+			$updateToken = $membersManager->updateToken($getidmember, $token);
+			$_SESSION['confirm'] = "Le nouveau mot de passe est bien enregistré";
+            header("Location: index.php?action=login");
+		}else{
+            $_SESSION['error'] = "Les mots de passe ne correspondent pas";
+            header("Location: index.php?action=resetPassword&idmember=" .$getidmember. '&token=' .$gettoken);
+		}
+	}
+
 	public function displayDashboard()
 	{
 		$membersManager = new MembersManager();
@@ -173,6 +249,12 @@ class MembersController {
 		// On récupère l'ensemble des commentaires
 		$getAllComments = $commentsManager->getAllComments();
 		require('./src/View/backend/displayAdminView.php');
+	}
+
+	public function displayAccount()
+	{
+		$membersManager = new MembersManager();
+		require('./src/View/backend/displayAccountView.php');
 	}
 
 	public function logout()

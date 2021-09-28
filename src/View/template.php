@@ -28,6 +28,13 @@
             <p><?php echo $_SESSION['error']; ?></p>
             <?php unset($_SESSION['error']);
         }
+        // Pour afficher une confirmation sur la page
+        if(isset($_SESSION['confirm']))
+        {
+        ?>
+            <p><?php echo $_SESSION['confirm']; ?></p>
+            <?php unset($_SESSION['confirm']);
+        }
     	echo $body_content;
         require("./src/View/footer.php");?>
         </div>

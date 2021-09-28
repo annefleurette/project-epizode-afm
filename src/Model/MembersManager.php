@@ -69,9 +69,9 @@ class MembersManager extends Manager
 	public function getMemberProfileData($idmember)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT m.gender AS "gender", m.pseudo AS "pseudo", l.name AS "name", m.company_name AS "company", m.email AS "email", m.surname AS "surname", m.name AS "name", m.address AS "address", m.zipcode AS "zipcode", m.city AS "city", m.country AS "country", m.birthdate AS "birthdate", ia.url AS "avatar", il.url AS "logo", m.description AS "description", m.type AS "type" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE m.id = ?');
+		$req = $db->prepare('SELECT m.gender AS "gender", m.pseudo AS "pseudo", l.name AS "name", m.company_name AS "company", m.email AS "email", m.surname AS "surname", m.name AS "name", m.address AS "address", m.zipcode AS "zipcode", m.city AS "city", m.country AS "country", m.birthdate AS "birthdate", ia.url AS "avatar", il.url AS "logo", m.description AS "description", m.type AS "type", m.token AS "token" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE m.id = ?');
 		$req->execute(array($idmember));
-	    $userProfile = $req->fetch(\PDO::FETCH_COLUMN);
+	    $userProfile = $req->fetch();
 	    $req->closeCursor();
 	    return $userProfile;
 	}
@@ -169,11 +169,11 @@ class MembersManager extends Manager
 		return $updateNotificationsSubscription;
 	}
 	// On ajoute un membre
-	public function addMember($pseudo, $email, $password, $type)
+	public function addMember($pseudo, $email, $password, $type, $confirmation, $token)
 	{
 		$db = $this->dbConnect();
-		$addMember = $db->prepare('INSERT INTO members(pseudo, email, password, type, date_subscription) VALUES(?, ?, ?, ?, NOW())');
-	    $addMember->execute(array($pseudo, $email, $password, $type));
+		$addMember = $db->prepare('INSERT INTO members(pseudo, email, password, type, date_subscription, confirmation, token) VALUES(?, ?, ?, ?, NOW(), ?, ?)');
+	    $addMember->execute(array($pseudo, $email, $password, $type, $confirmation, $token));
 	    return $addMember;
 	}
 	// On modifie les informations de profil d'un membre
@@ -347,10 +347,35 @@ class MembersManager extends Manager
 	public function getMemberInfo($email)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT id, pseudo, password, type FROM members WHERE email = ?');
+		$req = $db->prepare('SELECT id, pseudo, password, type, token FROM members WHERE email = ?');
 	    $req->execute(array($email));
 	    $memberInfo = $req->fetch();
 	    $req->closeCursor();
 	    return $memberInfo;
 	}
+
+	// On modifie le token d'un membre
+	public function updateToken($idmember, $token)
+	{
+		$db = $this->dbConnect();
+		$updateToken = $db->prepare('UPDATE members SET token = :newtoken WHERE id = :idmember');
+		$updateToken->execute(array(
+			'newtoken' => $token,
+			'idmember' => $idmember
+		)); 
+		return $updateToken;
+	}
+
+	// On modifie le mot de passe d'un membre
+	public function updatePassword($idmember, $password)
+	{
+		$db = $this->dbConnect();
+		$updatePassword = $db->prepare('UPDATE members SET password = :newpassword WHERE id = :idmember');
+		$updatePassword->execute(array(
+			'newpassword' => $password,
+			'idmember' => $idmember
+		)); 
+		return $updatePassword;
+	}
+
 }

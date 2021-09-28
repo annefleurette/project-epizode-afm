@@ -124,6 +124,9 @@ try {
 						case 'dashboard':
 							$membersController->displayDashboard();
 						break;
+						case 'account':
+							$membersController->displayAccount();
+						break;
 						case 'writeSeries':
 							$seriesController->writeSeries();
 						break;
@@ -284,6 +287,31 @@ try {
 					if(isset($_POST['email']) AND isset($_POST['password']))
 					{
 						$membersController->loginPost($_POST['email'], $_POST['password'], isset($_POST['remember']) ? $_POST['remember'] : "off");
+					}else{
+						require('src/View/404error.php');
+					}
+					break;
+				case 'forgetPassword':
+					$membersController->forgetPassword();
+				break;
+				case 'forgetPassword_post':
+					if(isset($_POST['email']))
+					{
+						$membersController->forgetPasswordPost($_POST['email']);
+					}
+					break;
+				case 'resetPassword':
+					if(isset($_GET['idmember']) AND isset($_GET['token']))
+					{
+						$membersController->resetPassword($_GET['idmember'], $_GET['token']);
+					}else{
+						require('src/View/404error.php');
+					}
+					break;
+				case 'resetPassword_post':
+					if(isset($_GET['idmember']) AND isset($_POST['password']) AND isset($_POST['password2']) AND isset($_GET['token']))
+					{
+						$membersController->resetPasswordPost($_GET['idmember'], $_POST['password'], $_POST['password2'], $_GET['token']);
 					}else{
 						require('src/View/404error.php');
 					}

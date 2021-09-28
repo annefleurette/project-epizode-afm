@@ -26,6 +26,7 @@ ob_start();
             </p>
         </form>
         <p><a href ="index.php?action=subscription">Créer un compte</a></p>
+        <p><a href ="index.php?action=forgetPassword">Mot de passe oublié ?</a></p>
     <?php
     }else{
     ?>
