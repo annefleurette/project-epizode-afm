@@ -69,7 +69,7 @@ class MembersManager extends Manager
 	public function getMemberProfileData($idmember)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT m.gender AS "gender", m.pseudo AS "pseudo", l.name AS "name", m.company_name AS "company", m.email AS "email", m.surname AS "surname", m.name AS "name", m.address AS "address", m.zipcode AS "zipcode", m.city AS "city", m.country AS "country", m.birthdate AS "birthdate", ia.url AS "avatar", il.url AS "logo", m.description AS "description", m.type AS "type", m.token AS "token" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE m.id = ?');
+		$req = $db->prepare('SELECT m.gender AS "gender", m.pseudo AS "pseudo", l.name AS "name", m.company_name AS "company", m.email AS "email", m.surname AS "surname", l.name AS "name", m.address AS "address", m.zipcode AS "zipcode", m.city AS "city", m.country AS "country", m.birthdate AS "birthdate", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", m.description AS "description", m.type AS "type", m.token AS "token" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE m.id = ?');
 		$req->execute(array($idmember));
 	    $userProfile = $req->fetch();
 	    $req->closeCursor();

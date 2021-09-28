@@ -109,6 +109,9 @@ try {
 							require('src/View/403error.php');
 						}
 						break;
+						case 'deleteAccount':
+							$membersController->deleteAccount();
+						break;
 						// Series
 						case 'homepage':
 							$seriesController->displayHomepage();
@@ -126,6 +129,12 @@ try {
 						break;
 						case 'account':
 							$membersController->displayAccount();
+						break;
+						case 'updateAccount_post':
+							if(isset($_POST['pseudo']) AND isset($_POST['email']))
+							{
+								$membersController->updateAccountPost($_POST['pseudo'], $_POST['email'], isset($_POST['resetpassword']) ? $_POST['resetpassword'] : null, isset($_POST['resetpassword2']) ? $_POST['resetpassword2'] : null, isset($_POST['avatar']) ? $_POST['avatar'] : 1, isset($_POST['logo']) ? $_POST['logo'] : 1, isset($_POST['publisher']) ? $_POST['publisher'] : null, isset($_POST['description']) ? $_POST['description'] : null);
+							}
 						break;
 						case 'writeSeries':
 							$seriesController->writeSeries();

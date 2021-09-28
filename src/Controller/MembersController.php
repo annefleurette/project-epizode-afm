@@ -254,6 +254,24 @@ class MembersController {
 	public function displayAccount()
 	{
 		$membersManager = new MembersManager();
+		// Je vais chercher les informations du membre
+		$userProfile = $membersManager->getMemberProfileData($_SESSION['idmember']);
+		require('./src/View/backend/displayAccountView.php');
+	}
+
+	public function updateAccountPost($postpseudo, $postemail, $resetpassword, $resetpassword2, $postavatar, $postlogo, $postpublisher, $postdescription)
+	{
+		$membersManager = new MembersManager();
+		$postpseudo = htmlspecialchars($postpseudo);
+		$postemail = htmlspecialchars($postemail);
+		$resetpassword = htmlspecialchars($resetpassword);
+		$resetpassword2 =  htmlspecialchars($resetpassword2);
+		$postavatar = htmlspecialchars($postavatar);
+		$postlogo = htmlspecialchars($postlogo);
+		$postpublisher = htmlspecialchars($postpublisher);
+		$postdescription = htmlspecialchars($postdescription);
+		// Je vais chercher les informations du membre
+		$userProfile = $membersManager->getMemberProfileData($_SESSION['idmember']);
 		require('./src/View/backend/displayAccountView.php');
 	}
 
@@ -287,6 +305,17 @@ class MembersController {
         // On supprime définitivement le membre
         $deleteMember = $membersManager->deleteMember($memberId);
         header('Location: index.php?action=admin'); 
+    }
+
+	public function deleteAccount()
+    {
+        $membersManager = new MembersManager();
+        // On supprime définitivement son compte
+		session_start();
+        $deleteMember = $membersManager->deleteMember($_SESSION['idmember']);
+        $_SESSION = array();
+		session_destroy();
+		header('Location: index.php?action=homepage'); 
     }
 
 }

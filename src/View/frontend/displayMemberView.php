@@ -10,7 +10,18 @@ ob_start();
     ?>
         <p><img src="<?php echo $userData['avatar']; ?>" alt="<?php echo $userData['altavatar']; ?>"/></p>
         <p><?php echo $userData['pseudo']; ?></p>
-        <p><?php echo $userData['description']; ?></p>
+        <?php
+        if(isset($userData['description']))
+        {
+        ?>
+            <p><?php echo $userData['description']; ?></p>
+        <?php
+        }else{
+        ?>
+            <p>Pas de description</p>
+        <?php    
+        }
+        ?>
         <p><?php echo $userData['numberSubscriptions']; ?> abonnements</p>
         <p><?php echo $userData['numberWritings']; ?> séries</p>
     <?php
