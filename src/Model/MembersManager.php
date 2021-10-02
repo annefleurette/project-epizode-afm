@@ -65,7 +65,7 @@ class MembersManager extends Manager
 		)); 
 		return $$updateCoinsNumber;
 	}
-	// On récupère les informations de profil d'un membre
+	// On récupère les informations de profil d'un membre avec son id
 	public function getMemberProfileData($idmember)
 	{
 		$db = $this->dbConnect();
@@ -353,7 +353,6 @@ class MembersManager extends Manager
 	    $req->closeCursor();
 	    return $memberInfo;
 	}
-
 	// On modifie le token d'un membre
 	public function updateToken($idmember, $token)
 	{
@@ -365,7 +364,6 @@ class MembersManager extends Manager
 		)); 
 		return $updateToken;
 	}
-
 	// On modifie le mot de passe d'un membre
 	public function updatePassword($idmember, $password)
 	{
@@ -377,5 +375,16 @@ class MembersManager extends Manager
 		)); 
 		return $updatePassword;
 	}
+	// On récupère les informations de profil d'un membre avec son token
+	public function getMemberProfileWithToken($token)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT id FROM members WHERE token = ?');
+		$req->execute(array($token));
+		$userInfo = $req->fetch();
+		$req->closeCursor();
+		return $userInfo;
+	}
+
 
 }

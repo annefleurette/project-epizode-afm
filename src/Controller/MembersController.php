@@ -42,7 +42,7 @@ class MembersController {
 					$type = "user";
 					$postpseudo = strtolower($postpseudo);
 					$postemail = strtolower($postemail);
-					$token = random_int(100000000, 999999999);
+					$token = null;
 					$confirmation = "confirmed";
 					$addMember = $membersManager->addMember($postpseudo, $postemail, $pass_hache, $type, $confirmation, $token);
 					$_SESSION['validation'] = "Merci pour votre inscription " .$postpseudo. " et bienvenue dans la communauté Epizode !";
@@ -159,10 +159,13 @@ class MembersController {
             $_SESSION['error'] = "Mauvais identifiant";
             header("Location: index.php?action=forgetPassword");
 		}else{
+			// Génération d'un token
+			$token = uniqid();
+			$updateToken = $membersManager->updateToken($memberInfo['id'], $token);
 			//Envoi d'un email de réinitialisation
 			$to      = $postemail;
 			$subject = 'Réinitialisation du mot de passe';
-			$message = 'Vous avez oublié votre mot de passe, cliquez ici pour le réinitialiser : http://localhost:8888/p5/project-epizode-afm/index.php?action=resetPassword&idmember=' .$memberInfo['id']. '&token=' .$memberInfo['token'];
+			$message = 'Vous avez oublié votre mot de passe, cliquez ici pour le réinitialiser : http://localhost:8888/p5/project-epizode-afm/index.php?action=resetPassword&token=' .$memberInfo['token'];
 			$headers = array(
 				'From' => 'no-reply@epizode.fr',
 			);
@@ -172,30 +175,23 @@ class MembersController {
 		}
 	}
 
-	public function resetPassword($getidmember, $gettoken)
+	public function resetPassword($gettoken)
 	{
 		$membersManager = new MembersManager();
-		$getidmember = htmlspecialchars($getidmember);
 		$gettoken = htmlspecialchars($gettoken);
-		// On récupère les informations du membre
-		$userProfile = $membersManager->getMemberProfileData(intval($getidmember));
-		if(!$userProfile)
+		// On récupère les informations du membre à partir du token
+		$userInfo = $membersManager->getMemberProfileWithToken($gettoken);
+		if(!$userInfo)
 		{
             header("Location: index.php?action=403error");
 		}else{
-			// Si le token est bien le même que celui enregistré sur la base de données
-			if($gettoken == $userProfile['token']){
 			require('./src/View/frontend/displayResetPasswordView.php');
-			}else{
-				header("Location: index.php?action=403error");
-			}
 		}
 	}
 
-	public function resetPasswordPost($getidmember, $postpassword, $postpassword2, $gettoken)
+	public function resetPasswordPost($postpassword, $postpassword2, $gettoken)
 	{
 		$membersManager = new MembersManager();
-		$getidmember = htmlspecialchars($getidmember);
 		$postpassword = htmlspecialchars($postpassword);
 		$postpassword2 = htmlspecialchars($postpassword2);
 		$gettoken = htmlspecialchars($gettoken);
@@ -203,16 +199,18 @@ class MembersController {
 		if($postpassword == $postpassword2)
 		{
 			$pass_hache = password_hash($postpassword, PASSWORD_DEFAULT);
+			// On récupère les informations du membre à partir du token
+			$userInfo = $membersManager->getMemberProfileWithToken($gettoken);
 			// On enregistre le nouveau mot de passe
-			$updatePassword = $membersManager->updatePassword($getidmember, $pass_hache);
+			$updatePassword = $membersManager->updatePassword($userInfo['id'], $pass_hache);
 			// On modifie le token
-			$token = random_int(100000000, 999999999);
-			$updateToken = $membersManager->updateToken($getidmember, $token);
+			$token = uniqid();
+			$updateToken = $membersManager->updateToken($userInfo['id'], $token);
 			$_SESSION['confirm'] = "Le nouveau mot de passe est bien enregistré";
             header("Location: index.php?action=login");
 		}else{
             $_SESSION['error'] = "Les mots de passe ne correspondent pas";
-            header("Location: index.php?action=resetPassword&idmember=" .$getidmember. '&token=' .$gettoken);
+            header("Location: index.php?action=resetPassword&token=" .$gettoken);
 		}
 	}
 

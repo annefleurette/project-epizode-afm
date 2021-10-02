@@ -7,7 +7,7 @@ ob_start();
     <?php
     if(!isset($_SESSION['pseudo'])) { // On vérifie que la personne n'est pas déjà connectée 
     ?>
-        <form action="index.php?action=resetPassword_post&idmember=<?php echo $getidmember; ?>&token=<?php echo $gettoken; ?>" method="post">
+        <form action="index.php?action=resetPassword_post&token=<?php echo $gettoken; ?>" method="post">
             <p>
                 <label for="password">Mot de passe</label><br />
                 <input type="password" id="password" name="password" min="6" required>
