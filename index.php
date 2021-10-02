@@ -85,6 +85,12 @@ try {
 				if($_SESSION['level'] >=20){ // Niveau éditeur
 					switch($_GET['action'])
 					{
+						case 'updateAccount_post':
+							if(isset($_POST['email']))
+							{
+								$membersController->updateAccountPublisherPost($_POST['email'], isset($_POST['resetpassword']) ? $_POST['resetpassword'] : null, isset($_POST['resetpassword2']) ? $_POST['resetpassword2'] : null, isset($_POST['logo']) ? $_POST['logo'] : null, isset($_POST['description']) ? $_POST['description'] : null);
+							}
+						break;
 						default: break;
 					}
 				}
@@ -131,9 +137,9 @@ try {
 							$membersController->displayAccount();
 						break;
 						case 'updateAccount_post':
-							if(isset($_POST['pseudo']) AND isset($_POST['email']))
+							if(isset($_POST['email']))
 							{
-								$membersController->updateAccountPost($_POST['pseudo'], $_POST['email'], isset($_POST['resetpassword']) ? $_POST['resetpassword'] : null, isset($_POST['resetpassword2']) ? $_POST['resetpassword2'] : null, isset($_POST['avatar']) ? $_POST['avatar'] : null, isset($_POST['logo']) ? $_POST['logo'] : null, isset($_POST['publisher']) ? $_POST['publisher'] : null, isset($_POST['description']) ? $_POST['description'] : null);
+								$membersController->updateAccountUserPost($_POST['email'], isset($_POST['resetpassword']) ? $_POST['resetpassword'] : null, isset($_POST['resetpassword2']) ? $_POST['resetpassword2'] : null, isset($_POST['avatar']) ? $_POST['avatar'] : null, isset($_POST['description']) ? $_POST['description'] : null);
 							}
 						break;
 						case 'writeSeries':

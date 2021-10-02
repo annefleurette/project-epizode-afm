@@ -25,11 +25,11 @@ ob_start();
         <div id="hidden">
             <p>
                 <label for="resetpassword">Nouveau mot de passe</label><br />
-                <input type="password" id="resetpassword" name="resetpassword" min="6" required>
+                <input type="password" id="resetpassword" name="resetpassword" min="6">
             </p>
             <p>
                 <label for="resetpassword2">Confirmer le mot de passe</label><br />
-                <input type="password" id="resetpassword2" name="resetpassword2" min="6" required>
+                <input type="password" id="resetpassword2" name="resetpassword2" min="6">
             </p>
         </div>
         <?php
@@ -38,44 +38,44 @@ ob_start();
         ?>
             <p>Modifiez votre avatar</p>
                 <div>
-                    <input type="radio" id="avatar1" name="avatar" value="avatar1">
-                    <img src="./public/images/avatar_cheriff.png" alt="Avatar Shérif">
-                    <label for="avatar1">Le Shérif</label>
-                </div>
-                <div>
-                    <input type="radio" id="avatar2" name="avatar" value="avatar2">
-                    <img src="./public/images/avatar_doctor.png" alt="Avatar Docteur">
-                    <label for="avatar2">Le Docteur</label>
-                </div>
-                <div>
-                    <input type="radio" id="avatar3" name="avatar" value="avatar3">
-                    <img src="./public/images/avatar_sherlock.png" alt="Avatar Détective">
-                    <label for="avatar3">Le Détective</label>
-                </div>
-                <div>
-                    <input type="radio" id="avatar4" name="avatar" value="avatar4">
-                    <img src="./public/images/avatar_vampire.png" alt="Avatar Vampire">
-                    <label for="avatar4">Le Vampire</label>
-                </div>
-                <div>
-                    <input type="radio" id="avatar5" name="avatar" value="avatar5">
-                    <img src="./public/images/avatar_fairy.png" alt="Avatar Fée">
-                    <label for="avatar5">La Fée</label>
-                </div>
-                <div>
-                    <input type="radio" id="avatar6" name="avatar" value="avatar6" checked>
+                    <input type="radio" id="avatar_cat" name="avatar" value="avatar_cat" <?php if($userProfile['nameAvatar'] == "avatar_cat"){?> checked="checked" <?php } ?>>
                     <img src="./public/images/avatar_cat.png" alt="Avatar Féline">
-                    <label for="avatar6">La Féline</label>
+                    <label for="avatar_cat">La Féline</label>
                 </div>
                 <div>
-                    <input type="radio" id="avatar7" name="avatar" value="avatar7">
-                    <img src="./public/images/avatar_princess.png" alt="Avatar Princess">
-                    <label for="avatar7">La Princesse</label>
+                    <input type="radio" id="avatar_fairy" name="avatar" value="avatar_fairy" <?php if($userProfile['nameAvatar'] == "avatar_fairy"){?> checked <?php } ?>>
+                    <img src="./public/images/avatar_fairy.png" alt="Avatar Fée">
+                    <label for="avatar_fairy">La Fée</label>
                 </div>
                 <div>
-                    <input type="radio" id="avatar8" name="avatar" value="avatar8">
+                    <input type="radio" id="avatar_princess" name="avatar" value="avatar_princess" <?php if($userProfile['nameAvatar'] == "avatar_princess"){?> checked <?php } ?>>
+                    <img src="./public/images/avatar_princess.png" alt="Avatar Princesse">
+                    <label for="avatar_princess">La Princesse</label>
+                </div>
+                <div>
+                    <input type="radio" id="avatar_superwoman" name="avatar" value="avatar_superwoman" <?php if($userProfile['nameAvatar'] == "avatar_superwoman"){?> checked <?php } ?>>
                     <img src="./public/images/avatar_superwoman.png" alt="Avatar Super-Héroïne">
-                    <label for="avatar8">La Super-Héroïne</label>
+                    <label for="avatar_superwoman">La Super-Héroïne</label>
+                </div>
+                <div>
+                    <input type="radio" id="avatar_cheriff" name="avatar" value="avatar_cheriff" <?php if($userProfile['nameAvatar'] == "avatar_cheriff"){?> checked <?php } ?>>
+                    <img src="./public/images/avatar_cheriff.png" alt="Avatar Shérif">
+                    <label for="avatar_cheriff">Le Shérif</label>
+                </div>
+                <div>
+                    <input type="radio" id="avatar_doctor" name="avatar" value="avatar_doctor" <?php if($userProfile['nameAvatar'] == "avatar_doctor"){?> checked <?php } ?>>
+                    <img src="./public/images/avatar_doctor.png" alt="Avatar Docteur">
+                    <label for="avatar_doctor">Le Docteur</label>
+                </div>
+                <div>
+                    <input type="radio" id="avatar_sherlock" name="avatar" value="avatar_sherlock" <?php if($userProfile['nameAvatar'] == "avatar_sherlock"){?> checked <?php } ?>>
+                    <img src="./public/images/avatar_sherlock.png" alt="Avatar Détective">
+                    <label for="avatar_sherlock">Le Détective</label>
+                </div>
+                <div>
+                    <input type="radio" id="avatar_vampire" name="avatar" value="avatar_vampire" <?php if($userProfile['nameAvatar'] == "avatar_vampire"){?> checked <?php } ?>>
+                    <img src="./public/images/avatar_vampire.png" alt="Avatar Vampire">
+                    <label for="avatar_vampire">Le Vampire</label>
                 </div>
         <!-- A programmer ultérieurement pour les utilisateurs : sexe, prénom, nom, adresse, code postal, ville, pays, date de naissance -->
         <?php
@@ -97,7 +97,7 @@ ob_start();
         ?>
         <p>
             <label for="description">Présentez-vous</label></br>
-            <textarea id="description" name="description" minlength="1" maxlength="100"><?php if(isset($userProfile['description'])){ echo $userProfile['description']; } ?></textarea>
+            <textarea id="description" name="description" minlength="1" maxlength="100"><?php if(isset($_SESSION['tempSummary'])){echo $_SESSION['tempSummary'];}elseif(isset($userProfile['description'])){ echo $userProfile['description'];} ?></textarea>
         </p>
         <p>
             <input type="submit" value="Modifier">

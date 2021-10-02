@@ -257,20 +257,75 @@ class MembersController {
 		require('./src/View/backend/displayAccountView.php');
 	}
 
-	public function updateAccountPost($postpseudo, $postemail, $resetpassword, $resetpassword2, $postavatar, $postlogo, $postpublisher, $postdescription)
+	public function updateAccountPublisherPost($postemail, $resetpassword, $resetpassword2, $postlogo, $postdescription)
 	{
 		$membersManager = new MembersManager();
-		$postpseudo = htmlspecialchars($postpseudo);
 		$postemail = htmlspecialchars($postemail);
 		$resetpassword = htmlspecialchars($resetpassword);
 		$resetpassword2 =  htmlspecialchars($resetpassword2);
-		$postavatar = htmlspecialchars($postavatar);
 		$postlogo = htmlspecialchars($postlogo);
-		$postpublisher = htmlspecialchars($postpublisher);
 		$postdescription = htmlspecialchars($postdescription);
 		// Je vais chercher les informations du membre
 		$userProfile = $membersManager->getMemberProfileData($_SESSION['idmember']);
 		require('./src/View/backend/displayAccountView.php');
+	}
+
+	public function updateAccountUserPost($postemail, $resetpassword, $resetpassword2, $postavatar, $postdescription)
+	{
+		$membersManager = new MembersManager();
+		$postemail = htmlspecialchars($postemail);
+		$resetpassword = htmlspecialchars($resetpassword);
+		$resetpassword2 =  htmlspecialchars($resetpassword2);
+		$postavatar = htmlspecialchars($postavatar);
+		$postdescription = htmlspecialchars($postdescription);
+		// Je vais chercher les informations du membre
+		$userProfile = $membersManager->getMemberProfileData($_SESSION['idmember']);
+		// On récupère tous les emails des membres inscrits
+		$getEmails = $membersManager->getMembersEmail();
+		// On cherche la clé de l'email déjà existante
+		$emailKey = array_search($userProfile['email'], $getEmails);
+		// On enlève l'email actuel
+		unset($getEmails[$emailKey]);
+		// Si l'adresse email n'existe pas déjà dans la base de données
+		if(!in_array(strtolower($postemail), $getEmails))
+		{
+			// Si l'adresse email possède bien le bon format
+			if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,}$#", $postemail))
+			{
+				//Si le mot de passe correspond bien à sa vérification
+				if($resetpassword != NULL) {
+					if($resetpassword == $resetpassword2)
+					{
+						$pass_hache = password_hash($resetpassword, PASSWORD_DEFAULT);
+						// On récupère l'id de l'image sélectionnée comme avatar
+						$idImage = $membersManager->getIdImage($postavatar);
+						// On récupère l'id de l'avatar sur la base de l'id de l'image
+						$idAvatar = $membersManager->getIdAvatar(intval($idImage));
+						$updateQuickUserMember = $membersManager->updateQuickUserMember($postemail, $pass_hache, $postdescription, intval($idAvatar), $_SESSION['idmember']);
+						header("Location: index.php?action=account");
+					}else{
+						$_SESSION['tempDescription'] = $postdescription;
+						$_SESSION['error'] = "Les mots de passe ne correspondent pas";
+						header("Location: index.php?action=account");
+					}
+				}else{
+					// On récupère l'id de l'image sélectionnée comme avatar
+					$idImage = $membersManager->getIdImage($postavatar);
+					// On récupère l'id de l'avatar sur la base de l'id de l'image
+					$idAvatar = $membersManager->getIdAvatar(intval($idImage));
+					$updateQuickUserMember = $membersManager->updateQuickUserMember($postemail, $userProfile['password'], $postdescription, intval($idAvatar), $_SESSION['idmember']);
+					header("Location: index.php?action=account");
+				}
+			}else{
+				$_SESSION['tempDescription'] = $postdescription;
+                $_SESSION['error'] = "Cette adresse email n'existe pas";
+                header("Location: index.php?action=account");
+			}
+		}else{
+			$_SESSION['tempDescription'] = $postdescription;
+            $_SESSION['error'] = "Cette adresse email est déjà utilisé(e)";
+            header("Location: index.php?action=account");
+		}	
 	}
 
 	public function logout()

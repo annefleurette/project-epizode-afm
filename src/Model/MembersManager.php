@@ -69,7 +69,7 @@ class MembersManager extends Manager
 	public function getMemberProfileData($idmember)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT m.gender AS "gender", m.pseudo AS "pseudo", l.name AS "name", m.company_name AS "company", m.email AS "email", m.surname AS "surname", l.name AS "name", m.address AS "address", m.zipcode AS "zipcode", m.city AS "city", m.country AS "country", m.birthdate AS "birthdate", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", m.description AS "description", m.type AS "type", m.token AS "token" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE m.id = ?');
+		$req = $db->prepare('SELECT m.gender AS "gender", m.pseudo AS "pseudo", m.password AS "password", l.name AS "name", m.company_name AS "company", m.email AS "email", m.surname AS "surname", l.name AS "name", m.address AS "address", m.zipcode AS "zipcode", m.city AS "city", m.country AS "country", m.birthdate AS "birthdate", ia.url AS "avatar", ia.name AS "nameAvatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", m.description AS "description", m.type AS "type", m.token AS "token" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE m.id = ?');
 		$req->execute(array($idmember));
 	    $userProfile = $req->fetch();
 	    $req->closeCursor();
@@ -199,6 +199,20 @@ class MembersManager extends Manager
 			'idmember' => $idmember
 		)); 
 		return $updateMember;
+	}
+	// On modifie les informations de profil d'un membre utilisateur (version simplifiée)
+	public function updateQuickUserMember($email, $password, $description, $idavatarrelated, $idmember)
+	{
+		$db = $this->dbConnect();
+		$updateQuickUserMember = $db->prepare('UPDATE members SET email = :newemail, password = :newpassword, description = :newdescription, id_avatar = :newid_avatar WHERE id = :idmember');
+		$updateQuickUserMember->execute(array(
+			'newemail' => $email,
+			'newpassword' => $password, 
+			'newdescription' => $description,
+			'newid_avatar' => $idavatarrelated,
+			'idmember' => $idmember
+		)); 
+		return $updateQuickUserMember;
 	}
 	// On supprime un membre
 	public function deleteMember($idmember)
@@ -385,6 +399,25 @@ class MembersManager extends Manager
 		$req->closeCursor();
 		return $userInfo;
 	}
-
+	// On récupère l'id de l'image sélectionnée comme avatar
+	public function getIdImage($name)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT id FROM images WHERE name = ?');
+		$req->execute(array($name));
+		$idImage = $req->fetch(\PDO::FETCH_COLUMN);
+		$req->closeCursor();
+		return $idImage;
+	}
+	// On récupère l'id de l'avatar sur la base de l'id de l'image
+	public function getIdAvatar($id)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT id FROM avatars WHERE id_avatar = ?');
+		$req->execute(array($id));
+		$idAvatar = $req->fetch(\PDO::FETCH_COLUMN);
+		$req->closeCursor();
+		return $idAvatar;
+	}
 
 }
