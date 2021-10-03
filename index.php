@@ -88,7 +88,7 @@ try {
 						case 'updateAccount_post':
 							if(isset($_POST['email']))
 							{
-								$membersController->updateAccountPublisherPost($_POST['email'], isset($_POST['resetpassword']) ? $_POST['resetpassword'] : null, isset($_POST['resetpassword2']) ? $_POST['resetpassword2'] : null, isset($_POST['logo']) ? $_POST['logo'] : null, isset($_POST['description']) ? $_POST['description'] : null);
+								$membersController->updateAccountPublisherPost($_POST['email'], isset($_POST['resetpassword']) ? $_POST['resetpassword'] : null, isset($_POST['resetpassword2']) ? $_POST['resetpassword2'] : null, isset($_POST['description']) ? $_POST['description'] : null);
 							}
 						break;
 						default: break;
@@ -148,7 +148,7 @@ try {
 						case 'writeSeries_post':
 							if(isset($_POST['titleSeries']) AND isset($_POST['descriptionSeries']) AND isset($_POST['rights']) AND isset($_POST['tags']))
 							{
-								$seriesController->writeSeriesPost($_POST['author'], $_POST['descriptionAuthor'], $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags']);
+								$seriesController->writeSeriesPost((isset($_POST['author'])) ? $_POST['author'] : null, (isset($_POST['descriptionAuthor'])) ? $_POST['descriptionAuthor'] : null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags']);
 							}else{
 								require('src/View/404error.php');
 							}
@@ -164,7 +164,7 @@ try {
 						case 'updateSeries_post':
 							if(isset($_POST['titleSeries']) AND isset($_POST['descriptionSeries']) AND isset($_POST['rights']) AND isset($_POST['tags']) AND isset($_GET['idseries']))
 							{
-								$seriesController->updateSeriesPost($_POST['author'], $_POST['descriptionAuthor'], $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_GET['idseries']);
+								$seriesController->updateSeriesPost((isset($_POST['author'])) ? $_POST['author'] : null, (isset($_POST['descriptionAuthor'])) ? $_POST['descriptionAuthor'] : null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_GET['idseries']);
 							}else{
 								require('src/View/404error.php');
 							}

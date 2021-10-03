@@ -9,7 +9,6 @@
             {
             ?>
                 <!-- <li>Coins (+ valeur calculée)</li> Sera à utiliser quand on ajoutera le paiement -->
-                <li><a href="#">Mon compte</a></li>
                 <li><a href="index.php?action=dashboard">Mon tableau de bord</a></li>
                 <li><a href="index.php?action=account">Mon compte</a></li>
                 <li><a href="index.php?action=logout">Déconnexion</a></li>
@@ -18,7 +17,6 @@
             {
             ?>  
                 <li><a href="index.php?action=admin">Mon tableau de bord</a></li>
-                <li><a href="index.php?action=account">Mon compte</a></li>
                 <li><a href="index.php?action=logout">Déconnexion</a></li>
             <?php
             }else{

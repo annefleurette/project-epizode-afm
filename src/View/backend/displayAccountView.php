@@ -2,16 +2,15 @@
 $head_title = 'Epizode - Mon compte';
 ob_start();
 ?>
-<nav>
+<!-- <nav> Ultérieurement
     <ul>
         <li class="seriesTab" data-index="1">Mon profil</li>
-        <li class="seriesTab" data-index="2">Notifications</li>
-        <!-- A programmer ultérieurement pour les éditeurs <li class="seriesTab" data-index="3">Gains</li> -->
-        <!-- A programmer ultérieurement pour les utilisateurs et les éditeurs <li class="seriesTab" data-index="3">Factures</li> -->
+        A programmer ultérieurement pour les éditeurs <li class="seriesTab" data-index="2">Gains</li>
+        A programmer ultérieurement pour les utilisateurs et les éditeurs <li class="seriesTab" data-index="2">Factures</li>
     </ul>
-</nav>
-<section class="seriesContent" data-tab="1">
-    <h2>Mes informations</h2>
+</nav> -->
+<section class="seriesContent">
+    <h1>Mon profil</h1>
     <form action="index.php?action=updateAccount_post" method="post" enctype="multipart/form-data">
         <p>
             <label for="pseudo">Pseudo</label><br />
@@ -97,7 +96,8 @@ ob_start();
         ?>
         <p>
             <label for="description">Présentez-vous</label></br>
-            <textarea id="description" name="description" minlength="1" maxlength="100"><?php if(isset($_SESSION['tempSummary'])){echo $_SESSION['tempSummary'];}elseif(isset($userProfile['description'])){ echo $userProfile['description'];} ?></textarea>
+            <textarea id="description" name="description" minlength="1" maxlength="100"><?php if(isset($_SESSION['tempDescription'])){echo $_SESSION['tempDescription'];}elseif(isset($userProfile['description'])){ echo $userProfile['description'];} ?></textarea>
+            <?php if(isset($_SESSION['tempDescriptoion'])){unset($_SESSION['tempDescription']);}?>
         </p>
         <p>
             <input type="submit" value="Modifier">
@@ -105,27 +105,6 @@ ob_start();
     </form>
     <p class="delete"><a href="index.php?action=deleteAccount">Supprimer mon compte</a></p>
 </section>
-<section class="seriesContent hidden" data-tab="2">
-    <h2>Mes notifications</h2>   
-    <form action="index.php?action=updateNotification_post" method="post" enctype="multipart/form-data"> 
-        <p>
-            <p>J'accepte de recevoir des notifications email d'Epizode</p>
-                <div>
-                    <input type="radio" id="oui" name="oui" value="oui"
-                    checked>
-                    <label for="oui">Oui</label>
-                </div>
-                <div>
-                    <input type="radio" id="non" name="non" value="non">
-                    <label for="non">Non</label>
-                </div>
-        </p>
-        <p>
-            <input type="submit" value="Modifier">
-        </p>
-    </form>
-</section>
-<script type="text/javascript" src="./public/js/tabs.js"></script>
 <script type="text/javascript" src="./public/js/password.js"></script>
 <script type="text/javascript" src="./public/js/delete.js"></script>
 <?php $body_content = ob_get_clean();

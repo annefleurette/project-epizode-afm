@@ -380,25 +380,31 @@ class EpisodesController {
             $episodesIdList = $episodesManager->getEpisodesIdList($seriesId);
             if (in_array($episodeId, $episodesIdList))
             {
-                // On affiche les informations de la série
-                $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
+                // On récupère les informations de la série
+                $oneSeriesPublicData = $seriesManager->getOneSeriesPublicData($seriesId);
             }
-            // On récupère les informations de l'épisode
-            $episode_unitary_published = $episodesManager->getEpisodePublished($episodeNumber, $seriesId);
-            $episodeLikes = $episodesManager->getEpisodeLikes($episodeId);
-            $episodeLikers = $episodesManager->getEpisodeLikers($episodeId);
-            // On affiche les boutons précédents/suivants
-            $nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
-            $totalepisodes = intval($nbepisodes[0]);
-            $episode_current = intval($episodeNumber);
-            $episode_before = $episode_current - 1;
-            $episode_next = $episode_current + 1;
-            // On affiche les commentaires de l'épisode
-            $episodeCommentsList = $commentsManager->getCommentsEpisode($episode_unitary_published["id"]);
-            // On compte le nombre de commentaires
-            $nbcomments = $commentsManager->countCommentsPublished($episode_unitary_published["id"]);
-            $totalcomments = intval($nbcomments[0]);
-            require('./src/View/frontend/displayEpisodeView.php');
+            // On s'assure que la série est publiée donc publique
+            if($oneSeriesPublicData['publishing'] == "published")
+            {
+                // On récupère les informations de l'épisode
+                $episode_unitary_published = $episodesManager->getEpisodePublished($episodeNumber, $seriesId);
+                $episodeLikes = $episodesManager->getEpisodeLikes($episodeId);
+                $episodeLikers = $episodesManager->getEpisodeLikers($episodeId);
+                // On affiche les boutons précédents/suivants
+                $nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
+                $totalepisodes = intval($nbepisodes[0]);
+                $episode_current = intval($episodeNumber);
+                $episode_before = $episode_current - 1;
+                $episode_next = $episode_current + 1;
+                // On affiche les commentaires de l'épisode
+                $episodeCommentsList = $commentsManager->getCommentsEpisode($episode_unitary_published["id"]);
+                // On compte le nombre de commentaires
+                $nbcomments = $commentsManager->countCommentsPublished($episode_unitary_published["id"]);
+                $totalcomments = intval($nbcomments[0]);
+                require('./src/View/frontend/displayEpisodeView.php');
+            }else{
+                require('./src/View/403error.php');
+            }
         }else{
             require('./src/View/404error.php');
         }

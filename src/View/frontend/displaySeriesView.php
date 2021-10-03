@@ -5,29 +5,28 @@ $head_description = "Blabla";
 ob_start();
 ?>
 <section>
-    <h1><?php echo $oneSeriesUserData['title']; ?></h1>
-    <p><img src="<?php echo $oneSeriesUserData['cover']; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
+    <h1><?php echo $oneSeriesPublicData['title']; ?></h1>
+    <p><img src="<?php echo $oneSeriesPublicData['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
     <?php
-    if($oneSeriesUserData['type'] === "publisher")
+    if($oneSeriesPublicData['type'] === "publisher")
     {
     ?>
-        <p><img src="<?php echo $oneSeriesUserData['logo']; ?>" alt="<?php echo $oneSeriesUserData['altlogo']; ?>"/></p>
-        <p><?php echo $oneSeriesUserData['publisher']; ?></p>
-        <p><?php echo $oneSeriesUserData['publisher_author']; ?></p>
+        <p><img src="<?php echo $oneSeriesPublicData['logo']; ?>" alt="<?php echo $oneSeriesPublicData['altlogo']; ?>"/></p>
+        <p><?php echo $oneSeriesPublicData['publisher']; ?></p>
+        <p><?php echo $oneSeriesPublicData['publisher_author']; ?></p>
     <?php
     }else{
     ?>  
-        <p><img src="<?php echo $oneSeriesUserData['avatar']; ?>" alt="<?php echo $oneSeriesUserData['altavatar']; ?>"/></p>  
-        <p><?php echo $oneSeriesUserData['member']; ?></p>
+        <p><img src="<?php echo $oneSeriesPublicData['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
+        <p><?php echo $oneSeriesPublicData['member']; ?></p>
     <?php
     }
     ?>
-    <p><?php echo $oneSeriesUserData['numberEpisodes']; ?> épisode(s)</p>
+    <p><?php echo $oneSeriesPublicData['numberEpisodes']; ?> épisode(s)</p>
     <p><span id="nbSubscriptions"><?php echo $seriesSubscription[0]; ?></span> abonné(s)</p>
-    <p><?php echo $oneSeriesUserData['tags']; ?></p>
-    <p><?php echo $oneSeriesUserData['pricing']; ?></p>
-    <p><?php echo $oneSeriesUserData['publishing']; ?></p>
-    <p><?php echo $oneSeriesUserData['rights']; ?></p>
+    <p><?php echo $oneSeriesPublicData['tags']; ?></p>
+    <p><?php echo $oneSeriesPublicData['pricing']; ?></p>
+    <p><?php echo $oneSeriesPublicData['rights']; ?></p>
     <!-- Gestion des likes -->
     <?php
     if(isset($_SESSION['idmember']))
@@ -45,7 +44,7 @@ ob_start();
     ?>
 </section>
 <section>
-    <h2>Episodes de <?php echo $oneSeriesUserData['title']; ?></h2>
+    <h2>Episodes de <?php echo $oneSeriesPublicData['title']; ?></h2>
         <?php
         if($nbepisodes_published > 0)
         {
@@ -77,7 +76,7 @@ ob_start();
         ?> 
 </section>
 <section>
-    <h2>Recommandations <?php echo $oneSeriesUserData['tags']; ?></h2>
+    <h2>Recommandations <?php echo $oneSeriesPublicData['tags']; ?></h2>
     <ul>
         <?php
         for ($i = 0; $i < $nbtags; $i++)
@@ -90,8 +89,8 @@ ob_start();
                     <li>
                         <article>
                             <p><a href="index.php?action=displaySeries&idseries=<?php echo $allTagsSeries[$i][$j]['id']; ?>"><?php echo $allTagsSeries[$i][$j]['title']; ?></a></p>
-                            <p><img src="<?php echo $allTagsSeries[$i][$j]['cover']; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
-                            <p><img src="<?php echo $allTagsSeries[$i][$j]['avatar']; ?>" alt="<?php echo $oneSeriesUserData['altavatar']; ?>"/></p>  
+                            <p><img src="<?php echo $allTagsSeries[$i][$j]['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
+                            <p><img src="<?php echo $allTagsSeries[$i][$j]['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
                             <p><a href="index.php?action=displayMember&idmember=<?php echo $allTagsSeries[$i][$j]['idmember']; ?>"><?php echo $allTagsSeries[$i][$j]['member']; ?></a></p>
                             <p><?php echo $allTagsSeries[$i][$j]['numberEpisodes']; ?> épisode(s)</p>
                             <p><?php echo $allTagsSeries[$i][$j]['numberSubscribers']; ?> abonné(s)</p>

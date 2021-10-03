@@ -44,7 +44,7 @@ class SeriesController {
         require('./src/View/backend/writeSeriesView.php');
     }
     
-    public function writeSeriesPost($postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag)
+    public function writeSeriesPost($postauthorname, $postauthordescription, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag)
     {
         $seriesManager = new SeriesManager();
         $membersManager = new MembersManager();
@@ -91,7 +91,6 @@ class SeriesController {
                         $addCover = $seriesManager->addCover($imageId);
                         // On récupère l'id d'une cover sur la base de l'id_cover
                         $coverId = $seriesManager->getCoverId($imageId);
-                        // On crée une variable de session temporaire
                     }else{
                         // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
                         $_SESSION['tempAuthorname'] = $postauthorname;
@@ -180,7 +179,7 @@ class SeriesController {
         }
     }
 
-    public function updateSeriesPost($postauthorname = null, $postauthordescription = null, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag, $seriesId)
+    public function updateSeriesPost($postauthorname, $postauthordescription, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag, $seriesId)
     {
         $seriesManager = new SeriesManager();
         $membersManager = new MembersManager();
@@ -379,22 +378,28 @@ class SeriesController {
         if(in_array($seriesId, $getAllIdSeries))
         {
             // On récupère les informations sur la série
-            $oneSeriesUserData = $seriesManager->getOneSeriesData($seriesId);
-            $seriesSubscription = $seriesManager->getSeriesSubscriptions($seriesId);
-            $seriesSubscribers = $seriesManager->getSeriesSubscribers($seriesId);
-            // On récupère tous les épisodes de la sérifde
-            $episodesPublishedList = $episodesManager->getEpisodesPublishedList($seriesId);
-            $nbepisodes_published = count($episodesPublishedList);
-            // On récupère des informations sur des séries qui ont des tags en commun
-            $tags = explode(', ', $oneSeriesUserData['tags']);
-            $nbtags = count($tags);
-            $allTagsSeries = [];
-            for ($i = 0; $i < $nbtags; $i++)
+            $oneSeriesPublicData = $seriesManager->getOneSeriesPublicData($seriesId);
+            // On vérifie que la série est bien publiée donc publique
+            if($oneSeriesPublicData['publishing'] == "published")
             {
-                $seriesCommonTags[$i] = $seriesManager->getCommonTagsSeries($tags[$i]);
-                array_push($allTagsSeries, $seriesCommonTags[$i]);
-            }  
-            require('./src/View/frontend/displaySeriesView.php');
+                $seriesSubscription = $seriesManager->getSeriesSubscriptions($seriesId);
+                $seriesSubscribers = $seriesManager->getSeriesSubscribers($seriesId);
+                // On récupère tous les épisodes de la sérifde
+                $episodesPublishedList = $episodesManager->getEpisodesPublishedList($seriesId);
+                $nbepisodes_published = count($episodesPublishedList);
+                // On récupère des informations sur des séries qui ont des tags en commun
+                $tags = explode(', ', $oneSeriesPublicData['tags']);
+                $nbtags = count($tags);
+                $allTagsSeries = [];
+                for ($i = 0; $i < $nbtags; $i++)
+                {
+                    $seriesCommonTags[$i] = $seriesManager->getCommonTagsSeries($tags[$i]);
+                    array_push($allTagsSeries, $seriesCommonTags[$i]);
+                }  
+                require('./src/View/frontend/displaySeriesView.php');
+            }else{
+                require('./src/View/403error.php');
+            }
         }else{
             require('./src/View/404error.php');
         }
@@ -403,8 +408,10 @@ class SeriesController {
     public function addSubscription($seriesId)
     {
         $seriesManager = new SeriesManager();
+        $membersManager = new MembersManager();
         $seriesId = htmlspecialchars($seriesId);
-        $addSubscription = $seriesManager->addSeriesSubscription($seriesId, $_SESSION['idmember']);
+        $addSubscription = $seriesManager->addSeriesSubscription($seriesId, $_SESSION['idmember'], 1);
+        //$notificationsSubscription = $membersManager->addNotificationsSubscription($seriesId, intval($_SESSION['idmember']), 1);
         $seriesSubscription = $seriesManager->getSeriesSubscriptions($seriesId);
         echo json_encode($seriesSubscription);
     }

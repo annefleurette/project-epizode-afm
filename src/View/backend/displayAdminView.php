@@ -1,6 +1,5 @@
-
 <?php
-$head_title = 'Epizode - Créer une nouvelle série';
+$head_title = 'Epizode - Mon espace administrateur';
 ob_start();
 ?>
 <section>

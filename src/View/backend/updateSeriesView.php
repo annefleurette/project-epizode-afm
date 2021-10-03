@@ -1,4 +1,3 @@
-
 <?php
 $head_title = 'Epizode - Mettre à jour la série';
 ob_start();
@@ -22,12 +21,12 @@ ob_start();
         ?>
             <p>
                 <label for="author">Nom de l'auteur</label><br />
-                <input type="text" id="author" name="author" minlength="1" maxlength="100" required value="<?php if(isset($_SESSION['tempAuthorname'])){echo $_SESSION['tempAuthorname'];}else{echo NULL;}?>">
+                <input type="text" id="author" name="author" minlength="1" maxlength="100" required value="<?php if(isset($_SESSION['tempAuthorname'])){echo $_SESSION['tempAuthorname'];}else{echo $oneSeriesUserData['publisher_author'];}?>">
                 <?php if(isset($_SESSION['tempAuthorname'])){unset($_SESSION['tempAuthorname']);}?>
             </p>
             <p>
                 <label for="descriptionAuthor">Présentation de l'auteur</label><br />
-                <input type="text" id="descriptionAuthor" name="descriptionAuthor" minlength="1" maxlength="10000" required value="<?php if(isset($_SESSION['tempAuthordescription'])){echo $_SESSION['tempAuthordescription'];}else{echo NULL;}?>">
+                <input type="text" id="descriptionAuthor" name="descriptionAuthor" minlength="1" maxlength="10000" required value="<?php if(isset($_SESSION['tempAuthordescription'])){echo $_SESSION['tempAuthordescription'];}else{echo $oneSeriesUserData['publisher_author_description'];}?>">
                 <?php if(isset($_SESSION['tempAuthordescription'])){unset($_SESSION['tempAuthordescription']);}?>
             </p>
         <?php

@@ -257,17 +257,152 @@ class MembersController {
 		require('./src/View/backend/displayAccountView.php');
 	}
 
-	public function updateAccountPublisherPost($postemail, $resetpassword, $resetpassword2, $postlogo, $postdescription)
+	public function updateAccountPublisherPost($postemail, $resetpassword, $resetpassword2, $postdescription)
 	{
 		$membersManager = new MembersManager();
 		$postemail = htmlspecialchars($postemail);
 		$resetpassword = htmlspecialchars($resetpassword);
 		$resetpassword2 =  htmlspecialchars($resetpassword2);
-		$postlogo = htmlspecialchars($postlogo);
 		$postdescription = htmlspecialchars($postdescription);
 		// Je vais chercher les informations du membre
 		$userProfile = $membersManager->getMemberProfileData($_SESSION['idmember']);
-		require('./src/View/backend/displayAccountView.php');
+		// On récupère tous les emails des membres inscrits
+		$getEmails = $membersManager->getMembersEmail();
+		// On cherche la clé de l'email déjà existante
+		$emailKey = array_search($userProfile['email'], $getEmails);
+		// On enlève l'email actuel
+		unset($getEmails[$emailKey]);
+		// Si l'adresse email n'existe pas déjà dans la base de données
+		if(!in_array(strtolower($postemail), $getEmails))
+		{
+			// Si l'adresse email possède bien le bon format
+			if(preg_match("#^[a-z0-9._-]+@[a-z0-9._-]{2,}\.[a-z]{2,}$#", $postemail))
+			{
+				//Si le mot de passe correspond bien à sa vérification
+				if($resetpassword != NULL) {
+					if($resetpassword == $resetpassword2)
+					{
+						$pass_hache = password_hash($resetpassword, PASSWORD_DEFAULT);
+						// Si une image est ajoutée
+            			// Testons si l'image a bien été envoyée et s'il n'y a pas d'erreur
+            			if (isset($_FILES['logo']) AND $_FILES['logo']['error'] == 0)
+            			{
+                			// Testons si le fichier n'est pas trop gros
+                			if ($_FILES['logo']['size'] <= 1000000)
+                			{
+                    			// Testons si l'extension est autorisée
+                    			$infosfichier = pathinfo($_FILES['logo']['name']);
+                    			$extension_upload = $infosfichier['extension'];
+                    			$extensions_autorisees = array('jpg', 'jpeg', 'png');
+                    			if (in_array($extension_upload, $extensions_autorisees))
+                    			{
+									// On peut valider le fichier et le stocker définitivement
+									$n = 20;
+									$code = bin2hex(random_bytes($n));
+									$logoname = $userProfile['name'];
+									$logoname = str_replace(' ','_',$logoname);
+									$newname = $_SESSION['idmember'] . '_' . $code . '_' . basename($_FILES['logo']['name']);
+									move_uploaded_file($_FILES['logo']['tmp_name'], './public/images/' .$newname);
+									$imagealt = $userProfile['name'];
+									$imageurl = './public/images/' .$newname;
+									$imagetype = "publisher";
+									// On enregistre une image
+									$addImage = $membersManager->addImage($code, $imagetype, $imagealt, $imageurl);
+									// On récupère l'id d'une image sur la base de son url
+									$imageId = $membersManager->getImageId($imageurl);
+									// On enregistre un logo
+									$addLogo = $membersManager->addLogo($imageId, $userProfile['name']);
+									// On récupère l'id d'un logo sur la base de l'id_logo
+									$logoId = $membersManager->getLogoId($imageId);
+									// On modifie le contenu
+									$updateQuickPublisherMember = $membersManager->updateQuickPublisherMember($postemail, $pass_hache, $postdescription, $logoId, $_SESSION['idmember']);
+									header("Location: index.php?action=account");
+								}else{
+									// On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
+									$_SESSION['tempDescription'] = $postdescription;
+									$_SESSION['error'] = "Le fichier n'est pas une image";
+									header("Location: index.php?action=account");
+								}
+							}else{
+								// On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
+								$_SESSION['tempDescription'] = $postdescription;
+								$_SESSION['error'] = "Le fichier est trop volumineux";
+								header("Location: index.php?action=account");
+							}
+						}else{
+						// Si une image n'est pas ajoutée
+						$updateQuickPublisherMember = $membersManager->updateQuickPublisherMember($postemail, $pass_hache, $postdescription, $userProfile['idlogo'], $_SESSION['idmember']);
+						header("Location: index.php?action=account");
+						}
+					}else{
+						$_SESSION['tempDescription'] = $postdescription;
+						$_SESSION['error'] = "Les mots de passe ne correspondent pas";
+						header("Location: index.php?action=account");
+					}
+				}else{
+				// Si le mot de passe ne change pas	
+					// Si une image est ajoutée
+					// Testons si l'image a bien été envoyée et s'il n'y a pas d'erreur
+					if (isset($_FILES['logo']) AND $_FILES['logo']['error'] == 0)
+					{
+						// Testons si le fichier n'est pas trop gros
+						if ($_FILES['logo']['size'] <= 1000000)
+						{
+							// Testons si l'extension est autorisée
+							$infosfichier = pathinfo($_FILES['logo']['name']);
+							$extension_upload = $infosfichier['extension'];
+							$extensions_autorisees = array('jpg', 'jpeg', 'png');
+							if (in_array($extension_upload, $extensions_autorisees))
+							{
+								// On peut valider le fichier et le stocker définitivement
+								$n = 20;
+								$code = bin2hex(random_bytes($n));
+								$logoname = $userProfile['name'];
+								$logoname = str_replace(' ','_',$logoname);
+								$newname = $_SESSION['idmember'] . '_' . $code . '_' . basename($_FILES['logo']['name']);
+								move_uploaded_file($_FILES['logo']['tmp_name'], './public/images/' .$newname);
+								$imagealt = $userProfile['name'];
+								$imageurl = './public/images/' .$newname;
+								$imagetype = "publisher";
+								// On enregistre une image
+								$addImage = $membersManager->addImage($code, $imagetype, $imagealt, $imageurl);
+								// On récupère l'id d'une image sur la base de son url
+								$imageId = $membersManager->getImageId($imageurl);
+								// On enregistre un logo
+								$addLogo = $membersManager->addLogo($imageId, $userProfile['name']);
+								// On récupère l'id d'un logo sur la base de l'id_logo
+								$logoId = $membersManager->getLogoId($imageId);
+								// On modifie le contenu
+								$updateQuickPublisherMember = $membersManager->updateQuickPublisherMember($postemail, $userProfile['password'], $postdescription, $logoId, $_SESSION['idmember']);
+								header("Location: index.php?action=account");
+							}else{
+								// On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
+								$_SESSION['tempDescription'] = $postdescription;
+								$_SESSION['error'] = "Le fichier n'est pas une image";
+								header("Location: index.php?action=account");
+							}
+						}else{
+							// On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
+							$_SESSION['tempDescription'] = $postdescription;
+							$_SESSION['error'] = "Le fichier est trop volumineux";
+							header("Location: index.php?action=account");
+						}
+					}else{
+						// Si une image n'est pas ajoutée
+						$updateQuickPublisherMember = $membersManager->updateQuickPublisherMember($postemail, $userProfile['password'], $postdescription, intval($userProfile['idlogo']), intval($_SESSION['idmember']));
+						header("Location: index.php?action=account");
+					}
+				}
+			}else{
+				$_SESSION['tempDescription'] = $postdescription;
+                $_SESSION['error'] = "Cette adresse email n'existe pas";
+                header("Location: index.php?action=account");
+			}
+		}else{
+			$_SESSION['tempDescription'] = $postdescription;
+            $_SESSION['error'] = "Cette adresse email est déjà utilisé(e)";
+            header("Location: index.php?action=account");
+		}	
 	}
 
 	public function updateAccountUserPost($postemail, $resetpassword, $resetpassword2, $postavatar, $postdescription)

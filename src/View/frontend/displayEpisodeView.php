@@ -4,19 +4,19 @@ $head_description = 'Blabla';
 ob_start();
 ?>
     <section> <!-- Section avec l'épisode en aperçu -->
-        <h1><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?>"><?php echo $oneSeriesUserData['title']; ?></a></h1>
-        <p><img src="<?php echo $oneSeriesUserData['cover']; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
-        <?php if($oneSeriesUserData['type'] === "publisher")
+        <h1><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?>"><?php echo $oneSeriesPublicData['title']; ?></a></h1>
+        <p><img src="<?php echo $oneSeriesPublicData['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
+        <?php if($oneSeriesPublicData['type'] === "publisher")
         {
         ?>
-            <p><img src="<?php echo $oneSeriesUserData['logo']; ?>" alt="<?php echo $oneSeriesUserData['altlogo']; ?>"/></p>
-            <p><?php echo $oneSeriesUserData['publisher']; ?></p>
-            <p><?php echo $oneSeriesUserData['publisher_author']; ?></p>
+            <p><img src="<?php echo $oneSeriesPublicData['logo']; ?>" alt="<?php echo $oneSeriesPublicData['altlogo']; ?>"/></p>
+            <p><?php echo $oneSeriesPublicData['publisher']; ?></p>
+            <p><?php echo $oneSeriesPublicData['publisher_author']; ?></p>
         <?php
         }else{
         ?>  
-            <p><img src="<?php echo $oneSeriesUserData['avatar']; ?>" alt="<?php echo $oneSeriesUserData['altavatar']; ?>"/></p>  
-            <p><?php echo $oneSeriesUserData['member']; ?></p>
+            <p><img src="<?php echo $oneSeriesPublicData['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
+            <p><?php echo $oneSeriesPublicData['member']; ?></p>
         <?php
         }
         ?>
@@ -67,7 +67,7 @@ ob_start();
                 if(!isset($_SESSION['level']) AND $episode_current > 2)
                 {
                     // On différencie le message en fonction du type de série
-                    if($oneSeriesUserData['type'] === "publisher")
+                    if($oneSeriesPublicData['type'] === "publisher")
                     {
                     ?>
                         <p>Cette série est payante. <a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">Connectez-vous</a> et achetez des coins pour accéder à la suite des épisodes !</p>
@@ -102,7 +102,7 @@ ob_start();
                 if(!isset($_SESSION['level']) AND $episode_current > 2)
                 {
                     // On différencie le message en fonction du type de série
-                    if($oneSeriesUserData['type'] === "publisher")
+                    if($oneSeriesPublicData['type'] === "publisher")
                     {
                     ?>
                         <p>Cette série est payante. <a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">Connectez-vous</a> et achetez des coins pour accéder à la suite des épisodes !</p>
@@ -135,16 +135,16 @@ ob_start();
                         <article>
                             <p>
                             <?php
-                            if($oneSeriesUserData['type'] === "publisher")
+                            if($oneSeriesPublicData['type'] === "publisher")
                             {
                             ?>
-                                <p><img src="<?php echo $oneSeriesUserData['logo']; ?>" alt="<?php echo $oneSeriesUserData['altlogo']; ?>"/></p>
-                                <p><?php echo $oneSeriesUserData['publisher']; ?></p>
+                                <p><img src="<?php echo $oneSeriesPublicData['logo']; ?>" alt="<?php echo $oneSeriesPublicData['altlogo']; ?>"/></p>
+                                <p><?php echo $oneSeriesPublicData['publisher']; ?></p>
                             <?php
                             }else{
                             ?>  
-                                <p><img src="<?php echo $oneSeriesUserData['avatar']; ?>" alt="<?php echo $oneSeriesUserData['altavatar']; ?>"/></p>  
-                                <p><?php echo $oneSeriesUserData['member']; ?></p>
+                                <p><img src="<?php echo $oneSeriesPublicData['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
+                                <p><?php echo $oneSeriesPublicData['member']; ?></p>
                             <?php
                             }
                             ?>

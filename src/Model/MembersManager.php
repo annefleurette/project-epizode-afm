@@ -7,7 +7,7 @@ class MembersManager extends Manager
     public function getMemberData($idmember)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT m.id AS "id", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", l.name AS "name", m.pseudo AS "pseudo", m.description AS "description", m.type as "type", COUNT(DISTINCT has.id_series) AS "numberSubscriptions", COUNT(DISTINCT s.id) AS "numberWritings", COUNT(DISTINCT s.publisher_author) AS "numberAuthors", m.date_subscription AS "subscriptionDate" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN series_has_members_subscription has ON has.id_member = m.id WHERE m.id= ?');
+		$req = $db->prepare('SELECT m.id AS "id", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", l.name AS "name", m.pseudo AS "pseudo", m.description AS "description", m.type as "type", COUNT(DISTINCT has.id_series) AS "numberSubscriptions", COUNT(DISTINCT s.id) AS "numberWritings", COUNT(DISTINCT s.publisher_author) AS "numberAuthors", m.date_subscription AS "subscriptionDate" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series s ON s.id_member = m.id LEFT JOIN series_has_members_subscription has ON has.id_member = m.id WHERE s.publishing_status = "published" AND m.id= ?');
 		$req->execute(array($idmember));
 	    $userData = $req->fetch();
 	    $req->closeCursor();
@@ -69,7 +69,7 @@ class MembersManager extends Manager
 	public function getMemberProfileData($idmember)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT m.gender AS "gender", m.pseudo AS "pseudo", m.password AS "password", l.name AS "name", m.company_name AS "company", m.email AS "email", m.surname AS "surname", l.name AS "name", m.address AS "address", m.zipcode AS "zipcode", m.city AS "city", m.country AS "country", m.birthdate AS "birthdate", ia.url AS "avatar", ia.name AS "nameAvatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", m.description AS "description", m.type AS "type", m.token AS "token" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE m.id = ?');
+		$req = $db->prepare('SELECT m.gender AS "gender", m.pseudo AS "pseudo", m.password AS "password", l.name AS "name", m.company_name AS "company", m.email AS "email", m.surname AS "surname", l.name AS "name", m.address AS "address", m.zipcode AS "zipcode", m.city AS "city", m.country AS "country", m.birthdate AS "birthdate", ia.url AS "avatar", ia.name AS "nameAvatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", m.id_logo AS "idlogo", m.description AS "description", m.type AS "type", m.token AS "token" FROM members m LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE m.id = ?');
 		$req->execute(array($idmember));
 	    $userProfile = $req->fetch();
 	    $req->closeCursor();
@@ -214,6 +214,20 @@ class MembersManager extends Manager
 		)); 
 		return $updateQuickUserMember;
 	}
+	// On modifie les informations de profil d'un membre utilisateur (version simplifiée)
+	public function updateQuickPublisherMember($email, $password, $description, $idlogorelated, $idmember)
+	{
+		$db = $this->dbConnect();
+		$updateQuickPublisherMember = $db->prepare('UPDATE members SET email = :newemail, password = :newpassword, description = :newdescription, id_logo = :newid_logo WHERE id = :idmember');
+		$updateQuickPublisherMember->execute(array(
+			'newemail' => $email,
+			'newpassword' => $password, 
+			'newdescription' => $description,
+			'newid_logo' => $idlogorelated,
+			'idmember' => $idmember
+		)); 
+		return $updateQuickPublisherMember;
+	}
 	// On supprime un membre
 	public function deleteMember($idmember)
 	{
@@ -289,6 +303,16 @@ class MembersManager extends Manager
 		$addLogo = $db->prepare('INSERT INTO logos(id_logo, name) VALUES(?, ?)');
 	    $addLogo->execute(array($idlogo, $name));
 	    return $addLogo;
+	}
+	// On récupère l'id d'un logo à partir de l'id_logo
+	public function getLogoId($id)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT id FROM logos WHERE id_logo = ?');
+		$req->execute(array($id));
+		$logoId = $req->fetch(\PDO::FETCH_COLUMN);
+		$req->closeCursor();
+		return $logoId;
 	}
 	// On modifie un logo
 	public function updateLogo($idlogorelated, $name, $idlogo)

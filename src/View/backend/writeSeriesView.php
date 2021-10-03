@@ -1,4 +1,3 @@
-
 <?php
 $head_title = 'Epizode - Créer une nouvelle série';
 ob_start();
