@@ -30,6 +30,7 @@ ob_start();
     }elseif($userPublicData['type'] == "publisher"){
     ?>
         <p><img src="<?php echo $userPublicData['logo']; ?>" alt="<?php echo $userPublicData['altlogo']; ?>"/></p>
+        <p><?php echo $userPublicData['name']; ?></p>
         <p><?php echo $userPublicData['pseudo']; ?></p>
         <p><?php echo $userPublicData['description']; ?></p>
         <p><?php echo $userPublicData['numberAuthors']; ?> auteurs</p>
@@ -70,7 +71,7 @@ ob_start();
                 ?>
                     <li>
                         <article>
-                            <p><?php echo $allSeriesMember['title']; ?></p>
+                            <p><a href="index.php?action=displaySeries&idseries=<?php echo $allSeriesMember['id']; ?>"><?php echo $allSeriesMember['title']; ?></a></p>
                             <p><img src="<?php echo $allSeriesMember['cover']; ?>" alt="<?php echo $allSeriesMember['altcover']; ?>"/></p>
                             <p><?php echo $allSeriesMember['numberEpisodes']; ?> épisode(s)</p>
                             <p><?php echo $allSeriesMember['numberSubscribers']; ?> abonné(s)</p>
@@ -84,7 +85,6 @@ ob_start();
                             <?php
                             }
                             ?>
-                            <p><a href="index.php?action=displaySeries&idseries=<?php echo $allSeriesMember['id']; ?>">DECOUVRIR LA SERIE</a></p>
                         </article>
                     </li>
                 <?php
@@ -116,12 +116,12 @@ if($userPublicData['type'] == "user")
                 <?php
                 foreach ($getAllSubscriptionSeries as $allSubscriptionSeries)
                 {
-                    if($allSeriesMember['publishing'] = "published")
+                    if($allSubscriptionSeries['publishing'] == "published")
                     {
                     ?>
                         <li>
                             <article>
-                                <p><?php echo $allSubscriptionSeries['title']; ?></p>
+                                <p><a href="index.php?action=displaySeries&idseries=<?php echo $allSubscriptionSeries['id']; ?>"><?php echo $allSubscriptionSeries['title']; ?></a></p>
                                 <p><img src="<?php echo $allSubscriptionSeries['cover']; ?>" alt="<?php echo $allSubscriptionSeries['altcover']; ?>"/></p>
                                 <p><?php echo $allSubscriptionSeries['numberEpisodes']; ?> épisode(s)</p>
                                 <p><?php echo $allSubscriptionSeries['numberSubscribers']; ?> abonné(s)</p>
@@ -133,17 +133,16 @@ if($userPublicData['type'] == "user")
                                 ?>
                                     <p><?php echo $allSubscriptionSeries['pricing']; ?></p>
                                     <p><img src="<?php echo $allSubscriptionSeries['logo']; ?>" alt="<?php echo $allSubscriptionSeries['altlogo']; ?>"/></p>
-                                    <p><?php echo $allSubscriptionSeries['publisher']; ?></p>
-                                    <p><?php echo $allSubscriptionSeries['publisher_author']; ?></p>
+                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['publisher']; ?></a></p>
+                                    <p><?php echo $allSubscriptionSeries['author_publisher']; ?></p>
                                 <?php
                                 }else{
                                 ?>  
                                     <p><img src="<?php echo $allSubscriptionSeries['avatar']; ?>" alt="<?php echo $allSubscriptionSeries['altavatar']; ?>"/></p>  
-                                    <p><?php echo $allSubscriptionSeries['member']; ?></p>
+                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['member']; ?></a></p>
                                 <?php
                                 }
                                 ?>
-                                <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?> ?>">DECOUVRIR LA SERIE</a></p>
                             </article>
                         </li>
                     <?php

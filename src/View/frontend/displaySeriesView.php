@@ -13,14 +13,14 @@ ob_start();
     {
     ?>
         <p><img src="<?php echo $oneSeriesPublicData['logo']; ?>" alt="<?php echo $oneSeriesPublicData['altlogo']; ?>"/></p>
-        <p><?php echo $oneSeriesPublicData['publisher']; ?></p>
+        <p><a href="index.php?action=displayMember&idmember=<?php echo $oneSeriesPublicData['idmember']; ?>"><?php echo $oneSeriesPublicData['publisher']; ?></a></p>
         <p><?php echo $oneSeriesPublicData['publisher_author']; ?></p>
     <?php
     // Si la série est écrite par un autre utilisateur
     }else{
     ?>  
         <p><img src="<?php echo $oneSeriesPublicData['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
-        <p><?php echo $oneSeriesPublicData['member']; ?></p>
+        <p><a href="index.php?action=displayMember&idmember=<?php echo $oneSeriesPublicData['idmember']; ?>"><?php echo $oneSeriesPublicData['member']; ?></a></p>
     <?php
     }
     ?>

@@ -38,6 +38,7 @@ ob_start();
                                 ?>
                                 <p><?php echo $newSeries['tags']; ?></p>
                                 <p><?php echo $newSeries['pricing']; ?></p>
+                                <p><a href="index.php?action=displaySeries&idseries=<?php echo $newSeries['id']; ?>">Découvrir la série</a></p>
                             </figcaption>
                         </figure>
                     </li>
@@ -74,8 +75,9 @@ ob_start();
         ?>
             <li>
                 <article>
-                    <p><?php echo $seriesTopTen['title']; ?></p>
+                    <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopTen['id']; ?>"><?php echo $seriesTopTen['title']; ?></a></p>
                     <p><img src="<?php echo $seriesTopTen['logo']; ?>" alt="<?php echo $seriesTopTen['alt']; ?>" /></p>
+                    <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopTen['idmember']; ?>"><?php echo $seriesTopTen['publisher']; ?></a></p>
                     <p><?php echo $seriesTopTen['author']; ?></p>
                     <p><?php echo $seriesTopTen['numberSubscribers']; ?> abonné(s)</p>
                 </article>
@@ -93,9 +95,9 @@ ob_start();
         ?>
             <li>
                 <article>
-                    <p><?php echo $seriesTopTen['title']; ?></p>
+                    <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopTen['id']; ?>"><?php echo $seriesTopTen['title']; ?></a></p>
                     <p><img src="<?php echo $seriesTopTen['avatar']; ?>" alt="<?php echo $seriesTopTen['alt']; ?>" /></p>
-                    <p><?php echo $seriesTopTen['author']; ?></p>
+                    <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopTen['idmember']; ?>"><?php echo $seriesTopTen['author']; ?></a></p>
                     <p><?php echo $seriesTopTen['numberSubscribers']; ?> abonné(s)</p>
                 </article>
             </li>

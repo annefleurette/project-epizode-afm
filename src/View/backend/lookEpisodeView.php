@@ -1,5 +1,5 @@
 <?php
-// Page qui permet à un auteur d'afficher un aperçu de sa série
+// Page qui permet à un auteur d'afficher un aperçu de son épisode
 $head_title = 'Epizode - Aperçu de l\'épisode';
 ob_start();
 ?>

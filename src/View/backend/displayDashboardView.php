@@ -6,7 +6,7 @@ ob_start();
 <section> <!-- Section avec les informations sur le membre connecté -->
 <?php
     // Si le membre est un amateur
-    if($userData['type'] == "user")
+    if($_SESSION['level'] == 10)
     {
         if(isset($userData['avatar']))
         {
@@ -18,7 +18,7 @@ ob_start();
         <p>Bonjour <?php echo $userData['pseudo']; ?>, content de vous revoir !</p>
         <p><?php echo $userData['description']; ?></p>
         <p><?php echo $userData['numberSubscriptions']; ?> abonnement(s)</p>
-        <p><?php echo $userData['numberWritings']; ?> série(s) publiées ou en cours</p>
+        <p><?php echo $userData['numberWritings']; ?> série(s) publiée(s) ou en cours</p>
         <p>
         Membre depuis le 
         <?php
@@ -41,7 +41,7 @@ ob_start();
         <p><?php echo $userData['description']; ?></p>
         <p><?php echo $userData['numberSubscriptions']; ?> abonnement(s)</p>
         <p><?php echo $userData['numberAuthors']; ?> auteur(s)</p>
-        <p><?php echo $userData['numberWritings']; ?> série(s) publiées ou en cours</p>
+        <p><?php echo $userData['numberWritings']; ?> série(s) publiée(s) ou en cours</p>
         <p>Date d'inscription : <?php echo $userData['subscriptionDate']; ?></p>
     <?php
     }
