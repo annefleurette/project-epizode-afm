@@ -278,25 +278,25 @@ class MembersManager extends Manager
 		)); 
 		return $updateImage;
 	}
-	//On récupère l'url d'une image pour une série donnée
-	public function getImageSeriesUrl($idseries)
+	//On récupère l'url du logo d'un membre
+	public function getImageLogoUrl($idmember)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT ic.url AS "url" FROM series s LEFT JOIN covers c ON s.id_cover = c.id LEFT JOIN images ic ON ic.id = c.id_cover WHERE s.id = ?');
-		$req->execute(array($idseries));
-	    $imageSeriesUrl = $req->fetch(\PDO::FETCH_COLUMN);
-	    $req->closeCursor();
-	    return $imageSeriesUrl;
+		$req = $db->prepare('SELECT il.url AS "url" FROM members m LEFT JOIN logos l ON m.id_logo = l.id LEFT JOIN images il ON il.id = l.id_logo WHERE m.id = ?');
+		$req->execute(array($idmember));
+		$imageLogoUrl = $req->fetch(\PDO::FETCH_COLUMN);
+		$req->closeCursor();
+		return $imageLogoUrl;
 	}
-	//On récupère l'id d'une image pour une série donnée
-	public function getImageSeriesId($idseries)
+	//On récupère l'id de l'image associée au logo
+	public function getImageLogoId($idmember)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT ic.id AS "id" FROM series s LEFT JOIN covers c ON s.id_cover = c.id LEFT JOIN images ic ON ic.id = c.id_cover WHERE s.id = ?');
-		$req->execute(array($idseries));
-	    $imageSeriesId = $req->fetch(\PDO::FETCH_COLUMN);
-	    $req->closeCursor();
-	    return $imageSeriesId;
+		$req = $db->prepare('SELECT il.id AS "id" FROM members m LEFT JOIN logos l ON m.id_logo = l.id LEFT JOIN images il ON il.id = l.id_logo WHERE m.id = ?');
+		$req->execute(array($idmember));
+		$imageLogoId = $req->fetch(\PDO::FETCH_COLUMN);
+		$req->closeCursor();
+		return $imageLogoId;
 	}
 	// On supprime une image
 	public function deleteImage($idimage)

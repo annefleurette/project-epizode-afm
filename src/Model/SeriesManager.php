@@ -154,6 +154,26 @@ class SeriesManager extends Manager
 	    $req->closeCursor();
 	    return $seriesSubscription;
 	}
+	//On récupère l'url d'une image pour une série donnée
+	public function getImageSeriesUrl($idseries)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT ic.url AS "url" FROM series s LEFT JOIN covers c ON s.id_cover = c.id LEFT JOIN images ic ON ic.id = c.id_cover WHERE s.id = ?');
+		$req->execute(array($idseries));
+		$imageSeriesUrl = $req->fetch(\PDO::FETCH_COLUMN);
+		$req->closeCursor();
+		return $imageSeriesUrl;
+	}
+	//On récupère l'id d'une image pour une série donnée
+	public function getImageSeriesId($idseries)
+	{
+		$db = $this->dbConnect();
+		$req = $db->prepare('SELECT ic.id AS "id" FROM series s LEFT JOIN covers c ON s.id_cover = c.id LEFT JOIN images ic ON ic.id = c.id_cover WHERE s.id = ?');
+		$req->execute(array($idseries));
+		$imageSeriesId = $req->fetch(\PDO::FETCH_COLUMN);
+		$req->closeCursor();
+		return $imageSeriesId;
+	}
 	// On récupère les utilisateurs qui se sont abonnés à une série
 	public function getSeriesSubscribers($idseries)
 	{

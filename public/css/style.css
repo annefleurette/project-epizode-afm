@@ -1,3 +1,4 @@
+/* sass --watch ./public/css/style.scss:./public/css/style.css */
 .hidden, #hidden {
   display: none;
 }

@@ -220,14 +220,14 @@ class SeriesController {
                     if (in_array($extension_upload, $extensions_autorisees))
                     {   
                         // On récupère l'URL de l'image déjà enregistrée pour la série
-                        $imageSeriesUrl = $membersManager->getImageSeriesUrl($seriesId);
+                        $imageSeriesUrl = $seriesManager->getImageSeriesUrl($seriesId);
                         $imageSeriesUrlShort = substr($imageSeriesUrl, 2);
                         $DirUrlShort = substr(__DIR__, 0, -14);
                         $imageUrl = $DirUrlShort.$imageSeriesUrlShort;
                         // On supprime l'image du dossier
                         unlink($imageUrl);
                         // On récupère l'id de l'image associée à la série
-                        $imageSeriesId = $membersManager->getImageSeriesId($seriesId);
+                        $imageSeriesId = $seriesManager->getImageSeriesId($seriesId);
                         // On peut valider le nouveau fichier et le stocker définitivement
                         $n = 20;
                         $code = bin2hex(random_bytes($n));
@@ -370,7 +370,19 @@ class SeriesController {
     public function deleteSeries($seriesId)
     {
         $seriesManager = new SeriesManager();
+        $membersManager = new MembersManager();
         $seriesId = htmlspecialchars($seriesId);
+        // On récupère l'URL de l'image déjà enregistrée pour la série
+        $imageSeriesUrl = $seriesManager->getImageSeriesUrl($seriesId);
+        $imageSeriesUrlShort = substr($imageSeriesUrl, 2);
+        $DirUrlShort = substr(__DIR__, 0, -14);
+        $imageUrl = $DirUrlShort.$imageSeriesUrlShort;
+        // On supprime l'image du dossier
+        unlink($imageUrl);
+        // On récupère l'id de l'image associée à la série
+        $imageSeriesId = $seriesManager->getImageSeriesId($seriesId);
+        // On supprime l'ancienne image sur le serveur
+        $deleteImage = $membersManager->deleteImage($imageSeriesId);
         // On supprime définitivement la série
         $deleteSeries = $seriesManager->deleteSeries($seriesId);
         header("Location: index.php?action=admin&tab=2"); 
