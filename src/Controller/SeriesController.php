@@ -118,7 +118,7 @@ class SeriesController {
                     header("Location: index.php?action=writeSeries");
                 }
             }else{
-                $coverId = 1; // Affiche par défaut
+                $coverId = 239; // Affiche par défaut
             }
             // On enregistre la nouvelle série
             $addNewSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, intval($_SESSION['idmember']), $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription, $postmeta);

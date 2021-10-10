@@ -67,7 +67,7 @@ ob_start();
 <p>Une nouvelle série à découvrir chaque semaine</p>
 </section>
 <section> <!-- Section qui comporte le top 10 des séries éditeurs -->
-    <h2>Top 10 des séries éditeurs</h2>
+    <h2>Top 5 des séries éditeurs</h2>
     <ul>
     <?php
         foreach ($seriesTopFivePublishers as $seriesTopFive)
@@ -87,7 +87,7 @@ ob_start();
         ?>
 </section>
 <section> <!-- Section qui comporte le top 10 des séries amateurs -->
-    <h2>Top 10 des séries talents</h2>
+    <h2>Top 5 des séries talents</h2>
     <ul>
     <?php
         foreach ($seriesTopFiveUsers as $seriesTopFive)
