@@ -1,3 +1,4 @@
+// Afficher une modale de confirmation avant de supprimer un élément
 let deleteBtns = document.querySelectorAll('.delete');
 if(deleteBtns.length > 0 ){
     deleteBtns.forEach(btn => {

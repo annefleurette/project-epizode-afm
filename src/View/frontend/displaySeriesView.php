@@ -1,13 +1,14 @@
-
 <?php
+// Page qui présente une série
 $head_title = $oneSeriesPublicData['title'];
 $head_description = $oneSeriesPublicData['meta'];
 ob_start();
 ?>
-<section>
+<section> <!-- Section avec les informations sur la série -->
     <h1><?php echo $oneSeriesPublicData['title']; ?></h1>
     <p><img src="<?php echo $oneSeriesPublicData['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
     <?php
+    // Si la série est écrite par un éditeur
     if($oneSeriesPublicData['type'] === "publisher")
     {
     ?>
@@ -15,6 +16,7 @@ ob_start();
         <p><?php echo $oneSeriesPublicData['publisher']; ?></p>
         <p><?php echo $oneSeriesPublicData['publisher_author']; ?></p>
     <?php
+    // Si la série est écrite par un autre utilisateur
     }else{
     ?>  
         <p><img src="<?php echo $oneSeriesPublicData['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
@@ -27,8 +29,9 @@ ob_start();
     <p><?php echo $oneSeriesPublicData['tags']; ?></p>
     <p><?php echo $oneSeriesPublicData['pricing']; ?></p>
     <p><?php echo $oneSeriesPublicData['rights']; ?></p>
-    <!-- Gestion des likes -->
+    <!-- Gestion des ajouts à la bibliothèque -->
     <?php
+    // On ne peut ajouter à la bibliothèque que si on est connecté
     if(isset($_SESSION['idmember']))
     {
     ?>
@@ -36,6 +39,7 @@ ob_start();
         <button id="subscribe" <?php if(in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>AJOUTER A MA BIBLIOTHEQUE</button>
         <button id="unsubscribe" <?php if(!in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>RETIRER DE MA BIBLIOTHEQUE</button>
     <?php
+    // Si on est pas connecté
     }else{
     ?>
         <p><a href="index.php?action=login&ref=displaySeries&idseries=<?php echo $seriesId; ?>">CONNECTEZ-VOUS</a> pour vous abonner à une série !</p>
@@ -43,9 +47,10 @@ ob_start();
     }
     ?>
 </section>
-<section>
+<section> <!-- Section avec la liste des épisodes publiés de la série -->
     <h2>Episodes de <?php echo $oneSeriesPublicData['title']; ?></h2>
         <?php
+        // Si la série comporte des épisodes
         if($nbepisodes_published > 0)
         {
         ?>    
@@ -68,14 +73,15 @@ ob_start();
                 ?>
             </ul>
         <?php
+        // Si la série n'a pas encore d'épisode
         }else{
         ?>
-            <p>La série n'a pas encore d'épisode.</p>
+            <p>La série n'a pas encore d'épisode</p>
         <?php
         }
         ?> 
 </section>
-<section>
+<section> <!-- Section qui présente des séries similaires en termes de tags -->
     <h2>Recommandations <?php echo $oneSeriesPublicData['tags']; ?></h2>
     <ul>
         <?php

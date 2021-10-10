@@ -1,4 +1,5 @@
 <?php
+// Page d'erreur 404
 $head_title = 'Epizode - Erreur 404';
 $head_description = 'Page d\'erreur 404 d\'Epizode';
 ob_start();

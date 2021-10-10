@@ -1,6 +1,6 @@
 if(document.getElementById('subscribe') != null || document.getElementById('unsubscribe') != null)
 { 
-    // ABONNEMENT
+    // Ajouter à la bibliothèque
     document.getElementById('subscribe').addEventListener('click', () => {
         let idseries = document.getElementById('idseries').value;
         fetch('http://localhost:8888/p5/project-epizode-afm/index.php?action=addSubscription&idseries=' + idseries)
@@ -13,7 +13,7 @@ if(document.getElementById('subscribe') != null || document.getElementById('unsu
             document.getElementById('unsubscribe').classList.remove('hidden');
         })
     })
-    // DESABONNEMENT
+    // Retirer de la bibliothèque
     document.getElementById('unsubscribe').addEventListener('click', () => {
         let idseries = document.getElementById('idseries').value;
         fetch('http://localhost:8888/p5/project-epizode-afm/index.php?action=removeSubscription&idseries=' + idseries)

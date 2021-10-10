@@ -32,6 +32,7 @@ class EpisodesController {
         //On compte le nombre d'épisodes de la série qui ont été publiés
         $nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
         $count_episode_published = intval($nbepisodes);
+        // L'épisode suivant à publier prendra +1
         $count_episode_publishable = $count_episode_published + 1;
         if(isset($postsave))
         { // Si le bouton Enregistrer est choisi
@@ -429,7 +430,9 @@ class EpisodesController {
     {
         $episodesManager = new EpisodesManager();
         $episodeId = htmlspecialchars($episodeId);
+        // On ajoute un like à un épisode
         $episodeLike = $episodesManager->addEpisodeLike($episodeId, $_SESSION['idmember']);
+        // On récupère le nombre de likes actualisés
         $episodeLikes = $episodesManager->getEpisodeLikes($episodeId);
         echo json_encode($episodeLikes);
     }
@@ -438,7 +441,9 @@ class EpisodesController {
     {
         $episodesManager = new EpisodesManager();
         $episodeId = htmlspecialchars($episodeId);
+        // On retire un like à un épisode
         $deleteLike = $episodesManager->deleteLike($episodeId, $_SESSION['idmember']);
+        // On récupère le nombre de likes actualisés
         $episodeLikes = $episodesManager->getEpisodeLikes($episodeId);
         echo json_encode($episodeLikes);
     }
@@ -448,6 +453,7 @@ class EpisodesController {
         $episodesManager = new EpisodesManager();
         $episodeId = htmlspecialchars($episodeId);
         $alert = 1;
+        // On ajoute un signalement à un épisode
         $updateAlertEpisode = $episodesManager->updateEpisodeAlert($alert, intval($episodeId));
     }
 

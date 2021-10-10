@@ -1,10 +1,11 @@
-
 <?php
+// Page qui présente la fiche d'un membre
 $head_title = 'Epizode - Informations sur le membre';
 ob_start();
 ?>
 <section>
 <?php
+    // Si le membre est un amateur
     if($userPublicData['type'] == "user")
     {
     ?>
@@ -25,6 +26,7 @@ ob_start();
         <p><?php echo $userPublicData['numberSubscriptions']; ?> abonnements</p>
         <p><?php echo $userPublicData['numberWritings']; ?> séries publiées</p>
     <?php
+    // Si le membre est un éditeur
     }elseif($userPublicData['type'] == "publisher"){
     ?>
         <p><img src="<?php echo $userPublicData['logo']; ?>" alt="<?php echo $userPublicData['altlogo']; ?>"/></p>
@@ -36,7 +38,7 @@ ob_start();
     }
     ?>
 </section>
-<nav>
+<nav> <!-- Navigation entre les grandes catégories d'informations du membre -->
     <ul>
         <li class="elementTab" data-index="1">Ses séries</li>
         <?php
@@ -53,9 +55,9 @@ ob_start();
        	?>
     </ul>
 </nav>
-<!-- On affiche les séries écrites par le membre -->
-<section class="elementContent" data-tab="1">
+<section class="elementContent" data-tab="1"> <!-- Section qui affiche les séries écrites par le membre -->
 <?php
+    // Si les séries existent
     if($getAllPublicSeriesMember != NULL)
     {
     ?>    
@@ -91,6 +93,7 @@ ob_start();
             ?>
         </ul>
     <?php
+    // Si aucune série encore écrite
     }else{
     ?>
         <p>Il n'y a pas encore de série publiée</p>
@@ -99,12 +102,13 @@ ob_start();
     ?>
 </section>
 <?php
+// Si l'utilisateur est un amateur
 if($userPublicData['type'] == "user")
 {
 ?>
-    <!-- On affiche les séries auxquelles le membre est abonné -->
-	<section class="elementContent" hidden data-tab="2">
+	<section class="elementContent" hidden data-tab="2"> <!-- Section qui affiche les séries auxquelles le membre est abonné -->
         <?php
+        // Si le membre est abonné à au moins une série
         if($getAllSubscriptionSeries != NULL)
         {
         ?>    
@@ -148,6 +152,7 @@ if($userPublicData['type'] == "user")
                 ?>
             </ul>
         <?php
+        // Si le membre n'est pas encore abonné à une série
         }else{
         ?>
             <p>Il n'y a pas encore de série publiée</p>
@@ -156,11 +161,12 @@ if($userPublicData['type'] == "user")
         ?>
 	</section>
 <?php
+// Si l'utilisateur est un éditeur
 }elseif($userPublicData['type'] == "publisher"){
 ?>
-    <!-- On affiche la liste des auteurs de l'éditeur -->
-	<section class="elementContent" hidden data-tab="2">
+	<section class="elementContent" hidden data-tab="2"> <!-- Section qui affiche la liste des auteurs de l'éditeur -->
         <?php
+            // Si la liste d'auteurs n'est pas nulle
             if($authorsList != NULL)
             {
             ?>    
@@ -180,9 +186,10 @@ if($userPublicData['type'] == "user")
                     ?>
                 </ul>
             <?php
+            // Si l'éditeur n'a pas encore d'auteur
             }else{
             ?>
-                <p>Cet éditeur n'a pas encore d'auteur.</p>
+                <p>Cet éditeur n'a pas encore d'auteur</p>
             <?php
             }
             ?>

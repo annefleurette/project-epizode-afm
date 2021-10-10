@@ -1,4 +1,5 @@
 <?php
+// Page qui permet de réinitialiser le mot de passe
 $head_title = 'Epizode - Réinitaliser le mot de passe';
 ob_start();
 ?>

@@ -1,11 +1,12 @@
-
 <?php
+// Homepage du site internet
 $head_title = 'Epizode';
 $head_description = "Lisez et écrivez, où et quand vous voulez, des séries originales pour tous les goûts ! Rejoignez vite la communauté Epizode !";
 ob_start();
 ?>
-<section id="slider">
+<section id="slider"> <!-- Carrousel des six dernières séries publiées sur Epizode (3 éditeurs, 3 amateurs) -->
 <?php
+    // S'il y a bien au moins une série publiée
     if($seriesLastSix !== NULL)
     {
     ?>
@@ -59,12 +60,12 @@ ob_start();
         </div>
     </div>
 </section>
-<section>
+<section> <!-- Section de présentation du concept Epizode -->
 <h2>Plongez dans un monde de séries</h2>
 <p>Des séries originales à lire n'importe où et à tout moment</p>
 <p>Une nouvelle série à découvrir chaque semaine</p>
 </section>
-<section>
+<section> <!-- Section qui comporte le top 10 des séries éditeurs -->
     <h2>Top 10 des séries éditeurs</h2>
     <ul>
     <?php
@@ -83,7 +84,7 @@ ob_start();
         }
         ?>
 </section>
-<section>
+<section> <!-- Section qui comporte le top 10 des séries amateurs -->
     <h2>Top 10 des séries talents</h2>
     <ul>
     <?php

@@ -1,4 +1,5 @@
 <?php
+// Page de connexion à l'espace membre
 $head_title = 'Epizode - Connexion';
 $head_descripion = 'Connexion à l\'espace membre d\'Epizode';
 ob_start();
@@ -28,6 +29,7 @@ ob_start();
         <p><a href ="index.php?action=subscription">Créer un compte</a></p>
         <p><a href ="index.php?action=forgetPassword">Mot de passe oublié ?</a></p>
     <?php
+    // Si la personne est déjà connectée
     }else{
     ?>
         <p>Vous êtes déjà inscrit(e) et connecté(e) !</p>

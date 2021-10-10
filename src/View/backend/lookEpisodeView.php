@@ -1,4 +1,5 @@
 <?php
+// Page qui permet à un auteur d'afficher un aperçu de sa série
 $head_title = 'Epizode - Aperçu de l\'épisode';
 ob_start();
 ?>
@@ -10,6 +11,7 @@ ob_start();
     <section> <!-- Section avec l'épisode en aperçu -->
         <h1><?php echo $oneSeriesUserData['title']; ?></h1>
         <p><img src="<?php echo $oneSeriesUserData['cover']; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
+        <!-- Si l'auteur est un éditeur -->
         <?php if($_SESSION['level'] == 20)
         {
         ?>
@@ -17,6 +19,7 @@ ob_start();
             <p><?php echo $oneSeriesUserData['publisher']; ?></p>
             <p><?php echo $oneSeriesUserData['publisher_author']; ?></p>
         <?php
+        // Si l'auteur est un autre utilisateur
         }else{
         ?>  
             <p><img src="<?php echo $oneSeriesUserData['avatar']; ?>" alt="<?php echo $oneSeriesUserData['altavatar']; ?>"/></p>  

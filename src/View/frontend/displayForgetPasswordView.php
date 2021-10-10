@@ -1,4 +1,5 @@
 <?php
+// Page qui lance la vérification de l'adresse email pour ensuite réinitialiser le mot de passe
 $head_title = 'Epizode - Mot de passe oublié';
 ob_start();
 ?>

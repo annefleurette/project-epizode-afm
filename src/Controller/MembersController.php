@@ -77,6 +77,7 @@ class MembersController {
 
     public function login($get)
 	{
+		// On anticipe de retourner à la page d'où on venait après la connexion (c'est le cas ici quand on est sur une série ou quand on est sur un épisode)
 		if(isset($get['ref']) AND (isset($get['idseries'])))
 		{
 			if(isset($get['number']) AND (isset($get['idepisode'])))
@@ -97,18 +98,22 @@ class MembersController {
 		$postremember = htmlspecialchars($postremember);
 		// On récupère les informations de membre qui correspondent à l'email saisi
 		$memberInfo = $membersManager->getMemberInfo(strtolower($postemail));
+		// Si le membre n'existe pas
 		if(!$memberInfo)
 		{
             $_SESSION['tempEmail'] = $postemail;
             $_SESSION['error'] = "Mauvais identifiant ou mot de passe";
             header("Location: index.php?action=login");
+		// S'il existe bien
 		}else{
+			// Si le mot de passe est correct
 			$isPasswordCorrect = password_verify($postpassword, $memberInfo['password']);
 			if ($isPasswordCorrect)
 			{
 				$_SESSION['idmember'] = $memberInfo['id'];
 				$_SESSION['pseudo'] = $memberInfo['pseudo'];
 				$_SESSION['type'] = $memberInfo['type'];
+				// Si le membre veut qu'on se souvienne de lui
 				if($postremember == "on")
                 { // On enregistre l'email que si l'utilisateur le souhaite
                     setcookie($postemail, time()+365*24*3600, null, null, false, true);
@@ -153,11 +158,13 @@ class MembersController {
 		$postemail = htmlspecialchars($postemail);
 		// On récupère les informations de membre qui correspondent à l'email saisi
 		$memberInfo = $membersManager->getMemberInfo(strtolower($postemail));
+		// Si le membre n'existe pas
 		if(!$memberInfo)
 		{
             $_SESSION['tempEmail'] = $postemail;
             $_SESSION['error'] = "Mauvais identifiant";
             header("Location: index.php?action=forgetPassword");
+		// Si le membre existe
 		}else{
 			// Génération d'un token
 			$token = uniqid();
@@ -181,9 +188,11 @@ class MembersController {
 		$gettoken = htmlspecialchars($gettoken);
 		// On récupère les informations du membre à partir du token
 		$userInfo = $membersManager->getMemberProfileWithToken($gettoken);
+		// Si le membre n'existe pas
 		if(!$userInfo)
 		{
             header("Location: index.php?action=403error");
+		// Si le membre existe
 		}else{
 			require('./src/View/frontend/displayResetPasswordView.php');
 		}
@@ -252,7 +261,7 @@ class MembersController {
 	public function displayAccount()
 	{
 		$membersManager = new MembersManager();
-		// Je vais chercher les informations du membre
+		// On va chercher les informations du membre
 		$userProfile = $membersManager->getMemberProfileData($_SESSION['idmember']);
 		require('./src/View/backend/displayAccountView.php');
 	}
@@ -264,7 +273,7 @@ class MembersController {
 		$resetpassword = htmlspecialchars($resetpassword);
 		$resetpassword2 =  htmlspecialchars($resetpassword2);
 		$postdescription = htmlspecialchars($postdescription);
-		// Je vais chercher les informations du membre
+		// On va chercher les informations du membre
 		$userProfile = $membersManager->getMemberProfileData($_SESSION['idmember']);
 		// On récupère tous les emails des membres inscrits
 		$getEmails = $membersManager->getMembersEmail();
@@ -436,6 +445,7 @@ class MembersController {
 						$idImage = $membersManager->getIdImage($postavatar);
 						// On récupère l'id de l'avatar sur la base de l'id de l'image
 						$idAvatar = $membersManager->getIdAvatar(intval($idImage));
+						// On modifie les informations du membre
 						$updateQuickUserMember = $membersManager->updateQuickUserMember($postemail, $pass_hache, $postdescription, intval($idAvatar), $_SESSION['idmember']);
 						header("Location: index.php?action=account");
 					}else{
@@ -448,6 +458,7 @@ class MembersController {
 					$idImage = $membersManager->getIdImage($postavatar);
 					// On récupère l'id de l'avatar sur la base de l'id de l'image
 					$idAvatar = $membersManager->getIdAvatar(intval($idImage));
+					// On modifie les informations du membre
 					$updateQuickUserMember = $membersManager->updateQuickUserMember($postemail, $userProfile['password'], $postdescription, intval($idAvatar), $_SESSION['idmember']);
 					header("Location: index.php?action=account");
 				}
@@ -467,6 +478,7 @@ class MembersController {
 	{
 		session_start();
 		$_SESSION = array();
+		// Déconnexion
 		session_destroy();
 		header('Location: index.php?action=subscription'); 
 	}

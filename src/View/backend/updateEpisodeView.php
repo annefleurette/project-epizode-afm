@@ -1,9 +1,11 @@
 <?php
+// Page qui permet de mettre à jour un épisode
 $head_title = 'Epizode - Mettre à jour l\'épisode';
 ob_start();
 ?>
-<section>
+<section> <!-- Section qui affiche les informations de l'épisode -->
     <form action="index.php?action=updateEpisode_post&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodeId; ?>" method="post">
+    <!-- On pré-rempli le formulaire avec les données issues de la base de données ou les données temporaires si on a déjà essayé de modifier et qu'un erreur est apparue, pour ne pas avoir à tout resaisir -->
         <p>
             <?php
             if($oneEpisode['publishing'] === "published")
@@ -56,11 +58,13 @@ ob_start();
         ?>
         <p id="trigger">
             <?php
+            // Si on choisit de publier
             if($oneEpisode['publishing'] === "published")
             {
             ?>
                 <input type="submit" name="publish" value="Publier">
-            <?php    
+            <?php
+            // Si on choisit d'enregistrer    
             }elseif($oneEpisode['publishing'] === "inprogress")
             {
             ?>

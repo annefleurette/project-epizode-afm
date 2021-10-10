@@ -1,4 +1,4 @@
-// ALERT EPISODE
+// Signaler un épisode
 if(document.getElementById('alertepisode') != undefined)
 {
     document.getElementById('alertepisode').addEventListener('click', () => {
@@ -8,7 +8,7 @@ if(document.getElementById('alertepisode') != undefined)
     })
 }
 
-// ALERT COMMENT
+// Signaler un commentaire
 if(document.getElementById('alertcomment') != undefined)
 {
     document.getElementById('alertcomment').addEventListener('click', () => {

@@ -1,6 +1,6 @@
 if(document.getElementById('like') != undefined || document.getElementById('dislike') != undefined)
 {
-    // LIKES
+    // Ajouter un like
     document.getElementById('like').addEventListener('click', () => {
         let idepisode = document.getElementById('idepisode').value;
         fetch('http://localhost:8888/p5/project-epizode-afm/index.php?action=addLike&idepisode=' + idepisode)
@@ -14,7 +14,7 @@ if(document.getElementById('like') != undefined || document.getElementById('disl
         })
     })
 
-    // DISLIKES
+    // Enlever un like
     document.getElementById('dislike').addEventListener('click', () => {
         let idepisode = document.getElementById('idepisode').value;
         fetch('http://localhost:8888/p5/project-epizode-afm/index.php?action=removeLike&idepisode=' + idepisode)

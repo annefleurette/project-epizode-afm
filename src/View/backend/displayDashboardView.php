@@ -1,10 +1,11 @@
-
 <?php
+// Page tableau de bord d'un utilisateur connecté
 $head_title = 'Epizode - Mon tableau de bord';
 ob_start();
 ?>
-<section>
+<section> <!-- Section avec les informations sur le membre connecté -->
 <?php
+    // Si le membre est un amateur
     if($userData['type'] == "user")
     {
         if(isset($userData['avatar']))
@@ -26,7 +27,9 @@ ob_start();
         ?>
         </p>
     <?php
-    }elseif($userData['type'] == "publisher"){
+    // Si le membre est un éditeur
+    }elseif($_SESSION['level'] == 20)
+    {
         if(isset($userData['avatar']))
         {
         ?>
@@ -44,14 +47,15 @@ ob_start();
     }
     ?>
 </section>
-<nav>
+<nav> <!-- Accès à la bibliothèque de séries ou au studio de production -->
     <ul>
         <li class="elementTab" data-index="1">Ma bibliothèque de séries</li>
         <li class="elementTab" data-index="2">Mon studio de production</li>
     </ul>
 </nav>
-<section class="elementContent" data-tab="1">
+<section class="elementContent" data-tab="1"> <!-- Section bibliothèque de séries -->
 <?php
+    // Si le membre a ajouté au moins une série à sa bibliothèque
     if($getAllSubscriptionSeries !== NULL)
     {
     ?>
@@ -72,16 +76,18 @@ ob_start();
             ?>
         </ul>
     <?php
+    // Si le membre n'a pas ajouté de série à sa bibliothèque
     }else{
     ?>
-        <p><?php echo $userData['pseudo']; ?> n'est pas encore abonné à une série !</p>
+        <p><?php echo $userData['pseudo']; ?> n'a pas encore ajouté de série à sa bibliothèque !</p>
     <?php
     }
     ?>
 </section>
-<section class="elementContent hidden" data-tab="2">
+<section class="elementContent hidden" data-tab="2"> <!-- Section studio de production de séries -->
     <p><a href="index.php?action=writeSeries">ECRIRE UNE NOUVELLE SERIE</a></p>
     <?php
+    // Si le membre a au moins déjà écrit une série
     if($getAllSeriesMember !== NULL)
     {
     ?>
@@ -111,6 +117,7 @@ ob_start();
             ?>
         </ul>
     <?php
+    // Si le membre n'a pas encore écrit de série
     }else{
     ?>
         <p><?php echo $userData['pseudo']; ?> n'a pas encore écrit de série</p>

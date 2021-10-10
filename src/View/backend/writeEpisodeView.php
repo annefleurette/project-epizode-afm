@@ -1,9 +1,11 @@
 <?php
+// Page qui permet de créer un nouvel épiqode
 $head_title = 'Epizode - Créer un nouvel épisode';
 ob_start();
 ?>
-<section>
+<section> <!-- Section de création de l'épisode -->
     <form action="index.php?action=writeEpisode_post&idseries=<?php echo $seriesId; ?>" method="post">
+    <!-- On pré-rempli le formulaire avec les données temporaires si on a déjà essayé de modifier et qu'un erreur est apparue, pour ne pas avoir à tout resaisir -->
         <p>
             <label for="numberEpisode">Numéro de l'épisode</label><br />
             <input type="number" id="number" name="numberEpisode" min="1" required value="<?php if(isset($_SESSION['tempNumber'])){echo $_SESSION['tempNumber'];}else{echo NULL;}?>">
@@ -27,6 +29,7 @@ ob_start();
             <?php if(isset($_SESSION['tempMetaEpisode'])){unset($_SESSION['tempMetaEpisode']);}?>
         </p>
         <?php
+        // Si l'auteur est un éditeur
         if($_SESSION['level'] == 20)
         {
         ?>

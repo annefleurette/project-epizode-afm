@@ -1,10 +1,10 @@
-// ONGLETS
+// Onglets
 Array.from(document.getElementsByClassName("elementTab")).forEach(elt => {
 	elt.addEventListener('click', () => { 
 		showElt(elt)})
 });
 
-// ACTIVER LE TAB CHOISI
+// Activer l'onglet choisi
 window.addEventListener('load', () => {
 	const queryString = window.location.search; // on recupere toute la partie apres le ? de l'url exemple : action=updateSeries&idseries=165&tab=2
 	const urlParams = new URLSearchParams(queryString); // il transforme l'ensemble en objet avec une methode get qui permet d'appeler la clé d'un paramètre

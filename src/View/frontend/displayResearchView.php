@@ -1,20 +1,21 @@
-
 <?php
+// Page qui affiche les résultats d'une recherche par mot clé
 $head_title = 'Epizode - Recherche de mots clés';
 include('./src/Utils/colorkeyword.php');
 ob_start();
 ?>
 <h1> Résultats de la recherche : "<?php echo $postkeyword; ?>"
-<nav>
+<nav> <!-- Les résultats s'affichent dans les séries, les auteurs et les épisodes -->
     <ul>
         <li class="elementTab" data-index="1">Séries</li>
         <li class="elementTab" data-index="2">Auteurs</li>
         <li class="elementTab" data-index="3">Episodes</li>
     </ul>
 </nav>
-<section class="elementContent" data-tab="1">
+<section class="elementContent" data-tab="1"> <!-- Section qui affiche la liste résultats parmi les séries -->
     <h2>Séries</h2>
     <?php
+    // Si les résultats de recherche ne sont pas nuls
     if($researchSeriesResults != NULL)
     {
     ?>    
@@ -33,6 +34,7 @@ ob_start();
                         <p><?php echo $seriesResults['summary']; ?> abonné(s)</p>
                         <p><?php echo $seriesResults['tags']; ?></p>
                         <?php
+                        // Si le membre est un éditeur
                         if($seriesResults['type'] === "publisher")
                         {
                         ?>
@@ -42,6 +44,7 @@ ob_start();
                             <p><?php echo highlightKeyword($postkeyword, $seriesResults['member']); ?></p>
                             <p><?php echo $seriesResults['author']; ?></p>
                         <?php
+                        // Si le membre est un amateur
                         }elseif($seriesResults['type'] === "user"){
                         ?>  
                             <p><img src="<?php echo $seriesResults['avatar']; ?>" alt="<?php echo $seriesResults['altavatar']; ?>"/></p>  
@@ -57,6 +60,7 @@ ob_start();
             ?>
         </ul>
     <?php
+    // Si les résultats de recherche sont nuls
     }else{
     ?>
         <p>Aucune série ne correspond à la recherche</p>
@@ -64,9 +68,10 @@ ob_start();
     }
     ?>
 </section>
-<section class="elementContent" data-tab="2" hidden>
+<section class="elementContent" data-tab="2" hidden> <!-- Section qui affiche les résultats de recherche parmi les auteurs -->
     <h2>Auteurs</h2>
     <?php
+    // Si les résultats de recherche ne sont pas nuls
     if($researchAuthorsResults != NULL)
     {
     ?>    
@@ -79,6 +84,7 @@ ob_start();
                     <article>
                         <!-- Dans mon contenu je surligne quand le mot clé est présent -->
                         <?php
+                        // Si le membre est un éditeur
                         if($authorsResults['type'] === "publisher")
                         {
                         ?>
@@ -87,6 +93,7 @@ ob_start();
                             <p><?php echo highlightKeyword($postkeyword, $authorsResults['publisher']); ?></p>
                             <p><?php echo highlightKeyword($postkeyword, $authorsResults['author']); ?></p>
                         <?php
+                        // Si le membre est un amateur
                         }elseif($authorsResults['type'] === "user"){
                         ?>  
                             <p><img src="<?php echo $authorsResults['avatar']; ?>" alt="<?php echo $authorsResults['altavatar']; ?>"/></p>  
@@ -103,6 +110,7 @@ ob_start();
             ?>
         </ul>
     <?php
+    // Si les résultats de recherche sont nuls
     }else{
     ?>
         <p>Aucun auteur ne correspond à la recherche</p>
@@ -110,9 +118,10 @@ ob_start();
     }
     ?>
 </section>
-<section class="elementContent" data-tab="3" hidden>
+<section class="elementContent" data-tab="3" hidden> <!-- Section qui affiche les résultats de recherche parmi les épisodes -->
     <h2>Episodes</h2>
     <?php
+    // Si les résultats de recherche ne sont pas nuls
     if($researchEpisodesResults != NULL)
     {
     ?>    
@@ -126,6 +135,7 @@ ob_start();
                         <!-- Dans mon contenu je surligne quand le mot clé est présent -->
                         <p><?php echo $episodesResults['title']; ?></p>
                         <?php
+                        // Si le membre est un éditeur
                         if($episodesResults['type'] === "publisher")
                         {
                         ?>
@@ -135,6 +145,7 @@ ob_start();
                             <p><?php echo highlightKeyword($postkeyword, $episodesResults['member']); ?></p>
                             <p><?php echo highlightKeyword($postkeyword, $episodesResults['author']); ?></p>
                         <?php
+                        // Si le membre est un amateur
                         }elseif($episodesResults['type'] === "user"){
                         ?>  
                             <p><img src="<?php echo $episodesResults['avatar']; ?>" alt="<?php echo $episodesResults['altavatar']; ?>"/></p>  
@@ -146,6 +157,7 @@ ob_start();
                         <p>Titre : <?php echo highlightKeyword($postkeyword, $episodesResults['titleEpisode']); ?></p>
                         <?php $poskeyword = strpos(strtolower($episodesResults['content']), strtolower($postkeyword));
                         $numbercharacter = strlen($episodesResults['content']);
+                        // Au sein du contenu de l'épisode, on isole la section qui comporte les mots clés saisis
                         if ($poskeyword < 150){
                         ?>
                             <p><?php echo highlightKeyword($postkeyword, substr($episodesResults['content'], 0, 200)); ?> [...]</p>
@@ -169,6 +181,7 @@ ob_start();
             ?>
         </ul>
     <?php
+    // Si les résltats de recherche son nuls
     }else{
     ?>
         <p>Aucun épisode ne correspond à la recherche</p>

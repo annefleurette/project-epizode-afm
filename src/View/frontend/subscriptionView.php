@@ -1,4 +1,5 @@
 <?php
+// Page pour s'inscrire en tant que nouveau membre
 $head_title = 'Epizode - Inscription';
 $head_description = 'Inscription';
 ob_start();
@@ -32,6 +33,7 @@ ob_start();
         <p>Vous avez déjà un compte, <a href="index.php?action=login">connectez-vous</a></p>
         <p>Si vous êtes un éditeur, contactez-nous directement : editeur@epizode.fr</p>
     <?php
+    // Si la personne est déjà connectée
     }else{
     ?>
         <p>Vous êtes déjà connecté(e) !</p>

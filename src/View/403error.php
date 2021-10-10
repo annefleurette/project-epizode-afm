@@ -1,4 +1,5 @@
 <?php
+// Page d'erreur 403
 $head_title = 'Epizode - Erreur 403';
 $head_description = 'Page d\'erreur 403 d\'Epizode';
 ob_start();

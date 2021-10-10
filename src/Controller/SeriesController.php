@@ -18,8 +18,9 @@ class SeriesController {
         // On affiche les nouvelles séries éditeurs & amateurs
         $seriesLastThreePublishers = $seriesManager->getLastThreeSeriesPublishers();
         $seriesLastThreeUsers = $seriesManager->getLastThreeSeriesUsers();
+        // On en garde 6 composées de 3 éditeurs et 3 amateurs
         $seriesLastSix = array_merge($seriesLastThreePublishers, $seriesLastThreeUsers);
-        // On affiche les top 10 en termes de séries
+        // On affiche les top 10 en termes de séries éditeurs & amateurs
         $seriesTopTenPublishers = $seriesManager->topTenSeriesPublishers();
         $seriesTopTenUsers = $seriesManager->topTenSeriesUsers();
         require('./src/View/frontend/displayHomepageView.php');
@@ -428,10 +429,9 @@ class SeriesController {
     public function addSubscription($seriesId)
     {
         $seriesManager = new SeriesManager();
-        $membersManager = new MembersManager();
         $seriesId = htmlspecialchars($seriesId);
+        // On ajoute une série à sa bibliothèque
         $addSubscription = $seriesManager->addSeriesSubscription($seriesId, $_SESSION['idmember'], 1);
-        //$notificationsSubscription = $membersManager->addNotificationsSubscription($seriesId, intval($_SESSION['idmember']), 1);
         $seriesSubscription = $seriesManager->getSeriesSubscriptions($seriesId);
         echo json_encode($seriesSubscription);
     }
@@ -440,6 +440,7 @@ class SeriesController {
     {
         $seriesManager = new SeriesManager();
         $seriesId = htmlspecialchars($seriesId);
+        // On retire une série à sa bibliothèque depuis la page série
         $deleteSubscription = $seriesManager->deleteSubscription($seriesId, $_SESSION['idmember']);
         $seriesSubscription = $seriesManager->getSeriesSubscriptions($seriesId);
         echo json_encode($seriesSubscription);
@@ -449,6 +450,7 @@ class SeriesController {
     {   
         $seriesManager = new SeriesManager();
         $seriesId = htmlspecialchars($seriesId);
+        // On retire une série à sa bibliothèque depuis son tableau de bord
         $deleteSubscription = $seriesManager->deleteSubscription($seriesId, $_SESSION['idmember']);
         header("Location: index.php?action=dashboard");
     }

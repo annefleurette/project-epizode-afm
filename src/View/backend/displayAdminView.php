@@ -1,11 +1,12 @@
 <?php
+// Page administrateur qui permet des gérer les données
 $head_title = 'Epizode - Mon espace administrateur';
 ob_start();
 ?>
 <section>
         <p>Bonjour <?php echo $userData['pseudo']; ?>, content de vous revoir !</p>
 </section>
-<nav>
+<nav> <!-- L'administrateur a une vue sur tous les membres, toutes les séries, tous les épisodes et tous les commentaires -->
     <ul>
         <li class="elementTab" data-index="1">Membres</li>
         <li class="elementTab" data-index="2">Séries</li>
@@ -13,9 +14,10 @@ ob_start();
         <li class="elementTab" data-index="4">Commentaires</li>
     </ul>
 </nav>
-<section class="elementContent" data-tab="1">
+<section class="elementContent" data-tab="1"> <!-- Section avec les informations sur les membres -->
     <h2>Liste des membres</h2>
     <?php
+    // S'il existe au moins un membre
     if($usersData !== NULL)
     {
     ?>
@@ -74,6 +76,7 @@ ob_start();
             </tbody>
         </table>
     <?php
+    // S'il n'y a pas encore de membre
     }else{
     ?>
         <p>Epizode n'a pas encore de membre !</p>
@@ -81,9 +84,10 @@ ob_start();
     }
     ?>
 </section>
-<section class="elementContent hidden" data-tab="2">
+<section class="elementContent hidden" data-tab="2"> <!-- Section avec les informations sur les séries -->
     <h2>Liste des séries</h2>
     <?php
+    // S'il existe au moins une série
     if($getAllSeries != NULL)
     {
     ?>
@@ -118,19 +122,23 @@ ob_start();
                     <td><?php echo $seriesInfo['member']; ?></td>
                     <td><?php echo $seriesInfo['type']; ?></td>
                     <?php
+                    // Si l'auteur est un éditeur
                     if(isset($seriesInfo['publisher']))
                     {
                     ?>
                         <td><?php echo $seriesInfo['publisher']; ?></td>
                     <?php
+                    // Si l'auteur est un amateur
                     }else{
                         echo "<td></td>";
                     }
+                    // Si l'éditeur a enregistré un auteur
                     if(isset($seriesInfo['author']))
                     {
                     ?>
                         <td><?php echo $seriesInfo['author']; ?></td>
                     <?php
+                    // S'il n'a pas enregistré d'auteur
                     }else{
                         echo "<td></td>";
                     }
@@ -156,6 +164,7 @@ ob_start();
             </tbody>
         </table>
     <?php
+    // S'il n'existe pas encore de série
     }else{
     ?>
         <p>Epizode n'a pas encore de série !</p>
@@ -163,10 +172,12 @@ ob_start();
     }
     ?>
 </section>
-<section class="elementContent hidden" data-tab="3">
+<section class="elementContent hidden" data-tab="3"> <!-- Section avec les informations sur les épisodes -->
     <div>
+        <!-- Les épisodes signalés -->
         <h2>Episodes signalés</h2>
         <?php
+        // S'il existe au moins un signalement
         if($getAlertEpisodes != NULL)
         {
         ?>
@@ -200,19 +211,23 @@ ob_start();
                         <td><?php echo $alertEpisodeInfo['type']; ?></td>
                         <td><?php echo $alertEpisodeInfo['pseudo']; ?></td>
                         <?php
+                        // Si l'auteur est un éditeur
                         if(isset($alertEpisodeInfo['publisher']))
                         {
                         ?>
                             <td><?php echo $alertEpisodeInfo['publisher']; ?></td>
                         <?php
+                        // Si l'auteur est un autre utilisateur
                         }else{
                             echo "<td></td>";
                         }
+                        // Si l'éditeur a enregistré un auteur
                         if(isset($alertEpisodeInfo['author']))
                         {
                         ?>
                             <td><?php echo $alertEpisodeInfo['author']; ?></td>
                         <?php
+                        // S'il n'y a pas d'auteur enregistré
                         }else{
                             echo "<td></td>";
                         }
@@ -237,6 +252,7 @@ ob_start();
                 </tbody>
             </table>
         <?php
+        // Si aucun épisode signalé
         }else{
         ?>
             <p>Epizode n'a pas encore d'épisode signalé !</p>
@@ -245,8 +261,10 @@ ob_start();
         ?>
     </div>
     <div>
+        <!-- Tous les épisodes -->
         <h2>Liste des épisodes</h2>
         <?php
+        // S'il existe au moins un épisode
         if($getAllEpisodes != NULL)
         {
         ?>
@@ -280,19 +298,23 @@ ob_start();
                         <td><?php echo $episodeInfo['type']; ?></td>
                         <td><?php echo $episodeInfo['pseudo']; ?></td>
                         <?php
+                        // Si l'auteur est un éditeur
                         if(isset($episodeInfo['publisher']))
                         {
                         ?>
                             <td><?php echo $episodeInfo['publisher']; ?></td>
                         <?php
+                        // Si l'auteur n'est pas un éditeur
                         }else{
                             echo "<td></td>";
                         }
+                        // Si l'éditeur a ajouté un auteur
                         if(isset($episodeInfo['author']))
                         {
                         ?>
                             <td><?php echo $episodeInfo['author']; ?></td>
                         <?php
+                        // S'il n'y a pas d'auteur ajouté
                         }else{
                             echo "<td></td>";
                         }
@@ -317,6 +339,7 @@ ob_start();
                 </tbody>
             </table>
         <?php
+        // S'il n'y a pas encore d'épisode
         }else{
         ?>
             <p>Epizode n'a pas encore d'épisode !</p>
@@ -325,10 +348,12 @@ ob_start();
         ?>
     </div>
 </section>
-<section class="elementContent hidden" data-tab="4">
+<section class="elementContent hidden" data-tab="4"> <!-- Section avec les informations sur les commentaires -->
     <div>
+        <!-- Les commentaires signaléq -->
         <h2>Commentaires signalés</h2>
         <?php
+        // S'il existe au moins un commentaire signalé
         if($getAlertComments != NULL)
         {
         ?>
@@ -366,6 +391,7 @@ ob_start();
                 </tbody>
             </table>
         <?php
+        // S'il n'y a pas de commentaire signalé
         }else{
         ?>
             <p>Epizode n'a pas encore de commentaire signalé !</p>
@@ -374,8 +400,10 @@ ob_start();
         ?>
     </div>
     <div>
+        <!-- Tous les commentaires -->
         <h2>Liste des commentaires</h2>
         <?php
+        // S'il existe au moins un commentaire
         if($getAllComments != NULL)
         {
         ?>
@@ -411,6 +439,7 @@ ob_start();
                 </tbody>
             </table>
         <?php
+        // S'il n'y a pas ce commentaire
         }else{
         ?>
             <p>Epizode n'a pas encore de commentaire !</p>

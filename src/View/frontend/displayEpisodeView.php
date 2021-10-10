@@ -1,17 +1,20 @@
 <?php
+// Page qui affiche un épisode
 $head_title = $oneSeriesPublicData['title']. " / Episode :" .$episode_unitary_published['title'];
 $head_description = $episode_unitary_published['meta'];
 ob_start();
 ?>
-    <section> <!-- Section avec l'épisode en aperçu -->
+    <section> <!-- Section avec l'épisode -->
         <h1><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?>"><?php echo $oneSeriesPublicData['title']; ?></a></h1>
         <p><img src="<?php echo $oneSeriesPublicData['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
+        <!-- Si l'auteur est un éditeur -->
         <?php if($oneSeriesPublicData['type'] === "publisher")
         {
         ?>
             <p><img src="<?php echo $oneSeriesPublicData['logo']; ?>" alt="<?php echo $oneSeriesPublicData['altlogo']; ?>"/></p>
             <p><?php echo $oneSeriesPublicData['publisher']; ?></p>
             <p><?php echo $oneSeriesPublicData['publisher_author']; ?></p>
+        <!-- Si l'auteur est un autre utilisateur -->
         <?php
         }else{
         ?>  
@@ -27,6 +30,7 @@ ob_start();
         <p><?php echo $episode_unitary_published['price']; ?> euro(s)</p>
         <!-- Gestion des likes -->
         <?php
+        // Si le membre est connecté
         if(isset($_SESSION['idmember']))
         {
         ?>
@@ -34,6 +38,7 @@ ob_start();
             <button id="like" <?php if(in_array($_SESSION['idmember'], $episodeLikers)){ echo 'class="hidden"'; }?>>J'AIME</button>
             <button id="dislike" <?php if(!in_array($_SESSION['idmember'], $episodeLikers)){ echo 'class="hidden"'; }?>>JE N'AIME PLUS</button>
         <?php
+        // Si le membre n'est pas connecté
         }else{
             ?>
                 <p><a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_unitary_published['number']; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">CONNECTEZ-VOUS</a> pour liker un épisode !</p>
@@ -123,6 +128,7 @@ ob_start();
     </section>
     <section> <!-- Section avec les commentaires -->
         <?php
+        // S'il existe des commentaires
         if($totalcomments > 0)
         {
         ?>
@@ -134,12 +140,14 @@ ob_start();
                     <li>
                         <article>
                             <p>
+                            <!-- Si l'auteur est un éditeur -->
                             <?php
                             if($oneSeriesPublicData['type'] === "publisher")
                             {
                             ?>
                                 <p><img src="<?php echo $oneSeriesPublicData['logo']; ?>" alt="<?php echo $oneSeriesPublicData['altlogo']; ?>"/></p>
                                 <p><?php echo $oneSeriesPublicData['publisher']; ?></p>
+                            <!-- Si l'auteur est un autre utilisateur -->
                             <?php
                             }else{
                             ?>  
@@ -153,6 +161,7 @@ ob_start();
                             echo $date->format('d/m/Y à H:i'); ?></p>
                             <p><?php echo ($comment_data['content']); ?></p>
                             <?php
+                            // On en peut signaler que si on est connecté
                             if ($_SESSION != NULL)
                             {
                             ?>
@@ -168,6 +177,7 @@ ob_start();
                 ?>
             </ul>
         <?php
+        // Si aucun commentaire a été saisi
         }else{
         ?>
             <p>Pas de commentaire</p>
@@ -176,6 +186,7 @@ ob_start();
         ?>
         <h2>Laisser un commentaire</h2>
         <?php
+        // On ne peut commenter que si on est connecté
         if(!isset($_SESSION['pseudo']))
         {
         ?>

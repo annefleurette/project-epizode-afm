@@ -1,4 +1,4 @@
-// DECOMPTE DE CARACTERES
+// Compter le nombre de caractères saisis
 // Keyboard
 document.getElementById("contentEpisode").addEventListener('keyup', ()=> {
 	signCounter("contentEpisode", "signsEpisode")	

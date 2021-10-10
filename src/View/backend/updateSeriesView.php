@@ -1,21 +1,24 @@
 <?php
+// Page qui permet de mettre à jour une série
 $head_title = 'Epizode - Mettre à jour la série';
 ob_start();
 ?>
-<nav>
+<nav> <!-- Navigation entre les données de la série et les données des épisodes -->
     <ul>
         <li class="elementTab" data-index="1">Ma série</li>
         <li class="elementTab" data-index="2">Mes épisodes</li>
     </ul>
 </nav>
-<section class="elementContent" data-tab="1">
+<section class="elementContent" data-tab="1"> <!-- Section qui affiche les informations de la série -->
     <form action="index.php?action=updateSeries_post&idseries=<?php echo $seriesId; ?>" method="post" enctype="multipart/form-data">
+    <!-- On pré-rempli le formulaire avec les données issues de la base de données ou les données temporaires si on a déjà essayé de modifier et qu'un erreur est apparue, pour ne pas avoir à tout resaisir -->
         <p>
             <label for="title">Titre</label><br />
             <input type="text" id="title" name="titleSeries" minlength="1" maxlength="100" value="<?php if(isset($_SESSION['tempSeriestitle'])){echo $_SESSION['tempSeriestitle'];}else{echo $oneSeriesUserData['title'];}?>" required>
             <?php if(isset($_SESSION['tempSeriestitle'])){unset($_SESSION['tempSeriestitle']);}?>
         </p>
         <?php
+        // Si l'auteur est un éditeur
         if($_SESSION['level'] == 20)
         {
         ?>
@@ -89,9 +92,10 @@ ob_start();
         </p>
     </form>
 </section>
-<section class="elementContent hidden" data-tab="2">
+<section class="elementContent hidden" data-tab="2"> <!-- Section qui affiche les données sur les épisodes de la série -->
     <p><a href="index.php?action=writeEpisode&idseries=<?php echo $seriesId; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
     <?php
+    // S'il existe au moins un épisode
     if($oneSeriesUserData['numberEpisodes']!== "0")
     {
     ?>
@@ -109,6 +113,7 @@ ob_start();
                             <p><?php echo $episodedata['title']; ?></p>
                             <p>Statut : <?php echo $episodedata['publishing']; ?></p>
                             <?php
+                            // Si l'épisode a été publié
                             if($episodedata['publishing'] === "published")
                             {
                                 if(isset($episodedata['publicationDate']))
@@ -128,6 +133,7 @@ ob_start();
                                 echo $date->format('d/m/Y à H:i'); ?>
                                 </p>
                             <?php
+                            // Si l'épisode est en mode brouillon
                             }elseif ($episodedata['publishing'] === "inprogress")
                             {
                             ?>
@@ -158,6 +164,7 @@ ob_start();
             ?>
         </ul>
     <?php
+    // Si la série n'a pas encore d'épisode
     }else{
     ?>
         <p>La série n'a pas encore d'épisode ! </p>

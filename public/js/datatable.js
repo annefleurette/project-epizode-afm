@@ -1,4 +1,4 @@
-// DATATABLE
+// Aciver un tableau Datatable
 $(document).ready(function () {
     $('#myTableMembers').DataTable({
         "language": {

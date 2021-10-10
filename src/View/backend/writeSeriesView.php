@@ -1,14 +1,9 @@
 <?php
+// Page qui permet de créer une nouvelle série
 $head_title = 'Epizode - Créer une nouvelle série';
 ob_start();
 ?>
-<nav>
-    <ul>
-        <li>Ma série</li>
-        <li>Mes épisodes</li>
-    </ul>
-</nav>
-<section>
+<section> <!-- Section qui permet de créer la série -->
     <form action="index.php?action=writeSeries_post" method="post" enctype="multipart/form-data">
         <p>
             <label for="title">Titre</label><br />
@@ -16,6 +11,7 @@ ob_start();
             <?php if(isset($_SESSION['tempSeriestitle'])){unset($_SESSION['tempSeriestitle']);}?>
         </p>
         <?php
+        // Si l'auteur est un éditeur
         if($_SESSION['level'] == 20)
         {
         ?>

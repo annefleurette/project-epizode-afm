@@ -1,15 +1,16 @@
 <?php
+// Page de gestion des informations de compte pour un membre connecté
 $head_title = 'Epizode - Mon compte';
 ob_start();
 ?>
-<!-- <nav> Ultérieurement
+<!-- <nav> Pour la V2
     <ul>
         <li class="seriesTab" data-index="1">Mon profil</li>
         A programmer ultérieurement pour les éditeurs <li class="seriesTab" data-index="2">Gains</li>
         A programmer ultérieurement pour les utilisateurs et les éditeurs <li class="seriesTab" data-index="2">Factures</li>
     </ul>
 </nav> -->
-<section class="seriesContent">
+<section class="seriesContent"> <!-- Section qui présente les informations de compte du membre connecté -->
     <h1>Mon profil</h1>
     <form action="index.php?action=updateAccount_post" method="post" enctype="multipart/form-data">
         <p>
@@ -32,6 +33,7 @@ ob_start();
             </p>
         </div>
         <?php
+        // Si l'utilisateur est un amateur
         if($userProfile['type'] == "user")
         {
         ?>
@@ -78,7 +80,8 @@ ob_start();
                 </div>
         <!-- A programmer ultérieurement pour les utilisateurs : sexe, prénom, nom, adresse, code postal, ville, pays, date de naissance -->
         <?php
-        }elseif($userProfile['type'] == "publisher")
+        // si l'utilisateur est un éditeur
+        }elseif($_SESSION['level'] == 20)
         {
         ?>
             <p>
