@@ -33,6 +33,11 @@ ob_start();
             <p id="signsEpisode"></p>
             <input type="hidden" id="nbCharacters" name="nbCharacters" value="0" />
         </p>
+        <p>
+            <label for="metaEpisode">Metadescription de l'épisode (maximum 160 caractères)</label><br />
+            <textarea id="metaEpisode" name="metaEpisode" minlength="1" maxlength="160"><?php if(isset($_SESSION['tempMetaEpisode'])){echo $_SESSION['tempMetaEpisode'];}else{echo $oneEpisode['meta'];}?></textarea>
+            <?php if(isset($_SESSION['tempMetaEpisode'])){unset($_SESSION['tempMetaEpisode']);}?>
+        </p>
         <?php if($_SESSION['level'] == 20)
         {
         ?>

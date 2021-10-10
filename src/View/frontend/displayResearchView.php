@@ -1,19 +1,18 @@
 
 <?php
 $head_title = 'Epizode - Recherche de mots clés';
-$head_description = "Résultats de recherche parmi les séries, les auteurs et les épisodes d'Epizode";
 include('./src/Utils/colorkeyword.php');
 ob_start();
 ?>
 <h1> Résultats de la recherche : "<?php echo $postkeyword; ?>"
 <nav>
     <ul>
-        <li class="seriesTab" data-index="1">Séries</li>
-        <li class="seriesTab" data-index="2">Auteurs</li>
-        <li class="seriesTab" data-index="3">Episodes</li>
+        <li class="elementTab" data-index="1">Séries</li>
+        <li class="elementTab" data-index="2">Auteurs</li>
+        <li class="elementTab" data-index="3">Episodes</li>
     </ul>
 </nav>
-<section class="seriesContent" data-tab="1">
+<section class="elementContent" data-tab="1">
     <h2>Séries</h2>
     <?php
     if($researchSeriesResults != NULL)
@@ -65,7 +64,7 @@ ob_start();
     }
     ?>
 </section>
-<section class="seriesContent" data-tab="2" hidden>
+<section class="elementContent" data-tab="2" hidden>
     <h2>Auteurs</h2>
     <?php
     if($researchAuthorsResults != NULL)
@@ -111,7 +110,7 @@ ob_start();
     }
     ?>
 </section>
-<section class="seriesContent" data-tab="3" hidden>
+<section class="elementContent" data-tab="3" hidden>
     <h2>Episodes</h2>
     <?php
     if($researchEpisodesResults != NULL)

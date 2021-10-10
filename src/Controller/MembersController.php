@@ -471,7 +471,7 @@ class MembersController {
 		header('Location: index.php?action=subscription'); 
 	}
 
-	public function displayMember($getidmember = 1)
+	public function displayMember($getidmember)
 	{
 		$membersManager = new MembersManager();
 		$getidmember = htmlspecialchars($getidmember);

@@ -1,7 +1,7 @@
 
 <?php
-$head_title = 'Epizode - Découvrir la série';
-$head_description = "Blabla";
+$head_title = $oneSeriesPublicData['title'];
+$head_description = $oneSeriesPublicData['meta'];
 ob_start();
 ?>
 <section>

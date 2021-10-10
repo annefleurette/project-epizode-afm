@@ -38,23 +38,23 @@ ob_start();
 </section>
 <nav>
     <ul>
-        <li class="seriesTab" data-index="1">Ses séries</li>
+        <li class="elementTab" data-index="1">Ses séries</li>
         <?php
         if($userPublicData['type'] == "user")
         {
         ?>
-        	<li class="seriesTab" data-index="2">Ses lectures</li>
+        	<li class="elementTab" data-index="2">Ses lectures</li>
         <?php
         }elseif($userPublicData['type'] == "publisher"){
         ?>
-       		<li class="seriesTab" data-index="2">Ses auteurs</li>
+       		<li class="elementTab" data-index="2">Ses auteurs</li>
        	<?php
        	}
        	?>
     </ul>
 </nav>
 <!-- On affiche les séries écrites par le membre -->
-<section class="seriesContent" data-tab="1">
+<section class="elementContent" data-tab="1">
 <?php
     if($getAllPublicSeriesMember != NULL)
     {
@@ -103,7 +103,7 @@ if($userPublicData['type'] == "user")
 {
 ?>
     <!-- On affiche les séries auxquelles le membre est abonné -->
-	<section class="seriesContent" hidden data-tab="2">
+	<section class="elementContent" hidden data-tab="2">
         <?php
         if($getAllSubscriptionSeries != NULL)
         {
@@ -159,7 +159,7 @@ if($userPublicData['type'] == "user")
 }elseif($userPublicData['type'] == "publisher"){
 ?>
     <!-- On affiche la liste des auteurs de l'éditeur -->
-	<section class="seriesContent" hidden data-tab="2">
+	<section class="elementContent" hidden data-tab="2">
         <?php
             if($authorsList != NULL)
             {

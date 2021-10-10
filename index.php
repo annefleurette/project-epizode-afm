@@ -148,7 +148,7 @@ try {
 						case 'writeSeries_post':
 							if(isset($_POST['titleSeries']) AND isset($_POST['descriptionSeries']) AND isset($_POST['rights']) AND isset($_POST['tags']))
 							{
-								$seriesController->writeSeriesPost((isset($_POST['author'])) ? $_POST['author'] : null, (isset($_POST['descriptionAuthor'])) ? $_POST['descriptionAuthor'] : null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags']);
+								$seriesController->writeSeriesPost((isset($_POST['author'])) ? $_POST['author'] : null, (isset($_POST['descriptionAuthor'])) ? $_POST['descriptionAuthor'] : null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], (isset($_POST['metaSeries'])) ? $_POST['metaSeries'] : null);
 							}else{
 								require('src/View/404error.php');
 							}
@@ -164,7 +164,7 @@ try {
 						case 'updateSeries_post':
 							if(isset($_POST['titleSeries']) AND isset($_POST['descriptionSeries']) AND isset($_POST['rights']) AND isset($_POST['tags']) AND isset($_GET['idseries']))
 							{
-								$seriesController->updateSeriesPost((isset($_POST['author'])) ? $_POST['author'] : null, (isset($_POST['descriptionAuthor'])) ? $_POST['descriptionAuthor'] : null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_GET['idseries']);
+								$seriesController->updateSeriesPost((isset($_POST['author'])) ? $_POST['author'] : null, (isset($_POST['descriptionAuthor'])) ? $_POST['descriptionAuthor'] : null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], (isset($_POST['metaSeries'])) ? $_POST['metaSeries'] : null, $_GET['idseries']);
 							}else{
 								require('src/View/404error.php');
 							}
@@ -206,7 +206,7 @@ try {
 						case 'writeEpisode_post':
 							if(isset($_POST['numberEpisode']) AND isset($_POST['titleEpisode']) AND isset($_POST['contentEpisode']) AND isset($_POST['nbCharacters']) AND isset($_GET['idseries']))
 							{
-								$episodesController->writeEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], (isset($_POST['priceEpisode'])) ? $_POST['priceEpisode'] : 0, (isset($_POST['promotionEpisode'])) ? $_POST['promotionEpisode'] : 0, (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : null, $_POST['nbCharacters'], $_GET['idseries']);
+								$episodesController->writeEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], (isset($_POST['priceEpisode'])) ? $_POST['priceEpisode'] : 0, (isset($_POST['promotionEpisode'])) ? $_POST['promotionEpisode'] : 0, (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : null, $_POST['nbCharacters'], (isset($_POST['metaEpisode'])) ? $_POST['metaEpisode'] : null, $_GET['idseries']);
 							
 							}else{
 								require('src/View/403error.php');
@@ -231,7 +231,7 @@ try {
 						case 'updateEpisode_post':
 							if(isset($_POST['titleEpisode']) AND isset($_POST['contentEpisode']) AND isset($_POST['nbCharacters']) AND isset($_GET['idseries']) AND isset($_GET['idepisode']))
 							{
-								$episodesController->updateEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, (isset($_POST['numberEpisode'])) ? $_POST['numberEpisode'] : null, $_POST['titleEpisode'], $_POST['contentEpisode'], (isset($_POST['priceEpisode'])) ? $_POST['priceEpisode'] : 0, (isset($_POST['promotionEpisode'])) ? $_POST['promotionEpisode'] : 0, (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : date('Y-m-dTH:i', strtotime('+2 hours')), $_POST['nbCharacters'], $_GET['idseries'], $_GET['idepisode']);
+								$episodesController->updateEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, (isset($_POST['numberEpisode'])) ? $_POST['numberEpisode'] : null, $_POST['titleEpisode'], $_POST['contentEpisode'], (isset($_POST['priceEpisode'])) ? $_POST['priceEpisode'] : 0, (isset($_POST['promotionEpisode'])) ? $_POST['promotionEpisode'] : 0, (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : date('Y-m-dTH:i', strtotime('+2 hours')), $_POST['nbCharacters'], (isset($_POST['metaEpisode'])) ? $_POST['metaEpisode'] : null, $_GET['idseries'], $_GET['idepisode']);
 							}else{
 								require('src/View/404error.php');
 							}						

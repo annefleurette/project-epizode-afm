@@ -7,13 +7,13 @@ ob_start();
 </section>
 <nav>
     <ul>
-        <li class="seriesTab" data-index="1">Membres</li>
-        <li class="seriesTab" data-index="2">Séries</li>
-        <li class="seriesTab" data-index="3">Episodes</li>
-        <li class="seriesTab" data-index="4">Commentaires</li>
+        <li class="elementTab" data-index="1">Membres</li>
+        <li class="elementTab" data-index="2">Séries</li>
+        <li class="elementTab" data-index="3">Episodes</li>
+        <li class="elementTab" data-index="4">Commentaires</li>
     </ul>
 </nav>
-<section class="seriesContent" data-tab="1">
+<section class="elementContent" data-tab="1">
     <h2>Liste des membres</h2>
     <?php
     if($usersData !== NULL)
@@ -81,7 +81,7 @@ ob_start();
     }
     ?>
 </section>
-<section class="seriesContent hidden" data-tab="2">
+<section class="elementContent hidden" data-tab="2">
     <h2>Liste des séries</h2>
     <?php
     if($getAllSeries != NULL)
@@ -163,7 +163,7 @@ ob_start();
     }
     ?>
 </section>
-<section class="seriesContent hidden" data-tab="3">
+<section class="elementContent hidden" data-tab="3">
     <div>
         <h2>Episodes signalés</h2>
         <?php
@@ -325,7 +325,7 @@ ob_start();
         ?>
     </div>
 </section>
-<section class="seriesContent hidden" data-tab="4">
+<section class="elementContent hidden" data-tab="4">
     <div>
         <h2>Commentaires signalés</h2>
         <?php

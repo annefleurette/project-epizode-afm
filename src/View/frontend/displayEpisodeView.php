@@ -1,6 +1,6 @@
 <?php
-$head_title = 'Epizode - Lecture de l\'épisode';
-$head_description = 'Blabla';
+$head_title = $oneSeriesPublicData['title']. " / Episode :" .$episode_unitary_published['title'];
+$head_description = $episode_unitary_published['meta'];
 ob_start();
 ?>
     <section> <!-- Section avec l'épisode en aperçu -->

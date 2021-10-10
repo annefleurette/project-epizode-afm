@@ -4,11 +4,11 @@ ob_start();
 ?>
 <nav>
     <ul>
-        <li class="seriesTab" data-index="1">Ma série</li>
-        <li class="seriesTab" data-index="2">Mes épisodes</li>
+        <li class="elementTab" data-index="1">Ma série</li>
+        <li class="elementTab" data-index="2">Mes épisodes</li>
     </ul>
 </nav>
-<section class="seriesContent" data-tab="1">
+<section class="elementContent" data-tab="1">
     <form action="index.php?action=updateSeries_post&idseries=<?php echo $seriesId; ?>" method="post" enctype="multipart/form-data">
         <p>
             <label for="title">Titre</label><br />
@@ -80,11 +80,16 @@ ob_start();
             </select>  
         </p>
         <p>
+            <label for="metaSeries">Metadescription de la série (maximum 160 caractères)</label><br />
+            <textarea id="metaSeries" name="metaSeries" minlength="1" maxlength="160"><?php if(isset($_SESSION['tempMetaSeries'])){echo $_SESSION['tempMetaSeries'];}else{echo $oneSeriesUserData['meta'];}?></textarea>
+            <?php if(isset($_SESSION['tempMetaSeries'])){unset($_SESSION['tempMetaSeries']);}?>
+        </p>
+        <p>
             <input type="submit" name="save" value="Valider">
         </p>
     </form>
 </section>
-<section class="seriesContent hidden" data-tab="2">
+<section class="elementContent hidden" data-tab="2">
     <p><a href="index.php?action=writeEpisode&idseries=<?php echo $seriesId; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
     <?php
     if($oneSeriesUserData['numberEpisodes']!== "0")

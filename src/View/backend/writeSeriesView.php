@@ -61,6 +61,11 @@ ob_start();
             <?php if(isset($_SESSION['tempRights'])){unset($_SESSION['tempRights']);}?>
         </p>
         <p>
+            <label for="metaSeries">Metadescription de la série (maximum 160 caractères)</label><br />
+            <textarea id="metaSeries" name="metaSeries" minlength="1" maxlength="160"><?php if(isset($_SESSION['tempMetaSeries'])){echo $_SESSION['tempMetaSeries'];}else{echo NULL;}?></textarea>
+            <?php if(isset($_SESSION['tempMetaSeries'])){unset($_SESSION['tempMetaSeries']);}?>
+        </p>
+        <p>
             <input type="submit" name="save" value="Valider">
         </p>
     </form>

@@ -46,11 +46,11 @@ ob_start();
 </section>
 <nav>
     <ul>
-        <li class="seriesTab" data-index="1">Ma bibliothèque de séries</li>
-        <li class="seriesTab" data-index="2">Mon studio de production</li>
+        <li class="elementTab" data-index="1">Ma bibliothèque de séries</li>
+        <li class="elementTab" data-index="2">Mon studio de production</li>
     </ul>
 </nav>
-<section class="seriesContent" data-tab="1">
+<section class="elementContent" data-tab="1">
 <?php
     if($getAllSubscriptionSeries !== NULL)
     {
@@ -79,7 +79,7 @@ ob_start();
     }
     ?>
 </section>
-<section class="seriesContent hidden" data-tab="2">
+<section class="elementContent hidden" data-tab="2">
     <p><a href="index.php?action=writeSeries">ECRIRE UNE NOUVELLE SERIE</a></p>
     <?php
     if($getAllSeriesMember !== NULL)

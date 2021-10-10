@@ -44,7 +44,7 @@ class SeriesController {
         require('./src/View/backend/writeSeriesView.php');
     }
     
-    public function writeSeriesPost($postauthorname, $postauthordescription, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag)
+    public function writeSeriesPost($postauthorname, $postauthordescription, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag, $postmeta)
     {
         $seriesManager = new SeriesManager();
         $membersManager = new MembersManager();
@@ -54,6 +54,7 @@ class SeriesController {
         $postseriessummary = htmlspecialchars($postseriessummary);
         $postseriesright = htmlspecialchars($postseriesright);
         $postseriestag = htmlspecialchars($postseriestag);
+        $postmeta = htmlspecialchars($postmeta);
         $pricing = "paying";
         $publishing = "inprogress";
         // Testons si le titre est bien unique pour l'utilisateur
@@ -99,6 +100,7 @@ class SeriesController {
                         $_SESSION['tempSummary'] = $postseriessummary;
                         $_SESSION['tempRights'] = $postseriesright;
                         $_SESSION['tempTags'] = $postseriestag;
+                        $_SESSION['tempMetaSeries'] = $postmeta;
                         $_SESSION['error'] = "Le fichier n'est pas une image";
                         header("Location: index.php?action=writeSeries");
                     }
@@ -110,6 +112,7 @@ class SeriesController {
                     $_SESSION['tempSummary'] = $postseriessummary;
                     $_SESSION['tempRights'] = $postseriesright;
                     $_SESSION['tempTags'] = $postseriestag;
+                    $_SESSION['tempMetaSeries'] = $postmeta;
                     $_SESSION['error'] = "Le fichier est trop volumineux";
                     header("Location: index.php?action=writeSeries");
                 }
@@ -117,7 +120,7 @@ class SeriesController {
                 $coverId = 1; // Affiche par défaut
             }
             // On enregistre la nouvelle série
-            $addNewSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, intval($_SESSION['idmember']), $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription);
+            $addNewSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, intval($_SESSION['idmember']), $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription, $postmeta);
             // On récupère l'id de la série à partir de son titre, de l'id de l'auteur et de l'id_cover
             $seriesId = $seriesManager->getSeriesId($_SESSION['idmember'], $postseriestitle);
             // Enregistrement des tags
@@ -151,6 +154,7 @@ class SeriesController {
             $_SESSION['tempSummary'] = $postseriessummary;
             $_SESSION['tempRights'] = $postseriesright;
             $_SESSION['tempTags'] = $postseriestag;
+            $_SESSION['tempMetaSeries'] = $postmeta;
             $_SESSION['error'] = "Vous avez déjà créé une série avec le même titre !";
             header("Location: index.php?action=writeSeries");
         }
@@ -179,7 +183,7 @@ class SeriesController {
         }
     }
 
-    public function updateSeriesPost($postauthorname, $postauthordescription, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag, $seriesId)
+    public function updateSeriesPost($postauthorname, $postauthordescription, $postseriestitle, $postseriessummary, $postseriesright, $postseriestag, $postmeta, $seriesId)
     {
         $seriesManager = new SeriesManager();
         $membersManager = new MembersManager();
@@ -190,6 +194,7 @@ class SeriesController {
         $postseriesright = htmlspecialchars($postseriesright);
         $postseriestag = htmlspecialchars($postseriestag);
         $seriesId = htmlspecialchars($seriesId);
+        $postmeta = htmlspecialchars($postmeta);
         $pricing = "paying";
         $publishing = "inprogress";
         // Testons si le titre est bien unique pour l'utilisateur
@@ -242,7 +247,7 @@ class SeriesController {
                         // On récupère l'id d'une cover sur la base de l'id_cover
                         $coverId = $seriesManager->getCoverId($imageId);
                         // On modifie la série
-                        $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription, $seriesId);
+                        $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription, $postmeta, $seriesId);
                         // On supprime l'ancienne image sur le serveur
                         $deleteImage = $membersManager->deleteImage($imageSeriesId);
                         // On récupère les id des tags d'une série
@@ -281,6 +286,7 @@ class SeriesController {
                         $_SESSION['tempSummary'] = $postseriessummary;
                         $_SESSION['tempRights'] = $postseriesright;
                         $_SESSION['tempTags'] = $postseriestag;
+                        $_SESSION['tempMetaSeries'] = $postmeta;
                         $_SESSION['error'] = "Le fichier n'est pas une image !";
                         header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
                     }
@@ -292,6 +298,7 @@ class SeriesController {
                     $_SESSION['tempSummary'] = $postseriessummary;
                     $_SESSION['tempRights'] = $postseriesright;
                     $_SESSION['tempTags'] = $postseriestag;
+                    $_SESSION['tempMetaSeries'] = $postmeta;
                     $_SESSION['error'] = "Le fichier est trop volumineux";
                     header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
                 }
@@ -300,7 +307,7 @@ class SeriesController {
             // On récupère l'id d'une cover sur la base de l'id_cover
             $seriesIdCover = $seriesManager->getSeriesIdCover($seriesId);
             // On modifie la série
-            $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $seriesIdCover, $postauthorname, $postauthordescription, $seriesId);
+            $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $seriesIdCover, $postauthorname, $postauthordescription, $postmeta, $seriesId);
             // On récupère les id des tags d'une série
             $tagIdSeries = $seriesManager->getIdTagSeries($seriesId);
             // On supprime les tags d'une série
@@ -339,6 +346,7 @@ class SeriesController {
             $_SESSION['tempSummary'] = $postseriessummary;
             $_SESSION['tempRights'] = $postseriesright;
             $_SESSION['tempTags'] = $postseriestag;
+            $_SESSION['tempMetaSeries'] = $postmeta;
             $_SESSION['error'] = "Vous avez déjà créé une série avec le même titre !";
             header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
         }

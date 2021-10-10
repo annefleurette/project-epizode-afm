@@ -1,7 +1,7 @@
 
 <?php
 $head_title = 'Epizode';
-$head_description = "Blabla";
+$head_description = "Lisez et écrivez, où et quand vous voulez, des séries originales pour tous les goûts ! Rejoignez vite la communauté Epizode !";
 ob_start();
 ?>
 <section id="slider">
