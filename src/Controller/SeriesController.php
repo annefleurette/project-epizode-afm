@@ -20,9 +20,9 @@ class SeriesController {
         $seriesLastThreeUsers = $seriesManager->getLastThreeSeriesUsers();
         // On en garde 6 composées de 3 éditeurs et 3 amateurs
         $seriesLastSix = array_merge($seriesLastThreePublishers, $seriesLastThreeUsers);
-        // On affiche les top 10 en termes de séries éditeurs & amateurs
-        $seriesTopTenPublishers = $seriesManager->topTenSeriesPublishers();
-        $seriesTopTenUsers = $seriesManager->topTenSeriesUsers();
+        // On affiche les top 5 en termes de séries éditeurs & amateurs
+        $seriesTopFivePublishers = $seriesManager->topFiveSeriesPublishers();
+        $seriesTopFiveUsers = $seriesManager->topFiveSeriesUsers();
         require('./src/View/frontend/displayHomepageView.php');
     }
 
@@ -222,11 +222,15 @@ class SeriesController {
                     {   
                         // On récupère l'URL de l'image déjà enregistrée pour la série
                         $imageSeriesUrl = $seriesManager->getImageSeriesUrl($seriesId);
-                        $imageSeriesUrlShort = substr($imageSeriesUrl, 2);
-                        $DirUrlShort = substr(__DIR__, 0, -14);
-                        $imageUrl = $DirUrlShort.$imageSeriesUrlShort;
-                        // On supprime l'image du dossier
-                        unlink($imageUrl);
+                        // On évite de supprimer l'image par défaut
+                        if($imageSeriesUrl != "./public/images/cover_default.png")
+                        {
+                            $imageSeriesUrlShort = substr($imageSeriesUrl, 2);
+                            $DirUrlShort = substr(__DIR__, 0, -14);
+                            $imageUrl = $DirUrlShort.$imageSeriesUrlShort;
+                            // On supprime l'image du dossier
+                            unlink($imageUrl);
+                        }
                         // On récupère l'id de l'image associée à la série
                         $imageSeriesId = $seriesManager->getImageSeriesId($seriesId);
                         // On peut valider le nouveau fichier et le stocker définitivement
@@ -249,8 +253,12 @@ class SeriesController {
                         $coverId = $seriesManager->getCoverId($imageId);
                         // On modifie la série
                         $updateSeries = $seriesManager->updateSeries($postseriestitle, $postseriessummary, $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription, $postmeta, $seriesId);
-                        // On supprime l'ancienne image sur le serveur
-                        $deleteImage = $membersManager->deleteImage($imageSeriesId);
+                        // On évite de supprimer l'image par défaut
+                        if($imageSeriesUrl != "./public/images/cover_default.png")
+                        {
+                            // On supprime l'ancienne image sur le serveur
+                            $deleteImage = $membersManager->deleteImage($imageSeriesId);
+                        }
                         // On récupère les id des tags d'une série
                         $tagIdSeries = $seriesManager->getIdTagSeries($seriesId);
                         // On supprime les tags d'une série
@@ -375,15 +383,19 @@ class SeriesController {
         $seriesId = htmlspecialchars($seriesId);
         // On récupère l'URL de l'image déjà enregistrée pour la série
         $imageSeriesUrl = $seriesManager->getImageSeriesUrl($seriesId);
-        $imageSeriesUrlShort = substr($imageSeriesUrl, 2);
-        $DirUrlShort = substr(__DIR__, 0, -14);
-        $imageUrl = $DirUrlShort.$imageSeriesUrlShort;
-        // On supprime l'image du dossier
-        unlink($imageUrl);
-        // On récupère l'id de l'image associée à la série
-        $imageSeriesId = $seriesManager->getImageSeriesId($seriesId);
-        // On supprime l'ancienne image sur le serveur
-        $deleteImage = $membersManager->deleteImage($imageSeriesId);
+        // On évite de supprimer l'image par défaut
+        if($imageSeriesUrl != "./public/images/cover_default.png")
+        {
+            $imageSeriesUrlShort = substr($imageSeriesUrl, 2);
+            $DirUrlShort = substr(__DIR__, 0, -14);
+            $imageUrl = $DirUrlShort.$imageSeriesUrlShort;
+            // On supprime l'image du dossier
+            unlink($imageUrl);
+            // On récupère l'id de l'image associée à la série
+            $imageSeriesId = $seriesManager->getImageSeriesId($seriesId);
+            // On supprime l'ancienne image sur le serveur
+            $deleteImage = $membersManager->deleteImage($imageSeriesId);
+        }
         // On supprime définitivement la série
         $deleteSeries = $seriesManager->deleteSeries($seriesId);
         header("Location: index.php?action=admin&tab=2"); 

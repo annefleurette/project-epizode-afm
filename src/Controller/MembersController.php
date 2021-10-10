@@ -502,17 +502,27 @@ class MembersController {
     {
         $membersManager = new MembersManager();
         $memberId = htmlspecialchars($memberId);
-		// On récupère l'URL de l'image déjà enregistrée pour le logo
-        $imageLogoUrl = $membersManager->getImageLogoUrl($memberId);
-        $imageLogoUrlShort = substr($imageLogoUrl, 2);
-        $DirUrlShort = substr(__DIR__, 0, -14);
-        $imageUrl = $DirUrlShort.$imageLogoUrlShort;
-        // On supprime l'image du dossier
-        unlink($imageUrl);
-        // On récupère l'id de l'image associée au logo
-        $imageLogoId = $membersManager->getImageLogoId($memberId);
-        // On supprime l'ancienne image sur le serveur
-        $deleteImage = $membersManager->deleteImage($imageLogoId);
+		// On récupère les informations du membre
+		$userData = $membersManager->getMemberData($memberId);
+		// Si le membre est un éditeur
+		if($userData['type'] == "publisher")
+		{
+			// On récupère l'URL de l'image déjà enregistrée pour le logo
+			$imageLogoUrl = $membersManager->getImageLogoUrl($memberId);
+			// On évite de supprimer l'image par défaut
+			if($imageLogoUrl != "./public/images/logo_default.png")
+			{
+				$imageLogoUrlShort = substr($imageLogoUrl, 2);
+				$DirUrlShort = substr(__DIR__, 0, -14);
+				$imageUrl = $DirUrlShort.$imageLogoUrlShort;
+				// On supprime l'image du dossier
+				unlink($imageUrl);
+				// On récupère l'id de l'image associée au logo
+				$imageLogoId = $membersManager->getImageLogoId($memberId);
+				// On supprime l'ancienne image sur le serveur
+				$deleteImage = $membersManager->deleteImage($imageLogoId);
+			}
+		}
         // On supprime définitivement le membre
         $deleteMember = $membersManager->deleteMember($memberId);
         header('Location: index.php?action=admin&tab=1');

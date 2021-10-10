@@ -47,19 +47,19 @@ ob_start();
                 ?>
             </ul>
         </div>
+        <div>
+            <div>
+                <span id="chevron_left" class="chevron"><i class="fas fa-chevron-left"></i></span> 
+                <span id="chevron_right" class="chevron"><i class="fas fa-chevron-right"></i></span>
+            </div>
+            <div class="player">
+                <span id="play"><i class="fas fa-play"></i></span>
+                <span id="pause"><i class="fas fa-pause"></i></span>
+            </div>
+        </div>      
     <?php
     }
     ?>
-    <div>
-        <div>
-            <span id="chevron_left" class="chevron"><i class="fas fa-chevron-left"></i></span> 
-            <span id="chevron_right" class="chevron"><i class="fas fa-chevron-right"></i></span>
-        </div>
-        <div class="player">
-            <span id="play"><i class="fas fa-play"></i></span>
-            <span id="pause"><i class="fas fa-pause"></i></span>
-        </div>
-    </div>
 </section>
 <section> <!-- Section de présentation du concept Epizode -->
 <h2>Plongez dans un monde de séries</h2>
@@ -70,16 +70,16 @@ ob_start();
     <h2>Top 10 des séries éditeurs</h2>
     <ul>
     <?php
-        foreach ($seriesTopTenPublishers as $seriesTopTen)
+        foreach ($seriesTopFivePublishers as $seriesTopFive)
         {
         ?>
             <li>
                 <article>
-                    <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopTen['id']; ?>"><?php echo $seriesTopTen['title']; ?></a></p>
-                    <p><img src="<?php echo $seriesTopTen['logo']; ?>" alt="<?php echo $seriesTopTen['alt']; ?>" /></p>
-                    <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopTen['idmember']; ?>"><?php echo $seriesTopTen['publisher']; ?></a></p>
-                    <p><?php echo $seriesTopTen['author']; ?></p>
-                    <p><?php echo $seriesTopTen['numberSubscribers']; ?> abonné(s)</p>
+                    <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
+                    <p><img src="<?php echo $seriesTopFive['logo']; ?>" alt="<?php echo $seriesTopFive['alt']; ?>" /></p>
+                    <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['publisher']; ?></a></p>
+                    <p><?php echo $seriesTopFive['author']; ?></p>
+                    <p><?php echo $seriesTopFive['numberSubscribers']; ?> abonné(s)</p>
                 </article>
             </li>
         <?php
@@ -90,15 +90,15 @@ ob_start();
     <h2>Top 10 des séries talents</h2>
     <ul>
     <?php
-        foreach ($seriesTopTenUsers as $seriesTopTen)
+        foreach ($seriesTopFiveUsers as $seriesTopFive)
         {
         ?>
             <li>
                 <article>
-                    <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopTen['id']; ?>"><?php echo $seriesTopTen['title']; ?></a></p>
-                    <p><img src="<?php echo $seriesTopTen['avatar']; ?>" alt="<?php echo $seriesTopTen['alt']; ?>" /></p>
-                    <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopTen['idmember']; ?>"><?php echo $seriesTopTen['author']; ?></a></p>
-                    <p><?php echo $seriesTopTen['numberSubscribers']; ?> abonné(s)</p>
+                    <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
+                    <p><img src="<?php echo $seriesTopFive['avatar']; ?>" alt="<?php echo $seriesTopFive['alt']; ?>" /></p>
+                    <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['author']; ?></a></p>
+                    <p><?php echo $seriesTopFive['numberSubscribers']; ?> abonné(s)</p>
                 </article>
             </li>
         <?php

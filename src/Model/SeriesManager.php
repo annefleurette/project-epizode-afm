@@ -50,23 +50,23 @@ class SeriesManager extends Manager
 	    $req->closeCursor();
 	    return $seriesLastThreePublishers;
     }
-    // On récupère le top 10 des séries amateurs publiées avec le plus d'abonnés
-    public function topTenSeriesUsers()
+    // On récupère le top 5 des séries amateurs publiées avec le plus d'abonnés
+    public function topFiveSeriesUsers()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT s.id AS "id", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", ia.alt AS "alt", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", m.id AS "idmember" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE m.type = "user" AND s.publishing_status = "published" GROUP BY s.id ORDER BY numberSubscribers DESC LIMIT 10');
-	    $seriesTopTenUsers = $req->fetchAll();
+		$req = $db->query('SELECT s.id AS "id", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", ia.alt AS "alt", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", m.id AS "idmember" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE m.type = "user" AND s.publishing_status = "published" GROUP BY s.id ORDER BY numberSubscribers DESC LIMIT 5');
+	    $seriesTopFiveUsers = $req->fetchAll();
 	    $req->closeCursor();
-	    return $seriesTopTenUsers;
+	    return $seriesTopFiveUsers;
     }
-    // On récupère le top 10 des séries éditeurs publiées avec le plus d'abonnés
-    public function topTenSeriesPublishers()
+    // On récupère le top 5 des séries éditeurs publiées avec le plus d'abonnés
+    public function topFiveSeriesPublishers()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT s.id AS "id", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", il.alt AS "alt", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", m.id AS "idmember" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE m.type = "publisher" AND s.publishing_status = "published" GROUP BY s.id ORDER BY numberSubscribers DESC LIMIT 10');
-	    $seriesTopTenPublishers = $req->fetchAll();
+		$req = $db->query('SELECT s.id AS "id", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", il.alt AS "alt", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", m.id AS "idmember" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE m.type = "publisher" AND s.publishing_status = "published" GROUP BY s.id ORDER BY numberSubscribers DESC LIMIT 5');
+	    $seriesTopFivePublishers = $req->fetchAll();
 	    $req->closeCursor();
-	    return $seriesTopTenPublishers;
+	    return $seriesTopFivePublishers;
 	}
 	// On récupère toutes les séries publiées qui possèdent des tags définis (recommandation)
 	public function getCommonTagsSeries($tags)
