@@ -476,9 +476,9 @@ class MembersController {
 		$membersManager = new MembersManager();
 		$getidmember = htmlspecialchars($getidmember);
 		// On récupère les informations du membre
-		$userData = $membersManager->getMemberData($getidmember);
+		$userPublicData = $membersManager->getMemberPublicData($getidmember);
 		// On récupère toutes les séries écrites par un membre
-		$getAllSeriesMember = $membersManager->getAllSeriesMember($getidmember);
+		$getAllPublicSeriesMember = $membersManager->getAllPublicSeriesMember($getidmember);
 		// On récupère toutes les séries auxquelles un membre est abonné
 		$getAllSubscriptionSeries = $membersManager->getAllSubscriptionSeries($getidmember);
 		// On récupère la liste des auteurs d'un éditeur

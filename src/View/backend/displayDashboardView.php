@@ -17,7 +17,7 @@ ob_start();
         <p>Bonjour <?php echo $userData['pseudo']; ?>, content de vous revoir !</p>
         <p><?php echo $userData['description']; ?></p>
         <p><?php echo $userData['numberSubscriptions']; ?> abonnement(s)</p>
-        <p><?php echo $userData['numberWritings']; ?> série(s) publiées dans mon studio de production</p>
+        <p><?php echo $userData['numberWritings']; ?> série(s) publiées ou en cours</p>
         <p>
         Membre depuis le 
         <?php
@@ -38,7 +38,7 @@ ob_start();
         <p><?php echo $userData['description']; ?></p>
         <p><?php echo $userData['numberSubscriptions']; ?> abonnement(s)</p>
         <p><?php echo $userData['numberAuthors']; ?> auteur(s)</p>
-        <p><?php echo $userData['numberWritings']; ?> série(s)</p>
+        <p><?php echo $userData['numberWritings']; ?> série(s) publiées ou en cours</p>
         <p>Date d'inscription : <?php echo $userData['subscriptionDate']; ?></p>
     <?php
     }
@@ -90,7 +90,7 @@ ob_start();
             foreach ($getAllSeriesMember as $seriesMember)
             {
 
-                if($seriesMember['publishing'] != "deleted")
+                if($seriesMember['publishing'] != "deleted" AND $seriesMember['publishing'] != "banned")
                 {
                 ?>
                     <li>

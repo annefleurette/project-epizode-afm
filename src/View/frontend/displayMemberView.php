@@ -5,16 +5,16 @@ ob_start();
 ?>
 <section>
 <?php
-    if($userData['type'] == "user")
+    if($userPublicData['type'] == "user")
     {
     ?>
-        <p><img src="<?php echo $userData['avatar']; ?>" alt="<?php echo $userData['altavatar']; ?>"/></p>
-        <p><?php echo $userData['pseudo']; ?></p>
+        <p><img src="<?php echo $userPublicData['avatar']; ?>" alt="<?php echo $userPublicData['altavatar']; ?>"/></p>
+        <p><?php echo $userPublicData['pseudo']; ?></p>
         <?php
-        if(isset($userData['description']))
+        if(isset($userPublicData['description']))
         {
         ?>
-            <p><?php echo $userData['description']; ?></p>
+            <p><?php echo $userPublicData['description']; ?></p>
         <?php
         }else{
         ?>
@@ -22,16 +22,16 @@ ob_start();
         <?php    
         }
         ?>
-        <p><?php echo $userData['numberSubscriptions']; ?> abonnements</p>
-        <p><?php echo $userData['numberWritings']; ?> séries</p>
+        <p><?php echo $userPublicData['numberSubscriptions']; ?> abonnements</p>
+        <p><?php echo $userPublicData['numberWritings']; ?> séries publiées</p>
     <?php
-    }elseif($userData['type'] == "publisher"){
+    }elseif($userPublicData['type'] == "publisher"){
     ?>
-        <p><img src="<?php echo $userData['logo']; ?>" alt="<?php echo $userData['altlogo']; ?>"/></p>
-        <p><?php echo $userData['pseudo']; ?></p>
-        <p><?php echo $userData['description']; ?></p>
-        <p><?php echo $userData['numberAuthors']; ?> auteurs</p>
-        <p><?php echo $userData['numberWritings']; ?> séries</p>
+        <p><img src="<?php echo $userPublicData['logo']; ?>" alt="<?php echo $userPublicData['altlogo']; ?>"/></p>
+        <p><?php echo $userPublicData['pseudo']; ?></p>
+        <p><?php echo $userPublicData['description']; ?></p>
+        <p><?php echo $userPublicData['numberAuthors']; ?> auteurs</p>
+        <p><?php echo $userPublicData['numberWritings']; ?> séries publiées</p>
     <?php
     }
     ?>
@@ -40,12 +40,12 @@ ob_start();
     <ul>
         <li class="seriesTab" data-index="1">Ses séries</li>
         <?php
-        if($userData['type'] == "user")
+        if($userPublicData['type'] == "user")
         {
         ?>
         	<li class="seriesTab" data-index="2">Ses lectures</li>
         <?php
-        }elseif($userData['type'] == "publisher"){
+        }elseif($userPublicData['type'] == "publisher"){
         ?>
        		<li class="seriesTab" data-index="2">Ses auteurs</li>
        	<?php
@@ -56,14 +56,14 @@ ob_start();
 <!-- On affiche les séries écrites par le membre -->
 <section class="seriesContent" data-tab="1">
 <?php
-    if($getAllSeriesMember != NULL)
+    if($getAllPublicSeriesMember != NULL)
     {
     ?>    
         <ul>
             <?php
-            foreach ($getAllSeriesMember as $allSeriesMember)
+            foreach ($getAllPublicSeriesMember as $allSeriesMember)
             {
-                if($allSeriesMember['publishing'] = "published")
+                if($allSeriesMember['publishing'] == "published")
                 {
                 ?>
                     <li>
@@ -73,20 +73,12 @@ ob_start();
                             <p><?php echo $allSeriesMember['numberEpisodes']; ?> épisode(s)</p>
                             <p><?php echo $allSeriesMember['numberSubscribers']; ?> abonné(s)</p>
                             <p><?php echo $allSeriesMember['tags']; ?></p>
-                            <p><?php echo $allSeriesMember['publishing']; ?></p>
                             <?php
                             if($allSeriesMember['type'] === "publisher")
                             {
                             ?>
                                 <p><?php echo $allSeriesMember['pricing']; ?></p>
-                                <p><img src="<?php echo $allSeriesMember['logo']; ?>" alt="<?php echo $allSeriesMember['altlogo']; ?>"/></p>
-                                <p><?php echo $allSeriesMember['publisher']; ?></p>
                                 <p><?php echo $allSeriesMember['author_publisher']; ?></p>
-                            <?php
-                            }else{
-                            ?>  
-                                <p><img src="<?php echo $allSeriesMember['avatar']; ?>" alt="<?php echo $allSeriesMember['altavatar']; ?>"/></p>  
-                                <p><?php echo $allSeriesMember['member']; ?></p>
                             <?php
                             }
                             ?>
@@ -107,7 +99,7 @@ ob_start();
     ?>
 </section>
 <?php
-if($userData['type'] == "user")
+if($userPublicData['type'] == "user")
 {
 ?>
     <!-- On affiche les séries auxquelles le membre est abonné -->
@@ -164,7 +156,7 @@ if($userData['type'] == "user")
         ?>
 	</section>
 <?php
-}elseif($userData['type'] == "publisher"){
+}elseif($userPublicData['type'] == "publisher"){
 ?>
     <!-- On affiche la liste des auteurs de l'éditeur -->
 	<section class="seriesContent" hidden data-tab="2">
