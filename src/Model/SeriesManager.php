@@ -54,7 +54,7 @@ class SeriesManager extends Manager
     public function topFiveSeriesUsers()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT s.id AS "id", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", ia.alt AS "alt", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", m.id AS "idmember" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE m.type = "user" AND s.publishing_status = "published" GROUP BY s.id ORDER BY numberSubscribers DESC LIMIT 5');
+		$req = $db->query('SELECT s.id AS "id", ic.url AS "cover", ic.alt AS "altcover", s.title AS "title", m.pseudo AS "author", ia.url AS "avatar", ia.alt AS "alt", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", m.id AS "idmember" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "user" AND s.publishing_status = "published" GROUP BY s.id ORDER BY numberSubscribers DESC LIMIT 5');
 	    $seriesTopFiveUsers = $req->fetchAll();
 	    $req->closeCursor();
 	    return $seriesTopFiveUsers;
@@ -63,7 +63,7 @@ class SeriesManager extends Manager
     public function topFiveSeriesPublishers()
 	{
 		$db = $this->dbConnect();
-		$req = $db->query('SELECT s.id AS "id", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", il.alt AS "alt", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", m.id AS "idmember" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id WHERE m.type = "publisher" AND s.publishing_status = "published" GROUP BY s.id ORDER BY numberSubscribers DESC LIMIT 5');
+		$req = $db->query('SELECT s.id AS "id", ic.url AS "cover", ic.alt AS "altcover", s.title AS "title", l.name AS "publisher", s.publisher_author AS "author", il.url AS "logo", il.alt AS "alt", COUNT(DISTINCT sub.id_member) AS "numberSubscribers", m.id AS "idmember" FROM members m LEFT JOIN series s ON s.id_member = m.id LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo LEFT JOIN series_has_members_subscription sub ON sub.id_series = s.id INNER JOIN covers c ON c.id = s.id_cover INNER JOIN images ic ON ic.id = c.id_cover WHERE m.type = "publisher" AND s.publishing_status = "published" GROUP BY s.id ORDER BY numberSubscribers DESC LIMIT 5');
 	    $seriesTopFivePublishers = $req->fetchAll();
 	    $req->closeCursor();
 	    return $seriesTopFivePublishers;

@@ -23,8 +23,8 @@ ob_start();
         <?php    
         }
         ?>
-        <p><?php echo $userPublicData['numberSubscriptions']; ?> abonnements</p>
-        <p><?php echo $userPublicData['numberWritings']; ?> séries publiées</p>
+        <p><?php echo $userPublicData['numberSubscriptions']; ?> abonnement(s)</p>
+        <p><?php echo $userPublicData['numberWritings']; ?> série(s) publiée(s)</p>
     <?php
     // Si le membre est un éditeur
     }elseif($userPublicData['type'] == "publisher"){
@@ -96,7 +96,7 @@ ob_start();
     // Si aucune série encore écrite
     }else{
     ?>
-        <p>Il n'y a pas encore de série publiée</p>
+        <p>Il n'y a pas encore de série publiée !</p>
     <?php
     }
     ?>
@@ -154,7 +154,7 @@ if($userPublicData['type'] == "user")
         // Si le membre n'est pas encore abonné à une série
         }else{
         ?>
-            <p>Il n'y a pas encore de série publiée</p>
+            <p><?php echo $userPublicData['pseudo']; ?> n'est pas encore abonné(e) à une série !</p>
         <?php
         }
         ?>
@@ -188,7 +188,7 @@ if($userPublicData['type'] == "user")
             // Si l'éditeur n'a pas encore d'auteur
             }else{
             ?>
-                <p>Cet éditeur n'a pas encore d'auteur</p>
+                <p>Cet éditeur n'a pas encore d'auteur !</p>
             <?php
             }
             ?>

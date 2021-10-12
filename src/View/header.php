@@ -22,6 +22,7 @@
             }else{
             ?>
                 <!-- <li><a href="#">Découvrir</a></li> Page de présentation du concept -->
+                <li><a href="index.php?action=subscription">Inscription</a></li>
                 <li><a href="index.php?action=login">Connexion</a></li>
             <?php
             }

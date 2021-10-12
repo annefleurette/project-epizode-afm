@@ -7,7 +7,7 @@ ob_start();
 <section id="slider"> <!-- Carrousel des six dernières séries publiées sur Epizode (3 éditeurs, 3 amateurs) -->
 <?php
     // S'il y a bien au moins une série publiée
-    if($seriesLastSix !== NULL)
+    if(!empty($seriesLastSix))
     {
     ?>
         <div id="slider-images">
@@ -68,6 +68,9 @@ ob_start();
 </section>
 <section> <!-- Section qui comporte le top 10 des séries éditeurs -->
     <h2>Top 5 des séries éditeurs</h2>
+    <?php if(!empty($seriesTopFivePublishers))
+    {
+    ?>
     <ul>
     <?php
         foreach ($seriesTopFivePublishers as $seriesTopFive)
@@ -85,9 +88,20 @@ ob_start();
         <?php
         }
         ?>
+    </ul>
+    <?php
+    }else{
+    ?>
+    <p>Pas encore de série publiée</p>
+    <?php
+    }
+    ?>
 </section>
 <section> <!-- Section qui comporte le top 10 des séries amateurs -->
     <h2>Top 5 des séries talents</h2>
+    <?php if(!empty($seriesTopFiveUsers))
+    {
+    ?>
     <ul>
     <?php
         foreach ($seriesTopFiveUsers as $seriesTopFive)
@@ -95,6 +109,7 @@ ob_start();
         ?>
             <li>
                 <article>
+                    <p><img src="<?php echo $seriesTopFive['cover']; ?>" alt="<?php echo $seriesTopFive['altcover']; ?>" /></p>
                     <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
                     <p><img src="<?php echo $seriesTopFive['avatar']; ?>" alt="<?php echo $seriesTopFive['alt']; ?>" /></p>
                     <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['author']; ?></a></p>
@@ -104,6 +119,14 @@ ob_start();
         <?php
         }
         ?>
+    </ul>
+    <?php
+    }else{
+    ?>
+    <p>Pas encore de série publiée</p>
+    <?php
+    }
+    ?>
 </section>
 <script type="text/javascript" src="./public/js/objects/slider.js"></script>
 <script type="text/javascript" src="./public/js/carousel.js"></script>

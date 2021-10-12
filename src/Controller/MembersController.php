@@ -489,13 +489,18 @@ class MembersController {
 		$getidmember = htmlspecialchars($getidmember);
 		// On récupère les informations du membre
 		$userPublicData = $membersManager->getMemberPublicData($getidmember);
-		// On récupère toutes les séries écrites par un membre
-		$getAllPublicSeriesMember = $membersManager->getAllPublicSeriesMember($getidmember);
-		// On récupère toutes les séries auxquelles un membre est abonné
-		$getAllSubscriptionSeries = $membersManager->getAllSubscriptionSeries($getidmember);
-		// On récupère la liste des auteurs d'un éditeur
-		$authorsList = $membersManager->getAuthorsList($getidmember);
-		require('./src/View/frontend/displayMemberView.php');
+		if($userPublicData['id'] != NULL AND $userPublicData['type'] != "admin")
+		{
+			// On récupère toutes les séries écrites par un membre
+			$getAllPublicSeriesMember = $membersManager->getAllPublicSeriesMember($getidmember);
+			// On récupère toutes les séries auxquelles un membre est abonné
+			$getAllSubscriptionSeries = $membersManager->getAllSubscriptionSeries($getidmember);
+			// On récupère la liste des auteurs d'un éditeur
+			$authorsList = $membersManager->getAuthorsList($getidmember);
+			require('./src/View/frontend/displayMemberView.php');
+		}else{
+			require('./src/View/404error.php');
+		}
 	}
 
 	public function deleteMember($memberId)

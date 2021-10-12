@@ -29,6 +29,7 @@ ob_start();
     <p><?php echo $oneSeriesPublicData['tags']; ?></p>
     <p><?php echo $oneSeriesPublicData['pricing']; ?></p>
     <p><?php echo $oneSeriesPublicData['rights']; ?></p>
+    <p><?php echo $oneSeriesPublicData['summary']; ?></p>
     <!-- Gestion des ajouts à la bibliothèque -->
     <?php
     // On ne peut ajouter à la bibliothèque que si on est connecté
@@ -76,7 +77,7 @@ ob_start();
         // Si la série n'a pas encore d'épisode
         }else{
         ?>
-            <p>La série n'a pas encore d'épisode</p>
+            <p>La série n'a pas encore d'épisode !</p>
         <?php
         }
         ?> 

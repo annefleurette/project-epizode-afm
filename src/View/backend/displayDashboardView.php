@@ -30,7 +30,7 @@ ob_start();
     // Si le membre est un éditeur
     }elseif($_SESSION['level'] == 20)
     {
-        if(isset($userData['avatar']))
+        if(isset($userData['logo']))
         {
         ?>
             <p><img src="<?php echo $userData['logo']; ?>" alt="<?php echo $userData['altlogo']; ?>"/></p>
@@ -56,7 +56,7 @@ ob_start();
 <section class="elementContent" data-tab="1"> <!-- Section bibliothèque de séries -->
 <?php
     // Si le membre a ajouté au moins une série à sa bibliothèque
-    if($getAllSubscriptionSeries !== NULL)
+    if(!empty($getAllSubscriptionSeries))
     {
     ?>
         <ul>
@@ -79,7 +79,7 @@ ob_start();
     // Si le membre n'a pas ajouté de série à sa bibliothèque
     }else{
     ?>
-        <p><?php echo $userData['pseudo']; ?> n'a pas encore ajouté de série à sa bibliothèque !</p>
+        <p><?php echo $userData['pseudo']; ?>, vous n'avez pas encore ajouté de série à votre bibliothèque !</p>
     <?php
     }
     ?>
@@ -88,7 +88,7 @@ ob_start();
     <p><a href="index.php?action=writeSeries">ECRIRE UNE NOUVELLE SERIE</a></p>
     <?php
     // Si le membre a au moins déjà écrit une série
-    if($getAllSeriesMember !== NULL)
+    if(!empty($getAllSeriesMember))
     {
     ?>
         <ul>
@@ -120,7 +120,7 @@ ob_start();
     // Si le membre n'a pas encore écrit de série
     }else{
     ?>
-        <p><?php echo $userData['pseudo']; ?> n'a pas encore écrit de série</p>
+        <p><?php echo $userData['pseudo']; ?>, vous n'avez pas encore écrit de série !</p>
     <?php
     }
     ?>
