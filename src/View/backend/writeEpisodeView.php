@@ -35,12 +35,12 @@ ob_start();
         ?>
             <p>
                 <label for="priceEpisode">Prix de l'épisode</label><br />
-                <input type="number" id="priceEpisode" name="priceEpisode" min="0" step=".01" required value="<?php if(isset($_SESSION['tempPrice'])){echo $_SESSION['tempPrice'];}else{echo "0";}?>"> euro(s)
+                <input type="number" id="priceEpisode" name="priceEpisode" min="0" step=".01" required value="<?php if(isset($_SESSION['tempPrice'])){echo $_SESSION['tempPrice'];}else{echo "0";}?>"> coin(s)
                 <?php if(isset($_SESSION['tempPrice'])){unset($_SESSION['tempPrice']);}?>
             </p>
             <p>
                 <label for="promotionEpisode">Promotion</label><br />
-                Retirer <input type="number" id="promotionEpisode" name="promotionEpisode" min="0" step=".01" value="<?php if(isset($_SESSION['tempPromotion'])){echo $_SESSION['tempPromotion'];}else{echo "0";}?>"> euro(s)
+                Retirer <input type="number" id="promotionEpisode" name="promotionEpisode" min="0" step=".01" value="<?php if(isset($_SESSION['tempPromotion'])){echo $_SESSION['tempPromotion'];}else{echo "0";}?>"> coin(s)
                 <?php if(isset($_SESSION['tempPromotion'])){unset($_SESSION['tempPromotion']);}?>
             </p>
         <?php

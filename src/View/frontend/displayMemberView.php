@@ -66,6 +66,7 @@ ob_start();
             <?php
             foreach ($getAllPublicSeriesMember as $allSeriesMember)
             {
+                // Si la série est bien publiée
                 if($allSeriesMember['publishing'] == "published")
                 {
                 ?>
@@ -80,7 +81,7 @@ ob_start();
                             if($allSeriesMember['type'] === "publisher")
                             {
                             ?>
-                                <p><?php echo $allSeriesMember['pricing']; ?></p>
+                                <p><p><i class="fas fa-coins"></i></p></p>
                                 <p><?php echo $allSeriesMember['author_publisher']; ?></p>
                             <?php
                             }
@@ -116,6 +117,7 @@ if($userPublicData['type'] == "user")
                 <?php
                 foreach ($getAllSubscriptionSeries as $allSubscriptionSeries)
                 {
+                    // Si la série est bien publiée
                     if($allSubscriptionSeries['publishing'] == "published")
                     {
                     ?>
@@ -128,16 +130,19 @@ if($userPublicData['type'] == "user")
                                 <p><?php echo $allSubscriptionSeries['tags']; ?></p>
                                 <p><?php echo $allSubscriptionSeries['publishing']; ?></p>
                                 <?php
+                                // Si la série est écrite par un éditeur
                                 if($allSubscriptionSeries['type'] === "publisher")
                                 {
                                 ?>
-                                    <p><?php echo $allSubscriptionSeries['pricing']; ?></p>
+                                    <p><i class="fas fa-coins"></i></p>
                                     <p><img src="<?php echo $allSubscriptionSeries['logo']; ?>" alt="<?php echo $allSubscriptionSeries['altlogo']; ?>"/></p>
                                     <p><a href="index.php?action=displayMember&idmember=<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['publisher']; ?></a></p>
                                     <p><?php echo $allSubscriptionSeries['author_publisher']; ?></p>
                                 <?php
+                                // Si la série est écrite par un autre utilisateur
                                 }else{
-                                ?>  
+                                ?>
+                                    <p>Série gratuite</p>
                                     <p><img src="<?php echo $allSubscriptionSeries['avatar']; ?>" alt="<?php echo $allSubscriptionSeries['altavatar']; ?>"/></p>  
                                     <p><a href="index.php?action=displayMember&idmember=<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['member']; ?></a></p>
                                 <?php

@@ -102,6 +102,7 @@ ob_start();
                     <li>
                         <article>
                             <p><img src="<?php echo $seriesMember['cover']; ?>" alt="<?php echo $seriesMember['altcover']; ?>"/></p>
+                            <p><?php echo $seriesMember['title']; ?></p>
                             <p><?php echo $seriesMember['numberEpisodes']; ?> épisode(s)</p>
                             <p><?php echo $seriesMember['numberSubscribers']; ?> abonné(s)</p>
                             <p><?php echo $seriesMember['publishing']; ?></p>

@@ -27,8 +27,62 @@ ob_start();
     <p><?php echo $oneSeriesPublicData['numberEpisodes']; ?> épisode(s)</p>
     <p><span id="nbSubscriptions"><?php echo $seriesSubscription[0]; ?></span> abonné(s)</p>
     <p><?php echo $oneSeriesPublicData['tags']; ?></p>
-    <p><?php echo $oneSeriesPublicData['pricing']; ?></p>
-    <p><?php echo $oneSeriesPublicData['rights']; ?></p>
+    <?php
+    // Si la série est payante
+    if($oneSeriesPublicData['pricing'] == "paying")
+    {
+    ?>
+        <p><i class="fas fa-coins"></i></p>
+    <?php
+    // Si la série est gratuite
+    }else{
+    ?>
+        <p>Série gratuite</p>
+    <?php
+    }
+    ?>
+    <!-- Affihage des droits -->
+    <?php if($oneSeriesPublicData['rights'] === "public") {
+    ?>
+        <p>Domaine public</p>
+    <?php 
+    }elseif($oneSeriesPublicData['rights'] === "CC")
+    {
+    ?>
+        <p><i class="fab fa-creative-commons"></i></p>
+    <?php 
+    }elseif($oneSeriesPublicData['rights'] === "CC1")
+    {
+    ?>
+        <p><i class="fab fa-creative-commons"></i> Pas de modification</p>
+    <?php 
+    }elseif($oneSeriesPublicData['rights'] === "CC2")
+    {
+    ?>
+        <p><i class="fab fa-creative-commons"></i> Pas d'utilisation commerciale - Pas de modification</p>
+    <?php 
+    }elseif($oneSeriesPublicData['rights'] === "CC3")
+    {
+    ?>
+        <p><i class="fab fa-creative-commons"></i> Pas d'utilisation commerciale</p>
+    <?php 
+    }elseif($oneSeriesPublicData['rights'] === "CC4")
+    {
+    ?>
+        <p><i class="fab fa-creative-commons"></i> Pas d'utilisation commerciale - Partage dans les mêmes conditions</p>
+    <?php
+    }elseif($oneSeriesPublicData['rights'] === "CC5")
+    {
+    ?>
+        <p><i class="fab fa-creative-commons"></i> Partage dans les mêmes conditions</p>
+    <?php
+    }elseif($oneSeriesPublicData['rights'] === "reserved")
+    {
+    ?>
+        <p>Droits réservés</p>
+    <?php
+    }
+    ?>
     <p><?php echo $oneSeriesPublicData['summary']; ?></p>
     <!-- Gestion des ajouts à la bibliothèque -->
     <?php
@@ -64,8 +118,19 @@ ob_start();
                         <article>
                             <p>Episode n°<?php echo $allEpisodesPublished['number']; ?></p>
                             <p><?php echo $allEpisodesPublished['title']; ?></p>
-                            <p><?php echo $allEpisodesPublished['price']; ?> euros</p>
-                            <p><?php echo $allEpisodesPublished['likesNumber']; ?> likes</p>
+                            <?php
+                            if($allEpisodesPublished['price'] != 0)
+                            {
+                            ?>
+                                <p><i class="fas fa-coins"></i><?php echo $allEpisodesPublished['price']; ?></p>
+                            <?php
+                            }else{
+                            ?>
+                                <p>Episode gratuit</p>
+                            <?php
+                            }
+                            ?>
+                            <p><i class="fas fa-heart"></i><?php echo $allEpisodesPublished['likesNumber']; ?></p>
                             <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>&idepisode=<?php echo $allEpisodesPublished['id']; ?>">LIRE</a></p>
                         </article>
                     </li>
@@ -84,6 +149,11 @@ ob_start();
 </section>
 <section> <!-- Section qui présente des séries similaires en termes de tags -->
     <h2>Recommandations <?php echo $oneSeriesPublicData['tags']; ?></h2>
+    <?php
+    echo '<pre>';
+    var_dump($allTagsSeries);
+    echo '<pre>';
+    ?>
     <ul>
         <?php
         for ($i = 0; $i < $nbtags; $i++)
@@ -102,13 +172,26 @@ ob_start();
                             <p><?php echo $allTagsSeries[$i][$j]['numberEpisodes']; ?> épisode(s)</p>
                             <p><?php echo $allTagsSeries[$i][$j]['numberSubscribers']; ?> abonné(s)</p>
                             <p><?php echo $allTagsSeries[$i][$j]['tags']; ?></p>
-                            <p><?php echo $allTagsSeries[$i][$j]['pricing']; ?></p>
+                            <?php
+                            // Si la série est payante
+                            if($allTagsSeries[$i][$j]['pricing'] == "paying")
+                            {
+                            ?>
+                                <p><i class="fas fa-coins"></i></p>
+                            <?php
+                            // Si la série est gratuite
+                            }else{
+                            ?>
+                                <p>Série gratuite</p>
+                            <?php
+                            }
+                            ?>
                         </article>
                     </li>
                 <?php
                 }
             }
-        }    
+        }   
         ?>
     </ul>
 </section>

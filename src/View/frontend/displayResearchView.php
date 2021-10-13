@@ -38,7 +38,7 @@ ob_start();
                         if($seriesResults['type'] === "publisher")
                         {
                         ?>
-                            <p><?php echo $seriesResults['pricing']; ?></p>
+                            <p><p><i class="fas fa-coins"></i></p></p>
                             <p><img src="<?php echo $seriesResults['logo']; ?>" alt="<?php echo $seriesResults['altlogo']; ?>"/></p>
                             <p><?php echo highlightKeyword($postkeyword, $seriesResults['publisher']); ?></p>
                             <p><?php echo highlightKeyword($postkeyword, $seriesResults['member']); ?></p>
@@ -139,7 +139,7 @@ ob_start();
                         if($episodesResults['type'] === "publisher")
                         {
                         ?>
-                            <p><?php echo $episodesResults['pricing']; ?></p>
+                            <p><p><i class="fas fa-coins"></i></p></p>
                             <p><img src="<?php echo $episodesResults['logo']; ?>" alt="<?php echo $seriesResults['altlogo']; ?>"/></p>
                             <p><?php echo highlightKeyword($postkeyword, $episodesResults['publisher']); ?></p>
                             <p><?php echo highlightKeyword($postkeyword, $episodesResults['member']); ?></p>

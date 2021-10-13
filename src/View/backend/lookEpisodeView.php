@@ -28,7 +28,7 @@ ob_start();
         }
         ?>
         <p><?php echo $oneEpisodesUser['title']; ?></p>
-        <p><?php echo $oneEpisodesUser['likesNumber']; ?> like(s)</p>
+        <p><i class="fas fa-heart"></i><?php echo $oneEpisodesUser['likesNumber']; ?></p>
         <p><?php echo $oneEpisodesUser['numberComments']; ?> commentaire(s)</p>
         <p><?php echo $oneEpisodesUser['timeReading']; ?> minute(s)</p>
     </section>

@@ -145,8 +145,8 @@ ob_start();
                             <?php
                             }
                             ?>
-                            <p><?php echo $episodedata['likesNumber']; ?> like(s)</p>
-                            <p><?php echo $episodedata['price']; ?> euro(s)</p>
+                            <p><i class="fas fa-heart"></i><?php echo $episodedata['likesNumber']; ?></p>
+                            <p><i class="fas fa-coins"></i><?php echo $episodedata['price']; ?></p>
                             <p><a href ="index.php?action=lookEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">APERCU</a></p>
                             <p><a href ="index.php?action=updateEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">MODIFIER</a></p>
                             <?php if((($episodedata['number'] == $nbepisodes) AND ($episodedata['publishing'] === "published")) OR ($episodedata['publishing'] === "inprogress"))

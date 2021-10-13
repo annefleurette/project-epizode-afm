@@ -24,10 +24,21 @@ ob_start();
         }
         ?>
         <p><?php echo $episode_unitary_published['title']; ?></p>
-        <p><span id="nbLikes"><?php echo $episodeLikes[0]; ?></span> like(s)</p>
+        <p><span id="nbLikes"><i class="fas fa-heart"></i><?php echo $episodeLikes[0]; ?></span></p>
         <p><?php echo $episode_unitary_published['numberComments']; ?> commentaire(s)</p>
         <p><?php echo $episode_unitary_published['timeReading']; ?> minute(s)</p>
-        <p><?php echo $episode_unitary_published['price']; ?> euro(s)</p>
+        <?php
+        if($episode_unitary_published['price'] != 0)
+        {
+        ?>
+            <p><i class="fas fa-coins"></i><?php echo $episode_unitary_published['price']; ?></p>
+        <?php
+        }else{
+        ?>
+            <p>Episode gratuit</p>
+        <?php
+        }
+        ?>
         <!-- Gestion des likes -->
         <?php
         // Si le membre est connecté

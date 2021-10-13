@@ -22,6 +22,7 @@ ob_start();
                             <figcaption>
                                 <h1><?php echo $newSeries['title']; ?></h1>
                                 <?php
+                                // Si la série est écrite par un éditeur
                                 if($newSeries['type'] === "publisher")
                                 {
                                 ?>
@@ -29,6 +30,7 @@ ob_start();
                                     <p><?php echo $newSeries['publisher']; ?></p>
                                     <p><?php echo $newSeries['author']; ?></p>
                                 <?php
+                                // Si la série est écrite par un autre utilisateur
                                 }else{
                                 ?>  
                                     <p><img src="<?php echo $newSeries['avatar']; ?>" alt="<?php echo $newSeries['altavatar']; ?>"/></p>  
@@ -37,7 +39,20 @@ ob_start();
                                 }
                                 ?>
                                 <p><?php echo $newSeries['tags']; ?></p>
-                                <p><?php echo $newSeries['pricing']; ?></p>
+                                <?php
+                                // Si la série est payante
+                                if($newSeries['pricing'] == "paying")
+                                {
+                                ?>
+                                    <p><i class="fas fa-coins"></i></p>
+                                <?php
+                                // Si la série est gratuite
+                                }else{
+                                ?>
+                                    <p>Série gratuite</p>
+                                <?php
+                                }
+                                ?>
                                 <p><a href="index.php?action=displaySeries&idseries=<?php echo $newSeries['id']; ?>">Découvrir la série</a></p>
                             </figcaption>
                         </figure>

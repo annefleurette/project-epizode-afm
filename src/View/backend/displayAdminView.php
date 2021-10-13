@@ -146,7 +146,48 @@ ob_start();
                     <td><?php echo $seriesInfo['publishing']; ?></td>
                     <td><?php echo $seriesInfo['pricing']; ?></td>
                     <td><?php echo $seriesInfo['tags']; ?></td>
-                    <td><?php echo $seriesInfo['rights']; ?></td>
+                    <!-- Affihage des droits -->
+                    <?php if($seriesInfo['rights'] === "public") {
+                    ?>
+                        <td>Domaine public</td>
+                    <?php 
+                    }elseif($seriesInfo['rights'] === "CC")
+                    {
+                    ?>
+                        <td><i class="fab fa-creative-commons"></i></td>
+                    <?php 
+                    }elseif($seriesInfo['rights'] === "CC1")
+                    {
+                    ?>
+                        <td><i class="fab fa-creative-commons"></i> Pas de modification</td>
+                    <?php 
+                    }elseif($seriesInfo['rights'] === "CC2")
+                    {
+                    ?>
+                        <td><i class="fab fa-creative-commons"></i> Pas d'utilisation commerciale - Pas de modification</td>
+                    <?php 
+                    }elseif($seriesInfo['rights'] === "CC3")
+                    {
+                    ?>
+                        <td><i class="fab fa-creative-commons"></i> Pas d'utilisation commerciale</td>
+                    <?php 
+                    }elseif($seriesInfo['rights'] === "CC4")
+                    {
+                    ?>
+                        <td><i class="fab fa-creative-commons"></i> Pas d'utilisation commerciale - Partage dans les mêmes conditions</td>
+                    <?php
+                    }elseif($seriesInfo['rights'] === "CC5")
+                    {
+                    ?>
+                        <td><i class="fab fa-creative-commons"></i> Partage dans les mêmes conditions</td>
+                    <?php
+                    }elseif($seriesInfo['rights'] === "reserved")
+                    {
+                    ?>
+                        <td>Droits réservés</td>
+                    <?php
+                    }
+                    ?>
                     <td><?php echo $seriesInfo['numberEpisodes']; ?></td>
                     <td><?php echo $seriesInfo['numberSubscribers']; ?></td>
                     <td>
