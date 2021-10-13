@@ -111,8 +111,21 @@ ob_start();
                         <article>
                             <p>Episode n°<?php echo $episodedata['number']; ?></p>
                             <p><?php echo $episodedata['title']; ?></p>
-                            <p>Statut : <?php echo $episodedata['publishing']; ?></p>
+                            <p>Statut :
                             <?php
+                            // Si la série est publiée
+                            if($episodedata['publishing'] == "published")
+                            {
+                            ?>
+                                Episode publié
+                            <?php    
+                            // Si la série est en cours
+                            }elseif($episodedata['publishing'] == "inprogress")
+                            {
+                            ?>
+                                Episode en cours
+                            <?php
+                            }
                             // Si l'épisode a été publié
                             if($episodedata['publishing'] === "published")
                             {

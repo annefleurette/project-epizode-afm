@@ -105,7 +105,21 @@ ob_start();
                             <p><?php echo $seriesMember['title']; ?></p>
                             <p><?php echo $seriesMember['numberEpisodes']; ?> épisode(s)</p>
                             <p><?php echo $seriesMember['numberSubscribers']; ?> abonné(s)</p>
-                            <p><?php echo $seriesMember['publishing']; ?></p>
+                            <?php
+                            // Si la série est publiée
+                            if($seriesMember['publishing'] == "published")
+                            {
+                            ?>
+                                <p>Série publiée</p>
+                            <?php    
+                            // Si la série est en cours
+                            }elseif($seriesMember['publishing'] == "inprogress")
+                            {
+                            ?>
+                                <p>Série en cours<p>
+                            <?php
+                            }
+                            ?>
                             <p><a href="index.php?action=updateSeries&idseries=<?php echo $seriesMember['id']; ?>">CONTINUER LA SERIE</a></p>
                             <p><a class="delete" href="index.php?action=updateSeriesStatus&idseries=<?php echo $seriesMember['id']; ?>">SUPPRIMER LA SERIE</a></p>
                         </article>
