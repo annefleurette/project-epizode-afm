@@ -37,19 +37,19 @@ try {
 							}
 							break;
 						// Series
-						case 'deleteSeries':
+						case 'adminDeleteSeries':
 							if(isset($_GET['idseries']))
 							{
-								$seriesController->deleteSeries($_GET['idseries']);
+								$seriesController->adminDeleteSeries($_GET['idseries']);
 							}else{
 								require('src/View/404error.php');
 							}
 							break;
 						// Episodes
-						case 'deleteEpisode':
+						case 'adminDeleteEpisode':
 							if(isset($_GET['idepisode']))
 							{
-								$episodesController->deleteEpisode($_GET['idepisode']);
+								$episodesController->adminDeleteEpisode($_GET['idepisode']);
 							}else{
 								require('src/View/404error.php');
 							}
@@ -169,10 +169,10 @@ try {
 								require('src/View/404error.php');
 							}
 							break;
-						case 'updateSeriesStatus':
+						case 'userDeleteSeries':
 							if(isset($_GET['idseries']))
 							{
-								$seriesController->updateSeriesStatus($_GET['idseries']);
+								$seriesController->userDeleteSeries($_GET['idseries']);
 							}else{
 								require('src/View/404error.php');
 							}
@@ -236,10 +236,10 @@ try {
 								require('src/View/404error.php');
 							}						
 							break;
-						case 'updateEpisodeStatus':
+						case 'userDeleteEpisode':
 							if(isset($_GET['idseries']) AND isset($_GET['idepisode']))
 							{
-								$episodesController->updateEpisodeStatus($_GET['idseries'], $_GET['idepisode']);
+								$episodesController->userDeleteEpisode($_GET['idseries'], $_GET['idepisode']);
 							}else{
 								require('src/View/404error.php');
 							}

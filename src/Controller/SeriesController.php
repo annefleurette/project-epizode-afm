@@ -361,22 +361,38 @@ class SeriesController {
         }
     }
 
-    public function updateSeriesStatus($seriesId)
+    public function userDeleteSeries($seriesId)
     {
         $seriesManager = new SeriesManager();
+        $membersManager = new MembersManager();
         $seriesId = htmlspecialchars($seriesId);
         // On vérifie que la série est bien une série créée par le membre
         $getAllSeriesId = $seriesManager->getAllSeriesId($_SESSION['idmember']);
         if (in_array($seriesId, $getAllSeriesId)) {
-            // On passe le statut de la série en supprimé
-            $updateSeriesDeleted = $seriesManager->updateSeriesStatus("deleted", $seriesId);
-            header("Location: index.php?action=dashboard&tab=2"); 
+            // On récupère l'URL de l'image déjà enregistrée pour la série
+            $imageSeriesUrl = $seriesManager->getImageSeriesUrl($seriesId);
+            // On évite de supprimer l'image par défaut
+            if($imageSeriesUrl != "./public/images/cover_default.png")
+            {
+                $imageSeriesUrlShort = substr($imageSeriesUrl, 2);
+                $DirUrlShort = substr(__DIR__, 0, -14);
+                $imageUrl = $DirUrlShort.$imageSeriesUrlShort;
+                // On supprime l'image du dossier
+                unlink($imageUrl);
+                // On récupère l'id de l'image associée à la série
+                $imageSeriesId = $seriesManager->getImageSeriesId($seriesId);
+                // On supprime l'ancienne image sur le serveur
+                $deleteImage = $membersManager->deleteImage($imageSeriesId);
+                }
+            // On supprime définitivement la série
+            $deleteSeries = $seriesManager->deleteSeries($seriesId);
+            header("Location: index.php?action=dashboard&tab=2");   
         }else{
             require('./src/View/403error.php');
         }
     }
       
-    public function deleteSeries($seriesId)
+    public function adminDeleteSeries($seriesId)
     {
         $seriesManager = new SeriesManager();
         $membersManager = new MembersManager();
@@ -426,8 +442,8 @@ class SeriesController {
                 $allTagsSeries = [];
                 for ($i = 0; $i < $nbtags; $i++)
                 {
-                    $seriesCommonTags[$i] = $seriesManager->getCommonTagsSeries($tags[$i]);
-                    array_push($allTagsSeries, $seriesCommonTags[$i]);
+                    $seriesCommonTags = $seriesManager->getCommonTagsSeries($tags[$i]);
+                    array_push($allTagsSeries, $seriesCommonTags);
                 }  
                 require('./src/View/frontend/displaySeriesView.php');
             }else{

@@ -341,7 +341,7 @@ class EpisodesController {
         } 
     }      
 
-    public function updateEpisodeStatus($seriesId, $episodeId)
+    public function userDeleteEpisode($seriesId, $episodeId)
     {
         $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager();
@@ -354,8 +354,8 @@ class EpisodesController {
             $episodesIdList = $episodesManager->getEpisodesIdList($seriesId);
             if (in_array($episodeId, $episodesIdList))
             {
-                // On passe le statut de l'épisode en supprimé
-                $updateEpisodeStatus = $episodesManager->updateEpisodeStatus("deleted", $episodeId);
+                // On supprime définitivement l'épisode
+                $deleteEpisode = $episodesManager->deleteEpisode($episodeId);
                 // On compte le nombre d'épisodes de la série
                 $nbepisodes = $episodesManager->countEpisodesPublished($seriesId);
                 // On repasse le statut de la série à en cours quand il n'y a plus d'épisodes publiés
@@ -371,13 +371,22 @@ class EpisodesController {
         }  
     }
       
-    public function deleteEpisode($episodeId)
+    public function adminDeleteEpisode($episodeId)
     {
+        $seriesManager = new SeriesManager();
         $episodesManager = new EpisodesManager();
         $episodeId = htmlspecialchars($episodeId);
+        // On récupère l'id de la série
+        $idSeriesEpisode = $episodesManager->getIdSeriesEpisode($episodeId);
         // On supprime définitivement l'épisode
         $deleteEpisode = $episodesManager->deleteEpisode($episodeId);
-        header("Location: Location: index.php?action=admin&tab=3"); 
+        // On compte le nombre d'épisodes de la série
+        $nbepisodes = $episodesManager->countEpisodesPublished($idSeriesEpisode);
+        // On repasse le statut de la série à en cours quand il n'y a plus d'épisodes publiés
+        if($nbepisodes < 1){
+            $updateSeriesStatus = $seriesManager->updateSeriesStatus("inprogress", $idSeriesEpisode);
+        }
+        header("Location: index.php?action=admin&tab=3"); 
     }
 
     public function displayEpisode($seriesId, $episodeNumber, $episodeId)

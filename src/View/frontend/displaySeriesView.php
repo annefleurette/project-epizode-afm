@@ -149,11 +149,6 @@ ob_start();
 </section>
 <section> <!-- Section qui présente des séries similaires en termes de tags -->
     <h2>Recommandations <?php echo $oneSeriesPublicData['tags']; ?></h2>
-    <?php
-    echo '<pre>';
-    var_dump($allTagsSeries);
-    echo '<pre>';
-    ?>
     <ul>
         <?php
         for ($i = 0; $i < $nbtags; $i++)

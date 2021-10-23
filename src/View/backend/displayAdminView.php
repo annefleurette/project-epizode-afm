@@ -197,7 +197,7 @@ ob_start();
                         ?>
                     </td>
                     <td><a href="index.php?action=displaySeries&idseries=<?php echo $seriesInfo['id']; ?>" TARGET=_BLANK>VOIR</a></td>
-                    <td class="delete"><a href="index.php?action=deleteSeries&idseries=<?php echo $seriesInfo['id']; ?>">SUPPRIMER</a></td>
+                    <td class="delete"><a href="index.php?action=adminDeleteSeries&idseries=<?php echo $seriesInfo['id']; ?>">SUPPRIMER</a></td>
                 </tr>
                 <?php
                 }
@@ -284,7 +284,7 @@ ob_start();
                             ?>
                         </td>
                         <td><a href="index.php?action=displayEpisode&idseries=<?php echo $alertEpisodeInfo['seriesid']; ?>&number=<?php echo $alertEpisodeInfo['number']; ?>&idepisode=<?php echo $alertEpisodeInfo['id']; ?>" TARGET=_BLANK>VOIR</a></td>
-                        <td class="delete"><a href="index.php?action=deleteEpisode&idepisode=<?php echo $alertEpisodeInfo['id']; ?>">SUPPRIMER</a></td>
+                        <td class="delete"><a href="index.php?action=adminDeleteEpisode&idepisode=<?php echo $alertEpisodeInfo['id']; ?>">SUPPRIMER</a></td>
                         <td><a href="index.php?action=removeAlertEpisode_post&idepisode=<?php echo $alertEpisodeInfo['id']; ?>">ANNULER L'ALERTE</a></td>
                     </tr>
                     <?php
@@ -372,7 +372,7 @@ ob_start();
                         </td>
                         <td><?php echo $episodeInfo['salesNumber']; ?></td>
                         <td><a href="index.php?action=displayEpisode&idseries=<?php echo $episodeInfo['seriesid']; ?>&number=<?php echo $episodeInfo['number']; ?>&idepisode=<?php echo $episodeInfo['id']; ?>" TARGET=_BLANK>VOIR</a></td>
-                        <td class="delete"><a href="index.php?action=deleteEpisode&idepisode=<?php echo $episodeInfo['id']; ?>">SUPPRIMER</a></td>
+                        <td class="delete"><a href="index.php?action=adminDeleteEpisode&idepisode=<?php echo $episodeInfo['id']; ?>">SUPPRIMER</a></td>
                     </tr>
                     <?php
                     }

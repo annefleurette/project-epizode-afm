@@ -10,6 +10,7 @@
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous">
         </script> 
+        <script src='https://cdn.tiny.cloud/1/rusvh5uity3vzz9zncbvyfu2ngucer16rijxcr2fhxwkn4mb/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
         <script src="https://kit.fontawesome.com/d1f6a249f3.js" crossorigin="anonymous"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.css" />
@@ -17,6 +18,22 @@
         <link rel="shortcut icon" type="image/png" href="./public/images/logo.png"/>
         <title><?php echo $head_title; ?></title>
         <meta name="robots" content="noindex">
+        <script>
+            tinymce.init({
+            selector: '#contentEpisode',
+            content_css : './public/css/style.css',
+            inline_styles : false,
+            plugins: "autoresize",
+            autoresize_overflow_padding: 15,
+            autoresize_bottom_margin: 15,
+            min_height: 500,
+            convert_fonts_to_spans : false,
+            invalid_elements: "span, p, a",
+            forced_root_block : false,
+            force_br_newlines : true,
+            force_p_newlines : false
+            });
+        </script>
     </head>
     <body>
     <div>

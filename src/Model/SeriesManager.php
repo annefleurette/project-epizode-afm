@@ -332,6 +332,14 @@ class SeriesManager extends Manager
     	$deleteSubscription->execute(array($idseries, $idmember));
     	return $deleteSubscription;
 	}
+	// On supprime tous les abonnements à une série
+	public function deleteAllSeriesSubscriptions($idseries)
+	{
+		$db = $this->dbConnect();
+		$deleteAllSeriesSubscriptions = $db->prepare('DELETE FROM series_has_members_subscription WHERE id_series = ?');
+		$deleteAllSeriesSubscriptions->execute(array($idseries));
+		return $deleteAllSeriesSubscriptions;
+	}
 	// On ajoute une cover
 	public function addCover($idcover)
 	{

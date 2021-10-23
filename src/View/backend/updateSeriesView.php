@@ -103,76 +103,72 @@ ob_start();
             <?php
             foreach ($episodesList as $episodedata)
             {
-                // On enlève les épisodes dont le statut est passé en supprimé
-                if($episodedata['publishing'] !== "deleted")
-                {
-                ?>
-                    <li>
-                        <article>
-                            <p>Episode n°<?php echo $episodedata['number']; ?></p>
-                            <p><?php echo $episodedata['title']; ?></p>
-                            <p>Statut :
-                            <?php
-                            // Si la série est publiée
-                            if($episodedata['publishing'] == "published")
+            ?>
+                <li>
+                    <article>
+                        <p>Episode n°<?php echo $episodedata['number']; ?></p>
+                        <p><?php echo $episodedata['title']; ?></p>
+                        <p>Statut :
+                        <?php
+                        // Si l'épisode est publié
+                        if($episodedata['publishing'] == "published")
+                        {
+                        ?>
+                            Episode publié
+                        <?php    
+                        // Si l'épisode est en cours
+                        }elseif($episodedata['publishing'] == "inprogress")
+                        {
+                        ?>
+                            Episode en cours
+                        <?php
+                        }
+                        // Si l'épisode a été publié
+                        if($episodedata['publishing'] === "published")
+                        {
+                            if(isset($episodedata['publicationDate']))
                             {
                             ?>
-                                Episode publié
-                            <?php    
-                            // Si la série est en cours
-                            }elseif($episodedata['publishing'] == "inprogress")
-                            {
-                            ?>
-                                Episode en cours
-                            <?php
-                            }
-                            // Si l'épisode a été publié
-                            if($episodedata['publishing'] === "published")
-                            {
-                                if(isset($episodedata['publicationDate']))
-                                {
-                                ?>
-                                    <p>Publié le :
-                                    <?php 
-                                    $date = new DateTime($episodedata['publicationDate']);
-                                    echo $date->format('d/m/Y à H:i'); ?>
-                                    </p>
-                                <?php
-                                }
-                                ?>
-                                <p>Dernière modification le :
-                                <?php
-                                $date = new DateTime($episodedata['lastUpdate']);
-                                echo $date->format('d/m/Y à H:i'); ?>
-                                </p>
-                            <?php
-                            // Si l'épisode est en mode brouillon
-                            }elseif ($episodedata['publishing'] === "inprogress")
-                            {
-                            ?>
-                                <p>Dernière modification le :
-                                <?php
-                                $date = new DateTime($episodedata['lastUpdate']);
+                                <p>Publié le :
+                                <?php 
+                                $date = new DateTime($episodedata['publicationDate']);
                                 echo $date->format('d/m/Y à H:i'); ?>
                                 </p>
                             <?php
                             }
                             ?>
-                            <p><i class="fas fa-heart"></i><?php echo $episodedata['likesNumber']; ?></p>
-                            <p><i class="fas fa-coins"></i><?php echo $episodedata['price']; ?></p>
-                            <p><a href ="index.php?action=lookEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">APERCU</a></p>
-                            <p><a href ="index.php?action=updateEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">MODIFIER</a></p>
-                            <?php if((($episodedata['number'] == $nbepisodes) AND ($episodedata['publishing'] === "published")) OR ($episodedata['publishing'] === "inprogress"))
-                            {
-                            ?>    
-                                <p><a class="delete" href="index.php?action=updateEpisodeStatus&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">SUPPRIMER</a></p>
-                            <?php    
-                            }
-                            ?> 
-                        </article>
-                    </li>
-                <?php
-                }
+                            <p>Dernière modification le :
+                            <?php
+                            $date = new DateTime($episodedata['lastUpdate']);
+                            echo $date->format('d/m/Y à H:i'); ?>
+                            </p>
+                        <?php
+                        // Si l'épisode est en mode brouillon
+                        }elseif ($episodedata['publishing'] === "inprogress")
+                        {
+                        ?>
+                            <p>Dernière modification le :
+                            <?php
+                            $date = new DateTime($episodedata['lastUpdate']);
+                            echo $date->format('d/m/Y à H:i'); ?>
+                            </p>
+                        <?php
+                        }
+                        ?>
+                        <p><i class="fas fa-heart"></i><?php echo $episodedata['likesNumber']; ?></p>
+                        <p><i class="fas fa-coins"></i><?php echo $episodedata['price']; ?></p>
+                        <p><a href ="index.php?action=lookEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">APERCU</a></p>
+                        <p><a href ="index.php?action=updateEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">MODIFIER</a></p>
+                        <?php if((($episodedata['number'] == $nbepisodes) AND ($episodedata['publishing'] === "published")) OR ($episodedata['publishing'] === "inprogress"))
+                        {
+                        ?>    
+                            <p><a class="delete" href="index.php?action=userDeleteEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">SUPPRIMER</a></p>
+                        <?php    
+                        }
+                        ?> 
+                    </article>
+                </li>
+            <?php
             }
             ?>
         </ul>
