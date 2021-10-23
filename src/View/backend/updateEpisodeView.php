@@ -80,7 +80,7 @@ ob_start();
             <input type="submit" name="publish" value="Publier">
         </p>
         <p>
-            <a href="index.php?action=updateSeries&idseries=<?php echo $seriesId; ?>">Annuler</a>
+            <a href="index.php?action=updateSeries&idseries=<?php echo $seriesId; ?>&tab=2">Annuler</a>
         </p>
     </form>
 </section>

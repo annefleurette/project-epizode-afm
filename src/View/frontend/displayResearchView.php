@@ -52,7 +52,7 @@ ob_start();
                             <?php
                         }
                         ?>
-                        <p><a href="index.php?action=displaySeriesView&idseries=<?php echo $seriesResults['id']; ?>">DECOUVRIR LA SERIE</a></p>
+                        <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesResults['id']; ?>">DECOUVRIR LA SERIE</a></p>
                     </article>
                 </li>
             <?php
@@ -102,7 +102,7 @@ ob_start();
                         }
                         ?>
                         <p><?php echo $authorsResults['numberWritings']; ?> séries écrites</p>
-                        <p><a href="index.php?action=displayMemberView&idmember=<?php echo $authorsResults['id']; ?>">DECOUVRIR L'AUTEUR</a></p>
+                        <p><a href="index.php?action=displayMember&idmember=<?php echo $authorsResults['id']; ?>">DECOUVRIR L'AUTEUR</a></p>
                     </article>
                 </li>
             <?php
@@ -173,7 +173,7 @@ ob_start();
                         <?php    
                         }
                         ?>
-                        <p><a href="index.php?action=displayEpisodeView&idepisode=<?php echo $episodesResults['id']; ?>">DECOUVRIR L'EPISODE</a></p>
+                        <p><a href="index.php?action=displayEpisode&idepisode=<?php echo $episodesResults['id']; ?>">DECOUVRIR L'EPISODE</a></p>
                     </article>
                 </li>
             <?php

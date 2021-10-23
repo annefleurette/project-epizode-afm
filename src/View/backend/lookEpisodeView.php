@@ -5,7 +5,7 @@ ob_start();
 ?>
     <section> <!-- Retour en arrière -->
         <p>
-            <a href="index.php?action=updateSeries&idseries=<?php echo $seriesId; ?>">Retour</a>
+            <a href="index.php?action=updateSeries&idseries=<?php echo $seriesId; ?>&tab=2">Retour</a>
         </p>
     </section>
     <section> <!-- Section avec l'épisode en aperçu -->

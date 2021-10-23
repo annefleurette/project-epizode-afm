@@ -204,7 +204,7 @@ try {
 							}
 							break;
 						case 'writeEpisode_post':
-							if(isset($_POST['numberEpisode']) AND isset($_POST['titleEpisode']) AND isset($_POST['contentEpisode']) AND isset($_POST['nbCharacters']) AND isset($_GET['idseries']))
+							if(isset($_POST['numberEpisode']) AND isset($_POST['titleEpisode']) AND isset($_POST['contentEpisode']) AND isset($_GET['idseries']))
 							{
 								$episodesController->writeEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], (isset($_POST['priceEpisode'])) ? $_POST['priceEpisode'] : 0, (isset($_POST['promotionEpisode'])) ? $_POST['promotionEpisode'] : 0, (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : null, $_POST['nbCharacters'], (isset($_POST['metaEpisode'])) ? $_POST['metaEpisode'] : null, $_GET['idseries']);
 							

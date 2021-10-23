@@ -25,7 +25,7 @@ class CommentsManager extends Manager
 	public function getCommentsEpisode($idepisode)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT m.pseudo AS "pseudo", ia.url AS "avatar", l.name AS "name", il.url AS "logo", com.id AS "id", com.date AS "date", com.content AS "content", m.type AS "type" FROM comments com LEFT JOIN episodes e ON e.id = com.id_episode LEFT JOIN members m ON m.id = com.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE e.id = ? ORDER BY com.date');
+		$req = $db->prepare('SELECT m.pseudo AS "pseudo", ia.url AS "avatar", ia.alt AS "altavatar", l.name AS "name", il.url AS "logo", il.alt AS "altlogo", com.id AS "id", com.date AS "date", com.content AS "content", m.type AS "type" FROM comments com LEFT JOIN episodes e ON e.id = com.id_episode LEFT JOIN members m ON m.id = com.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE e.id = ? ORDER BY com.date');
 		$req->execute(array($idepisode));
 	    $episodeCommentsList = $req->fetchAll();
 	    $req->closeCursor();

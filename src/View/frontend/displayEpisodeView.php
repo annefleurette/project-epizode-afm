@@ -153,17 +153,17 @@ ob_start();
                             <p>
                             <!-- Si l'auteur est un éditeur -->
                             <?php
-                            if($oneSeriesPublicData['type'] === "publisher")
+                            if($comment_data['type'] === "publisher")
                             {
                             ?>
-                                <p><img src="<?php echo $oneSeriesPublicData['logo']; ?>" alt="<?php echo $oneSeriesPublicData['altlogo']; ?>"/></p>
-                                <p><?php echo $oneSeriesPublicData['publisher']; ?></p>
+                                <p><img src="<?php echo $comment_data['logo']; ?>" alt="<?php echo $comment_data['altlogo']; ?>"/></p>
+                                <p><?php echo $comment_data['name']; ?></p>
                             <!-- Si l'auteur est un autre utilisateur -->
                             <?php
                             }else{
                             ?>  
-                                <p><img src="<?php echo $oneSeriesPublicData['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
-                                <p><?php echo $oneSeriesPublicData['member']; ?></p>
+                                <p><img src="<?php echo $comment_data['avatar']; ?>" alt="<?php echo $comment_data['altavatar']; ?>"/></p>  
+                                <p><?php echo $comment_data['pseudo']; ?></p>
                             <?php
                             }
                             ?>
