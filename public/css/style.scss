@@ -1,67 +1,243 @@
 /* sass --watch ./public/css/style.scss:./public/css/style.css */
+
+/* Général */
+
+$color-primary: #9012FE;
+$color-secondary: #240440;
+$color-texture: #FAFAFA;
+$color-black: #262626;
+$color-dark: #000000;
+$color-white: #FFFFFF;
+
+$typo-primary: 'Open Sans', sans-serif;
+
+$padding-title: 10px;
+$margin-section: 20px;
+$padding-section: 20px;
+$padding-button: 10px 20px;
+
 .hidden, #hidden {
     display: none;
 }
 
+/* Contenants */
+
+body {
+	margin: 0;
+	padding: 0;
+	color: $color-black;
+	background-color: $color-texture;
+	font-family: $typo-primary;
+}
+
+.container {
+	width: 100%;
+	margin: auto;
+}
+
+section {
+	padding: $padding-section;
+	margin: $margin-section;
+
+}
+
+/* Textes */
+
+h1 {
+	font-family: $typo-primary;
+	color: $color-primary;
+	font-size: 4em;
+	font-weight: 300;
+	padding: $padding-title;
+	text-align: center;
+}
+
+h2, h3, h4 {
+	font-family: $typo-primary;
+	color: $color-black;
+	font-size: 3em;
+	font-weight: 300;
+	padding: $padding-title;
+}
+
+h3, h4 {
+	font-family: $typo-primary;
+	color: $color-black;
+	font-size: 1.5em;
+	font-weight: 300;
+	padding: $padding-title;
+}
+
+p {
+	font-size: 1em;
+	font-weight: 400;
+}
+
+a {
+	color: $color-primary;
+	text-decoration: none;
+}
+
+a:hover {
+	font-size: 105%;
+}
+
+ul {
+	list-style: none;
+}
+
+/* Boutons */
+
+.btn, .cta {
+	border: 1px $color-primary solid;
+	border-radius: 50px;
+	padding: $padding-button;
+	background-color: transparent;
+	color: $color-primary;
+	font-size: 1em;
+	font-weight: 400;
+}
+
+/* Icones et signes */
+
+.fas {
+	padding-right: 5px;
+}
+
+/* Mise en forme des barres de navigations */
+
+.menu {
+	display: flex;
+	flex-direction: row;
+    padding: 30px 15px;
+	&__main {
+		padding: 20px;
+		justify-content: space-between;
+		background-color: transparent;
+		&-link {
+			color: $color-black;
+			font-weight: 500;
+		}
+		&-link:hover {
+			font-size: 100%;
+			color: $color-primary;
+		}
+		&-link:focus {
+			color: $color-primary;
+		}
+	}
+	ul li{ 
+		display: inline-block;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+	#site-search {
+		color: $color-black;
+		background-color: transparent;
+		border-color: $color-black;
+		border-radius: 5px;
+		border-width: 1px;
+		padding: 5px;
+	}
+	.cta {
+		border: none;
+		color: $color-black;
+		padding-left: 5px;
+	}
+
+}
 
 /* Mise en forme du slider */
 
-#slider-images {
-    position: relative;
-    overflow: hidden;
-    margin: 0;
-    padding: 0;
-}
-
-figure {
-    margin: 0;
-}
-.hello {
-	.world{
-		color:blue;
+#slider {
+	background-color: $color-texture;
+	margin: 0 0 50px 0;
+	#slider-images {
+		position: relative;
+		overflow: hidden;
+		margin: 0;
+		padding: 0;
+		figure {
+			display: flex;
+			flex-direction: row;
+			justify-content: flex-start;
+			margin: 0;
+		}
+		figcaption {
+			color: $color-black;
+			font-weight: 300px;
+			margin-left: 20px;
+			margin-right: 20px;
+			margin-bottom: 20px;
+			width: 100%;
+			text-align: center;
+			h1 {
+				margin-bottom: 10px;
+			}
+			.price {
+				padding-bottom: 15px;
+			}
+		}
 	}
 }
 
-.chevron {
-	font-size: 1.5em;
-	width: 3em;
-	height: 3em;
-	border-radius: 50%;
-	background-color: rgba(0, 0, 0, 0.2);
-	position: absolute;
-	top: calc(50% - 1.5em);
+/* Mise en forme des informations séries */
+
+.member {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	img {
+		width: 40px;
+		height: 40px;
+		margin-right: 10px;
+	}
+	p {
+		font-weight: 500;
+	}
 }
 
-#chevron_left {
-	left: -1.5em;
+.tags {
+	font-style: italic;
 }
 
-#chevron_right {
-	right: -1.5em;
+.cover {
+	border-radius: 5px;
 }
 
-.chevron i {
-	position: absolute;
-    color: black;
-	top: calc(50% - 12px);
+/* Mise en forme des informations Epizode */
+
+#presentation {
+	background-image: url(../images/background_1.png);
+	background-attachment:fixed;
+	background-repeat:no-repeat;
+	background-size: cover;
+	padding-top: 200px;
+	padding-bottom: 200px;
+	margin: 0;
+	color: $color-white;
+	h2 {
+		color: $color-white;
+		padding-left: 0;
+	}
+	p {
+		font-size: 1.5em;
+		font-weight: 300;
+	}
 }
 
-#chevron_left i {
-	left: 1.8em;
-}
+/* Mise en forme des Top 5 */
 
-#chevron_right i {
-	right: 1.8em;
-}
-
-.player {
-    position: absolute;
-    font-size: 1em;
-	width: 3em;
-	height: 3em;
-	border-radius: 50%;
-    position: absolute;
-    left: calc(50% - 8px);
-    bottom: 0;
-    z-index: 10;
+#topten {
+	display: flex;
+	flex-direction: justify-content;
+	article {
+		display: flex;
+		flex-direction: justify-content;
+		.member img {
+			width: 40px;
+			height: 40px;
+		}
+	}
 }

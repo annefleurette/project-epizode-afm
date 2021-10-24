@@ -5,7 +5,7 @@ $head_descripion = 'Connexion à l\'espace membre d\'Epizode';
 ob_start();
 ?>
 <section>
-    <h1>CONNEXION</h1>
+    <h1>Connexion</h1>
     <?php
     if(!isset($_SESSION['pseudo'])) { // On vérifie que la personne n'est pas déjà connectée
     ?>
@@ -19,7 +19,7 @@ ob_start();
                 <input type="password" name="password" id="password" required>
             </p>
             <p>
-                <input type="submit" value="Se connecter">
+                <input class="cta btn" type="submit" value="Se connecter">
             </p>
             <p>
                 <input type="checkbox" id="remember" name="remember">

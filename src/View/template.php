@@ -13,6 +13,9 @@
         <script src='https://cdn.tiny.cloud/1/rusvh5uity3vzz9zncbvyfu2ngucer16rijxcr2fhxwkn4mb/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
         <script src="https://kit.fontawesome.com/d1f6a249f3.js" crossorigin="anonymous"></script>
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.js"></script>
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.css" />
         <link rel="stylesheet" href="./public/css/style.css" />
         <link rel="shortcut icon" type="image/png" href="./public/images/favicon_epizode.png" alt="Epizode"/>
@@ -36,7 +39,7 @@
         </script>
     </head>
     <body>
-    <div>
+    <div class="container">
         <?php require("./src/View/header.php");
         // Pour afficher l'erreur sur la page
         if(isset($_SESSION['error']))

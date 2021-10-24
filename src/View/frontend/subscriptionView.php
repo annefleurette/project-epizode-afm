@@ -5,7 +5,7 @@ $head_description = 'Inscription';
 ob_start();
 ?>
 <section>
-    <h1>INSCRIPTION</h1>
+    <h1>Inscription</h1>
     <?php
     if(!isset($_SESSION['pseudo'])) { //On vérifie que la personne n'est pas déjà connectée 
     ?>
@@ -27,7 +27,7 @@ ob_start();
                 <input type="password" id="password2" name="password2" min="6" required>
             </p>
             <p>
-                <input type="submit" value="S'inscrire">
+                <input class="btn cta" type="submit" value="S'inscrire">
             </p>
         </form>
         <p>Vous avez déjà un compte, <a href="index.php?action=login">connectez-vous</a></p>

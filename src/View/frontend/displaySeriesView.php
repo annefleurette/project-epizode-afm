@@ -91,13 +91,13 @@ ob_start();
     {
     ?>
         <input type="hidden" id="idseries" value=<?php echo $seriesId; ?>>
-        <button id="subscribe" <?php if(in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>AJOUTER A MA BIBLIOTHEQUE</button>
-        <button id="unsubscribe" <?php if(!in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>RETIRER DE MA BIBLIOTHEQUE</button>
+        <button class=".cta .btn" id="subscribe"<?php if(in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>Ajouter à ma bibliothèque</button>
+        <button class=".cta .btn" id="unsubscribe" <?php if(!in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>Retirer de ma bibliothèque</button>
     <?php
     // Si on est pas connecté
     }else{
     ?>
-        <p><a href="index.php?action=login&ref=displaySeries&idseries=<?php echo $seriesId; ?>">CONNECTEZ-VOUS</a> pour vous abonner à une série !</p>
+        <p>Pour vous abonner à une série, <a href="index.php?action=login&ref=displaySeries&idseries=<?php echo $seriesId; ?>">CONNECTEZ-VOUS !</a></p>
     <?php
     }
     ?>
