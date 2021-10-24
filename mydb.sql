@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : localhost:8889
--- Généré le :  sam. 23 oct. 2021 à 14:45
+-- Généré le :  Dim 24 oct. 2021 à 10:29
 -- Version du serveur :  5.7.26
 -- Version de PHP :  7.4.2
 
@@ -116,7 +116,8 @@ INSERT INTO `covers` (`id`, `id_cover`) VALUES
 (250, 18),
 (251, 19),
 (239, 261),
-(244, 267);
+(244, 267),
+(252, 268);
 
 -- --------------------------------------------------------
 
@@ -269,7 +270,7 @@ INSERT INTO `episode_has_members_likers` (`id_episode`, `id_member`) VALUES
 CREATE TABLE `images` (
   `id` int(11) NOT NULL,
   `name` varchar(45) NOT NULL,
-  `type` enum('avatar','publisher','cover') NOT NULL,
+  `type` enum('avatar','publisher','cover','admin') NOT NULL,
   `alt` varchar(200) NOT NULL,
   `url` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -298,15 +299,18 @@ INSERT INTO `images` (`id`, `name`, `type`, `alt`, `url`) VALUES
 (18, 'poster_dracula', 'cover', 'Dracula', './public/images/poster_dracula.png'),
 (19, 'poster_fantome-opera', 'cover', 'Le fantôme de l\'opéra', './public/images/poster_fantome-opera.png'),
 (258, 'avatar_admin', 'avatar', 'Avatar Admin', './public/images/avatar_admin.png'),
-(259, 'avatar_default', 'avatar', 'Avatar Générique', './public/images/avatar_default.png'),
 (260, 'logo_default', 'publisher', 'Logo Générique', './public/images/logo_default.png'),
-(261, 'poster_default', 'cover', 'Cover Générique', './public/images/cover_default.png'),
+(261, 'poster_default', 'cover', 'Cover Générique', './public/images/poster_default.png'),
 (262, 'logo_edition1', 'publisher', 'Editions du Chêne', './public/images/logo_chene.png'),
 (263, 'logo_edition2', 'publisher', 'Editions du Bouleau', './public/images/logo_bouleau.png'),
-(264, 'logo_edition3', 'publisher', 'Editions du Peuplier', './public/images/logo_peuplier.png'),
+(264, 'logo_edition3', 'publisher', 'Editions du Manguier', './public/images/logo_manguier.png'),
 (265, 'logo_edition4', 'publisher', 'Editions du Pommier', './public/images/logo_pommier.png'),
 (266, 'logo_edition5', 'publisher', 'Editions du Saule', './public/images/logo_saule.png'),
-(267, 'poster_geek', 'cover', 'Geek', './public/images/poster_geek.png');
+(267, 'poster_geek', 'cover', 'Geek', './public/images/poster_geek.png'),
+(268, 'poster_cinqsemaines', 'cover', 'Cinq semaines en ballon', './public/images/poster_cinqsemaines.png'),
+(269, 'logo_epizode_purple', 'admin', 'Epizode', './public/images/logo_epizode_purple.png'),
+(270, 'logo_epizode_white', 'admin', 'Epizode', './public/images/logo_epizode_white.png'),
+(271, 'favicon_epizode', 'admin', 'Epizode', './public/images/favicon_epizode.png');
 
 -- --------------------------------------------------------
 
@@ -328,7 +332,7 @@ INSERT INTO `logos` (`id`, `id_logo`, `name`) VALUES
 (9, 260, 'Domaine Public'),
 (10, 262, 'Editions du Chêne'),
 (11, 263, 'Editions du Bouleau'),
-(12, 264, 'Editions du Peuplier'),
+(12, 264, 'Editions du Manguier'),
 (13, 265, 'Editions du Pommier'),
 (14, 266, 'Editions du Saule');
 
@@ -375,7 +379,7 @@ INSERT INTO `members` (`id`, `pseudo`, `email`, `password`, `type`, `date_subscr
 (28, 'jeanne', 'jeanne@epizode.fr', '$2y$10$TnDQIxtHXCzfn57djsKVzOtbhFjiF/nzNbAaMxh2Z/mwPY3CmLtfC', 'user', '2021-10-12 20:15:53', 'Je m\'appelle Jeanne et je suis une grande amatrice de romans médicaux. Pendant mon temps libre les week-ends, j\'aime aller au musée de la science !', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 3, 9, 'confirmed', NULL),
 (29, 'editions_chene', 'chene@epizode.fr', '$2y$10$fFDO3DDRtZH.WXBmnYCkVO6WienJT9g7BuQFCP7954rEzbqL85bfK', 'publisher', '2021-10-12 20:31:41', 'Nous sommes les éditions du Chêne et nous publions des romans fantastiques et historiques pour les enfants et les adultes !', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9, 10, 'confirmed', NULL),
 (30, 'editions_bouleau', 'bouleau@epizode.fr', '$2y$10$3t84XjxaYU2P/XXzfcbA8uSJu.2BB28AxxjypbkQFuMrxug3zKPGa', 'publisher', '2021-10-12 20:31:56', 'Nous sommes les éditions du Bouleau et nous publions des romans policiers et des polars pour les adultes !', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9, 11, 'confirmed', NULL),
-(31, 'editions_peuplier', 'peuplier@epizode.fr', '$2y$10$sxgIp4Bpu.dYWDY2xdPDCu5nHsufNFRVSeq4sHC/FczBkiXkmtyOa', 'publisher', '2021-10-12 20:32:12', 'Nous sommes les éditions du Peuplier et nous publions des romans d\'aventure pour les enfants et les adolescents !', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9, 12, 'confirmed', NULL),
+(31, 'editions_peuplier', 'manguier@epizode.fr', '$2y$10$sxgIp4Bpu.dYWDY2xdPDCu5nHsufNFRVSeq4sHC/FczBkiXkmtyOa', 'publisher', '2021-10-12 20:32:12', 'Nous sommes les éditions du Manguier et nous publions des romans d\'aventure pour les enfants et les adolescents !', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9, 12, 'confirmed', NULL),
 (32, 'editions_pommier', 'pommier@epizode.fr', '$2y$10$bmSL5k3f/AGxeKeBjxhc8e4dU.oNsdLSPfewqynym4PhU/f1uJv2i', 'publisher', '2021-10-12 20:32:48', 'Nous sommes les éditions du Pommier et nous publions des romances et des romans de vie à l\'adresse d\'un lectorat plutôt féminin !', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9, 13, 'confirmed', NULL),
 (33, 'editions_saule', 'saule@epizode.fr', '$2y$10$SQ6Jmd.q.7y5qt.Itju4N.e0/Q3e462FhxqTLt/0Lvu2yGcJkNh1O', 'publisher', '2021-10-12 20:33:04', 'Nous sommes les éditions du Saule et nous publions des romans de voyage, d\'aventure et d\'horreur à l\'adresse des enfants et des adultes !', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 9, 14, 'confirmed', NULL);
 
@@ -465,7 +469,7 @@ INSERT INTO `series` (`id`, `title`, `summary`, `date_publication`, `date_modifi
 (10, 'Orgueil & Préjugés', 'Pour les Anglaises du XIXe siècle, hors du mariage, point de salut ! Romanesques en diable, les démêlés de la caustique Elizabeth Bennett et du vaniteux Mr Darcy n\'ont pas pris une ride ! Mais, il faut parfois savoir renoncer à son orgueil. Et accepter la tombée des masques pour voir clair dans la nuit. Un classique universel, drôle et émouvant.', '2021-10-12 22:36:29', '2021-10-12 22:36:29', 32, 'paying', 'published', 'reserved', 249, 'Jane Austen', 'Née le 16 décembre 1775 à Stevenson et décédée le 18 juillet 1817 à Winchester, Jane Austen est l’une des plus grandes figures de la littérature anglaise du XVIIIe siècle. Peu célébrée de son vivant, elle est aujourd’hui connue à travers le monde, notamment pour Orgueil et Préjugés, son roman le plus populaire.', '\'Découvrez le contenu de votre série en exclusivité sur Episode ! Des séries originales et passionnantes à lire partout, à tout moment !\''),
 (11, 'Dracula', 'Jonathan Harker, jeune et brillant clerc de notaire, se rend pour affaires dans les Carpates, où réside son client, le comte Dracula. Celui-ci se révèle un hôte chaleureux et prévenant, mais la curiosité incite Jonathan à pousser son exploration de l\'immense château toujours un peu plus loin. À travers les lettres qu\'il lui envoie presque chaque jour, Mina, sa jeune épouse restée à Londres, découvre qu\'une effroyable réalité se tapit dans l\'ombre de la légende...', '2021-10-12 22:36:29', '2021-10-12 22:36:29', 33, 'paying', 'published', 'reserved', 250, 'Bram Stoker', 'Abraham Stoker est né à Clontarf, près de Dublin, le 8 novembre 1847, dans une famille modeste de sept enfants. De santé fragile, il passe son plus jeune âge auprès de sa mère qui le familiarise avec les légendes irlandaises et les romans gothiques. À 16 ans, il rentre au Trinity College et, devient à vingt ans chroniqueur dramatique au Dublin Mail.\r\nEn 1875, Bram Stoker écrit The primerose path, un feuilleton publié dans la revue Shamrock et, en 1879, paraît Au-delà du crépuscule, un livre de contes pour enfants dédié à son fils Noël. À partir de 1887, il publie des nouvelles devenues des classiques du genre fantastique comme La maison du juge ou La squaw, tout en parachevant durant dix ans ce qu\'Oscar Wilde saluera comme « le beau roman du siècle », Dracula. Ce récit épistolaire, paru en mai 1897, connaît le succès dès sa parution et Bram Stoker fera lui-même l\'adaptation théâtrale de ce qui deviendra une source d\'inspiration majeure pour le cinéma.\r\nPar la suite, Bram Stoker, publiera d\'autres romans d\'aventures fantastiques tels que Le joyau des sept étoiles et Le repaire du ver blanc, un récit inspiré des légendes celtiques.\r\nPrécurseur de la littérature de terreur moderne, Bram Stoker, qui a également ouvert la voie à Lovecraft, est mort le 21 avril 1912.', '\'Découvrez le contenu de votre série en exclusivité sur Episode ! Des séries originales et passionnantes à lire partout, à tout moment !\''),
 (12, 'Le fantôme de l\'opéra', '«Le fantôme de l’Opéra a existé. J’avais été frappé dès l’abord que je commençai à compulser les archives de l’Académie nationale de musique par la coïncidence surprenante des phénomènes attribués au fantôme et du plus mystérieux, du plus fantastique des drames, et je devais bientôt être conduit à cette idée que l’on pourrait peut-être rationnellement expliquer celui-ci par celui-là.»\r\nAvec l’art de l’intrigue parfaitement nouée et l’inspiration diabolique qui ont fait le succès de Gaston Leroux, le père de Rouletabille, Le Fantôme de l’Opéra nous entraîne dans une extraordinaire aventure qui nous tient en haleine de la première à la dernière ligne.', '2021-10-12 23:00:07', '2021-10-12 23:00:07', 29, 'paying', 'published', 'reserved', 251, 'Gaston Leroux', 'Gaston Leroux naît en 1868. Après des études de droit, il travaille comme avocat puis comme chroniqueur judiciaire avant de devenir grand reporter. Parallèlement, il écrit de nombreux romans policiers teintés de fantastique, tous devenus très populaires, tels Le Mystère de la chambre jaune et Le Parfum de la dame en noir.', '\'Découvrez le contenu de votre série en exclusivité sur Episode ! Des séries originales et passionnantes à lire partout, à tout moment !\''),
-(13, 'Cinq semaines en ballon', 'Tenter de traverser l\'Afrique d\'est en ouest par la voie des airs, prétendre survoler dans sa plus grande largeur le dangereux continent noir à bord d\'une fragile nacelle livrée à tous les caprices des vents, c\'était, au temps de Jules Verne, une entreprise d\'une audace incroyable. Comme on peut s\'y attendre, les cinq semaines qu\'il faudra au docteur Fergusson et à ses deux compagnons pour y parvenir seront pleines d\'imprévu et de péripéties.', '2021-10-12 23:06:39', '2021-10-12 23:06:39', 31, 'paying', 'inprogress', 'reserved', 239, 'Jules Verne', 'Jules Verne, né le 8 février 1828 à Nantes et mort le 24 mars 1905 à Amiens, est un écrivain français, dont une grande partie de l\'ouvre est consacrée à des romans d\'aventures et d\'anticipation.', '\'Découvrez le contenu de votre série en exclusivité sur Episode ! Des séries originales et passionnantes à lire partout, à tout moment !\''),
+(13, 'Cinq semaines en ballon', 'Tenter de traverser l\'Afrique d\'est en ouest par la voie des airs, prétendre survoler dans sa plus grande largeur le dangereux continent noir à bord d\'une fragile nacelle livrée à tous les caprices des vents, c\'était, au temps de Jules Verne, une entreprise d\'une audace incroyable. Comme on peut s\'y attendre, les cinq semaines qu\'il faudra au docteur Fergusson et à ses deux compagnons pour y parvenir seront pleines d\'imprévu et de péripéties.', '2021-10-12 23:06:39', '2021-10-12 23:06:39', 31, 'paying', 'inprogress', 'reserved', 252, 'Jules Verne', 'Jules Verne, né le 8 février 1828 à Nantes et mort le 24 mars 1905 à Amiens, est un écrivain français, dont une grande partie de l\'ouvre est consacrée à des romans d\'aventures et d\'anticipation.', '\'Découvrez le contenu de votre série en exclusivité sur Episode ! Des séries originales et passionnantes à lire partout, à tout moment !\''),
 (14, 'Le tour du monde en 80 jours', 'Phileas Fogg a parié qu\'il accomplirait le tour du monde en 80 jours. Malgré toutes les embûches rencontrées, gagnera-t-il son pari ?\r\nUn roman d\'aventures au suspense haletant et un document instructif sur le monde à la fin du XIXe siècle.', '2021-10-12 23:06:39', '2021-10-12 23:06:39', 31, 'paying', 'inprogress', 'reserved', 239, 'Jules Verne', 'Jules Verne, né le 8 février 1828 à Nantes et mort le 24 mars 1905 à Amiens, est un écrivain français, dont une grande partie de l\'ouvre est consacrée à des romans d\'aventures et d\'anticipation.', '\'Découvrez le contenu de votre série en exclusivité sur Episode ! Des séries originales et passionnantes à lire partout, à tout moment !\'');
 
 -- --------------------------------------------------------
@@ -747,13 +751,13 @@ ALTER TABLE `covers`
 -- AUTO_INCREMENT pour la table `episodes`
 --
 ALTER TABLE `episodes`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
 
 --
 -- AUTO_INCREMENT pour la table `images`
 --
 ALTER TABLE `images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=269;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=272;
 
 --
 -- AUTO_INCREMENT pour la table `logos`
@@ -765,7 +769,7 @@ ALTER TABLE `logos`
 -- AUTO_INCREMENT pour la table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT pour la table `packs`
@@ -777,7 +781,7 @@ ALTER TABLE `packs`
 -- AUTO_INCREMENT pour la table `series`
 --
 ALTER TABLE `series`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT pour la table `tags`

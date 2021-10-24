@@ -15,7 +15,7 @@
         <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.1/js/jquery.dataTables.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.css" />
         <link rel="stylesheet" href="./public/css/style.css" />
-        <link rel="shortcut icon" type="image/png" href="./public/images/logo.png"/>
+        <link rel="shortcut icon" type="image/png" href="./public/images/favicon_epizode.png" alt="Epizode"/>
         <title><?php echo $head_title; ?></title>
         <meta name="robots" content="noindex">
         <script>

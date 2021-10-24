@@ -1,7 +1,7 @@
 <header>
     <nav>
-        <a href="#">
-            <img src="#" alt="Epizode"/>
+        <a href="index.php?action=homepage">
+            <img src="./public/images/logo_epizode_purple.png" alt="Epizode"/>
         </a>
         <ul>
             <li><a href="index.php?action=homepage">Accueil</a></li>

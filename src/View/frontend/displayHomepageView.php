@@ -93,6 +93,7 @@ ob_start();
         ?>
             <li>
                 <article>
+                    <p><img src="<?php echo $seriesTopFive['cover']; ?>" alt="<?php echo $seriesTopFive['altcover']; ?>" /></p>
                     <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
                     <p><img src="<?php echo $seriesTopFive['logo']; ?>" alt="<?php echo $seriesTopFive['alt']; ?>" /></p>
                     <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['publisher']; ?></a></p>
