@@ -4,12 +4,12 @@ $head_title = 'Epizode - Connexion';
 $head_descripion = 'Connexion à l\'espace membre d\'Epizode';
 ob_start();
 ?>
-<section>
+<section class="form">
     <h1>Connexion</h1>
     <?php
     if(!isset($_SESSION['pseudo'])) { // On vérifie que la personne n'est pas déjà connectée
     ?>
-        <form action="index.php?action=login_post" method="post">
+        <form class="form-fields" action="index.php?action=login_post" method="post">
             <p>
                 <label for="email">Identifiant email</label><br />
                 <input type="text" id="email" name="email" required value="<?php if(isset($_SESSION['tempEmail'])){echo $_SESSION['tempEmail'];}?>">
@@ -19,15 +19,17 @@ ob_start();
                 <input type="password" name="password" id="password" required>
             </p>
             <p>
-                <input class="cta btn" type="submit" value="Se connecter">
+                <input class="btn btn-green" type="submit" value="Se connecter">
             </p>
             <p>
-                <input type="checkbox" id="remember" name="remember">
+                <input id="form-fields-remember" type="checkbox" id="remember" name="remember">
                 <label for="remember">Se souvenir de moi</label>
             </p>
         </form>
-        <p><a href ="index.php?action=subscription">Créer un compte</a></p>
-        <p><a href ="index.php?action=forgetPassword">Mot de passe oublié ?</a></p>
+        <div class="form-connected">
+            <p><a href ="index.php?action=subscription">Créer un compte</a></p>
+            <p><a href ="index.php?action=forgetPassword">Mot de passe oublié ?</a></p>
+        </div>
     <?php
     // Si la personne est déjà connectée
     }else{

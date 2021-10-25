@@ -30,7 +30,6 @@ ob_start();
                                         <img src="<?php echo $newSeries['logo']; ?>" alt="<?php echo $newSeries['altlogo']; ?>"/>
                                         <p><?php echo $newSeries['publisher']; ?></p>
                                     </div>
-                                    <p>Auteur : <?php echo $newSeries['author']; ?></p>
                                 <?php
                                 // Si la série est écrite par un autre utilisateur
                                 }else{
@@ -53,12 +52,12 @@ ob_start();
                                 // Si la série est gratuite
                                 }else{
                                 ?>
-                                    <pSérie gratuite</p>
+                                    <p>Série gratuite</p>
                                 <?php
                                 }
                                 ?>
                                 <br />
-                                <div><a class="btn" href="index.php?action=displaySeries&idseries=<?php echo $newSeries['id']; ?>">Découvrir la série</a></div>
+                                <div><a class="btn btn-green" href="index.php?action=displaySeries&idseries=<?php echo $newSeries['id']; ?>">Découvrir la série à lire</a></div>
                             </figcaption>
                         </figure>
                     </li>
@@ -76,78 +75,81 @@ ob_start();
 <p>Des séries originales à lire n'importe où et à tout moment</p>
 <p>Une nouvelle série à découvrir chaque semaine</p>
 </section>
-<section id="topten">
-    <section> <!-- Section qui comporte le top 10 des séries éditeurs -->
-        <h3>Top 5 des séries éditeurs</h3>
-        <?php if(!empty($seriesTopFivePublishers))
-        {
-        ?>
-        <ul>
-        <?php
-            foreach ($seriesTopFivePublishers as $seriesTopFive)
+<section id="popularity">
+<h2>Les séries les plus populaires</h2>   
+    <div class="topten">
+        <div class="topten-5"> <!-- Section qui comporte le top 10 des séries éditeurs -->
+            <h3>Top 5 des séries éditeurs</h3>
+            <?php if(!empty($seriesTopFivePublishers))
             {
             ?>
-                <li>
-                    <article>
-                        <img class="cover cover-5" src="<?php echo $seriesTopFive['cover']; ?>" alt="<?php echo $seriesTopFive['altcover']; ?>" />
-                        <div>
-                            <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
-                            <div class="member">
-                                <img src="<?php echo $seriesTopFive['logo']; ?>" alt="<?php echo $seriesTopFive['alt']; ?>" />
-                                <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['publisher']; ?></a></p>
+            <ul>
+            <?php
+                foreach ($seriesTopFivePublishers as $seriesTopFive)
+                {
+                ?>
+                    <li>
+                        <article>
+                            <img class="cover cover-5" src="<?php echo $seriesTopFive['cover']; ?>" alt="<?php echo $seriesTopFive['altcover']; ?>" />
+                            <div class="series-data">
+                                <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
+                                <div class="member">
+                                    <img src="<?php echo $seriesTopFive['logo']; ?>" alt="<?php echo $seriesTopFive['alt']; ?>" />
+                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['publisher']; ?></a></p>
+                                </div>
+                                <p><?php echo $seriesTopFive['author']; ?></p>
+                                <p><?php echo $seriesTopFive['numberSubscribers']; ?> abonné(s)</p>
                             </div>
-                            <p><?php echo $seriesTopFive['author']; ?></p>
-                            <p><?php echo $seriesTopFive['numberSubscribers']; ?> abonné(s)</p>
-                        </div>
-                    </article>
-                </li>
+                        </article>
+                    </li>
+                <?php
+                }
+                ?>
+            </ul>
+            <?php
+            }else{
+            ?>
+            <p>Pas encore de série publiée</p>
             <?php
             }
             ?>
-        </ul>
-        <?php
-        }else{
-        ?>
-        <p>Pas encore de série publiée</p>
-        <?php
-        }
-        ?>
-    </section>
-    <section> <!-- Section qui comporte le top 10 des séries amateurs -->
-        <h3>Top 5 des séries talents</h3>
-        <?php if(!empty($seriesTopFiveUsers))
-        {
-        ?>
-        <ul>
-        <?php
-            foreach ($seriesTopFiveUsers as $seriesTopFive)
+        </div>
+        <div class="topten-5"> <!-- Section qui comporte le top 10 des séries amateurs -->
+            <h3>Top 5 des séries talents</h3>
+            <?php if(!empty($seriesTopFiveUsers))
             {
             ?>
-                <li>
-                    <article>
-                        <img class="cover cover-5" src="<?php echo $seriesTopFive['cover']; ?>" alt="<?php echo $seriesTopFive['altcover']; ?>" />
-                        <div>
-                            <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
-                            <div class="member">
-                                <img src="<?php echo $seriesTopFive['avatar']; ?>" alt="<?php echo $seriesTopFive['alt']; ?>" />
-                                <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['author']; ?></a></p>
+            <ul>
+            <?php
+                foreach ($seriesTopFiveUsers as $seriesTopFive)
+                {
+                ?>
+                    <li>
+                        <article>
+                            <img class="cover cover-5" src="<?php echo $seriesTopFive['cover']; ?>" alt="<?php echo $seriesTopFive['altcover']; ?>" />
+                            <div class="series-data">
+                                <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
+                                <div class="member">
+                                    <img src="<?php echo $seriesTopFive['avatar']; ?>" alt="<?php echo $seriesTopFive['alt']; ?>" />
+                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['author']; ?></a></p>
+                                </div>
+                                <p><?php echo $seriesTopFive['numberSubscribers']; ?> abonné(s)</p>
                             </div>
-                            <p><?php echo $seriesTopFive['numberSubscribers']; ?> abonné(s)</p>
-                        </div>
-                    </article>
-                </li>
+                        </article>
+                    </li>
+                <?php
+                }
+                ?>
+            </ul>
+            <?php
+            }else{
+            ?>
+            <p>Pas encore de série publiée</p>
             <?php
             }
             ?>
-        </ul>
-        <?php
-        }else{
-        ?>
-        <p>Pas encore de série publiée</p>
-        <?php
-        }
-        ?>
-    </section>
+        </sdiv>
+    </div>
 </section>
 <script type="text/javascript" src="./public/js/objects/slider.js"></script>
 <script type="text/javascript" src="./public/js/carousel.js"></script>
