@@ -14,7 +14,7 @@ $typo-primary: 'Open Sans', sans-serif;
 $padding-title: 10px;
 $margin-section: 20px;
 $padding-section: 20px;
-$padding-button: 10px 20px;
+$padding-button: 5px 20px;
 
 .hidden, #hidden {
     display: none;
@@ -150,6 +150,32 @@ ul {
 	padding-right: 5px;
 }
 
+/* Blocs images et légendes */
+
+.figure-bloc {
+	background-color: $color-texture;
+	margin: 0 0 50px 0;
+	figure {
+		display: flex;
+		flex-direction: row;
+		justify-content: flex-start;
+		margin: 0;
+	}
+	figcaption {
+		color: $color-black;
+		font-weight: 300px;
+		margin-left: 20px;
+		margin-right: 20px;
+		margin-bottom: 20px;
+		width: 100%;
+		text-align: center;
+		h1 {
+			margin-bottom: 10px;
+			margin-top: 10px;
+		}
+	}
+}
+
 /* Mise en forme des barres de navigations */
 
 .menu {
@@ -199,33 +225,11 @@ ul {
 
 /* Mise en forme du slider */
 
-#slider {
-	background-color: $color-texture;
-	margin: 0 0 50px 0;
-	#slider-images {
-		position: relative;
-		overflow: hidden;
-		margin: 0;
-		padding: 0;
-		figure {
-			display: flex;
-			flex-direction: row;
-			justify-content: flex-start;
-			margin: 0;
-		}
-		figcaption {
-			color: $color-black;
-			font-weight: 300px;
-			margin-left: 20px;
-			margin-right: 20px;
-			margin-bottom: 20px;
-			width: 100%;
-			text-align: center;
-			h1 {
-				margin-bottom: 10px;
-			}
-		}
-	}
+#slider-images {
+	position: relative;
+	overflow: hidden;
+	margin: 0;
+	padding: 0;
 }
 
 /* Mise en forme des informations séries */
@@ -251,6 +255,10 @@ ul {
 
 .cover {
 	border-radius: 5px;
+}
+
+.popularity-mesure {
+	color: $color-secondary;
 }
 
 /* Mise en forme des informations Epizode */

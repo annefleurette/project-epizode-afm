@@ -4,7 +4,7 @@ $head_title = 'Epizode';
 $head_description = "Lisez et écrivez, où et quand vous voulez, des séries originales pour tous les goûts ! Rejoignez vite la communauté Epizode !";
 ob_start();
 ?>
-<section id="slider"> <!-- Carrousel des six dernières séries publiées sur Epizode (3 éditeurs, 3 amateurs) -->
+<section id="slider" class="figure-bloc"> <!-- Carrousel des six dernières séries publiées sur Epizode (3 éditeurs, 3 amateurs) -->
 <?php
     // S'il y a bien au moins une série publiée
     if(!empty($seriesLastSix))
@@ -13,14 +13,14 @@ ob_start();
         <div id="slider-images">
             <ul>
                 <?php
-                foreach ($seriesLastSix as $newSeries)
+                foreach ($seriesLastSix as $key => $newSeries)
                 {
                 ?>
                     <li class="slide">
                         <figure>
                             <p><img class="cover" src="<?php echo $newSeries['cover']; ?>" alt="<?php echo $newSeries['altcover']; ?>"/></p>
                             <figcaption>
-                                <h1><?php echo $newSeries['title']; ?></h1>
+                                <h1><?php echo $key +1 .' '. $newSeries['title']; ?></h1>
                                 <?php
                                 // Si la série est écrite par un éditeur
                                 if($newSeries['type'] === "publisher")

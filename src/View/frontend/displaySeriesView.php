@@ -4,103 +4,119 @@ $head_title = $oneSeriesPublicData['title'];
 $head_description = $oneSeriesPublicData['meta'];
 ob_start();
 ?>
-<section> <!-- Section avec les informations sur la série -->
-    <h1><?php echo $oneSeriesPublicData['title']; ?></h1>
-    <p><img src="<?php echo $oneSeriesPublicData['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
-    <?php
-    // Si la série est écrite par un éditeur
-    if($oneSeriesPublicData['type'] === "publisher")
-    {
-    ?>
-        <p><img src="<?php echo $oneSeriesPublicData['logo']; ?>" alt="<?php echo $oneSeriesPublicData['altlogo']; ?>"/></p>
-        <p><a href="index.php?action=displayMember&idmember=<?php echo $oneSeriesPublicData['idmember']; ?>"><?php echo $oneSeriesPublicData['publisher']; ?></a></p>
-        <p><?php echo $oneSeriesPublicData['publisher_author']; ?></p>
-    <?php
-    // Si la série est écrite par un autre utilisateur
-    }else{
-    ?>  
-        <p><img src="<?php echo $oneSeriesPublicData['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
-        <p><a href="index.php?action=displayMember&idmember=<?php echo $oneSeriesPublicData['idmember']; ?>"><?php echo $oneSeriesPublicData['member']; ?></a></p>
-    <?php
-    }
-    ?>
-    <p><?php echo $oneSeriesPublicData['numberEpisodes']; ?> épisode(s)</p>
-    <p><span id="nbSubscriptions"><?php echo $seriesSubscription[0]; ?></span> abonné(s)</p>
-    <p><?php echo $oneSeriesPublicData['tags']; ?></p>
-    <?php
-    // Si la série est payante
-    if($oneSeriesPublicData['pricing'] == "paying")
-    {
-    ?>
-        <p><i class="fas fa-coins"></i></p>
-    <?php
-    // Si la série est gratuite
-    }else{
-    ?>
-        <p>Série gratuite</p>
-    <?php
-    }
-    ?>
-    <!-- Affihage des droits -->
-    <?php if($oneSeriesPublicData['rights'] === "public") {
-    ?>
-        <p>Domaine public</p>
-    <?php 
-    }elseif($oneSeriesPublicData['rights'] === "CC")
-    {
-    ?>
-        <p><i class="fab fa-creative-commons"></i></p>
-    <?php 
-    }elseif($oneSeriesPublicData['rights'] === "CC1")
-    {
-    ?>
-        <p><i class="fab fa-creative-commons"></i> Pas de modification</p>
-    <?php 
-    }elseif($oneSeriesPublicData['rights'] === "CC2")
-    {
-    ?>
-        <p><i class="fab fa-creative-commons"></i> Pas d'utilisation commerciale - Pas de modification</p>
-    <?php 
-    }elseif($oneSeriesPublicData['rights'] === "CC3")
-    {
-    ?>
-        <p><i class="fab fa-creative-commons"></i> Pas d'utilisation commerciale</p>
-    <?php 
-    }elseif($oneSeriesPublicData['rights'] === "CC4")
-    {
-    ?>
-        <p><i class="fab fa-creative-commons"></i> Pas d'utilisation commerciale - Partage dans les mêmes conditions</p>
-    <?php
-    }elseif($oneSeriesPublicData['rights'] === "CC5")
-    {
-    ?>
-        <p><i class="fab fa-creative-commons"></i> Partage dans les mêmes conditions</p>
-    <?php
-    }elseif($oneSeriesPublicData['rights'] === "reserved")
-    {
-    ?>
-        <p>Droits réservés</p>
-    <?php
-    }
-    ?>
-    <p><?php echo $oneSeriesPublicData['summary']; ?></p>
-    <!-- Gestion des ajouts à la bibliothèque -->
-    <?php
-    // On ne peut ajouter à la bibliothèque que si on est connecté
-    if(isset($_SESSION['idmember']))
-    {
-    ?>
-        <input type="hidden" id="idseries" value=<?php echo $seriesId; ?>>
-        <button class=".cta .btn" id="subscribe"<?php if(in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>Ajouter à ma bibliothèque</button>
-        <button class=".cta .btn" id="unsubscribe" <?php if(!in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>Retirer de ma bibliothèque</button>
-    <?php
-    // Si on est pas connecté
-    }else{
-    ?>
-        <p>Pour vous abonner à une série, <a href="index.php?action=login&ref=displaySeries&idseries=<?php echo $seriesId; ?>">CONNECTEZ-VOUS !</a></p>
-    <?php
-    }
-    ?>
+<section id="series" class="figure-bloc"> <!-- Section avec les informations sur la série -->
+    <figure>
+        <p><img src="<?php echo $oneSeriesPublicData['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
+        <figcaption>
+            <h1><?php echo $oneSeriesPublicData['title']; ?></h1>
+            <div class="member">
+                <?php
+                // Si la série est écrite par un éditeur
+                if($oneSeriesPublicData['type'] === "publisher")
+                {
+                ?>
+                    <p><img src="<?php echo $oneSeriesPublicData['logo']; ?>" alt="<?php echo $oneSeriesPublicData['altlogo']; ?>"/></p>
+                    <p><a href="index.php?action=displayMember&idmember=<?php echo $oneSeriesPublicData['idmember']; ?>"><?php echo $oneSeriesPublicData['publisher']; ?></a></p>
+                <?php
+                // Si la série est écrite par un autre utilisateur
+                }else{
+                ?>  
+                    <p><img src="<?php echo $oneSeriesPublicData['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
+                    <p><a href="index.php?action=displayMember&idmember=<?php echo $oneSeriesPublicData['idmember']; ?>"><?php echo $oneSeriesPublicData['member']; ?></a></p>
+                <?php
+                }
+                ?>
+            </div>
+            <?php
+            if($oneSeriesPublicData['type'] === "publisher")
+            {
+            ?>
+                <p>Auteur : <?php echo $oneSeriesPublicData['publisher_author']; ?></p>
+            <?php
+            }
+            ?>
+            <p class="tags"><?php echo $oneSeriesPublicData['tags']; ?></p>
+            <?php
+            // Si la série est payante
+            if($oneSeriesPublicData['pricing'] == "paying")
+            {
+            ?>
+                <p>Série payante</p>
+            <?php
+            // Si la série est gratuite
+            }else{
+            ?>
+                <p>Série gratuite</p>
+            <?php
+            }
+            ?>
+            <p class="popularity-mesure"><span id="nbSubscriptions"><?php echo $seriesSubscription[0]; ?></span> abonné(s)</p>
+            <!-- Gestion des ajouts à la bibliothèque -->
+            <?php
+            // On ne peut ajouter à la bibliothèque que si on est connecté
+            if(isset($_SESSION['idmember']))
+            {
+            ?>
+                <input type="hidden" id="idseries" value=<?php echo $seriesId; ?>>
+                <button class=".cta .btn" id="subscribe"<?php if(in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>Ajouter à ma bibliothèque</button>
+                <button class=".cta .btn" id="unsubscribe" <?php if(!in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>Retirer de ma bibliothèque</button>
+            <?php
+            // Si on est pas connecté
+            }else{
+            ?>
+                <p>Pour vous abonner à cette série, <a href="index.php?action=login&ref=displaySeries&idseries=<?php echo $seriesId; ?>">connectez-vous !</a></p>
+            <?php
+            }
+            ?>
+        </figcaption>
+    </figure>
+    <div>
+        <h2>Synopsis</h2>
+        <p><?php echo $oneSeriesPublicData['summary']; ?></p>
+        <p><?php echo $oneSeriesPublicData['numberEpisodes']; ?> épisode(s)</p>
+                    <!-- Affihage des droits -->
+                    <?php if($oneSeriesPublicData['rights'] === "public") {
+        ?>
+            <p>Domaine public</p>
+        <?php 
+        }elseif($oneSeriesPublicData['rights'] === "CC")
+        {
+        ?>
+            <p><i class="fab fa-creative-commons"></i></p>
+        <?php 
+        }elseif($oneSeriesPublicData['rights'] === "CC1")
+        {
+        ?>
+            <p><i class="fab fa-creative-commons"></i> Pas de modification</p>
+        <?php 
+        }elseif($oneSeriesPublicData['rights'] === "CC2")
+        {
+        ?>
+            <p><i class="fab fa-creative-commons"></i> Pas d'utilisation commerciale - Pas de modification</p>
+        <?php 
+        }elseif($oneSeriesPublicData['rights'] === "CC3")
+        {
+        ?>
+            <p><i class="fab fa-creative-commons"></i> Pas d'utilisation commerciale</p>
+        <?php 
+        }elseif($oneSeriesPublicData['rights'] === "CC4")
+        {
+        ?>
+            <p><i class="fab fa-creative-commons"></i> Pas d'utilisation commerciale - Partage dans les mêmes conditions</p>
+        <?php
+        }elseif($oneSeriesPublicData['rights'] === "CC5")
+        {
+        ?>
+            <p><i class="fab fa-creative-commons"></i> Partage dans les mêmes conditions</p>
+        <?php
+        }elseif($oneSeriesPublicData['rights'] === "reserved")
+        {
+        ?>
+            <p>Droits réservés</p>
+        <?php
+        }
+        ?>
+    </div>
 </section>
 <section> <!-- Section avec la liste des épisodes publiés de la série -->
     <h2>Episodes de <?php echo $oneSeriesPublicData['title']; ?></h2>

@@ -1,26 +1,10 @@
 // Compter le nombre de caractères saisis
-// Keyboard
-document.getElementById("contentEpisode").addEventListener('keyup', ()=> {
-	signCounter("contentEpisode", "signsEpisode")	
-});
-// Mobile
-document.getElementById("contentEpisode").addEventListener('touchend', ()=> {
-	signCounter("contentEpisode", "signsEpisode")	
-});
-// Chargement de la page
-window.addEventListener('load', () => {
-	signCounter("contentEpisode", "signsEpisode")
-});
-function signCounter(target, show){
-	let targetElt = document.getElementById(target)
-	let showElt = document.getElementById(show)
-	let total = targetElt.value.length;
-	if (total <= 1) {
-	  let message = total + " caractère";
-	  showElt.innerHTML = message;
-	}else{
-	  let message = total + " caractères";
-	  showElt.innerHTML = message;
-	}
-	document.getElementById("nbCharacters").value = total;
+function tinySignCount(){
+	let theEditor = tinymce.activeEditor;
+	let wordCount = theEditor.plugins.wordcount.body.getCharacterCount();
+	document.getElementById("nbCharacters").value = wordCount;
 }
+document.querySelector('.container section form').addEventListener('submit', () => {
+	tinySignCount()
+})
+

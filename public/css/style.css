@@ -74,7 +74,7 @@ ul {
 .btn, .cta {
   border: 2px #9012FE solid;
   border-radius: 50px;
-  padding: 10px 20px;
+  padding: 5px 20px;
   background-color: transparent;
   color: #9012FE;
   font-size: 1.2em;
@@ -125,6 +125,31 @@ ul {
   padding-right: 5px;
 }
 
+/* Blocs images et légendes */
+.figure-bloc {
+  background-color: #FAFAFA;
+  margin: 0 0 50px 0;
+}
+.figure-bloc figure {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  margin: 0;
+}
+.figure-bloc figcaption {
+  color: #262626;
+  font-weight: 300px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  text-align: center;
+}
+.figure-bloc figcaption h1 {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
 /* Mise en forme des barres de navigations */
 .menu {
   display: flex;
@@ -171,33 +196,11 @@ ul {
 }
 
 /* Mise en forme du slider */
-#slider {
-  background-color: #FAFAFA;
-  margin: 0 0 50px 0;
-}
-#slider #slider-images {
+#slider-images {
   position: relative;
   overflow: hidden;
   margin: 0;
   padding: 0;
-}
-#slider #slider-images figure {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  margin: 0;
-}
-#slider #slider-images figcaption {
-  color: #262626;
-  font-weight: 300px;
-  margin-left: 20px;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  width: 100%;
-  text-align: center;
-}
-#slider #slider-images figcaption h1 {
-  margin-bottom: 10px;
 }
 
 /* Mise en forme des informations séries */
@@ -222,6 +225,10 @@ ul {
 
 .cover {
   border-radius: 5px;
+}
+
+.popularity-mesure {
+  color: #2BFF79;
 }
 
 /* Mise en forme des informations Epizode */

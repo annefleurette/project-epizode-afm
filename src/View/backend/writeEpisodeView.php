@@ -20,7 +20,6 @@ ob_start();
             <label for="contentEpisode">Contenu de l'épisode</label><br />
             <textarea id="contentEpisode" name="contentEpisode"><?php if(isset($_SESSION['tempContent'])){echo $_SESSION['tempContent'];}else{echo NULL;}?></textarea>
             <?php if(isset($_SESSION['tempContent'])){unset($_SESSION['tempContent']);}?>
-            <p id="signsEpisode"></p>
             <input type="hidden" id="nbCharacters" name="nbCharacters" value="0" />
         </p>
         <p>

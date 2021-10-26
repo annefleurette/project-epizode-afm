@@ -26,7 +26,7 @@
             selector: '#contentEpisode',
             content_css : './public/css/style.css',
             inline_styles : false,
-            plugins: "autoresize",
+            plugins: "autoresize, wordcount",
             autoresize_overflow_padding: 15,
             autoresize_bottom_margin: 15,
             min_height: 500,
@@ -34,7 +34,10 @@
             invalid_elements: "span, p, a",
             forced_root_block : false,
             force_br_newlines : true,
-            force_p_newlines : false
+            force_p_newlines : false,
+            init_instance_callback: function (editor) {
+            $(editor.getContainer()).find('button.tox-statusbar__wordcount').click();  // if you use jQuery
+            }
             });
         </script>
     </head>
