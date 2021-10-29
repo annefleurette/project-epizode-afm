@@ -19,7 +19,7 @@ ob_start();
                 <input type="password" name="password" id="password" required>
             </p>
             <p>
-                <input class="btn btn-green" type="submit" value="Se connecter">
+                <input class="btn btn-purple" type="submit" value="Se connecter">
             </p>
             <p>
                 <input id="form-fields-remember" type="checkbox" id="remember" name="remember">

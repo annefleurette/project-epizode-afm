@@ -13,14 +13,14 @@ ob_start();
         <div id="slider-images">
             <ul>
                 <?php
-                foreach ($seriesLastSix as $key => $newSeries)
+                foreach ($seriesLastSix as $newSeries)
                 {
                 ?>
                     <li class="slide">
                         <figure>
                             <p><img class="cover" src="<?php echo $newSeries['cover']; ?>" alt="<?php echo $newSeries['altcover']; ?>"/></p>
                             <figcaption>
-                                <h1><?php echo $key +1 .' '. $newSeries['title']; ?></h1>
+                                <h1><?php echo $newSeries['title']; ?></h1>
                                 <?php
                                 // Si la série est écrite par un éditeur
                                 if($newSeries['type'] === "publisher")
@@ -57,7 +57,7 @@ ob_start();
                                 }
                                 ?>
                                 <br />
-                                <div><a class="btn btn-green" href="index.php?action=displaySeries&idseries=<?php echo $newSeries['id']; ?>">Découvrir la série à lire</a></div>
+                                <div><a class="btn btn-purple" href="index.php?action=displaySeries&idseries=<?php echo $newSeries['id']; ?>">Découvrir la série à lire</a></div>
                             </figcaption>
                         </figure>
                     </li>
@@ -85,11 +85,12 @@ ob_start();
             ?>
             <ul>
             <?php
-                foreach ($seriesTopFivePublishers as $seriesTopFive)
+                foreach ($seriesTopFivePublishers as $key => $seriesTopFive)
                 {
                 ?>
                     <li>
                         <article>
+                            <p class="topten-5-ranking"><?php echo $key +1; ?></p>
                             <img class="cover cover-5" src="<?php echo $seriesTopFive['cover']; ?>" alt="<?php echo $seriesTopFive['altcover']; ?>" />
                             <div class="series-data">
                                 <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
@@ -121,11 +122,12 @@ ob_start();
             ?>
             <ul>
             <?php
-                foreach ($seriesTopFiveUsers as $seriesTopFive)
+                foreach ($seriesTopFiveUsers as $key => $seriesTopFive)
                 {
                 ?>
                     <li>
                         <article>
+                            <p class="topten-5-ranking"><?php echo $key +1; ?></p>
                             <img class="cover cover-5" src="<?php echo $seriesTopFive['cover']; ?>" alt="<?php echo $seriesTopFive['altcover']; ?>" />
                             <div class="series-data">
                                 <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>

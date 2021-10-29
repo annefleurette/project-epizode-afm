@@ -4,7 +4,7 @@ $head_title = $oneSeriesPublicData['title'];
 $head_description = $oneSeriesPublicData['meta'];
 ob_start();
 ?>
-<section id="series" class="figure-bloc"> <!-- Section avec les informations sur la série -->
+<section id="series" class="figure-bloc section-internal"> <!-- Section avec les informations sur la série -->
     <figure>
         <p><img src="<?php echo $oneSeriesPublicData['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
         <figcaption>
@@ -15,13 +15,13 @@ ob_start();
                 if($oneSeriesPublicData['type'] === "publisher")
                 {
                 ?>
-                    <p><img src="<?php echo $oneSeriesPublicData['logo']; ?>" alt="<?php echo $oneSeriesPublicData['altlogo']; ?>"/></p>
+                    <p class="figure-bloc-member"><img src="<?php echo $oneSeriesPublicData['logo']; ?>" alt="<?php echo $oneSeriesPublicData['altlogo']; ?>"/></p>
                     <p><a href="index.php?action=displayMember&idmember=<?php echo $oneSeriesPublicData['idmember']; ?>"><?php echo $oneSeriesPublicData['publisher']; ?></a></p>
                 <?php
                 // Si la série est écrite par un autre utilisateur
                 }else{
                 ?>  
-                    <p><img src="<?php echo $oneSeriesPublicData['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
+                    <p class="figure-bloc-member"><img src="<?php echo $oneSeriesPublicData['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
                     <p><a href="index.php?action=displayMember&idmember=<?php echo $oneSeriesPublicData['idmember']; ?>"><?php echo $oneSeriesPublicData['member']; ?></a></p>
                 <?php
                 }
@@ -58,8 +58,8 @@ ob_start();
             {
             ?>
                 <input type="hidden" id="idseries" value=<?php echo $seriesId; ?>>
-                <button class=".cta .btn" id="subscribe"<?php if(in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>Ajouter à ma bibliothèque</button>
-                <button class=".cta .btn" id="unsubscribe" <?php if(!in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>Retirer de ma bibliothèque</button>
+                <button id="subscribe"<?php if(in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>Ajouter à ma bibliothèque</button>
+                <button id="unsubscribe" <?php if(!in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>Retirer de ma bibliothèque</button>
             <?php
             // Si on est pas connecté
             }else{
@@ -71,7 +71,7 @@ ob_start();
         </figcaption>
     </figure>
     <div>
-        <h2>Synopsis</h2>
+        <h2 class="under-series">Synopsis</h2>
         <p><?php echo $oneSeriesPublicData['summary']; ?></p>
         <p><?php echo $oneSeriesPublicData['numberEpisodes']; ?> épisode(s)</p>
                     <!-- Affihage des droits -->
@@ -118,8 +118,8 @@ ob_start();
         ?>
     </div>
 </section>
-<section> <!-- Section avec la liste des épisodes publiés de la série -->
-    <h2>Episodes de <?php echo $oneSeriesPublicData['title']; ?></h2>
+<section id="series-episodes" class="section-internal"> <!-- Section avec la liste des épisodes publiés de la série -->
+    <h2>Episodes de la série <?php echo $oneSeriesPublicData['title']; ?></h2>
         <?php
         // Si la série comporte des épisodes
         if($nbepisodes_published > 0)
@@ -131,14 +131,13 @@ ob_start();
                 {
                 ?>
                     <li>
-                        <article>
-                            <p>Episode n°<?php echo $allEpisodesPublished['number']; ?></p>
-                            <p><?php echo $allEpisodesPublished['title']; ?></p>
+                        <article class="series-episodes-articles">
+                            <p><strong>Episode n°<?php echo $allEpisodesPublished['number']; ?> : <?php echo $allEpisodesPublished['title']; ?></strong></p>
                             <?php
                             if($allEpisodesPublished['price'] != 0)
                             {
                             ?>
-                                <p><i class="fas fa-coins"></i><?php echo $allEpisodesPublished['price']; ?></p>
+                                <p>Prix : <?php echo $allEpisodesPublished['price']; ?> euros</p>
                             <?php
                             }else{
                             ?>
@@ -146,8 +145,8 @@ ob_start();
                             <?php
                             }
                             ?>
-                            <p><i class="fas fa-heart"></i><?php echo $allEpisodesPublished['likesNumber']; ?></p>
-                            <p><a href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>&idepisode=<?php echo $allEpisodesPublished['id']; ?>">LIRE</a></p>
+                            <p class="like-info"><i class="fas fa-heart"></i><?php echo $allEpisodesPublished['likesNumber']; ?></p>
+                            <p><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>&idepisode=<?php echo $allEpisodesPublished['id']; ?>">Lire l'épisode</a></p>
                         </article>
                     </li>
                 <?php
@@ -163,7 +162,7 @@ ob_start();
         }
         ?> 
 </section>
-<section> <!-- Section qui présente des séries similaires en termes de tags -->
+<section id="series-recommandations" class=" figure-bloc section-internal"> <!-- Section qui présente des séries similaires en termes de tags -->
     <h2>Recommandations <?php echo $oneSeriesPublicData['tags']; ?></h2>
     <ul>
         <?php
@@ -175,29 +174,50 @@ ob_start();
                 {   
                 ?>
                     <li>
-                        <article>
-                            <p><a href="index.php?action=displaySeries&idseries=<?php echo $allTagsSeries[$i][$j]['id']; ?>"><?php echo $allTagsSeries[$i][$j]['title']; ?></a></p>
+                        <figure>
                             <p><img src="<?php echo $allTagsSeries[$i][$j]['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
-                            <p><img src="<?php echo $allTagsSeries[$i][$j]['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
-                            <p><a href="index.php?action=displayMember&idmember=<?php echo $allTagsSeries[$i][$j]['idmember']; ?>"><?php echo $allTagsSeries[$i][$j]['member']; ?></a></p>
-                            <p><?php echo $allTagsSeries[$i][$j]['numberEpisodes']; ?> épisode(s)</p>
-                            <p><?php echo $allTagsSeries[$i][$j]['numberSubscribers']; ?> abonné(s)</p>
-                            <p><?php echo $allTagsSeries[$i][$j]['tags']; ?></p>
-                            <?php
-                            // Si la série est payante
-                            if($allTagsSeries[$i][$j]['pricing'] == "paying")
-                            {
-                            ?>
-                                <p><i class="fas fa-coins"></i></p>
-                            <?php
-                            // Si la série est gratuite
-                            }else{
-                            ?>
-                                <p>Série gratuite</p>
-                            <?php
-                            }
-                            ?>
-                        </article>
+                            <figcaption>
+                                <h3><?php echo $allTagsSeries[$i][$j]['title']; ?></h3>
+                                <div class="member">
+                                <?php
+                                // Si la série est écrite par un éditeur
+                                if($allTagsSeries[$i][$j]['type'] === "publisher")
+                                {
+                                ?>
+                                    <p class="figure-bloc-member"><img src="<?php echo $allTagsSeries[$i][$j]['logo']; ?>" alt="<?php echo $allTagsSeries[$i][$j]['altlogo']; ?>"/></p>
+                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $allTagsSeries[$i][$j]['idmember']; ?>"><?php echo $allTagsSeries[$i][$j]['publisher']; ?></a></p>
+                                <?php
+                                // Si la série est écrite par un autre utilisateur
+                                }elseif($allTagsSeries[$i][$j]['type'] === "user")
+                                {
+                                ?>  
+                                    <p class="figure-bloc-member"><img src="<?php echo $allTagsSeries[$i][$j]['avatar']; ?>" alt="<?php echo $allTagsSeries[$i][$j]['altavatar']; ?>"/></p>  
+                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $allTagsSeries[$i][$j]['idmember']; ?>"><?php echo $allTagsSeries[$i][$j]['member']; ?></a></p>
+                                <?php
+                                }
+                                ?>
+                                </div>
+                                <p><?php echo $allTagsSeries[$i][$j]['numberEpisodes']; ?> épisode(s)</p>
+                                <p><?php echo $allTagsSeries[$i][$j]['numberSubscribers']; ?> abonné(s)</p>
+                                <p class="tags"><?php echo $allTagsSeries[$i][$j]['tags']; ?></p>
+                                <?php
+                                // Si la série est payante
+                                if($allTagsSeries[$i][$j]['pricing'] == "paying")
+                                {
+                                ?>
+                                    <p>Série payante</p>
+                                <?php
+                                // Si la série est gratuite
+                                }else{
+                                ?>
+                                    <p>Série gratuite</p>
+                                <?php
+                                }
+                                ?>
+                                <br />
+                                <div><a class="btn btn-purple" href="index.php?action=displaySeries&idseries=<?php echo $allTagsSeries[$i][$j]['id']; ?>">Découvrir la série à lire</a></div>
+                            </figcaption>
+                        </figure>
                     </li>
                 <?php
                 }

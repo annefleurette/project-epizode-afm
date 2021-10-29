@@ -1,6 +1,6 @@
 <?php
 // Page qui affiche un épisode
-$head_title = $oneSeriesPublicData['title']. " / Episode :" .$episode_unitary_published['title'];
+$head_title = $oneSeriesPublicData['title']. " / Episode : " .$episode_unitary_published['title'];
 $head_description = $episode_unitary_published['meta'];
 ob_start();
 ?>

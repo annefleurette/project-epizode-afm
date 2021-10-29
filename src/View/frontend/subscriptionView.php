@@ -27,7 +27,7 @@ ob_start();
                 <input type="password" id="password2" name="password2" min="6" required>
             </p>
             <p>
-                <input class="btn btn-green" type="submit" value="S'inscrire">
+                <input class="btn btn-purple" type="submit" value="S'inscrire">
             </p>
         </form>
         <div class="form-connected">
