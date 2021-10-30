@@ -50,7 +50,7 @@ ob_start();
             <?php
             }
             ?>
-            <p class="popularity-mesure"><span id="nbSubscriptions"><?php echo $seriesSubscription[0]; ?></span> abonné(s)</p>
+            <p class="social-info"><i class="fas fa-book-medical"></i><span id="nbSubscriptions"><?php echo $seriesSubscription[0]; ?></span></p>
             <!-- Gestion des ajouts à la bibliothèque -->
             <?php
             // On ne peut ajouter à la bibliothèque que si on est connecté
@@ -145,7 +145,7 @@ ob_start();
                             <?php
                             }
                             ?>
-                            <p class="like-info"><i class="fas fa-heart"></i><?php echo $allEpisodesPublished['likesNumber']; ?></p>
+                            <p class="social-info"><i class="fas fa-heart"></i><?php echo $allEpisodesPublished['likesNumber']; ?></p>
                             <p><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>&idepisode=<?php echo $allEpisodesPublished['id']; ?>">Lire l'épisode</a></p>
                         </article>
                     </li>

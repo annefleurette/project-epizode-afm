@@ -480,7 +480,7 @@ class MembersController {
 		$_SESSION = array();
 		// Déconnexion
 		session_destroy();
-		header('Location: index.php?action=subscription'); 
+		header('Location: index.php?action=homepage'); 
 	}
 
 	public function displayMember($getidmember)

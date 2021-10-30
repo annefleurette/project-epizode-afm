@@ -4,6 +4,7 @@
 
 $color-primary: #9012FE;
 $color-secondary: #240440;
+$color-tertiary: #99488D;
 $color-texture: #FAFAFA;
 $color-black: #262626;
 $color-dark: #000000;
@@ -90,7 +91,7 @@ p {
 }
 
 a {
-	color: $color-primary;
+	color: $color-secondary;
 	text-decoration: none;
 	font-weight: 500;
 }
@@ -232,16 +233,16 @@ ul {
 		padding-right: 10px;
 	}
 	#site-search {
-		color: $color-black;
+		color: $color-primary;
 		background-color: transparent;
-		border-color: $color-black;
-		border-width: 1px;
+		border-color: $color-primary;
+		border-width: 1.5px;
 		padding: 5px;
 		outline: none;
 	}
 	.cta {
 		border: none;
-		color: $color-black;
+		color: $color-primary;
 		padding-left: 5px;
 	}
 
@@ -284,10 +285,6 @@ ul {
 	border-radius: 5px;
 }
 
-.popularity-mesure {
-	color: $color-secondary;
-}
-
 /* Mise en forme des informations épisodes */
 
 #series-episodes {
@@ -296,9 +293,9 @@ ul {
 	}
 }
 
-.like-info {
-	color: $color-primary;
-	.fa-heart {
+.social-info {
+	color: $color-tertiary;
+	.fa-heart, .fa-comment, .fa-book-medical {
 		font-size: 1.3em;
 	}
 }
@@ -307,6 +304,64 @@ ul {
 	background-color: $color-white;
 	padding: 20px;
 	border-radius: 5px;
+}
+
+#episode {
+	margin-top: 0;
+	.episode-series-data {
+		text-align: center;
+		p {
+			margin-top: 0;
+			margin-bottom: 0;
+		}
+	}
+	h1 {
+		margin-top: 10px;
+		margin-bottom: 10px;
+	}
+}
+
+.episode-data {
+	text-align: center;
+	&-social {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		p {
+			margin-left: 15px;
+			margin-right: 15px;
+		}
+	}
+}
+
+#episode-content {
+	margin-top: 0;
+	.episode-content-text {
+		width: 65%;
+		margin: auto;
+		justify-content: center;
+		background-color: $color-white;
+		margin-top: 0;
+		border: 1px #FFFFFF solid; 
+		border-radius: 5px;
+		padding: 40px;
+		line-height: 31px;
+	}
+}
+
+.button-prevnext {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	p {
+		margin-top: 30px;
+		margin-left: 15px;
+		margin-right: 15px;
+	}
+}
+
+.button-prev, .button-next {
+	text-align: center;
 }
 
 /* Mise en forme des informations Epizode */
