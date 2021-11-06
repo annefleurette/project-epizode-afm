@@ -203,6 +203,10 @@ ul {
 
 /* Mise en forme des barres de navigations */
 
+.menu-mobile {
+	display: none;
+}
+
 .menu {
 	display: flex;
 	flex-direction: row;
@@ -215,6 +219,9 @@ ul {
 			color: $color-black;
 			font-weight: 500;
 			font-size: 1.1em;
+			@media all and (max-width: 940px) {
+				font-size: 0.8em;
+			}
 		}
 		.cta {
 			font-size: 1.1em;
@@ -222,6 +229,9 @@ ul {
 		&-link:hover {
 			font-size: 1.1em;
 			color: $color-primary;
+			@media all and (max-width: 940px) {
+				font-size: 0.8em;
+			}
 		}
 		&-link:focus {
 			color: $color-primary;
@@ -246,6 +256,114 @@ ul {
 		padding-left: 5px;
 	}
 
+}
+
+@media all and (max-width: 940px) {
+	.menu-mobile {
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: top;
+		&-logo {
+			margin: 15px;
+			img {
+				width: 80%;
+			}
+		}
+	}
+	.menu-desktop {
+		display: none;
+	}
+}
+
+#menuToggle
+{
+	display: block;
+	position: relative;
+	top: 25px;
+	left: 15px;
+	z-index: 1;
+	-webkit-user-select: none;
+	user-select: none;
+	a {
+	transition: $color-primary 0.3s ease;
+		&:hover {
+			color: $color-primary;
+		}
+	}
+	input {
+		display: block;
+		width: 40px;
+		height: 32px;
+		position: absolute;
+		top: -7px;
+		left: -7px;
+		border: 1px black solid;
+		cursor: pointer;
+		opacity: 0; /* hide this */
+		z-index: 2; /* and place it over the hamburger */
+		-webkit-touch-callout: none;
+		/* Transform all the slices of hamburger into a crossmark */
+		&:checked ~ span {
+			opacity: 1;
+			transform: rotate(45deg) translate(-2px, -1px);
+			background: $color-black;
+			/* But let's hide the middle one */
+			&:nth-last-child(3) {
+				opacity: 0;
+				transform: rotate(0deg) scale(0.2, 0.2);
+			}
+			/* And the last one should go the other direction */
+			&:nth-last-child(2) {
+				transform: rotate(-45deg) translate(0, -1px);
+			}
+		}	
+	}
+	span {
+		display: block;
+		width: 33px;
+		height: 4px;
+		margin-bottom: 5px;
+		position: relative;
+		background: $color-black;
+		border-radius: 3px;
+		z-index: 1;
+		transform-origin: 4px 0px;
+		transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0), background 0.5s cubic-bezier(0.77,0.2,0.05,1.0), opacity 0.55s ease;
+		&:first-child
+		{
+			transform-origin: 0% 0%;
+		}
+		&:nth-last-child(2)
+		{
+			transform-origin: 0% 100%;
+		}
+	}
+}
+
+#menu-mobile-list
+{
+	position: absolute;
+	width: 300px;
+	margin: -100px 0 0 -50px;
+	padding: 50px;
+	padding-top: 125px;
+	background: $color-texture;
+	list-style-type: none;
+	-webkit-font-smoothing: antialiased;
+	/* to stop flickering of text in safari */
+	transform-origin: 0% 0%;
+	transform: translate(-100%, 0);
+	transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+	li {
+		padding: 10px 0;
+		font-size: 22px;
+	}
+}
+
+/* And let's slide it in from the left */
+#menuToggle input:checked ~ ul {
+	transform: none;
 }
 
 /* Mise en forme du slider */

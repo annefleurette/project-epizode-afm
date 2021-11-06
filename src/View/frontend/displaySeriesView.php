@@ -58,8 +58,8 @@ ob_start();
             {
             ?>
                 <input type="hidden" id="idseries" value=<?php echo $seriesId; ?>>
-                <button id="subscribe"<?php if(in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>Ajouter à ma bibliothèque</button>
-                <button id="unsubscribe" <?php if(!in_array($_SESSION['idmember'], $seriesSubscribers)){ echo 'class="hidden"'; }?>>Retirer de ma bibliothèque</button>
+                <button id="subscribe" class="btn btn-purple <?php if(in_array($_SESSION['idmember'], $seriesSubscribers)){ echo "hidden"; } ?>">Ajouter à ma bibliothèque</button>
+                <button id="unsubscribe" class="btn btn-purple <?php if(!in_array($_SESSION['idmember'], $seriesSubscribers)){ echo "hidden"; }?>">Retirer de ma bibliothèque</button>
             <?php
             // Si on est pas connecté
             }else{

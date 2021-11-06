@@ -20,8 +20,8 @@ ob_start();
             {
             ?>
                 <input type="hidden" id="idepisode" value=<?php echo $episodeId; ?>>
-                <button id="like" <?php if(in_array($_SESSION['idmember'], $episodeLikers)){ echo 'class="hidden"'; }?>>J'AIME</button>
-                <button id="dislike" <?php if(!in_array($_SESSION['idmember'], $episodeLikers)){ echo 'class="hidden"'; }?>>JE N'AIME PLUS</button>
+                <button id="like" class="btn btn-purple <?php if(in_array($_SESSION['idmember'], $episodeLikers)){ echo "hidden"; }?>">J'aime</button>
+                <button id="dislike" class="btn btn-purple <?php if(!in_array($_SESSION['idmember'], $episodeLikers)){ echo "hidden" ; }?>">Je n'aime plus</button>
             <?php
             // Si le membre n'est pas connecté
             }else{
@@ -53,6 +53,10 @@ ob_start();
         ?>
             <p>Un seul épisode publié pour le moment !</p>
         <?php  
+        }else{
+        ?>
+            <p><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode suivant</a></p>
+        <?php
         }
     }elseif($episode_current >= $totalepisodes)
     {
