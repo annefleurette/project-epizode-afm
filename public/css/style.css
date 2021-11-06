@@ -5,10 +5,15 @@
   display: none;
 }
 
+footer {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  padding-top: 50px;
+  height: 65px;
+}
 footer p {
   text-align: center;
-  padding-top: 15px;
-  padding-bottom: 15px;
 }
 
 /* Contenants */
@@ -18,21 +23,24 @@ body {
   color: #262626;
   background-color: #FAFAFA;
   font-family: "Open Sans", sans-serif;
+  height: 100%;
 }
 
 .container {
   width: 100%;
+  min-height: 100%;
   margin: auto;
+  position: relative;
+  padding-bottom: 50px;
 }
 
 section {
-  padding: 20px;
+  padding: 20px 60px;
   margin: 20px 0px;
 }
 
 .section-internal {
   margin-bottom: 0px !important;
-  padding: 20px 60px;
 }
 .section-internal h2 {
   margin: 0;
@@ -126,6 +134,22 @@ ul {
   text-align: center;
 }
 
+.alert-message {
+  text-align: center;
+  margin-left: 60px;
+  margin-right: 60px;
+  padding: 10px;
+  border: 1px #240440 solid;
+  color: #240440;
+  font-weight: 500;
+}
+@media all and (max-width: 940px) {
+  .alert-message {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+}
+
 /* Formulaires */
 .form h1 {
   margin-top: 0;
@@ -143,8 +167,12 @@ ul {
   margin-bottom: 5px;
   outline: none;
 }
+.form .form-fields input #email {
+  background-color: #FFFFFF;
+}
 .form .form-fields input:focus {
   border: 1px #262626 solid;
+  background-color: #FFFFFF;
 }
 .form .form-fields .btn-purple {
   width: auto;
@@ -261,6 +289,25 @@ ul {
   padding-left: 5px;
 }
 
+.menu__second {
+  text-align: center;
+}
+.menu__second li {
+  display: inline-block;
+  margin: 10px 100px;
+  padding-bottom: 10px;
+  font-size: 2em;
+  color: #240440;
+  transition-property: border-bottom;
+  transition-duration: 0.3s;
+}
+.menu__second li p {
+  margin: 0;
+}
+.menu__second li:active, .menu__second li:focus {
+  border-bottom: 3px #240440 solid;
+}
+
 @media all and (max-width: 940px) {
   .menu-mobile {
     display: flex;
@@ -368,7 +415,7 @@ ul {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;
-  padding: 200px 60px 200px 60px;
+  padding: 200px 60px 200px;
   margin: 0;
   color: #FFFFFF;
 }
@@ -389,7 +436,7 @@ ul {
   padding: 0;
 }
 #slider-images ul {
-  margin: 0 40px;
+  margin: 0;
 }
 
 /* Mise en forme des informations séries */
@@ -579,6 +626,45 @@ ul {
 }
 #episode-comments form label {
   line-height: 50px;
+}
+
+/* Mise en forme des informations membre */
+#member-info h1 {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+#member-info p {
+  text-align: center;
+}
+
+.member-info__counts {
+  color: #99488D;
+}
+
+.member-info__authors h3 {
+  color: #9012FE;
+  font-weight: 500;
+}
+
+.elementContent {
+  background-color: #FFFFFF;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 5px;
+}
+
+.elementTab .active {
+  background-color: #FFFFFF;
+  border-bottom: 2px #240440 solid;
+}
+
+/* Mise en forme des erreur */
+.error-page {
+  text-align: center;
+}
+.error-page h1 {
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 /*# sourceMappingURL=style.css.map */

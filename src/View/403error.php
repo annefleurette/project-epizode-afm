@@ -4,7 +4,7 @@ $head_title = 'Epizode - Erreur 403';
 $head_description = 'Page d\'erreur 403 d\'Epizode';
 ob_start();
 ?>
-<section>
+<section class="error-page">
     <h1>Erreur 403</h1>
     <p>Accès à la page web refusé !</p>
 </section>

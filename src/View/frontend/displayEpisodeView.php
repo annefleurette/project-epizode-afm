@@ -105,7 +105,7 @@ ob_start();
                         ?>
                             <div class="member">
                                 <p><img src="<?php echo $comment_data['logo']; ?>" alt="<?php echo $comment_data['altlogo']; ?>"/></p>
-                                <p><?php echo $comment_data['name']; ?></p>
+                                <p><a href="index.php?action=displayMember&idmember=<?php echo $comment_data['idmember']; ?>"><?php echo $comment_data['name']; ?></a></p>
                             </div>
                         <!-- Si l'auteur est un autre utilisateur -->
                         <?php
@@ -113,7 +113,7 @@ ob_start();
                         ?> 
                             <div class="member"> 
                                 <p><img src="<?php echo $comment_data['avatar']; ?>" alt="<?php echo $comment_data['altavatar']; ?>"/></p>  
-                                <p><?php echo $comment_data['pseudo']; ?></p>
+                                <p><a href="index.php?action=displayMember&idmember=<?php echo $comment_data['idmember']; ?>"><?php echo $comment_data['pseudo']; ?></a></p>
                             </div>
                         <?php
                         }

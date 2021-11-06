@@ -162,7 +162,7 @@ ob_start();
         }
         ?> 
 </section>
-<section id="series-recommandations" class=" figure-bloc section-internal"> <!-- Section qui présente des séries similaires en termes de tags -->
+<section id="series-recommandations" class="figure-bloc section-internal"> <!-- Section qui présente des séries similaires en termes de tags -->
     <h2>Recommandations <?php echo $oneSeriesPublicData['tags']; ?></h2>
     <ul>
         <?php

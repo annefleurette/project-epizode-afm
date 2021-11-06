@@ -12,6 +12,7 @@ window.addEventListener('load', () => {
 			const tabs = Array.from(document.getElementsByClassName("elementTab"));
 			const tabSelected = tabs.find(tab => tab.dataset.index == urlParams.get('tab'));
 			showElt(tabSelected);
+			tabSelected.classList.add("active");
 	}
 })
 

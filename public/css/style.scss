@@ -15,7 +15,7 @@ $typo-primary: 'Open Sans', sans-serif;
 
 $padding-title: 10px 0px;
 $margin-section: 20px 0px;
-$padding-section: 20px;
+$padding-section: 20px 60px;
 $padding-button: 5px 20px;
 
 .hidden, #hidden {
@@ -23,10 +23,13 @@ $padding-button: 5px 20px;
 }
 
 footer {
+	position: absolute;
+	width:100%;
+	bottom: 0;
+	padding-top:50px;
+	height:65px;
 	p {
 		text-align: center;
-		padding-top: 15px;
-		padding-bottom: 15px;
 		}
 }
 
@@ -38,11 +41,15 @@ body {
 	color: $color-black;
 	background-color: $color-texture;
 	font-family: $typo-primary;
+	height: 100%;
 }
 
 .container {
 	width: 100%;
+	min-height:100%;
 	margin: auto;
+	position: relative;
+	padding-bottom: 50px;
 }
 
 section {
@@ -53,7 +60,6 @@ section {
 
 .section-internal {
 	margin-bottom: 0px!important;
-	padding: 20px 60px;
 	h2 {
 		margin: 0;
 	}
@@ -149,6 +155,20 @@ ul {
 	}
 }
 
+.alert-message {
+	text-align: center;
+	margin-left: 60px;
+	margin-right: 60px;
+	padding: 10px;
+	border: 1px $color-secondary solid;
+	color: $color-secondary;
+	font-weight: 500;
+	@media all and (max-width: 940px) {
+		margin-left: 20px;
+		margin-right: 20px;
+	}
+}
+
 /* Formulaires */
 
 .form {
@@ -166,8 +186,12 @@ ul {
 			height: 20px;
 			margin-bottom: 5px;
 			outline: none;
+			#email {
+			background-color: $color-white;
+			}
 			&:focus {
 				border: 1px $color-black solid;
+				background-color: $color-white;
 			}
 		}
 		.btn-purple {
@@ -287,6 +311,25 @@ ul {
 
 }
 
+.menu__second {
+	text-align: center;
+	li {
+		display: inline-block;
+		margin: 10px 100px;
+		padding-bottom: 10px;
+		font-size: 2em;
+		color: $color-secondary;
+		transition-property: border-bottom;
+		transition-duration: 0.3s;
+		p {
+			margin: 0;
+		}
+		&:active, &:focus {
+			border-bottom: 3px $color-secondary solid;
+		}
+	}
+}
+
 @media all and (max-width: 940px) {
 	.menu-mobile {
 		display: flex;
@@ -399,7 +442,7 @@ ul {
 	background-attachment:fixed;
 	background-repeat:no-repeat;
 	background-size: cover;
-	padding: 200px 60px 200px 60px;
+	padding: 200px 60px 200px;
 	margin: 0;
 	color: $color-white;
 	h2 {
@@ -420,7 +463,7 @@ ul {
 	margin: 0;
 	padding: 0;
 	ul {
-		margin: 0 40px;
+		margin: 0;
 	}
 }
 
@@ -620,6 +663,51 @@ padding-left: 0;
 		label {
 			line-height: 50px;
 		}
+	}
+}
+
+/* Mise en forme des informations membre */
+
+#member-info {
+	h1 {
+		margin-top: 0;
+		margin-bottom: 0;
+	}
+	p{
+	text-align: center;
+	}
+}
+
+.member-info__counts {
+	color: $color-tertiary;
+}
+
+.member-info__authors {
+	h3 {
+		color: $color-primary;
+		font-weight: 500;
+	}
+}
+
+.elementContent {
+	background-color: $color-white;
+	margin-left: 20px;
+	margin-right: 20px;
+	border-radius: 5px;
+}
+
+.elementTab .active {
+	background-color: $color-white;
+	border-bottom: 2px $color-secondary solid;
+}
+
+/* Mise en forme des erreur */
+
+.error-page {
+	text-align:center;
+	h1 {
+		margin-top: 0;
+		margin-bottom: 0;
 	}
 }
 

@@ -4,7 +4,7 @@ $head_title = 'Epizode - Erreur 404';
 $head_description = 'Page d\'erreur 404 d\'Epizode';
 ob_start();
 ?>
-<section>
+<section class="error-page">
     <h1>Erreur 404</h1>
     <p>Cette page n'existe pas !</p>
 </section>

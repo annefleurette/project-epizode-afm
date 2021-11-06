@@ -3,14 +3,14 @@
 $head_title = 'Epizode - Informations sur le membre';
 ob_start();
 ?>
-<section>
-<?php
+<section id="member-info">
+    <?php
     // Si le membre est un amateur
     if($userPublicData['type'] == "user")
     {
     ?>
         <p><img src="<?php echo $userPublicData['avatar']; ?>" alt="<?php echo $userPublicData['altavatar']; ?>"/></p>
-        <p><?php echo $userPublicData['pseudo']; ?></p>
+        <h1><?php echo $userPublicData['pseudo']; ?></h1>
         <?php
         if(isset($userPublicData['description']))
         {
@@ -23,40 +23,50 @@ ob_start();
         <?php    
         }
         ?>
-        <p><?php echo $userPublicData['numberSubscriptions']; ?> abonnement(s)</p>
-        <p><?php echo $userPublicData['numberWritings']; ?> série(s) publiée(s)</p>
+        <p class="member-info__counts"><?php echo $userPublicData['numberSubscriptions']; ?> abonnement(s)</p>
+        <p class="member-info__counts"><?php echo $userPublicData['numberWritings']; ?> série(s) publiée(s)</p>
     <?php
     // Si le membre est un éditeur
     }elseif($userPublicData['type'] == "publisher"){
     ?>
         <p><img src="<?php echo $userPublicData['logo']; ?>" alt="<?php echo $userPublicData['altlogo']; ?>"/></p>
-        <p><?php echo $userPublicData['name']; ?></p>
-        <p><?php echo $userPublicData['pseudo']; ?></p>
-        <p><?php echo $userPublicData['description']; ?></p>
-        <p><?php echo $userPublicData['numberAuthors']; ?> auteurs</p>
-        <p><?php echo $userPublicData['numberWritings']; ?> séries publiées</p>
+        <h1><?php echo $userPublicData['name']; ?></h1>
+        <?php
+        if(isset($userPublicData['description']))
+        {
+        ?>
+            <p><?php echo $userPublicData['description']; ?></p>
+        <?php
+        }else{
+        ?>
+            <p>Pas de description</p>
+        <?php    
+        }
+        ?>
+        <p class="member-info__counts"><?php echo $userPublicData['numberAuthors']; ?> auteur(s)</p>
+        <p class="member-info__counts"><?php echo $userPublicData['numberWritings']; ?> série(s) publiée(s)</p>
     <?php
     }
     ?>
 </section>
 <nav> <!-- Navigation entre les grandes catégories d'informations du membre -->
-    <ul>
-        <li class="elementTab" data-index="1">Ses séries</li>
+    <ul class="menu__second">
+        <li class="elementTab" data-index="1"><p>Ses séries</p></li>
         <?php
         if($userPublicData['type'] == "user")
         {
         ?>
-        	<li class="elementTab" data-index="2">Ses lectures</li>
+        	<li class="elementTab" data-index="2"><p>Ses lectures</p></li>
         <?php
         }elseif($userPublicData['type'] == "publisher"){
         ?>
-       		<li class="elementTab" data-index="2">Ses auteurs</li>
+       		<li class="elementTab" data-index="2"><p>Ses auteurs</p></li>
        	<?php
        	}
        	?>
     </ul>
 </nav>
-<section class="elementContent" data-tab="1"> <!-- Section qui affiche les séries écrites par le membre -->
+<section class="elementContent figure-bloc section-internal" data-tab="1"> <!-- Section qui affiche les séries écrites par le membre -->
 <?php
     // Si les séries existent
     if($getAllPublicSeriesMember != NULL)
@@ -71,22 +81,33 @@ ob_start();
                 {
                 ?>
                     <li>
-                        <article>
-                            <p><a href="index.php?action=displaySeries&idseries=<?php echo $allSeriesMember['id']; ?>"><?php echo $allSeriesMember['title']; ?></a></p>
+                        <figure>
                             <p><img src="<?php echo $allSeriesMember['cover']; ?>" alt="<?php echo $allSeriesMember['altcover']; ?>"/></p>
-                            <p><?php echo $allSeriesMember['numberEpisodes']; ?> épisode(s)</p>
-                            <p><?php echo $allSeriesMember['numberSubscribers']; ?> abonné(s)</p>
-                            <p><?php echo $allSeriesMember['tags']; ?></p>
-                            <?php
-                            if($allSeriesMember['type'] === "publisher")
-                            {
-                            ?>
-                                <p><p><i class="fas fa-coins"></i></p></p>
-                                <p><?php echo $allSeriesMember['author_publisher']; ?></p>
-                            <?php
-                            }
-                            ?>
-                        </article>
+                            <figcaption>
+                                <h3><?php echo $allSeriesMember['title']; ?></h3>
+                                <?php
+                                if($allSeriesMember['type'] === "publisher")
+                                {
+                                ?>
+                                    <p><?php echo $allSeriesMember['author_publisher']; ?></p>
+                                <?php
+                                }
+                                ?>
+                                <p><?php echo $allSeriesMember['numberEpisodes']; ?> épisode(s)</p>
+                                <p><?php echo $allSeriesMember['numberSubscribers']; ?> abonné(s)</p>
+                                <p class="tags"><?php echo $allSeriesMember['tags']; ?></p>
+                                <?php
+                                if($allSeriesMember['type'] === "publisher")
+                                {
+                                ?>
+                                    <p>Série payante</p>
+                                <?php
+                                }
+                                ?>
+                                <br />
+                                <div><a class="btn btn-purple" href="index.php?action=displaySeries&idseries=<?php echo $allSeriesMember['id']; ?>">Découvrir la série à lire</a></div>
+                            </figcaption>
+                        </figure>
                     </li>
                 <?php
                 }
@@ -107,7 +128,7 @@ ob_start();
 if($userPublicData['type'] == "user")
 {
 ?>
-	<section class="elementContent" hidden data-tab="2"> <!-- Section qui affiche les séries auxquelles le membre est abonné -->
+	<section class="elementContent figure-bloc section-internal" hidden data-tab="2"> <!-- Section qui affiche les séries auxquelles le membre est abonné -->
         <?php
         // Si le membre est abonné à au moins une série
         if($getAllSubscriptionSeries != NULL)
@@ -122,33 +143,51 @@ if($userPublicData['type'] == "user")
                     {
                     ?>
                         <li>
-                            <article>
-                                <p><a href="index.php?action=displaySeries&idseries=<?php echo $allSubscriptionSeries['id']; ?>"><?php echo $allSubscriptionSeries['title']; ?></a></p>
+                            <figure>
                                 <p><img src="<?php echo $allSubscriptionSeries['cover']; ?>" alt="<?php echo $allSubscriptionSeries['altcover']; ?>"/></p>
-                                <p><?php echo $allSubscriptionSeries['numberEpisodes']; ?> épisode(s)</p>
-                                <p><?php echo $allSubscriptionSeries['numberSubscribers']; ?> abonné(s)</p>
-                                <p><?php echo $allSubscriptionSeries['tags']; ?></p>
-                                <p><?php echo $allSubscriptionSeries['publishing']; ?></p>
-                                <?php
-                                // Si la série est écrite par un éditeur
-                                if($allSubscriptionSeries['type'] === "publisher")
-                                {
-                                ?>
-                                    <p><i class="fas fa-coins"></i></p>
-                                    <p><img src="<?php echo $allSubscriptionSeries['logo']; ?>" alt="<?php echo $allSubscriptionSeries['altlogo']; ?>"/></p>
-                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['publisher']; ?></a></p>
-                                    <p><?php echo $allSubscriptionSeries['author_publisher']; ?></p>
-                                <?php
-                                // Si la série est écrite par un autre utilisateur
-                                }else{
-                                ?>
-                                    <p>Série gratuite</p>
-                                    <p><img src="<?php echo $allSubscriptionSeries['avatar']; ?>" alt="<?php echo $allSubscriptionSeries['altavatar']; ?>"/></p>  
-                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['member']; ?></a></p>
-                                <?php
-                                }
-                                ?>
-                            </article>
+                                <figcaption>
+                                    <h3><?php echo $allSubscriptionSeries['title']; ?></h3>
+                                    <?php
+                                    // Si la série est écrite par un éditeur
+                                    if($allSubscriptionSeries['type'] === "publisher")
+                                    {
+                                    ?>
+                                        <div class="member">
+                                            <img src="<?php echo $allSubscriptionSeries['logo']; ?>" alt="<?php echo $allSubscriptionSeries['altlogo']; ?>"/>
+                                            <p><a href="index.php?action=displayMember&idmember=<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['publisher']; ?></a></p>
+                                        </div>
+                                    <?php
+                                    // Si la série est écrite par un autre utilisateur
+                                    }else{
+                                    ?>
+                                        <div class="member">
+                                            <img src="<?php echo $allSubscriptionSeries['avatar']; ?>" alt="<?php echo $allSubscriptionSeries['altavatar']; ?>"/>
+                                            <p><a href="index.php?action=displayMember&idmember=<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['member']; ?></a></p>
+                                        </div>
+                                    <?php
+                                    }
+                                    ?>
+                                    <p><?php echo $allSubscriptionSeries['numberEpisodes']; ?> épisode(s)</p>
+                                    <p><?php echo $allSubscriptionSeries['numberSubscribers']; ?> abonné(s)</p>
+                                    <p class="tags"><?php echo $allSubscriptionSeries['tags']; ?></p>
+                                    <?php
+                                    // Si la série est écrite par un éditeur
+                                    if($allSubscriptionSeries['type'] === "publisher")
+                                    {
+                                    ?>
+                                        <p>Série payante</p>  
+                                    <?php
+                                    // Si la série est écrite par un autre utilisateur
+                                    }else{
+                                    ?>
+                                        <p>Série gratuite</p>
+                                    <?php
+                                    }
+                                    ?>
+                                    <br/>
+                                    <div><a class="btn btn-purple" href="index.php?action=displaySeries&idseries=<?php echo $allSubscriptionSeries['id']; ?>">Découvrir la série à lire</a></div>
+                                </figcaption>
+                            </figure>
                         </li>
                     <?php
                     }
@@ -168,7 +207,7 @@ if($userPublicData['type'] == "user")
 // Si l'utilisateur est un éditeur
 }elseif($userPublicData['type'] == "publisher"){
 ?>
-	<section class="elementContent" hidden data-tab="2"> <!-- Section qui affiche la liste des auteurs de l'éditeur -->
+	<section class="elementContent member-info__authors" hidden data-tab="2"> <!-- Section qui affiche la liste des auteurs de l'éditeur -->
         <?php
             // Si la liste d'auteurs n'est pas nulle
             if($authorsList != NULL)
@@ -181,7 +220,7 @@ if($userPublicData['type'] == "user")
                     ?>
                         <li>
                             <article>
-                                <p><?php echo $authorPresentation['author']; ?></p>
+                                <h3><?php echo $authorPresentation['author']; ?></h3>
                                 <p><?php echo $authorPresentation['description']; ?></p>
                             </article>
                         </li>
