@@ -30,21 +30,21 @@ ob_start();
                 <?php
             }
             ?>
-            <!-- Gestion du signalement -->
-            <?php
-            // On ne peut signaler que quand on est connecté
-            if($_SESSION != NULL)
-            {
-            ?>
-                <input type="hidden" id="idepisodealert" value=<?php echo $episodeId; ?>>
-                <button id="alertepisode">SIGNALER</button>
-            <?php
-            }
-            ?>
         </div>
 </section>
 <section id="episode-content"> <!-- Section avec le contenu de l'épisode -->
     <p class="episode-content-text"><?php echo $episode_unitary_published['content']; ?></p>
+    <!-- Gestion du signalement -->
+    <?php
+    // On ne peut signaler que quand on est connecté
+    if($_SESSION != NULL)
+    {
+    ?>
+        <input type="hidden" id="idepisodealert" value=<?php echo $episodeId; ?>>
+        <p class="btn__alert"><button id="alertepisode" class="btn btn-grey">Signaler</button></p>
+    <?php
+    }
+    ?>
     <?php // Affichage des boutons épisodes précédents/suivants
     if($episode_current <= 1)
     {
@@ -55,7 +55,7 @@ ob_start();
         <?php  
         }else{
         ?>
-            <p><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode suivant</a></p>
+            <p class="button-next"><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode suivant</a></p>
         <?php
         }
     }elseif($episode_current >= $totalepisodes)
@@ -66,7 +66,7 @@ ob_start();
     }else{
     ?>
         <div class="button-prevnext">
-            <p><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode précédent</a></p>
+            <p class="button-prev"><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode précédent</a></p>
             <?php
             if(!isset($_SESSION['level']) AND $episode_current > 2) // On accède à la suite des épisodes que si on est connecté. Dans un temps 2 il faudra aussi payer pour les séries éditeurs
             {
@@ -75,7 +75,7 @@ ob_start();
             <?php
             }else{
             ?>
-                <p><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode suivant</a></p>
+                <p class="button-next"><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode suivant</a></p>
             <?php
             }
             ?>
@@ -90,33 +90,37 @@ ob_start();
     if($totalcomments > 0)
     {
     ?>
+        <h2>Commentaires</h2>
         <ul> <!-- On affiche les commentaires -->
             <?php
             foreach ($episodeCommentsList as $comment_data)
             {
             ?>
-                <li>
+                <li class="comment-content-text">
                     <article>
-                        <p>
                         <!-- Si l'auteur est un éditeur -->
                         <?php
                         if($comment_data['type'] === "publisher")
                         {
                         ?>
-                            <p><img src="<?php echo $comment_data['logo']; ?>" alt="<?php echo $comment_data['altlogo']; ?>"/></p>
-                            <p><?php echo $comment_data['name']; ?></p>
+                            <div class="member">
+                                <p><img src="<?php echo $comment_data['logo']; ?>" alt="<?php echo $comment_data['altlogo']; ?>"/></p>
+                                <p><?php echo $comment_data['name']; ?></p>
+                            </div>
                         <!-- Si l'auteur est un autre utilisateur -->
                         <?php
                         }else{
-                        ?>  
-                            <p><img src="<?php echo $comment_data['avatar']; ?>" alt="<?php echo $comment_data['altavatar']; ?>"/></p>  
-                            <p><?php echo $comment_data['pseudo']; ?></p>
+                        ?> 
+                            <div class="member"> 
+                                <p><img src="<?php echo $comment_data['avatar']; ?>" alt="<?php echo $comment_data['altavatar']; ?>"/></p>  
+                                <p><?php echo $comment_data['pseudo']; ?></p>
+                            </div>
                         <?php
                         }
                         ?>
-                        <p>Le <?php 
+                        <p class="episode-comments-date"><i>le <?php 
                         $date = new DateTime($comment_data['date']);
-                        echo $date->format('d/m/Y à H:i'); ?></p>
+                        echo $date->format('d/m/Y à H:i'); ?></i></p>
                         <p><?php echo ($comment_data['content']); ?></p>
                         <?php
                         // On en peut signaler que si on est connecté
@@ -124,7 +128,7 @@ ob_start();
                         {
                         ?>
                             <input type="hidden" id="idcommentalert" value=<?php echo $comment_data['id']; ?>>
-                            <button id="alertcomment">SIGNALER</button>
+                            <p class="btn__alert"><button id="alertcomment" class="btn btn-grey">Signaler</button></p>
                         <?php
                         }
                         ?>
@@ -158,7 +162,7 @@ ob_start();
                 <textarea id="comment" name="comment" minlength = "4" required></textarea>
             </p>
             <p>
-                <input type="submit" value="Envoyer">
+                <input class="btn btn-purple" type="submit" value="Envoyer">
             </p>
         </form>
     <?php
