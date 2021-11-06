@@ -11,7 +11,7 @@ ob_start();
     ?>
         <form class="form-fields" action="index.php?action=subscription_post" method="post">
             <p>
-                <label for="pseudo">Pseudo</label><br />
+                <label for="pseudo">Pseudo (20 caractères maximum)</label><br />
                 <input type="text" id="pseudo" name="pseudo" minlength = "4" maxlength="20" required value="<?php if(isset($_SESSION['tempPseudo'])){echo $_SESSION['tempPseudo'];}?>">
             </p>
             <p>

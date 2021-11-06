@@ -4,7 +4,7 @@ $head_title = 'Epizode - Recherche de mots clés';
 include('./src/Utils/colorkeyword.php');
 ob_start();
 ?>
-<h1> Résultats de la recherche : "<?php echo $postkeyword; ?>"</h1>
+<h1 <?php if(strlen($postkeyword) >= 30 AND strlen($postkeyword) <= 70){ echo "class=medium-title";}elseif(strlen($postkeyword) > 70){ echo "class=big-title";}?>>Résultats de la recherche : <?php echo $postkeyword; ?></h1>
 <nav> <!-- Les résultats s'affichent dans les séries, les auteurs et les épisodes -->
     <ul class="menu__second">
         <li class="elementTab" data-index="1">Séries</li>
