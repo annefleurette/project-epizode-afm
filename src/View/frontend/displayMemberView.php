@@ -10,7 +10,7 @@ ob_start();
     {
     ?>
         <p><img src="<?php echo $userPublicData['avatar']; ?>" alt="<?php echo $userPublicData['altavatar']; ?>"/></p>
-        <h1><?php echo $userPublicData['pseudo']; ?></h1>
+        <h1 <?php if(strlen($userPublicData['pseudo']) >= 30 AND strlen($userPublicData['pseudo']) <= 70){ echo "class=medium-title";}elseif(strlen($userPublicData['pseudo']) > 70){ echo "class=big-title";}?>><?php echo $userPublicData['pseudo']; ?></h1>
         <?php
         if(isset($userPublicData['description']))
         {
@@ -29,8 +29,8 @@ ob_start();
     // Si le membre est un éditeur
     }elseif($userPublicData['type'] == "publisher"){
     ?>
-        <p><img src="<?php echo $userPublicData['logo']; ?>" alt="<?php echo $userPublicData['altlogo']; ?>"/></p>
-        <h1><?php echo $userPublicData['name']; ?></h1>
+        <p><img class="cover" src="<?php echo $userPublicData['logo']; ?>" alt="<?php echo $userPublicData['altlogo']; ?>"/></p>
+        <h1 <?php if(strlen($userPublicData['name']) >= 30 AND strlen($userPublicData['name']) <= 70){ echo "class=medium-title";}elseif(strlen($userPublicData['name']) > 70){ echo "class=big-title";}?>><?php echo $userPublicData['name']; ?></h1>
         <?php
         if(isset($userPublicData['description']))
         {
@@ -82,7 +82,7 @@ ob_start();
                 ?>
                     <li>
                         <figure>
-                            <p><img src="<?php echo $allSeriesMember['cover']; ?>" alt="<?php echo $allSeriesMember['altcover']; ?>"/></p>
+                            <p><img class="cover" src="<?php echo $allSeriesMember['cover']; ?>" alt="<?php echo $allSeriesMember['altcover']; ?>"/></p>
                             <figcaption>
                                 <h3><?php echo $allSeriesMember['title']; ?></h3>
                                 <?php
@@ -118,7 +118,7 @@ ob_start();
     // Si aucune série encore écrite
     }else{
     ?>
-        <p>Il n'y a pas encore de série publiée !</p>
+        <p class="no">Il n'y a pas encore de série publiée !</p>
     <?php
     }
     ?>
@@ -144,7 +144,7 @@ if($userPublicData['type'] == "user")
                     ?>
                         <li>
                             <figure>
-                                <p><img src="<?php echo $allSubscriptionSeries['cover']; ?>" alt="<?php echo $allSubscriptionSeries['altcover']; ?>"/></p>
+                                <p><img class="cover" src="<?php echo $allSubscriptionSeries['cover']; ?>" alt="<?php echo $allSubscriptionSeries['altcover']; ?>"/></p>
                                 <figcaption>
                                     <h3><?php echo $allSubscriptionSeries['title']; ?></h3>
                                     <?php
@@ -198,7 +198,7 @@ if($userPublicData['type'] == "user")
         // Si le membre n'est pas encore abonné à une série
         }else{
         ?>
-            <p><?php echo $userPublicData['pseudo']; ?> n'est pas encore abonné(e) à une série !</p>
+            <p class="no"><?php echo $userPublicData['pseudo']; ?> n'est pas encore abonné(e) à une série !</p>
         <?php
         }
         ?>
@@ -232,7 +232,7 @@ if($userPublicData['type'] == "user")
             // Si l'éditeur n'a pas encore d'auteur
             }else{
             ?>
-                <p>Cet éditeur n'a pas encore d'auteur !</p>
+                <p class="no">Cet éditeur n'a pas encore d'auteur !</p>
             <?php
             }
             ?>

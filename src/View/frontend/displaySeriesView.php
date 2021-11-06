@@ -6,7 +6,7 @@ ob_start();
 ?>
 <section id="series" class="figure-bloc section-internal"> <!-- Section avec les informations sur la série -->
     <figure>
-        <p><img src="<?php echo $oneSeriesPublicData['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
+        <p><img class="cover" src="<?php echo $oneSeriesPublicData['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
         <figcaption>
             <h1 <?php if(strlen($oneSeriesPublicData['title']) >= 30 AND strlen($oneSeriesPublicData['title']) <= 70){ echo "class=medium-title";}elseif(strlen($oneSeriesPublicData['title']) > 70){ echo "class=big-title";}?>><?php echo $oneSeriesPublicData['title']; ?></h1>
             <div class="member">
@@ -146,7 +146,23 @@ ob_start();
                             }
                             ?>
                             <p class="social-info"><i class="fas fa-heart"></i><?php echo $allEpisodesPublished['likesNumber']; ?></p>
-                            <p><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>&idepisode=<?php echo $allEpisodesPublished['id']; ?>">Lire l'épisode</a></p>
+                            <?php
+                            if(intval($allEpisodesPublished['number']) >= 4){
+                                if(isset($_SESSION['idmember'])){
+                                ?>
+                                    <p><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>&idepisode=<?php echo $allEpisodesPublished['id']; ?>">Lire l'épisode</a></p>
+                                <?php
+                                }else{
+                                ?>
+                                    <p><a href="index.php?action=login&ref=displaySeries&idseries=<?php echo $seriesId; ?>">Connectez-vous</a> pour accéder à la suite des épisodes !</p>
+                                <?php
+                                }
+                            }else{
+                            ?>
+                                <p><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $allEpisodesPublished['number']; ?>&idepisode=<?php echo $allEpisodesPublished['id']; ?>">Lire l'épisode</a></p>
+                            <?php
+                            }
+                            ?>
                         </article>
                     </li>
                 <?php
@@ -175,7 +191,7 @@ ob_start();
                 ?>
                     <li>
                         <figure>
-                            <p><img src="<?php echo $allTagsSeries[$i][$j]['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
+                            <p><img class="cover" src="<?php echo $allTagsSeries[$i][$j]['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
                             <figcaption>
                                 <h3><?php echo $allTagsSeries[$i][$j]['title']; ?></h3>
                                 <div class="member">

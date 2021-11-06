@@ -4,16 +4,15 @@ $head_title = 'Epizode - Recherche de mots clés';
 include('./src/Utils/colorkeyword.php');
 ob_start();
 ?>
-<h1> Résultats de la recherche : "<?php echo $postkeyword; ?>"
+<h1> Résultats de la recherche : "<?php echo $postkeyword; ?>"</h1>
 <nav> <!-- Les résultats s'affichent dans les séries, les auteurs et les épisodes -->
-    <ul>
+    <ul class="menu__second">
         <li class="elementTab" data-index="1">Séries</li>
-        <li class="elementTab" data-index="2">Auteurs</li>
+        <li class="elementTab" data-index="2">Membres</li>
         <li class="elementTab" data-index="3">Episodes</li>
     </ul>
 </nav>
-<section class="elementContent" data-tab="1"> <!-- Section qui affiche la liste résultats parmi les séries -->
-    <h2>Séries</h2>
+<section id="research-series" class="elementContent figure-bloc" data-tab="1"> <!-- Section qui affiche la liste résultats parmi les séries -->
     <?php
     // Si les résultats de recherche ne sont pas nuls
     if($researchSeriesResults != NULL)
@@ -25,35 +24,60 @@ ob_start();
             {
             ?>
                 <li>
-                    <article>
-                        <!-- Dans mon contenu je surligne quand le mot clé est présent -->
-                        <p><?php echo highlightKeyword($postkeyword, $seriesResults['title']); ?></p>
-                        <p><img src="<?php echo $seriesResults['cover']; ?>" alt="<?php echo $seriesResults['altcover']; ?>"/></p>
-                        <p><?php echo $seriesResults['numberEpisodes']; ?> épisode(s)</p>
-                        <p><?php echo $seriesResults['numberSubscribers']; ?> abonné(s)</p>
-                        <p><?php echo $seriesResults['summary']; ?> abonné(s)</p>
-                        <p><?php echo $seriesResults['tags']; ?></p>
-                        <?php
-                        // Si le membre est un éditeur
-                        if($seriesResults['type'] === "publisher")
-                        {
-                        ?>
-                            <p><p><i class="fas fa-coins"></i></p></p>
-                            <p><img src="<?php echo $seriesResults['logo']; ?>" alt="<?php echo $seriesResults['altlogo']; ?>"/></p>
-                            <p><?php echo highlightKeyword($postkeyword, $seriesResults['publisher']); ?></p>
-                            <p><?php echo highlightKeyword($postkeyword, $seriesResults['member']); ?></p>
-                            <p><?php echo $seriesResults['author']; ?></p>
-                        <?php
-                        // Si le membre est un amateur
-                        }elseif($seriesResults['type'] === "user"){
-                        ?>  
-                            <p><img src="<?php echo $seriesResults['avatar']; ?>" alt="<?php echo $seriesResults['altavatar']; ?>"/></p>  
-                            <p><?php echo highlightKeyword($postkeyword, $seriesResults['member']); ?></p>
+                    <figure>
+                        <p><img class="cover" src="<?php echo $seriesResults['cover']; ?>" alt="<?php echo $seriesResults['altcover']; ?>"/></p>
+                        <figcaption>
+                            <!-- Dans mon contenu je surligne quand le mot clé est présent -->
+                            <h2><?php echo highlightKeyword($postkeyword, $seriesResults['title']); ?></h2>
                             <?php
-                        }
-                        ?>
-                        <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesResults['id']; ?>">DECOUVRIR LA SERIE</a></p>
-                    </article>
+                            // Si le membre est un éditeur
+                            if($seriesResults['type'] === "publisher")
+                            {
+                            ?>
+                                <div class="member">
+                                    <img src="<?php echo $seriesResults['logo']; ?>" alt="<?php echo $seriesResults['altlogo']; ?>"/>
+                                    <p><?php echo highlightKeyword($postkeyword, $seriesResults['publisher']); ?></p>
+                                </div>
+                            <?php
+                            // Si le membre est un amateur
+                            }elseif($seriesResults['type'] === "user"){
+                            ?>  
+                                <div class="member">
+                                    <img src="<?php echo $seriesResults['avatar']; ?>" alt="<?php echo $seriesResults['altavatar']; ?>"/>
+                                    <p><?php echo highlightKeyword($postkeyword, $seriesResults['member']); ?></p>
+                                </div>
+                            <?php
+                            }
+                            if($seriesResults['type'] === "publisher")
+                            {
+                            ?>
+                                <p>Auteur : <?php echo highlightKeyword($postkeyword,$seriesResults['author']); ?></p>
+                            <?php
+                            }
+                            ?>
+                            <p class="tags"><?php echo highlightKeyword($postkeyword,$seriesResults['tags']); ?></p>
+                            <?php
+                            // Si le membre est un éditeur
+                            if($seriesResults['type'] === "publisher")
+                            {
+                            ?>
+                                <p>Série payante</p>
+                            <?php
+                            // Si le membre est un amateur
+                            }elseif($seriesResults['type'] === "user"){
+                            ?>
+                                <p>Série gratuite</p>
+                            <?php
+                            }
+                            ?>
+                            <br />
+                            <p><a class="btn btn-purple" href="index.php?action=displaySeries&idseries=<?php echo $seriesResults['id']; ?>">Découvrir la série à lire</a></p>
+                        </figcaption>
+                    </figure>
+                    <div class="research-summary">
+                        <h3>Synopsis</h3>
+                        <p><?php echo highlightKeyword($postkeyword, $seriesResults['summary']); ?></p>
+                    </div>
                 </li>
             <?php
             }
@@ -63,13 +87,12 @@ ob_start();
     // Si les résultats de recherche sont nuls
     }else{
     ?>
-        <p>Aucune série ne correspond à la recherche</p>
+        <p class="no">Aucune série ne correspond à la recherche</p>
     <?php
     }
     ?>
 </section>
-<section class="elementContent" data-tab="2" hidden> <!-- Section qui affiche les résultats de recherche parmi les auteurs -->
-    <h2>Auteurs</h2>
+<section id="research-members" class="elementContent" data-tab="2" hidden> <!-- Section qui affiche les résultats de recherche parmi les auteurs -->
     <?php
     // Si les résultats de recherche ne sont pas nuls
     if($researchAuthorsResults != NULL)
@@ -88,21 +111,24 @@ ob_start();
                         if($authorsResults['type'] === "publisher")
                         {
                         ?>
-                            <p><img src="<?php echo $authorsResults['logo']; ?>" alt="<?php echo $authorsResults['altlogo']; ?>"/></p>
-                            <p><?php echo highlightKeyword($postkeyword, $authorsResults['member']); ?></p>
-                            <p><?php echo highlightKeyword($postkeyword, $authorsResults['publisher']); ?></p>
-                            <p><?php echo highlightKeyword($postkeyword, $authorsResults['author']); ?></p>
+                            <div class="member">
+                                <img src="<?php echo $authorsResults['logo']; ?>" alt="<?php echo $authorsResults['altlogo']; ?>"/>
+                                <p><?php echo highlightKeyword($postkeyword, $authorsResults['publisher']); ?></p>
+                            </div>
                         <?php
                         // Si le membre est un amateur
                         }elseif($authorsResults['type'] === "user"){
                         ?>  
-                            <p><img src="<?php echo $authorsResults['avatar']; ?>" alt="<?php echo $authorsResults['altavatar']; ?>"/></p>  
-                            <p><?php echo highlightKeyword($postkeyword, $authorsResults['member']); ?></p>
-                            <?php
+                            <div>
+                                <img src="<?php echo $authorsResults['avatar']; ?>" alt="<?php echo $authorsResults['altavatar']; ?>"/> 
+                                <p><?php echo highlightKeyword($postkeyword, $authorsResults['member']); ?></p>
+                            </div>
+                        <?php
                         }
                         ?>
-                        <p><?php echo $authorsResults['numberWritings']; ?> séries écrites</p>
-                        <p><a href="index.php?action=displayMember&idmember=<?php echo $authorsResults['id']; ?>">DECOUVRIR L'AUTEUR</a></p>
+                        <p class="research-series__data"><?php echo $authorsResults['numberWritings']; ?> série(s) écrite(s)</p>
+                        <br />
+                        <p class="research-series__data"><a class="btn btn-purple" href="index.php?action=displayMember&idmember=<?php echo $authorsResults['id']; ?>">Découvrir le membre</a></p>
                     </article>
                 </li>
             <?php
@@ -113,13 +139,12 @@ ob_start();
     // Si les résultats de recherche sont nuls
     }else{
     ?>
-        <p>Aucun auteur ne correspond à la recherche</p>
+        <p class="no">Aucun auteur ne correspond à la recherche</p>
     <?php
     }
     ?>
 </section>
-<section class="elementContent" data-tab="3" hidden> <!-- Section qui affiche les résultats de recherche parmi les épisodes -->
-    <h2>Episodes</h2>
+<section id="research-episodes" class="elementContent" data-tab="3" hidden> <!-- Section qui affiche les résultats de recherche parmi les épisodes -->
     <?php
     // Si les résultats de recherche ne sont pas nuls
     if($researchEpisodesResults != NULL)
@@ -133,47 +158,60 @@ ob_start();
                 <li>
                     <article>
                         <!-- Dans mon contenu je surligne quand le mot clé est présent -->
-                        <p><?php echo $episodesResults['title']; ?></p>
+                        <h2 class="research-series__data"><?php echo $episodesResults['title']; ?> - Episode n°<?php echo $episodesResults['number']; ?></h2>
                         <?php
                         // Si le membre est un éditeur
                         if($episodesResults['type'] === "publisher")
                         {
                         ?>
-                            <p><p><i class="fas fa-coins"></i></p></p>
-                            <p><img src="<?php echo $episodesResults['logo']; ?>" alt="<?php echo $seriesResults['altlogo']; ?>"/></p>
-                            <p><?php echo highlightKeyword($postkeyword, $episodesResults['publisher']); ?></p>
-                            <p><?php echo highlightKeyword($postkeyword, $episodesResults['member']); ?></p>
-                            <p><?php echo highlightKeyword($postkeyword, $episodesResults['author']); ?></p>
+                            <div class="member">
+                                <img src="<?php echo $episodesResults['logo']; ?>" alt="<?php echo $seriesResults['altlogo']; ?>"/>
+                                <p><?php echo highlightKeyword($postkeyword, $episodesResults['publisher']); ?></p>
+                            </div>
                         <?php
                         // Si le membre est un amateur
                         }elseif($episodesResults['type'] === "user"){
-                        ?>  
-                            <p><img src="<?php echo $episodesResults['avatar']; ?>" alt="<?php echo $episodesResults['altavatar']; ?>"/></p>  
-                            <p><?php echo highlightKeyword($postkeyword, $episodesResults['member']); ?></p>
-                            <?php
+                        ?> 
+                            <div class="member">
+                                <img src="<?php echo $episodesResults['avatar']; ?>" alt="<?php echo $episodesResults['altavatar']; ?>"/> 
+                                <p><?php echo highlightKeyword($postkeyword, $episodesResults['member']); ?></p>
+                            </div>
+                        <?php
                         }
                         ?>
-                        <p>Episode n°<?php echo $episodesResults['number']; ?></p>
-                        <p>Titre : <?php echo highlightKeyword($postkeyword, $episodesResults['titleEpisode']); ?></p>
+                        <p class="research-series__data">Titre : <?php echo highlightKeyword($postkeyword, $episodesResults['titleEpisode']); ?></p>
                         <?php $poskeyword = strpos(strtolower($episodesResults['content']), strtolower($postkeyword));
                         $numbercharacter = strlen($episodesResults['content']);
                         // Au sein du contenu de l'épisode, on isole la section qui comporte les mots clés saisis
                         if ($poskeyword < 150){
                         ?>
-                            <p><?php echo highlightKeyword($postkeyword, substr($episodesResults['content'], 0, 200)); ?> [...]</p>
+                            <p class="research-series__data">Extrait : <?php echo highlightKeyword($postkeyword, substr($episodesResults['content'], 0, 200)); ?> [...]</p>
                         <?php
                         }elseif($poskeyword < $numbercharacter AND $poskeyword > $numbercharacter - 200)
                         {
                         ?>
-                            <p><?php echo highlightKeyword($postkeyword, substr($episodesResults['content'], -200, 200)); ?> [...]</p>
+                            <p class="research-series__data">Extrait : <?php echo highlightKeyword($postkeyword, substr($episodesResults['content'], -200, 200)); ?> [...]</p>
                         <?php    
                         }else{
                         ?>
-                            <p><?php echo highlightKeyword($postkeyword, substr($episodesResults['content'], $poskeyword - 50, 200)); ?> [...]</p>
+                            <p class="research-series__data">Extrait : <?php echo highlightKeyword($postkeyword, substr($episodesResults['content'], $poskeyword - 50, 200)); ?> [...]</p>
                         <?php    
                         }
-                        ?>
-                        <p><a href="index.php?action=displayEpisode&idepisode=<?php echo $episodesResults['id']; ?>">DECOUVRIR L'EPISODE</a></p>
+                        // Si le membre est un éditeur
+                            if($episodesResults['type'] === "publisher")
+                            {
+                            ?>
+                                <p class="research-series__data">Série payante</p>
+                            <?php
+                            // Si le membre est un amateur
+                            }elseif($episodesResults['type'] === "user"){
+                            ?>
+                                <p class="research-series__data">Série gratuite</p>
+                            <?php
+                            }
+                            ?>
+                        <br />
+                        <p class="research-series__data"><a class="btn btn-purple" href="index.php?action=displayEpisode&idepisode=<?php echo $episodesResults['id']; ?>">Découvrir l'épisode à lire</a></p>
                     </article>
                 </li>
             <?php
@@ -184,7 +222,7 @@ ob_start();
     // Si les résltats de recherche son nuls
     }else{
     ?>
-        <p>Aucun épisode ne correspond à la recherche</p>
+        <p class="no">Aucun épisode ne correspond à la recherche</p>
     <?php
     }
     ?>

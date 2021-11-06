@@ -5,7 +5,7 @@ $head_description = $episode_unitary_published['meta'];
 ob_start();
 ?>
 <section id="episode"> <!-- Section avec l'épisode -->
-        <h1><?php echo $episode_unitary_published['title']; ?></h1>
+        <h1 <?php if(strlen($episode_unitary_published['title']) >= 30 AND strlen($episode_unitary_published['title']) <= 70){ echo "class=medium-title";}elseif(strlen($episode_unitary_published['title']) > 70){ echo "class=big-title";}?>><?php echo $episode_unitary_published['title']; ?></h1>
         <div class="episode-data">
             <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?>"><?php echo $oneSeriesPublicData['title']; ?></a> : épisode <?php echo $episode_unitary_published['number']; ?></p>
             <p><?php echo $episode_unitary_published['timeReading']; ?> minute(s) de lecture</p>
@@ -71,7 +71,7 @@ ob_start();
             if(!isset($_SESSION['level']) AND $episode_current > 2) // On accède à la suite des épisodes que si on est connecté. Dans un temps 2 il faudra aussi payer pour les séries éditeurs
             {
             ?>
-                <p><a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">Connectez-vous</a> pour accéder à la suite des épisodes !</p>
+                <p class="info-center"><a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">Connectez-vous</a> pour accéder à la suite des épisodes !</p>
             <?php
             }else{
             ?>
@@ -85,12 +85,12 @@ ob_start();
     ?>
 </section>
 <section id="episode-comments"> <!-- Section avec les commentaires -->
+    <h2>Commentaires</h2>   
     <?php
     // S'il existe des commentaires
     if($totalcomments > 0)
     {
     ?>
-        <h2>Commentaires</h2>
         <ul> <!-- On affiche les commentaires -->
             <?php
             foreach ($episodeCommentsList as $comment_data)
