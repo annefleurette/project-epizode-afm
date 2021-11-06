@@ -6,7 +6,7 @@ ob_start();
 <section> <!-- Section qui permet de créer la série -->
     <form action="index.php?action=writeSeries_post" method="post" enctype="multipart/form-data">
         <p>
-            <label for="title">Titre</label><br />
+            <label for="title">Titre (100 caractères maximum)</label><br />
             <input type="text" id="title" name="titleSeries" minlength="1" maxlength="100" required value="<?php if(isset($_SESSION['tempSeriestitle'])){echo $_SESSION['tempSeriestitle'];}else{echo NULL;}?>">
             <?php if(isset($_SESSION['tempSeriestitle'])){unset($_SESSION['tempSeriestitle']);}?>
         </p>

@@ -38,6 +38,11 @@
         </ul>
     </nav>
     <nav class="menu-mobile" role="navigation">
+        <div class="menu-mobile-logo">
+            <a href="index.php?action=homepage">
+                <img src="./public/images/logo_epizode_purple.png" alt="Epizode"/>
+            </a>
+        </div> 
         <div id="menuToggle">
                 <!--
                 A fake / hidden checkbox is used as click reciever,
@@ -86,10 +91,5 @@
                     </li>
                 </ul>
         </div>
-        <div class="menu-mobile-logo">
-                <a href="index.php?action=homepage">
-                    <img src="./public/images/logo_epizode_purple.png" alt="Epizode"/>
-                </a>
-        </div> 
     </nav>
 </header>

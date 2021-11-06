@@ -12,8 +12,8 @@ ob_start();
             <?php if(isset($_SESSION['tempNumber'])){unset($_SESSION['tempNumber']);}?>
         </p>
         <p>
-            <label for="titleEpisode">Titre</label><br />
-            <input type="text" id="titleEpisode" name="titleEpisode" minlength="1" maxlength="1200" required value="<?php if(isset($_SESSION['tempTitle'])){echo $_SESSION['tempTitle'];}else{echo NULL;}?>">
+            <label for="titleEpisode">Titre (100 caractères maximum)</label><br />
+            <input type="text" id="titleEpisode" name="titleEpisode" minlength="1" maxlength="100" required value="<?php if(isset($_SESSION['tempTitle'])){echo $_SESSION['tempTitle'];}else{echo NULL;}?>">
             <?php if(isset($_SESSION['tempTitle'])){unset($_SESSION['tempTitle']);}?>
         </p>
         <p>

@@ -8,7 +8,7 @@ ob_start();
     <figure>
         <p><img src="<?php echo $oneSeriesPublicData['cover']; ?>" alt="<?php echo $oneSeriesPublicData['altcover']; ?>"/></p>
         <figcaption>
-            <h1><?php echo $oneSeriesPublicData['title']; ?></h1>
+            <h1 <?php if(strlen($oneSeriesPublicData['title']) >= 30 AND strlen($oneSeriesPublicData['title']) <= 70){ echo "class=medium-title";}elseif(strlen($oneSeriesPublicData['title']) > 70){ echo "class=big-title";}?>><?php echo $oneSeriesPublicData['title']; ?></h1>
             <div class="member">
                 <?php
                 // Si la série est écrite par un éditeur
@@ -50,7 +50,7 @@ ob_start();
             <?php
             }
             ?>
-            <p class="social-info"><i class="fas fa-book-medical"></i><span id="nbSubscriptions"><?php echo $seriesSubscription[0]; ?></span></p>
+            <p class="social-info"><i class="fas fa-book-reader"></i><span id="nbSubscriptions"><?php echo $seriesSubscription[0]; ?></span></p>
             <!-- Gestion des ajouts à la bibliothèque -->
             <?php
             // On ne peut ajouter à la bibliothèque que si on est connecté

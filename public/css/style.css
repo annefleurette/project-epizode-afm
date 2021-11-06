@@ -48,6 +48,14 @@ h1 {
   text-align: center;
 }
 
+.medium-title {
+  font-size: 3em;
+}
+
+.big-title {
+  font-size: 2em;
+}
+
 h2, h3, h4 {
   font-family: "Open Sans", sans-serif;
   color: #262626;
@@ -239,8 +247,7 @@ ul {
     flex-direction: row;
     justify-content: space-between;
     align-items: top;
-  }
-  .menu-mobile-logo {
+    position: relative;
     margin: 15px;
   }
   .menu-mobile-logo img {
@@ -253,9 +260,6 @@ ul {
 }
 #menuToggle {
   display: block;
-  position: relative;
-  top: 25px;
-  left: 15px;
   z-index: 1;
   -webkit-user-select: none;
   user-select: none;
@@ -272,7 +276,7 @@ ul {
   height: 32px;
   position: absolute;
   top: -7px;
-  left: -7px;
+  right: -7px;
   border: 1px black solid;
   cursor: pointer;
   opacity: 0;
@@ -318,16 +322,15 @@ ul {
 #menu-mobile-list {
   position: absolute;
   width: 300px;
-  margin: -100px 0 0 -50px;
-  padding: 50px;
-  padding-top: 125px;
+  margin: -100px -50px 0 0;
+  padding: 125px 0 0 50px;
   background: #FAFAFA;
   list-style-type: none;
   -webkit-font-smoothing: antialiased;
   /* to stop flickering of text in safari */
   transform-origin: 0% 0%;
   transform: translate(-100%, 0);
-  transition: transform 0.5s cubic-bezier(0.77, 0.2, 0.05, 1);
+  transition: transform 0.5s cubic-bezier(0.36, 0.49, 0.69, 0.57);
 }
 #menu-mobile-list li {
   padding: 10px 0;
@@ -382,7 +385,7 @@ ul {
 .social-info {
   color: #99488D;
 }
-.social-info .fa-heart, .social-info .fa-comment, .social-info .fa-book-medical {
+.social-info .fa-heart, .social-info .fa-comment, .social-info .fa-book-reader {
   font-size: 1.3em;
 }
 
@@ -495,10 +498,13 @@ ul {
 .topten .topten-5 article {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: top;
   margin-bottom: 15px;
 }
-.topten .topten-5 article .member img {
+.topten .topten-5 article .member {
+  justify-content: left;
+}
+.topten .topten-5 article .member .member img {
   width: 30px;
   height: 30px;
 }

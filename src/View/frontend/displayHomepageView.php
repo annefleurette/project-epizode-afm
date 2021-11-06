@@ -20,7 +20,7 @@ ob_start();
                         <figure>
                             <p><img class="cover" src="<?php echo $newSeries['cover']; ?>" alt="<?php echo $newSeries['altcover']; ?>"/></p>
                             <figcaption>
-                                <h1><?php echo $newSeries['title']; ?></h1>
+                                <h1 <?php if(strlen($newSeries['title']) >= 30 AND strlen($newSeries['title']) <= 70){ echo "class=medium-title";}elseif(strlen($newSeries['title']) > 70){ echo "class=big-title";}?>><?php echo $newSeries['title']; ?></h1>
                                 <?php
                                 // Si la série est écrite par un éditeur
                                 if($newSeries['type'] === "publisher")
