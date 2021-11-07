@@ -19,7 +19,7 @@ ob_start();
         <?php
         }else{
         ?>
-            <p>Pas de description</p>
+            <p class="no">Pas de description</p>
         <?php    
         }
         ?>
@@ -39,7 +39,7 @@ ob_start();
         <?php
         }else{
         ?>
-            <p>Pas de description</p>
+            <p class="no">Pas de description</p>
         <?php    
         }
         ?>

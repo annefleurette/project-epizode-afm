@@ -118,6 +118,18 @@ try {
 						case 'deleteAccount':
 							$membersController->deleteAccount();
 						break;
+						case 'forgetPassword':
+							require('src/View/404error.php');
+						break;
+						case 'forgetPassword_post':
+							require('src/View/404error.php');
+							break;
+						case 'resetPassword':
+							require('src/View/404error.php');
+							break;
+						case 'resetPassword_post':
+							require('src/View/404error.php');
+							break;
 						// Series
 						case 'homepage':
 							$seriesController->displayHomepage();

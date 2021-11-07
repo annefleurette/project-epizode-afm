@@ -51,7 +51,7 @@ ob_start();
         if($totalepisodes == 1)
         {
         ?>
-            <p>Un seul épisode publié pour le moment !</p>
+            <p class="no">Un seul épisode publié pour le moment !</p>
         <?php  
         }else{
         ?>

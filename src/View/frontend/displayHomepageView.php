@@ -110,7 +110,7 @@ ob_start();
             <?php
             }else{
             ?>
-            <p>Pas encore de série publiée</p>
+            <p class="no">Pas encore de série publiée</p>
             <?php
             }
             ?>
@@ -146,7 +146,7 @@ ob_start();
             <?php
             }else{
             ?>
-            <p>Pas encore de série publiée</p>
+            <p class="no">Pas encore de série publiée</p>
             <?php
             }
             ?>
