@@ -182,6 +182,20 @@ ul {
 			font-weight: 500;
 		}
 	}
+	&-violet {
+		color: $color-primary;
+		border-color: $color-primary;
+		font-size: 1.3em;
+		margin: 10px;
+		border-radius: 5px;
+		&:hover {
+			color: $color-white;
+			border-color: $color-primary;
+			background-color: $color-primary;
+			font-size: 1.3em;
+			font-weight: 500;
+		}
+	}
 	&__alert {
 		text-align: center;
 	}
@@ -557,6 +571,10 @@ ul {
 	border-radius: 5px;
 }
 
+#series-recommandations ul li figure {
+	margin-bottom: 40px;
+}
+
 /* Mise en forme des Top 5 */
 
 #popularity {
@@ -589,44 +607,44 @@ ul {
 		}
 		ul {
 			margin: 0 40px;
-		}
-		article {
-			display: flex;
-			flex-direction: row;
-			align-items: top;
-			margin-bottom: 15px;
-			@media all and (max-width: 940px) {
-				display: block;
-				margin-bottom: 30px;
-			}
-			.member {
-				justify-content: left;
+			article {
+				display: flex;
+				flex-direction: row;
+				align-items: top;
+				margin-bottom: 15px;
 				@media all and (max-width: 940px) {
-					justify-content: center;
+					display: block;
+					margin-bottom: 30px;
 				}
-				.member img {
-					width: 30px;
-					height: 30px;
+				.member {
+					justify-content: left;
+					@media all and (max-width: 940px) {
+						justify-content: center;
+					}
+					.member img {
+						width: 30px;
+						height: 30px;
+					}
 				}
-			}
-			.cover-5 {
-				width: 20%;
-				height: 20%;
-				@media all and (max-width: 940px) {
-					width: 50%;
-					height: 50%;
+				.cover-5 {
+					width: 20%;
+					height: 20%;
+					@media all and (max-width: 940px) {
+						width: 50%;
+						height: 50%;
+					}
 				}
-			}
-			.series-data {
-				text-align: left;
-				margin-left: 20px;
-				@media all and (max-width: 940px) {
-					text-align: center;
-					margin-left: 0;
+				.series-data {
+					text-align: left;
+					margin-left: 20px;
+					@media all and (max-width: 940px) {
+						text-align: center;
+						margin-left: 0;
+					}
 				}
-			}
-			p {
-				margin: 5px;
+				p {
+					margin: 5px;
+				}
 			}
 		}
 		&-ranking {
@@ -806,6 +824,9 @@ padding-left: 0;
 			color: $color-black;
 			outline: none;
 			border-radius: 5px;
+			@media all and (max-width: 450px) {
+				width: 280px;
+			}
 		}
 		label {
 			line-height: 50px;
@@ -860,3 +881,22 @@ padding-left: 0;
 	}
 }
 
+/* Mise en forme du dashboard */
+
+#member-library {
+	br {
+		margin-bottom: 40px;
+    	content: "";
+    	display: block;
+	}
+}
+
+.newseries {
+	margin-bottom: 40px;
+	@media all and (max-width: 940px) {
+		text-align: center!important;
+	}
+	@media all and (max-width: 450px) {
+		font-size: 0.7em;;
+	}
+}

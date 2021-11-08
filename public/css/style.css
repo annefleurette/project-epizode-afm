@@ -179,6 +179,20 @@ ul {
   font-size: 0.8em;
   font-weight: 500;
 }
+.btn-violet, .cta-violet {
+  color: #9012FE;
+  border-color: #9012FE;
+  font-size: 1.3em;
+  margin: 10px;
+  border-radius: 5px;
+}
+.btn-violet:hover, .cta-violet:hover {
+  color: #FFFFFF;
+  border-color: #9012FE;
+  background-color: #9012FE;
+  font-size: 1.3em;
+  font-weight: 500;
+}
 .btn__alert, .cta__alert {
   text-align: center;
 }
@@ -555,6 +569,10 @@ ul {
   border-radius: 5px;
 }
 
+#series-recommandations ul li figure {
+  margin-bottom: 40px;
+}
+
 /* Mise en forme des Top 5 */
 #popularity h2 {
   text-align: center;
@@ -593,51 +611,51 @@ ul {
 .topten .topten-5 ul {
   margin: 0 40px;
 }
-.topten .topten-5 article {
+.topten .topten-5 ul article {
   display: flex;
   flex-direction: row;
   align-items: top;
   margin-bottom: 15px;
 }
 @media all and (max-width: 940px) {
-  .topten .topten-5 article {
+  .topten .topten-5 ul article {
     display: block;
     margin-bottom: 30px;
   }
 }
-.topten .topten-5 article .member {
+.topten .topten-5 ul article .member {
   justify-content: left;
 }
 @media all and (max-width: 940px) {
-  .topten .topten-5 article .member {
+  .topten .topten-5 ul article .member {
     justify-content: center;
   }
 }
-.topten .topten-5 article .member .member img {
+.topten .topten-5 ul article .member .member img {
   width: 30px;
   height: 30px;
 }
-.topten .topten-5 article .cover-5 {
+.topten .topten-5 ul article .cover-5 {
   width: 20%;
   height: 20%;
 }
 @media all and (max-width: 940px) {
-  .topten .topten-5 article .cover-5 {
+  .topten .topten-5 ul article .cover-5 {
     width: 50%;
     height: 50%;
   }
 }
-.topten .topten-5 article .series-data {
+.topten .topten-5 ul article .series-data {
   text-align: left;
   margin-left: 20px;
 }
 @media all and (max-width: 940px) {
-  .topten .topten-5 article .series-data {
+  .topten .topten-5 ul article .series-data {
     text-align: center;
     margin-left: 0;
   }
 }
-.topten .topten-5 article p {
+.topten .topten-5 ul article p {
   margin: 5px;
 }
 .topten .topten-5-ranking {
@@ -819,6 +837,11 @@ ul {
   outline: none;
   border-radius: 5px;
 }
+@media all and (max-width: 450px) {
+  #episode-comments form textarea {
+    width: 280px;
+  }
+}
 #episode-comments form label {
   line-height: 50px;
 }
@@ -860,6 +883,27 @@ ul {
 .error-page h1 {
   margin-top: 0;
   margin-bottom: 0;
+}
+
+/* Mise en forme du dashboard */
+#member-library br {
+  margin-bottom: 40px;
+  content: "";
+  display: block;
+}
+
+.newseries {
+  margin-bottom: 40px;
+}
+@media all and (max-width: 940px) {
+  .newseries {
+    text-align: center !important;
+  }
+}
+@media all and (max-width: 450px) {
+  .newseries {
+    font-size: 0.7em;
+  }
 }
 
 /*# sourceMappingURL=style.css.map */
