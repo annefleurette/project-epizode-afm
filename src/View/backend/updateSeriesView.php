@@ -10,7 +10,7 @@ ob_start();
     </ul>
 </nav>
 <section class="elementContent" data-tab="1"> <!-- Section qui affiche les informations de la série -->
-    <form action="index.php?action=updateSeries_post&idseries=<?php echo $seriesId; ?>" method="post" enctype="multipart/form-data">
+    <form class="form-fields" action="index.php?action=updateSeries_post&idseries=<?php echo $seriesId; ?>" method="post" enctype="multipart/form-data">
     <!-- On pré-rempli le formulaire avec les données issues de la base de données ou les données temporaires si on a déjà essayé de modifier et qu'un erreur est apparue, pour ne pas avoir à tout resaisir -->
         <p>
             <label for="title">Titre</label><br />

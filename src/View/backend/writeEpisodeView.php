@@ -4,7 +4,8 @@ $head_title = 'Epizode - Créer un nouvel épisode';
 ob_start();
 ?>
 <section> <!-- Section de création de l'épisode -->
-    <form action="index.php?action=writeEpisode_post&idseries=<?php echo $seriesId; ?>" method="post">
+    <h1>Mon épisode</h1>
+    <form class="form-fields" action="index.php?action=writeEpisode_post&idseries=<?php echo $seriesId; ?>" method="post">
     <!-- On pré-rempli le formulaire avec les données temporaires si on a déjà essayé de modifier et qu'un erreur est apparue, pour ne pas avoir à tout resaisir -->
         <p>
             <label for="numberEpisode">Numéro de l'épisode</label><br />

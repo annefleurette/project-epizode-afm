@@ -4,7 +4,8 @@ $head_title = 'Epizode - Créer une nouvelle série';
 ob_start();
 ?>
 <section> <!-- Section qui permet de créer la série -->
-    <form action="index.php?action=writeSeries_post" method="post" enctype="multipart/form-data">
+    <h1>Ma nouvelle série</h1>
+    <form class="form-fields" action="index.php?action=writeSeries_post" method="post" enctype="multipart/form-data">
         <p>
             <label for="title">Titre (100 caractères maximum)</label><br />
             <input type="text" id="title" name="titleSeries" minlength="1" maxlength="100" required value="<?php if(isset($_SESSION['tempSeriestitle'])){echo $_SESSION['tempSeriestitle'];}else{echo NULL;}?>">
@@ -62,10 +63,10 @@ ob_start();
             <?php if(isset($_SESSION['tempMetaSeries'])){unset($_SESSION['tempMetaSeries']);}?>
         </p>
         <p>
-            <input type="submit" name="save" value="Valider">
+            <input class="btn btn-purple" type="submit" name="save" value="Valider">
         </p>
     </form>
-    <p><a href="index.php?action=dashboard">ANNULER</a>
+    <p><a class="btn btn-grey" href="index.php?action=dashboard">Annuler</a>
 </section>
 <?php $body_content = ob_get_clean();
 require('./src/View/template.php');
