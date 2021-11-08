@@ -8,7 +8,7 @@ if(document.getElementById('like') != undefined || document.getElementById('disl
         .then(responseServer => {
             console.log(responseServer);
             let nbLikesElt = document.getElementById('nbLikes');
-            nbLikesElt.textContent = Number(nbLikesElt.textContent) + 1 ;
+            nbLikesElt.textContent = Number(nbLikesElt.textContent) + 1;
             document.getElementById('like').classList.add('hidden');
             document.getElementById('dislike').classList.remove('hidden');
         })
@@ -22,7 +22,7 @@ if(document.getElementById('like') != undefined || document.getElementById('disl
         .then(responseServer => {
             console.log(responseServer);
             let nbLikesElt = document.getElementById('nbLikes');
-            nbLikesElt.textContent = Number(nbLikesElt.textContent) - 1 ;
+            nbLikesElt.textContent = Number(nbLikesElt.textContent) - 1;
             document.getElementById('like').classList.remove('hidden');
             document.getElementById('dislike').classList.add('hidden');
         })

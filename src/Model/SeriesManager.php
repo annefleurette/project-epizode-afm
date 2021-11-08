@@ -148,7 +148,7 @@ class SeriesManager extends Manager
 	public function getSeriesSubscriptions($idseries)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT COUNT(DISTINCT id_series) FROM series_has_members_subscription WHERE id_series = ?');
+		$req = $db->prepare('SELECT COUNT(id_series) FROM series_has_members_subscription WHERE id_series = ?');
 		$req->execute(array($idseries));
 	   	$seriesSubscription = $req->fetch();
 	    $req->closeCursor();

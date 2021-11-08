@@ -10,7 +10,7 @@ ob_start();
             <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?>"><?php echo $oneSeriesPublicData['title']; ?></a> : épisode <?php echo $episode_unitary_published['number']; ?></p>
             <p><?php echo $episode_unitary_published['timeReading']; ?> minute(s) de lecture</p>
             <div class="episode-data-social">
-                <p class="social-info"><span id="nbLikes"><i class="fas fa-heart"></i><?php echo $episodeLikes[0]; ?></span></p>
+                <p class="social-info"><i class="fas fa-heart"></i><span id="nbLikes"><?php echo $episodeLikes[0]; ?></span></p>
                 <p class="social-info"><i class="fas fa-comment"></i><?php echo $episode_unitary_published['numberComments']; ?></p>
             </div>
             <!-- Gestion des likes -->

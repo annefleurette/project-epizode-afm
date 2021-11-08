@@ -85,7 +85,7 @@ class EpisodesManager extends Manager
 	public function getEpisodeLikes($idepisode)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT COUNT(DISTINCT id_episode) FROM episode_has_members_likers WHERE id_episode = ?');
+		$req = $db->prepare('SELECT COUNT(id_episode) FROM episode_has_members_likers WHERE id_episode = ?');
 		$req->execute(array($idepisode));
 	    $episodeLikes = $req->fetch();
 	    $req->closeCursor();
