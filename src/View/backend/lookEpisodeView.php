@@ -3,37 +3,17 @@
 $head_title = 'Epizode - Aperçu de l\'épisode';
 ob_start();
 ?>
-    <section> <!-- Retour en arrière -->
-        <p>
-            <a href="index.php?action=updateSeries&idseries=<?php echo $seriesId; ?>&tab=2">Retour</a>
-        </p>
-    </section>
-    <section> <!-- Section avec l'épisode en aperçu -->
-        <h1><?php echo $oneSeriesUserData['title']; ?></h1>
-        <p><img src="<?php echo $oneSeriesUserData['cover']; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
-        <!-- Si l'auteur est un éditeur -->
-        <?php if($_SESSION['level'] == 20)
-        {
-        ?>
-            <p><img src="<?php echo $oneSeriesUserData['logo']; ?>" alt="<?php echo $oneSeriesUserData['altlogo']; ?>"/></p>
-            <p><?php echo $oneSeriesUserData['publisher']; ?></p>
-            <p><?php echo $oneSeriesUserData['publisher_author']; ?></p>
-        <?php
-        // Si l'auteur est un autre utilisateur
-        }else{
-        ?>  
-            <p><img src="<?php echo $oneSeriesUserData['avatar']; ?>" alt="<?php echo $oneSeriesUserData['altavatar']; ?>"/></p>  
-            <p><?php echo $oneSeriesUserData['member']; ?></p>
-        <?php
-        }
-        ?>
-        <p><?php echo $oneEpisodesUser['title']; ?></p>
-        <p><i class="fas fa-heart"></i><?php echo $oneEpisodesUser['likesNumber']; ?></p>
-        <p><?php echo $oneEpisodesUser['numberComments']; ?> commentaire(s)</p>
-        <p><?php echo $oneEpisodesUser['timeReading']; ?> minute(s)</p>
-    </section>
-    <section>
-        <p><?php echo $oneEpisodesUser['content']; ?></p>
+    <section id="look"> <!-- Section avec l'épisode en aperçu -->
+        <h1><?php echo $oneEpisodesUser['title']; ?></h1>
+        <div class="episode-data">
+            <p><?php echo $oneSeriesUserData['title']; ?> : épisode <?php echo $oneEpisodesUser['number']; ?></p>
+            <p><?php echo $oneEpisodesUser['timeReading']; ?> minute(s) de lecture</p>
+            <p class="social-info"><i class="fas fa-heart"></i><?php echo $oneEpisodesUser['likesNumber']; ?></p>
+        </div>
+        <section id="look-content">
+            <p class="episode-content-text"><?php echo $oneEpisodesUser['content']; ?></p>
+            <p class="center"><a class="btn btn-grey" href="index.php?action=updateSeries&idseries=<?php echo $seriesId; ?>&tab=2">Retour</a></p>
+        </section>
     </section>
 <?php
 $body_content = ob_get_clean();

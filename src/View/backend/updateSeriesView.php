@@ -3,13 +3,14 @@
 $head_title = 'Epizode - Mettre à jour la série';
 ob_start();
 ?>
-<nav> <!-- Navigation entre les données de la série et les données des épisodes -->
+<nav class="menu__second"> <!-- Navigation entre les données de la série et les données des épisodes -->
     <ul>
         <li class="elementTab" data-index="1">Ma série</li>
         <li class="elementTab" data-index="2">Mes épisodes</li>
     </ul>
 </nav>
-<section class="elementContent" data-tab="1"> <!-- Section qui affiche les informations de la série -->
+<section id="update-series" class="elementContent form" data-tab="1"> <!-- Section qui affiche les informations de la série -->
+    <h1>Mise à jour de ma série</h1>
     <form class="form-fields" action="index.php?action=updateSeries_post&idseries=<?php echo $seriesId; ?>" method="post" enctype="multipart/form-data">
     <!-- On pré-rempli le formulaire avec les données issues de la base de données ou les données temporaires si on a déjà essayé de modifier et qu'un erreur est apparue, pour ne pas avoir à tout resaisir -->
         <p>
@@ -29,7 +30,7 @@ ob_start();
             </p>
             <p>
                 <label for="descriptionAuthor">Présentation de l'auteur</label><br />
-                <input type="text" id="descriptionAuthor" name="descriptionAuthor" minlength="1" maxlength="10000" required value="<?php if(isset($_SESSION['tempAuthordescription'])){echo $_SESSION['tempAuthordescription'];}else{echo $oneSeriesUserData['publisher_author_description'];}?>">
+                <textarea id="descriptionAuthor" name="descriptionAuthor" minlength="1" maxlength="10000" required><?php if(isset($_SESSION['tempAuthordescription'])){echo $_SESSION['tempAuthordescription'];}else{echo $oneSeriesUserData['publisher_author_description'];}?></textarea>
                 <?php if(isset($_SESSION['tempAuthordescription'])){unset($_SESSION['tempAuthordescription']);}?>
             </p>
         <?php
@@ -41,9 +42,10 @@ ob_start();
             <?php if(isset($_SESSION['tempSummary'])){unset($_SESSION['tempSummary']);}?>
         </p>
         <p>
-            <p><img src="<?php echo $seriesCover; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
+            <p><img class="cover" src="<?php echo $seriesCover; ?>" alt="<?php echo $oneSeriesUserData['altcover']; ?>"/></p>
             <label for="cover">Modifier l'affiche de votre série (1 Mo maximum, formats JPEG et PNG exclusivement)</label>
-            <input type="file" id="cover" name="cover" accept=".jpg, .jpeg, .png" size="1000000">
+            <br />
+            <input class="add-file" type="file" id="cover" name="cover" accept=".jpg, .jpeg, .png" size="1000000">
         </p>
         <p>
             <label for="tags">Catégories/Tags (séparer chaque tag par une virgule)</label><br />
@@ -88,12 +90,13 @@ ob_start();
             <?php if(isset($_SESSION['tempMetaSeries'])){unset($_SESSION['tempMetaSeries']);}?>
         </p>
         <p>
-            <input type="submit" name="save" value="Valider">
+            <input class="write-validation btn btn-purple" type="submit" name="save" value="Valider">
         </p>
     </form>
 </section>
-<section class="elementContent hidden" data-tab="2"> <!-- Section qui affiche les données sur les épisodes de la série -->
-    <p><a href="index.php?action=writeEpisode&idseries=<?php echo $seriesId; ?>">ECRIRE UN NOUVEL EPISODE</a></p>
+<section id="update-series-episodes" class="elementContent hidden" data-tab="2"> <!-- Section qui affiche les données sur les épisodes de la série -->
+    <h1>Les épisodes de ma série</h1>
+    <p class="newseries"><a class="btn btn-violet" href="index.php?action=writeEpisode&idseries=<?php echo $seriesId; ?>">+ J'écris un nouvel épisode !</a></p>
     <?php
     // S'il existe au moins un épisode
     if($oneSeriesUserData['numberEpisodes']!== "0")
@@ -105,9 +108,8 @@ ob_start();
             {
             ?>
                 <li>
-                    <article>
-                        <p>Episode n°<?php echo $episodedata['number']; ?></p>
-                        <p><?php echo $episodedata['title']; ?></p>
+                    <article class="series-episodes-articles">
+                        <p><strong>Episode n°<?php echo $episodedata['number']; ?> : <?php echo $episodedata['title']; ?></strong></p>
                         <p>Statut :
                         <?php
                         // Si l'épisode est publié
@@ -155,14 +157,14 @@ ob_start();
                         <?php
                         }
                         ?>
-                        <p><i class="fas fa-heart"></i><?php echo $episodedata['likesNumber']; ?></p>
-                        <p><i class="fas fa-coins"></i><?php echo $episodedata['price']; ?></p>
-                        <p><a href ="index.php?action=lookEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">APERCU</a></p>
-                        <p><a href ="index.php?action=updateEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">MODIFIER</a></p>
+                        <p><?php echo $episodedata['price']; ?> euros</p>
+                        <p class="social-info"><i class="fas fa-heart"></i><?php echo $episodedata['likesNumber']; ?></p>
+                        <p><a class="btn btn-purple" href ="index.php?action=lookEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">Aperçu</a></p>
+                        <p><a class="btn btn-purple" href="index.php?action=updateEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">Modifier</a></p>
                         <?php if((($episodedata['number'] == $nbepisodes) AND ($episodedata['publishing'] === "published")) OR ($episodedata['publishing'] === "inprogress"))
                         {
                         ?>    
-                            <p><a class="delete" href="index.php?action=userDeleteEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">SUPPRIMER</a></p>
+                            <p><a class="btn btn-grey delete" href="index.php?action=userDeleteEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">SUPPRIMER</a></p>
                         <?php    
                         }
                         ?> 

@@ -3,7 +3,7 @@
 $head_title = 'Epizode - Créer une nouvelle série';
 ob_start();
 ?>
-<section> <!-- Section qui permet de créer la série -->
+<section id="write-series" class="form"> <!-- Section qui permet de créer la série -->
     <h1>Ma nouvelle série</h1>
     <form class="form-fields" action="index.php?action=writeSeries_post" method="post" enctype="multipart/form-data">
         <p>
@@ -23,7 +23,7 @@ ob_start();
             </p>
             <p>
                 <label for="descriptionAuthor">Présentation de l'auteur</label><br />
-                <input type="text" id="descriptionAuthor" name="descriptionAuthor" minlength="1" maxlength="10000" required value="<?php if(isset($_SESSION['tempAuthordescription'])){echo $_SESSION['tempAuthordescription'];}else{echo NULL;}?>">
+                <textarea type="text" id="descriptionAuthor" name="descriptionAuthor" minlength="1" maxlength="10000" required value="<?php if(isset($_SESSION['tempAuthordescription'])){echo $_SESSION['tempAuthordescription'];}else{echo NULL;}?>"></textarea>
                 <?php if(isset($_SESSION['tempAuthordescription'])){unset($_SESSION['tempAuthordescription']);}?>
             </p>
         <?php
@@ -35,8 +35,9 @@ ob_start();
             <?php if(isset($_SESSION['tempSummary'])){unset($_SESSION['tempSummary']);}?>
         </p>
         <p>
-            <label for="cover">Ajouter l'affiche de votre série (1 Mo maximum, formats JPEG et PNG exclusivement)</label>
-            <input type="file" id="cover" name="cover" accept=".jpg, .jpeg, .png" size="1000000">
+            <label for="cover">Ajouter l'affiche de votre série (1 Mo maximum, formats JPEG et PNG exclusivement, dimension recommandée : 300 x 400px)</label>
+            <br/>
+            <p><input class="add-file" type="file" id="cover" name="cover" accept=".jpg, .jpeg, .png" size="1000000"></p>
         </p>
         <p>
             <label for="tags">Catégories/Tags (séparer chaque tag par une virgule)</label><br />
@@ -63,10 +64,10 @@ ob_start();
             <?php if(isset($_SESSION['tempMetaSeries'])){unset($_SESSION['tempMetaSeries']);}?>
         </p>
         <p>
-            <input class="btn btn-purple" type="submit" name="save" value="Valider">
+            <input class="write-validation btn btn-purple" type="submit" name="save" value="Valider">
         </p>
     </form>
-    <p><a class="btn btn-grey" href="index.php?action=dashboard">Annuler</a>
+    <p class="center"><a class="btn btn-grey" href="index.php?action=dashboard">Annuler</a>
 </section>
 <?php $body_content = ob_get_clean();
 require('./src/View/template.php');

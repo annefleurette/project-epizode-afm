@@ -29,7 +29,7 @@ ob_start();
     // Si le membre est un éditeur
     }elseif($userPublicData['type'] == "publisher"){
     ?>
-        <p><img class="cover" src="<?php echo $userPublicData['logo']; ?>" alt="<?php echo $userPublicData['altlogo']; ?>"/></p>
+        <p><img class="logo" src="<?php echo $userPublicData['logo']; ?>" alt="<?php echo $userPublicData['altlogo']; ?>"/></p>
         <h1 <?php if(strlen($userPublicData['name']) >= 30 AND strlen($userPublicData['name']) <= 70){ echo "class=medium-title";}elseif(strlen($userPublicData['name']) > 70){ echo "class=big-title";}?>><?php echo $userPublicData['name']; ?></h1>
         <?php
         if(isset($userPublicData['description']))

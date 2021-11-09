@@ -32,16 +32,21 @@ ob_start();
         if(isset($userData['logo']))
         {
         ?>
-            <p><img src="<?php echo $userData['logo']; ?>" alt="<?php echo $userData['altlogo']; ?>"/></p>
+            <p><img class="logo" src="<?php echo $userData['logo']; ?>" alt="<?php echo $userData['altlogo']; ?>"/></p>
         <?php
         }
         ?>
-        <p>Bonjour <?php echo $userData['pseudo']; ?>, content de vous revoir !</p>
-        <p><?php echo $userData['description']; ?></p>
+        <h1>Bonjour <?php echo $userData['name']; ?> !</h1>
         <p><?php echo $userData['numberSubscriptions']; ?> abonnement(s)</p>
         <p><?php echo $userData['numberAuthors']; ?> auteur(s)</p>
         <p><?php echo $userData['numberWritings']; ?> série(s) publiée(s) ou en cours</p>
-        <p>Date d'inscription : <?php echo $userData['subscriptionDate']; ?></p>
+        <p><em>
+        Membre depuis le 
+        <?php
+            $date = new DateTime($userData['subscriptionDate']);
+            echo $date->format('d/m/Y');
+        ?>
+        </em></p>
     <?php
     }
     ?>
@@ -65,7 +70,7 @@ ob_start();
             ?>
                 <li>
                     <figure>
-                        <img src="<?php echo $subscriptionSeries['cover']; ?>" alt="<?php echo $subscriptionSeries['altcover']; ?>"/>
+                        <img class="cover" src="<?php echo $subscriptionSeries['cover']; ?>" alt="<?php echo $subscriptionSeries['altcover']; ?>"/>
                         <figcaption>
                             <h3><?php echo $subscriptionSeries['title']; ?></h3>
                             <?php
@@ -113,7 +118,7 @@ ob_start();
     // Si le membre n'a pas ajouté de série à sa bibliothèque
     }else{
     ?>
-        <p><?php echo $userData['pseudo']; ?>, vous n'avez pas encore ajouté de série à votre bibliothèque !</p>
+        <p class="no"><?php echo $userData['pseudo']; ?>, vous n'avez pas encore ajouté de série à votre bibliothèque !</p>
     <?php
     }
     ?>
@@ -132,7 +137,7 @@ ob_start();
             ?>
                 <li>
                     <figure>
-                        <img src="<?php echo $seriesMember['cover']; ?>" alt="<?php echo $seriesMember['altcover']; ?>"/>
+                        <img class="cover" src="<?php echo $seriesMember['cover']; ?>" alt="<?php echo $seriesMember['altcover']; ?>"/>
                         <figcaption>
                             <h3><a href="index.php?action=displaySeries&idseries=<?php echo $seriesMember['id']; ?>"><?php echo $seriesMember['title']; ?></a></h3>
                             <p><?php echo $seriesMember['numberEpisodes']; ?> épisode(s)</p>
@@ -165,7 +170,7 @@ ob_start();
     // Si le membre n'a pas encore écrit de série
     }else{
     ?>
-        <p><?php echo $userData['pseudo']; ?>, vous n'avez pas encore écrit de série !</p>
+        <p class="no"><?php echo $userData['pseudo']; ?>, vous n'avez pas encore écrit de série !</p>
     <?php
     }
     ?>

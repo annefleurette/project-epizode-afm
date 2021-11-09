@@ -3,7 +3,7 @@
 $head_title = 'Epizode - Créer un nouvel épisode';
 ob_start();
 ?>
-<section> <!-- Section de création de l'épisode -->
+<section id="write-episode" class="form"> <!-- Section de création de l'épisode -->
     <h1>Mon épisode</h1>
     <form class="form-fields" action="index.php?action=writeEpisode_post&idseries=<?php echo $seriesId; ?>" method="post">
     <!-- On pré-rempli le formulaire avec les données temporaires si on a déjà essayé de modifier et qu'un erreur est apparue, pour ne pas avoir à tout resaisir -->
@@ -35,28 +35,29 @@ ob_start();
         ?>
             <p>
                 <label for="priceEpisode">Prix de l'épisode</label><br />
-                <input type="number" id="priceEpisode" name="priceEpisode" min="0" step=".01" required value="<?php if(isset($_SESSION['tempPrice'])){echo $_SESSION['tempPrice'];}else{echo "0";}?>"> coin(s)
+                <input type="number" id="priceEpisode" class="price" name="priceEpisode" min="0" step=".01" required value="<?php if(isset($_SESSION['tempPrice'])){echo $_SESSION['tempPrice'];}else{echo "0";}?>"> coin(s)
                 <?php if(isset($_SESSION['tempPrice'])){unset($_SESSION['tempPrice']);}?>
             </p>
             <p>
                 <label for="promotionEpisode">Promotion</label><br />
-                Retirer <input type="number" id="promotionEpisode" name="promotionEpisode" min="0" step=".01" value="<?php if(isset($_SESSION['tempPromotion'])){echo $_SESSION['tempPromotion'];}else{echo "0";}?>"> coin(s)
+                <input type="number" id="promotionEpisode" class="price" name="promotionEpisode" min="0" step=".01" value="<?php if(isset($_SESSION['tempPromotion'])){echo $_SESSION['tempPromotion'];}else{echo "0";}?>"> coin(s)
                 <?php if(isset($_SESSION['tempPromotion'])){unset($_SESSION['tempPromotion']);}?>
             </p>
         <?php
         }
         ?>
         <p id="trigger">
-            <input type="submit" name="save" value="Enregistrer">
-            <input id="triggerElt" type="button" name="button" value="Publier">
+            <input class="write-validation btn btn-purple" type="submit" name="save" value="Enregistrer">
+            <input class="write-validation btn btn-purple" id="triggerElt" type="button" name="button" value="Publier">
         </p>
         <p id="hidden">
             <label for="dateEpisode">Date de publication</label>
             <input id ="dateEpisode" type="datetime-local" name="dateEpisode" value="<?php echo date('Y-m-dTH:i', strtotime('+2 hours')); ?>" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9])">
-            <input type="submit" name="publish" value="Publier">
+            <br/>
+            <input class="write-validation btn btn-purple" type="submit" name="publish" value="Publier">
         </p>
         <p>
-            <a href="index.php?action=updateSeries&idseries=<?php echo $seriesId; ?>">Annuler</a>
+            <a class="btn btn-grey" href="index.php?action=updateSeries&idseries=<?php echo $seriesId; ?>">Annuler</a>
         </p>
     </form>
 </section>

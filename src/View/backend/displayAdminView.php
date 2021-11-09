@@ -4,9 +4,9 @@ $head_title = 'Epizode - Mon espace administrateur';
 ob_start();
 ?>
 <section>
-        <p>Bonjour <?php echo $userData['pseudo']; ?>, content de vous revoir !</p>
+        <h1>Bonjour <?php echo $userData['pseudo']; ?> !</h1>
 </section>
-<nav> <!-- L'administrateur a une vue sur tous les membres, toutes les séries, tous les épisodes et tous les commentaires -->
+<nav class="menu__second"> <!-- L'administrateur a une vue sur tous les membres, toutes les séries, tous les épisodes et tous les commentaires -->
     <ul>
         <li class="elementTab" data-index="1">Membres</li>
         <li class="elementTab" data-index="2">Séries</li>
@@ -57,13 +57,13 @@ ob_start();
                         echo $date->format('d/m/Y');
                         ?>  
                     </td>
-                    <td><a href="index.php?action=displayMember&idmember=<?php echo $memberInfo['id']; ?>" TARGET=_BLANK>VOIR</a></td>
+                    <td><a href="index.php?action=displayMember&idmember=<?php echo $memberInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
                     <?php
                     // Pour ne pas se supprimer soi-même
                     if($memberInfo['id'] != $_SESSION['idmember'])
                     {
                     ?>
-                        <td class="delete"><a href="index.php?action=deleteMember&idmember=<?php echo $memberInfo['id']; ?>">SUPPRIMER</a></td>
+                        <td class="delete"><a href="index.php?action=deleteMember&idmember=<?php echo $memberInfo['id']; ?>">Supprimer</a></td>
                     <?php
                     }else{
                         echo "<td></td>";
@@ -79,7 +79,7 @@ ob_start();
     // S'il n'y a pas encore de membre
     }else{
     ?>
-        <p>Epizode n'a pas encore de membre !</p>
+        <p class="no">Epizode n'a pas encore de membre !</p>
     <?php
     }
     ?>
@@ -196,8 +196,8 @@ ob_start();
                         echo $date->format('d/m/Y');
                         ?>
                     </td>
-                    <td><a href="index.php?action=displaySeries&idseries=<?php echo $seriesInfo['id']; ?>" TARGET=_BLANK>VOIR</a></td>
-                    <td class="delete"><a href="index.php?action=adminDeleteSeries&idseries=<?php echo $seriesInfo['id']; ?>">SUPPRIMER</a></td>
+                    <td><a href="index.php?action=displaySeries&idseries=<?php echo $seriesInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
+                    <td class="delete"><a href="index.php?action=adminDeleteSeries&idseries=<?php echo $seriesInfo['id']; ?>">Supprimer</a></td>
                 </tr>
                 <?php
                 }
@@ -208,7 +208,7 @@ ob_start();
     // S'il n'existe pas encore de série
     }else{
     ?>
-        <p>Epizode n'a pas encore de série !</p>
+        <p class="no">Epizode n'a pas encore de série !</p>
     <?php
     }
     ?>
@@ -283,9 +283,9 @@ ob_start();
                             echo $date->format('d/m/Y');
                             ?>
                         </td>
-                        <td><a href="index.php?action=displayEpisode&idseries=<?php echo $alertEpisodeInfo['seriesid']; ?>&number=<?php echo $alertEpisodeInfo['number']; ?>&idepisode=<?php echo $alertEpisodeInfo['id']; ?>" TARGET=_BLANK>VOIR</a></td>
-                        <td class="delete"><a href="index.php?action=adminDeleteEpisode&idepisode=<?php echo $alertEpisodeInfo['id']; ?>">SUPPRIMER</a></td>
-                        <td><a href="index.php?action=removeAlertEpisode_post&idepisode=<?php echo $alertEpisodeInfo['id']; ?>">ANNULER L'ALERTE</a></td>
+                        <td><a href="index.php?action=displayEpisode&idseries=<?php echo $alertEpisodeInfo['seriesid']; ?>&number=<?php echo $alertEpisodeInfo['number']; ?>&idepisode=<?php echo $alertEpisodeInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
+                        <td class="delete"><a href="index.php?action=adminDeleteEpisode&idepisode=<?php echo $alertEpisodeInfo['id']; ?>">Supprimer</a></td>
+                        <td><a href="index.php?action=removeAlertEpisode_post&idepisode=<?php echo $alertEpisodeInfo['id']; ?>">Annuler l'alerte</a></td>
                     </tr>
                     <?php
                     }
@@ -296,7 +296,7 @@ ob_start();
         // Si aucun épisode signalé
         }else{
         ?>
-            <p>Epizode n'a pas encore d'épisode signalé !</p>
+            <p class="no">Epizode n'a pas encore d'épisode signalé !</p>
         <?php
         }
         ?>
@@ -371,8 +371,8 @@ ob_start();
                             ?>
                         </td>
                         <td><?php echo $episodeInfo['salesNumber']; ?></td>
-                        <td><a href="index.php?action=displayEpisode&idseries=<?php echo $episodeInfo['seriesid']; ?>&number=<?php echo $episodeInfo['number']; ?>&idepisode=<?php echo $episodeInfo['id']; ?>" TARGET=_BLANK>VOIR</a></td>
-                        <td class="delete"><a href="index.php?action=adminDeleteEpisode&idepisode=<?php echo $episodeInfo['id']; ?>">SUPPRIMER</a></td>
+                        <td><a href="index.php?action=displayEpisode&idseries=<?php echo $episodeInfo['seriesid']; ?>&number=<?php echo $episodeInfo['number']; ?>&idepisode=<?php echo $episodeInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
+                        <td class="delete"><a href="index.php?action=adminDeleteEpisode&idepisode=<?php echo $episodeInfo['id']; ?>">Supprimer</a></td>
                     </tr>
                     <?php
                     }
@@ -383,7 +383,7 @@ ob_start();
         // S'il n'y a pas encore d'épisode
         }else{
         ?>
-            <p>Epizode n'a pas encore d'épisode !</p>
+            <p class="no">Epizode n'a pas encore d'épisode !</p>
         <?php
         }
         ?>
@@ -423,8 +423,8 @@ ob_start();
                         <td><?php echo $alertCommentInfo['episode']; ?></td>
                         <td><?php echo $alertCommentInfo['content']; ?></td>
                         <td><?php echo $alertCommentInfo['date']; ?></td>
-                        <td class="delete"><a href="index.php?action=deleteComment&idcomment=<?php echo $alertCommentInfo['id']; ?>">SUPPRIMER</a></td>
-                        <td><a href="index.php?action=removeAlertComment_post&idcomment=<?php echo $alertCommentInfo['id']; ?>">ANNULER L'ALERTE</a></td>
+                        <td class="delete"><a href="index.php?action=deleteComment&idcomment=<?php echo $alertCommentInfo['id']; ?>">Supprimer</a></td>
+                        <td><a href="index.php?action=removeAlertComment_post&idcomment=<?php echo $alertCommentInfo['id']; ?>">Annuler l'alerte</a></td>
                     </tr>
                     <?php
                     }
@@ -435,7 +435,7 @@ ob_start();
         // S'il n'y a pas de commentaire signalé
         }else{
         ?>
-            <p>Epizode n'a pas encore de commentaire signalé !</p>
+            <p class="no">Epizode n'a pas encore de commentaire signalé !</p>
         <?php
         }
         ?>
@@ -472,7 +472,7 @@ ob_start();
                         <td><?php echo $commentInfo['episode']; ?></td>
                         <td><?php echo $commentInfo['content']; ?></td>
                         <td><?php echo $commentInfo['date']; ?></td>
-                        <td class="delete"><a href="index.php?action=deleteComment&idcomment=<?php echo $commentInfo['id']; ?>">SUPPRIMER</a></td>
+                        <td class="delete"><a href="index.php?action=deleteComment&idcomment=<?php echo $commentInfo['id']; ?>">Supprimer</a></td>
                     </tr>
                     <?php
                     }
@@ -483,7 +483,7 @@ ob_start();
         // S'il n'y a pas ce commentaire
         }else{
         ?>
-            <p>Epizode n'a pas encore de commentaire !</p>
+            <p class="no">Epizode n'a pas encore de commentaire !</p>
         <?php
         }
         ?>

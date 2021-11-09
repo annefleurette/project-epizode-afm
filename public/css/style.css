@@ -5,7 +5,7 @@
   display: none;
 }
 
-.no {
+.no, .center {
   text-align: center;
 }
 
@@ -274,6 +274,10 @@ ul {
   .figure-bloc figure .cover {
     width: 100%;
   }
+}
+.figure-bloc figure .cover {
+  width: 300px;
+  height: 400px;
 }
 .figure-bloc figcaption {
   color: #262626;
@@ -700,17 +704,17 @@ ul {
   border-radius: 5px;
 }
 
-#episode {
+#episode, #look {
   margin-top: 0;
 }
-#episode .episode-series-data {
+#episode .episode-series-data, #look .episode-series-data {
   text-align: center;
 }
-#episode .episode-series-data p {
+#episode .episode-series-data p, #look .episode-series-data p {
   margin-top: 0;
   margin-bottom: 0;
 }
-#episode h1 {
+#episode h1, #look h1 {
   margin-top: 10px;
   margin-bottom: 10px;
 }
@@ -728,15 +732,15 @@ ul {
   margin-right: 15px;
 }
 
-#episode-content {
+#episode-content, #look-content {
   margin-top: 0;
 }
 @media all and (max-width: 450px) {
-  #episode-content {
+  #episode-content, #look-content {
     padding: 20px;
   }
 }
-#episode-content .episode-content-text {
+#episode-content .episode-content-text, #look-content .episode-content-text {
   width: 65%;
   margin: auto;
   justify-content: center;
@@ -748,13 +752,13 @@ ul {
   line-height: 31px;
 }
 @media all and (max-width: 940px) {
-  #episode-content .episode-content-text {
+  #episode-content .episode-content-text, #look-content .episode-content-text {
     width: 90%;
     padding: 20px;
   }
 }
 @media all and (max-width: 450px) {
-  #episode-content .episode-content-text {
+  #episode-content .episode-content-text, #look-content .episode-content-text {
     width: 100%;
     padding: 20px;
   }
@@ -837,7 +841,7 @@ ul {
   outline: none;
   border-radius: 5px;
 }
-@media all and (max-width: 450px) {
+@media all and (max-width: 540px) {
   #episode-comments form textarea {
     width: 280px;
   }
@@ -885,7 +889,7 @@ ul {
   margin-bottom: 0;
 }
 
-/* Mise en forme du dashboard */
+/* Mise en forme du dashboard et du compte */
 #member-library br {
   margin-bottom: 40px;
   content: "";
@@ -904,6 +908,106 @@ ul {
   .newseries {
     font-size: 0.7em;
   }
+}
+
+#account textarea {
+  width: 500px;
+  height: 70px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.8em;
+  font-weight: 400;
+  color: #262626;
+  outline: none;
+  border-radius: 5px;
+}
+@media all and (max-width: 540px) {
+  #account textarea {
+    width: 280px;
+  }
+}
+#account .account-avatar {
+  margin-bottom: 10px;
+}
+#account .account-avatar .avatar {
+  width: 20px;
+}
+
+.logo {
+  width: 100px;
+  height: 100px;
+}
+
+/* Mise en forme de l'écriture de séries et épisodes */
+#write-series input, #update-series input, #write-episode input, #update-episode input {
+  font-family: "Open Sans", sans-serif;
+  width: 500px;
+  font-size: 0.8em;
+  font-weight: 400;
+  color: #262626;
+}
+@media all and (max-width: 540px) {
+  #write-series input, #update-series input, #write-episode input, #update-episode input {
+    width: 280px;
+  }
+}
+#write-series textarea, #update-series textarea, #write-episode textarea, #update-episode textarea {
+  width: 500px;
+  height: 100px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.8em;
+  font-weight: 400;
+  color: #262626;
+  outline: none;
+  border-radius: 5px;
+}
+@media all and (max-width: 540px) {
+  #write-series textarea, #update-series textarea, #write-episode textarea, #update-episode textarea {
+    width: 280px;
+  }
+}
+#write-series select, #update-series select, #write-episode select, #update-episode select {
+  width: 500px;
+  font-family: "Open Sans", sans-serif;
+  font-size: 0.8em;
+  font-weight: 400;
+  color: #262626;
+  border-radius: 5px;
+}
+@media all and (max-width: 540px) {
+  #write-series select, #update-series select, #write-episode select, #update-episode select {
+    width: 280px;
+  }
+}
+#write-series .add-file, #write-series .write-validation, #update-series .add-file, #update-series .write-validation, #write-episode .add-file, #write-episode .write-validation, #update-episode .add-file, #update-episode .write-validation {
+  width: auto;
+}
+
+.write-validation {
+  color: #240440 !important;
+  font-size: 1.3em !important;
+  font-weight: 500 !important;
+}
+.write-validation:hover {
+  color: #FFFFFF !important;
+  border-color: #240440;
+  background-color: #240440;
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+#update-series-episodes li {
+  padding: 0;
+  margin-bottom: 40px;
+}
+#update-series-episodes h1 {
+  margin-top: 0;
+}
+#update-series-episodes .btn-grey {
+  margin: 0;
+}
+
+.price, #number {
+  width: 30px !important;
 }
 
 /*# sourceMappingURL=style.css.map */

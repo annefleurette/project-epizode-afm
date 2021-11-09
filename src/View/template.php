@@ -24,6 +24,7 @@
         <script>
             tinymce.init({
             selector: '#contentEpisode',
+            language:"fr_FR",
             content_css : './public/css/style.css',
             inline_styles : false,
             plugins: "autoresize, wordcount",
