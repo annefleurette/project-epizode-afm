@@ -28,11 +28,6 @@ $padding-button: 5px 20px;
 }
 
 footer {
-	position: absolute;
-	width:100%;
-	bottom: 0;
-	padding-top:50px;
-	height:65px;
 	p {
 		text-align: center;
 		}
@@ -46,7 +41,8 @@ body {
 	color: $color-black;
 	background-color: $color-texture;
 	font-family: $typo-primary;
-	height: 100%;
+	height: 100vh;
+	overflow-x: hidden;
 }
 
 .container {
@@ -198,6 +194,17 @@ ul {
 	}
 	&__alert {
 		text-align: center;
+	}
+}
+
+.search-mobile {
+	br {
+		content: "";
+    	display: block;
+    	margin-bottom: 0.8em;
+	}
+	.cta-mobile {
+		font-size: 0.8em;
 	}
 }
 
@@ -404,9 +411,12 @@ ul {
 		p {
 			margin: 0;
 		}
-		&:active, &:focus {
-			border-bottom: 3px $color-secondary solid;
-		}
+	}
+	.active {
+		border-bottom: 3px $color-secondary solid;
+	}
+	.inactive {
+		border-bottom: none;
 	}
 }
 
@@ -416,11 +426,12 @@ ul {
 		flex-direction: row;
 		justify-content: space-between;
 		align-items: top;
-		position: relative;
 		margin: 15px;
 		&-logo {
 			img {
 				width: 80%;
+				position: relative;
+				z-index: 1000;
 			}
 		}
 	}
@@ -441,7 +452,7 @@ ul {
 			color: $color-primary;
 		}
 	}
-	input {
+	input[type="checkbox"] {
 		display: block;
 		width: 40px;
 		height: 32px;
@@ -494,7 +505,7 @@ ul {
 #menu-mobile-list
 {
 	position: absolute;
-	width: 300px;
+	width: 100%;
 	margin: -100px -50px 0 0;
 	padding: 125px 0 0 50px;
 	background: $color-white;
@@ -502,7 +513,7 @@ ul {
 	-webkit-font-smoothing: antialiased;
 	/* to stop flickering of text in safari */
 	transform-origin: 0% 0%;
-	transform: translate(-100%, 0);
+	transform: translate(10%, 10px);
 	transition: transform 0.5s cubic-bezier(.36,.49,.69,.57);
 	li {
 		padding: 10px 0;
@@ -511,8 +522,8 @@ ul {
 }
 
 /* And let's slide it in from the left */
-#menuToggle input:checked ~ ul {
-	transform: none;
+#menuToggle input[type="checkbox"]:checked ~ ul {
+	transform: translate(-90%, 10px);
 }
 
 /* Mise en forme des informations Epizode */
@@ -868,11 +879,6 @@ padding-left: 0;
 		padding: 20px;
 		margin-bottom: 20px;
 	}
-}
-
-.elementTab .active {
-	background-color: $color-white;
-	border-bottom: 2px $color-secondary solid;
 }
 
 /* Mise en forme des erreur */

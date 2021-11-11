@@ -172,7 +172,7 @@ class MembersController {
 			//Envoi d'un email de réinitialisation
 			$to      = $postemail;
 			$subject = 'Réinitialisation du mot de passe';
-			$message = 'Vous avez oublié votre mot de passe, cliquez ici pour le réinitialiser : http://localhost:8888/p5/project-epizode-afm/index.php?action=resetPassword&token=' .$memberInfo['token'];
+			$message = 'Vous avez oublié votre mot de passe, cliquez ici pour le réinitialiser : www.epizode.fr/index.php?action=resetPassword&token=' .$memberInfo['token'];
 			$headers = array(
 				'From' => 'no-reply@epizode.fr',
 			);

@@ -84,9 +84,10 @@
                     }
                     ?>
                     <li>
-                        <form action="index.php?action=research" method="post" enctype="multipart/form-data"> 
+                        <form class="search-mobile" action="index.php?action=research" method="post" enctype="multipart/form-data"> 
                             <input type="search" id="site-search" name="keyword">
-                            <input class="cta" type="submit" name="search" value="Rechercher">
+                            <br/>
+                            <input class="cta cta-mobile" type="submit" name="search" value="Rechercher">
                         </form>
                     </li>
                 </ul>

@@ -9,13 +9,6 @@
   text-align: center;
 }
 
-footer {
-  position: absolute;
-  width: 100%;
-  bottom: 0;
-  padding-top: 50px;
-  height: 65px;
-}
 footer p {
   text-align: center;
 }
@@ -27,7 +20,8 @@ body {
   color: #262626;
   background-color: #FAFAFA;
   font-family: "Open Sans", sans-serif;
-  height: 100%;
+  height: 100vh;
+  overflow-x: hidden;
 }
 
 .container {
@@ -195,6 +189,15 @@ ul {
 }
 .btn__alert, .cta__alert {
   text-align: center;
+}
+
+.search-mobile br {
+  content: "";
+  display: block;
+  margin-bottom: 0.8em;
+}
+.search-mobile .cta-mobile {
+  font-size: 0.8em;
 }
 
 .alert-message {
@@ -409,8 +412,11 @@ ul {
 .menu__second li p {
   margin: 0;
 }
-.menu__second li:active, .menu__second li:focus {
+.menu__second .active {
   border-bottom: 3px #240440 solid;
+}
+.menu__second .inactive {
+  border-bottom: none;
 }
 
 @media all and (max-width: 940px) {
@@ -419,11 +425,12 @@ ul {
     flex-direction: row;
     justify-content: space-between;
     align-items: top;
-    position: relative;
     margin: 15px;
   }
   .menu-mobile-logo img {
     width: 80%;
+    position: relative;
+    z-index: 1000;
   }
 
   .menu-desktop {
@@ -442,7 +449,7 @@ ul {
 #menuToggle a:hover {
   color: #9012FE;
 }
-#menuToggle input {
+#menuToggle input[type=checkbox] {
   display: block;
   width: 40px;
   height: 32px;
@@ -458,18 +465,18 @@ ul {
   -webkit-touch-callout: none;
   /* Transform all the slices of hamburger into a crossmark */
 }
-#menuToggle input:checked ~ span {
+#menuToggle input[type=checkbox]:checked ~ span {
   opacity: 1;
   transform: rotate(45deg) translate(-2px, -1px);
   background: #262626;
   /* But let's hide the middle one */
   /* And the last one should go the other direction */
 }
-#menuToggle input:checked ~ span:nth-last-child(3) {
+#menuToggle input[type=checkbox]:checked ~ span:nth-last-child(3) {
   opacity: 0;
   transform: rotate(0deg) scale(0.2, 0.2);
 }
-#menuToggle input:checked ~ span:nth-last-child(2) {
+#menuToggle input[type=checkbox]:checked ~ span:nth-last-child(2) {
   transform: rotate(-45deg) translate(0, -1px);
 }
 #menuToggle span {
@@ -493,7 +500,7 @@ ul {
 
 #menu-mobile-list {
   position: absolute;
-  width: 300px;
+  width: 100%;
   margin: -100px -50px 0 0;
   padding: 125px 0 0 50px;
   background: #FFFFFF;
@@ -501,7 +508,7 @@ ul {
   -webkit-font-smoothing: antialiased;
   /* to stop flickering of text in safari */
   transform-origin: 0% 0%;
-  transform: translate(-100%, 0);
+  transform: translate(10%, 10px);
   transition: transform 0.5s cubic-bezier(0.36, 0.49, 0.69, 0.57);
 }
 #menu-mobile-list li {
@@ -510,8 +517,8 @@ ul {
 }
 
 /* And let's slide it in from the left */
-#menuToggle input:checked ~ ul {
-  transform: none;
+#menuToggle input[type=checkbox]:checked ~ ul {
+  transform: translate(-90%, 10px);
 }
 
 /* Mise en forme des informations Epizode */
@@ -873,11 +880,6 @@ ul {
   border-radius: 5px;
   padding: 20px;
   margin-bottom: 20px;
-}
-
-.elementTab .active {
-  background-color: #FFFFFF;
-  border-bottom: 2px #240440 solid;
 }
 
 /* Mise en forme des erreur */
