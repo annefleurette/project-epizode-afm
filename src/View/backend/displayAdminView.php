@@ -21,7 +21,7 @@ ob_start();
     if($usersData !== NULL)
     {
     ?>
-        <table id="myTableMembers" class="display">
+        <table id="myTableMembers">
             <thead>
                 <tr>
                     <th>Id</th>

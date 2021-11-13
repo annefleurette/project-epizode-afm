@@ -61,7 +61,5 @@ class Slider {
         this.autoSlider = setInterval(() => {
         this.upSlide();  
         }, this.interval);
-        this.play.style.display = "none";
-        this.pause.style.display = "block";
     }
 }

@@ -36,6 +36,12 @@ try {
 								require('src/View/404error.php');
 							}
 							break;
+						case 'subscription':
+							$membersController->displayAdmin();
+						return;
+						case 'login':
+							$membersController->displayAdmin();
+						return;
 						// Series
 						case 'adminDeleteSeries':
 							if(isset($_GET['idseries']))
@@ -100,10 +106,10 @@ try {
 						// Membres
 						case 'subscription':
 							$membersController->displayDashboard();
-						break;
+						return;
 						case 'login':
 							$membersController->displayDashboard();
-						break;
+						return;
 						case 'logout':
 							$membersController->logout();
 						break;

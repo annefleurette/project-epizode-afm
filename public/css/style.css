@@ -9,6 +9,9 @@
   text-align: center;
 }
 
+footer {
+  margin-top: auto;
+}
 footer p {
   text-align: center;
 }
@@ -20,13 +23,14 @@ body {
   color: #262626;
   background-color: #FAFAFA;
   font-family: "Open Sans", sans-serif;
-  height: 100vh;
   overflow-x: hidden;
 }
 
 .container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
   width: 100%;
-  min-height: 100%;
   margin: auto;
   position: relative;
   padding-bottom: 50px;
@@ -198,6 +202,7 @@ ul {
 }
 .search-mobile .cta-mobile {
   font-size: 0.8em;
+  margin-bottom: 15px;
 }
 
 .alert-message {
@@ -511,14 +516,30 @@ ul {
   transform: translate(10%, 10px);
   transition: transform 0.5s cubic-bezier(0.36, 0.49, 0.69, 0.57);
 }
+@media all and (max-width: 450px) {
+  #menu-mobile-list {
+    transform: translate(20%, 10px);
+  }
+}
 #menu-mobile-list li {
   padding: 10px 0;
   font-size: 22px;
 }
+@media all and (max-width: 700px) {
+  #menu-mobile-list li {
+    padding: 10px 0 10px 20px;
+  }
+}
 
 /* And let's slide it in from the left */
 #menuToggle input[type=checkbox]:checked ~ ul {
+  width: 100%;
   transform: translate(-90%, 10px);
+}
+@media all and (max-width: 450px) {
+  #menuToggle input[type=checkbox]:checked ~ ul {
+    transform: translate(-80%, 10px);
+  }
 }
 
 /* Mise en forme des informations Epizode */
