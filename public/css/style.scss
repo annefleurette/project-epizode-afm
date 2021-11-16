@@ -42,7 +42,6 @@ body {
 	color: $color-black;
 	background-color: $color-texture;
 	font-family: $typo-primary;
-	overflow-x: hidden;
 }
 
 .container {
@@ -53,6 +52,7 @@ body {
 	margin: auto;
 	position: relative;
 	padding-bottom: 50px;
+	overflow-x: hidden;
 }
 
 section {
@@ -297,7 +297,7 @@ ul {
 	}
 	figcaption {
 		color: $color-black;
-		font-weight: 300px;
+		font-weight: 300;
 		margin-left: 20px;
 		margin-right: 20px;
 		margin-bottom: 20px;
@@ -415,10 +415,17 @@ ul {
 			margin: 0;
 		}
 	}
-	.active {
+	&-admin {
+		li {
+			@media all and (max-width: 1410px) {
+				display: block!important;
+			}
+		}
+	}
+	.active span {
 		border-bottom: 3px $color-secondary solid;
 	}
-	.inactive {
+	.inactive span {
 		border-bottom: none;
 	}
 }
@@ -428,7 +435,7 @@ ul {
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
-		align-items: top;
+		align-items: start;
 		margin: 15px;
 		&-logo {
 			img {
@@ -450,7 +457,7 @@ ul {
 	-webkit-user-select: none;
 	user-select: none;
 	a {
-	transition: $color-primary 0.3s ease;
+	transition: 0.3s ease;
 		&:hover {
 			color: $color-primary;
 		}
@@ -638,7 +645,7 @@ ul {
 			article {
 				display: flex;
 				flex-direction: row;
-				align-items: top;
+				align-items: start;
 				margin-bottom: 15px;
 				@media all and (max-width: 940px) {
 					display: block;

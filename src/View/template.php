@@ -2,7 +2,7 @@
 <html lang="fr">
 	<head>
 		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, user-scalable=no">
+		<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
         <!-- <base href="http://www.epizode.fr/"> -->
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
         <script
@@ -13,13 +13,11 @@
         <script src='https://cdn.tiny.cloud/1/rusvh5uity3vzz9zncbvyfu2ngucer16rijxcr2fhxwkn4mb/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
         <script src="https://kit.fontawesome.com/d1f6a249f3.js" crossorigin="anonymous"></script>
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-        <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/responsive/2.2.9/js/dataTables.responsive.min.js"></script>
+        <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/datatables.min.js"></script>
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.css" />
-        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/responsive/2.2.9/css/responsive.dataTables.min.css" />
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/datatables.min.css"/>
         <link rel="stylesheet" href="./public/css/style.css" />
         <link rel="shortcut icon" type="image/png" href="./public/images/favicon_epizode.png" alt="Epizode"/>
         <title><?php echo $head_title; ?></title>
@@ -30,7 +28,9 @@
             language:"fr_FR",
             content_css : './public/css/style.css',
             inline_styles : false,
-            plugins: "autoresize, wordcount",
+            plugins: "autoresize, wordcount, paste",
+            menubar: 'edit',
+            toolbar: 'paste pastetext',
             autoresize_overflow_padding: 15,
             autoresize_bottom_margin: 15,
             min_height: 500,
@@ -39,6 +39,7 @@
             forced_root_block : false,
             force_br_newlines : true,
             force_p_newlines : false,
+            convert_newlines_to_brs : true,
             init_instance_callback: function (editor) {
             $(editor.getContainer()).find('button.tox-statusbar__wordcount').click();  // if you use jQuery
             }
@@ -52,7 +53,7 @@
         if(isset($_SESSION['error']))
         {
         ?>
-            <p class="alert-message">><?php echo $_SESSION['error']; ?></p>
+            <p class="alert-message"><?php echo $_SESSION['error']; ?></p>
             <?php unset($_SESSION['error']);
         }
         // Pour afficher une confirmation sur la page

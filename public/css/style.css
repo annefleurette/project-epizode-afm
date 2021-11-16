@@ -23,7 +23,6 @@ body {
   color: #262626;
   background-color: #FAFAFA;
   font-family: "Open Sans", sans-serif;
-  overflow-x: hidden;
 }
 
 .container {
@@ -34,6 +33,7 @@ body {
   margin: auto;
   position: relative;
   padding-bottom: 50px;
+  overflow-x: hidden;
 }
 
 section {
@@ -289,7 +289,7 @@ ul {
 }
 .figure-bloc figcaption {
   color: #262626;
-  font-weight: 300px;
+  font-weight: 300;
   margin-left: 20px;
   margin-right: 20px;
   margin-bottom: 20px;
@@ -417,10 +417,15 @@ ul {
 .menu__second li p {
   margin: 0;
 }
-.menu__second .active {
+@media all and (max-width: 1410px) {
+  .menu__second-admin li {
+    display: block !important;
+  }
+}
+.menu__second .active span {
   border-bottom: 3px #240440 solid;
 }
-.menu__second .inactive {
+.menu__second .inactive span {
   border-bottom: none;
 }
 
@@ -429,7 +434,7 @@ ul {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: top;
+    align-items: start;
     margin: 15px;
   }
   .menu-mobile-logo img {
@@ -449,7 +454,7 @@ ul {
   user-select: none;
 }
 #menuToggle a {
-  transition: #9012FE 0.3s ease;
+  transition: 0.3s ease;
 }
 #menuToggle a:hover {
   color: #9012FE;
@@ -646,7 +651,7 @@ ul {
 .topten .topten-5 ul article {
   display: flex;
   flex-direction: row;
-  align-items: top;
+  align-items: start;
   margin-bottom: 15px;
 }
 @media all and (max-width: 940px) {

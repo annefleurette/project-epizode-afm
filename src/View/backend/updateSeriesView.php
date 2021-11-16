@@ -5,8 +5,8 @@ ob_start();
 ?>
 <nav class="menu__second"> <!-- Navigation entre les données de la série et les données des épisodes -->
     <ul>
-        <li class="elementTab" data-index="1">Ma série</li>
-        <li class="elementTab" data-index="2">Mes épisodes</li>
+        <li class="elementTab" data-index="1"><sapn>Ma série</span></li>
+        <li class="elementTab" data-index="2"><span>Mes épisodes</span></li>
     </ul>
 </nav>
 <section id="update-series" class="elementContent form" data-tab="1"> <!-- Section qui affiche les informations de la série -->
@@ -178,7 +178,7 @@ ob_start();
     // Si la série n'a pas encore d'épisode
     }else{
     ?>
-        <p>La série n'a pas encore d'épisode ! </p>
+        <p class="no">La série n'a pas encore d'épisode ! </p>
     <?php
     }
     ?>

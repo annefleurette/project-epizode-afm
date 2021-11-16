@@ -6,12 +6,12 @@ ob_start();
 <section>
         <h1>Bonjour <?php echo $userData['pseudo']; ?> !</h1>
 </section>
-<nav class="menu__second"> <!-- L'administrateur a une vue sur tous les membres, toutes les séries, tous les épisodes et tous les commentaires -->
+<nav class="menu__second menu__second-admin"> <!-- L'administrateur a une vue sur tous les membres, toutes les séries, tous les épisodes et tous les commentaires -->
     <ul>
-        <li class="elementTab" data-index="1">Membres</li>
-        <li class="elementTab" data-index="2">Séries</li>
-        <li class="elementTab" data-index="3">Episodes</li>
-        <li class="elementTab" data-index="4">Commentaires</li>
+        <li class="elementTab" data-index="1"><span>Membres</span></li>
+        <li class="elementTab" data-index="2"><span>Séries</span></li>
+        <li class="elementTab" data-index="3"><span>Episodes</span></li>
+        <li class="elementTab" data-index="4"><span>Commentaires</span></li>
     </ul>
 </nav>
 <section class="elementContent" data-tab="1"> <!-- Section avec les informations sur les membres -->
@@ -21,7 +21,7 @@ ob_start();
     if($usersData !== NULL)
     {
     ?>
-        <table id="myTableMembers">
+        <table id="myTableMembers" class="responsive nowrap">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -91,7 +91,7 @@ ob_start();
     if($getAllSeries != NULL)
     {
     ?>
-        <table id="myTableSeries" class="display">
+        <table id="myTableSeries" class="responsive nowrap display">
             <thead>
                 <tr>
                     <th>Id</th>
@@ -222,7 +222,7 @@ ob_start();
         if($getAlertEpisodes != NULL)
         {
         ?>
-            <table id="myTableAlertEpisodes" class="display">
+            <table id="myTableAlertEpisodes" class="responsive display nowrap">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -309,7 +309,7 @@ ob_start();
         if($getAllEpisodes != NULL)
         {
         ?>
-            <table id="myTableEpisodes" class="display">
+            <table id="myTableEpisodes" class="responsive display nowrap">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -398,7 +398,7 @@ ob_start();
         if($getAlertComments != NULL)
         {
         ?>
-            <table id="myTableAlertComments" class="display">
+            <table id="myTableAlertComments" class="responsive display nowrap">
                 <thead>
                     <tr>
                         <th>Id</th>
@@ -448,7 +448,7 @@ ob_start();
         if($getAllComments != NULL)
         {
         ?>
-            <table id="myTableComments" class="display">
+            <table id="myTableComments" class="responsive display nowrap">
             <thead>
                     <tr>
                         <th>Id</th>

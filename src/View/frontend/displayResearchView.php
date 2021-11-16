@@ -7,9 +7,9 @@ ob_start();
 <h1 <?php if(strlen($postkeyword) >= 30 AND strlen($postkeyword) <= 70){ echo "class=medium-title";}elseif(strlen($postkeyword) > 70){ echo "class=big-title";}?>>Résultats de la recherche : <?php echo $postkeyword; ?></h1>
 <nav> <!-- Les résultats s'affichent dans les séries, les auteurs et les épisodes -->
     <ul class="menu__second">
-        <li class="elementTab" data-index="1">Séries</li>
-        <li class="elementTab" data-index="2">Membres</li>
-        <li class="elementTab" data-index="3">Episodes</li>
+        <li class="elementTab" data-index="1"><span>Séries</span></li>
+        <li class="elementTab" data-index="2"><span>Membres</span></li>
+        <li class="elementTab" data-index="3"><span>Episodes</span></li>
     </ul>
 </nav>
 <section id="research-series" class="elementContent figure-bloc" data-tab="1"> <!-- Section qui affiche la liste résultats parmi les séries -->
@@ -211,7 +211,7 @@ ob_start();
                             }
                             ?>
                         <br />
-                        <p class="research-series__data"><a class="btn btn-purple" href="index.php?action=displayEpisode&idepisode=<?php echo $episodesResults['id']; ?>">Découvrir l'épisode à lire</a></p>
+                        <p class="research-series__data"><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $episodesResults['idseries']; ?>&number=<?php echo $episodesResults['number']; ?>&idepisode=<?php echo $episodesResults['id']; ?>">Découvrir l'épisode à lire</a></p>
                     </article>
                 </li>
             <?php

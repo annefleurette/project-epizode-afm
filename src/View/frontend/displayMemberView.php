@@ -51,16 +51,16 @@ ob_start();
 </section>
 <nav> <!-- Navigation entre les grandes catégories d'informations du membre -->
     <ul class="menu__second">
-        <li class="elementTab" data-index="1"><p>Ses séries</p></li>
+        <li class="elementTab" data-index="1"><p><span>Ses séries</span></p></li>
         <?php
         if($userPublicData['type'] == "user")
         {
         ?>
-        	<li class="elementTab" data-index="2"><p>Ses lectures</p></li>
+        	<li class="elementTab" data-index="2"><p><span>Ses lectures</span></p></li>
         <?php
         }elseif($userPublicData['type'] == "publisher"){
         ?>
-       		<li class="elementTab" data-index="2"><p>Ses auteurs</p></li>
+       		<li class="elementTab" data-index="2"><p><span>Ses auteurs</span></p></li>
        	<?php
        	}
        	?>

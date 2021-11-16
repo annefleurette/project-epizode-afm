@@ -53,8 +53,8 @@ ob_start();
 </section>
 <nav class="menu__second"> <!-- Accès à la bibliothèque de séries ou au studio de production -->
     <ul>
-        <li class="elementTab" data-index="1">Ma bibliothèque de séries</li>
-        <li class="elementTab" data-index="2">Mon studio de production</li>
+        <li class="elementTab" data-index="1"><span>Ma bibliothèque de séries</span></li>
+        <li class="elementTab" data-index="2"><span>Mon studio de production</span></li>
     </ul>
 </nav>
 <section id="member-library" class="elementContent figure-bloc" data-tab="1"> <!-- Section bibliothèque de séries -->

@@ -404,7 +404,7 @@ class SeriesManager extends Manager
 	public function getResearchEpisodesResults($keyword)
 	{
 		$db = $this->dbConnect();
-		$req = $db->prepare('SELECT DISTINCT m.pseudo AS "member", m.type AS "type", l.name AS "publisher", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", s.title AS "title", e.number AS "number", e.id AS "id", e.title AS "titleEpisode", e.content AS "content" FROM series s LEFT JOIN episodes e ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE s.publishing_status = "published" AND e.publishing_status = "published" AND CONCAT(e.title, e.content) LIKE ?');
+		$req = $db->prepare('SELECT DISTINCT m.pseudo AS "member", m.type AS "type", l.name AS "publisher", ia.url AS "avatar", ia.alt AS "altavatar", il.url AS "logo", il.alt AS "altlogo", s.id AS "idseries", s.title AS "title", e.number AS "number", e.id AS "id", e.title AS "titleEpisode", e.content AS "content" FROM series s LEFT JOIN episodes e ON s.id = e.id_series LEFT JOIN members m ON m.id = s.id_member LEFT JOIN avatars a ON a.id = m.id_avatar LEFT JOIN images ia ON ia.id = a.id_avatar LEFT JOIN logos l ON l.id = m.id_logo LEFT JOIN images il ON il.id = l.id_logo WHERE s.publishing_status = "published" AND e.publishing_status = "published" AND CONCAT(e.title, e.content) LIKE ?');
 		$req->execute(array($keyword));
 		$researchEpisodesResults = $req->fetchAll();
 		$req->closeCursor();
