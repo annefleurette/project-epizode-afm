@@ -32,10 +32,7 @@ $(document).ready(function () {
             }
         },
         responsive: true
-    })
-});
-
-$(document).ready(function () {
+    }),
     $('#myTableSeries').DataTable({
         "language": {
             "sEmptyTable":     "Aucune donnée disponible dans le tableau",
@@ -68,10 +65,7 @@ $(document).ready(function () {
                 }
         },
         responsive: true,
-    })
-});
-
-$(document).ready(function () {
+    }),
     $('#myTableAlertEpisodes').DataTable({
         "language": {
             "sEmptyTable":     "Aucune donnée disponible dans le tableau",
@@ -104,10 +98,7 @@ $(document).ready(function () {
                 }
         },
         responsive: true
-    })
-});
-
-$(document).ready(function () {
+    }),
     $('#myTableEpisodes').DataTable({
         "language": {
             "sEmptyTable":     "Aucune donnée disponible dans le tableau",
@@ -140,10 +131,7 @@ $(document).ready(function () {
                 }
         },
         responsive: true
-    })
-});
-
-$(document).ready(function () {
+    }),
     $('#myTableAlertComments').DataTable({
         "language": {
             "sEmptyTable":     "Aucune donnée disponible dans le tableau",
@@ -176,10 +164,7 @@ $(document).ready(function () {
                 }
         },
         responsive: true
-    })
-});
-
-$(document).ready(function () {
+    }),
     $('#myTableComments').DataTable({
         "language": {
             "sEmptyTable":     "Aucune donnée disponible dans le tableau",
@@ -213,4 +198,5 @@ $(document).ready(function () {
         },
         responsive: true
     })
+   
 });

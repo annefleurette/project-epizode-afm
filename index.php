@@ -295,7 +295,7 @@ try {
 					}
 				}
 			}else{
-				require('src/View/403error.php');
+				require('src/View/404error.php');
 			}
 		}else{
 			switch($_GET['action'])
@@ -404,11 +404,11 @@ try {
 					$episodesController->removeLike($_GET['idepisode']);
 					break;
 				default:
-				require('src/View/403error.php');
+				require('src/View/404error.php');
 			}
 		}
 	}else{
-		require('src/View/404error.php');
+		$seriesController->displayHomepage();
 	}
 }catch(Exception $e){
 	$errorMessage = $e->getMessage();

@@ -10,7 +10,7 @@
             integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
             crossorigin="anonymous">
         </script> 
-        <script src='https://cdn.tiny.cloud/1/rusvh5uity3vzz9zncbvyfu2ngucer16rijxcr2fhxwkn4mb/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
+        <script src='https://cdn.tiny.cloud/1/lazywcrqi916rl1gyvy9gccpflxdjheio60u60ftnp878rrf/tinymce/5/tinymce.min.js' referrerpolicy="origin"></script>
         <script src="https://kit.fontawesome.com/d1f6a249f3.js" crossorigin="anonymous"></script>
         <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.5.1.js"></script>
         <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.11.3/r-2.2.9/datatables.min.js"></script>

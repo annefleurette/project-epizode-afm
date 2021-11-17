@@ -792,7 +792,7 @@ ul {
 }
 @media all and (max-width: 450px) {
   #episode-content .episode-content-text, #look-content .episode-content-text {
-    width: 100%;
+    width: 85%;
     padding: 20px;
   }
 }
@@ -868,7 +868,7 @@ ul {
   width: 500px;
   height: 70px;
   font-family: "Open Sans", sans-serif;
-  font-size: 0.8em;
+  font-size: 1em;
   font-weight: 400;
   color: #262626;
   outline: none;
@@ -942,7 +942,7 @@ ul {
   width: 500px;
   height: 70px;
   font-family: "Open Sans", sans-serif;
-  font-size: 0.8em;
+  font-size: 1em;
   font-weight: 400;
   color: #262626;
   outline: none;
@@ -965,11 +965,19 @@ ul {
   height: 100px;
 }
 
+table.dataTable.dtr-inline.collapsed > tbody > tr > td.dtr-control:before, table.dataTable.dtr-inline.collapsed > tbody > tr > th.dtr-control:before {
+  background-color: #240440;
+}
+
+table.dataTable.dtr-inline.collapsed > tbody > tr.parent > td.dtr-control:before, table.dataTable.dtr-inline.collapsed > tbody > tr.parent > th.dtr-control:before {
+  background-color: #737373;
+}
+
 /* Mise en forme de l'écriture de séries et épisodes */
 #write-series input, #update-series input, #write-episode input, #update-episode input {
   font-family: "Open Sans", sans-serif;
   width: 500px;
-  font-size: 0.8em;
+  font-size: 1em;
   font-weight: 400;
   color: #262626;
 }
@@ -982,7 +990,7 @@ ul {
   width: 500px;
   height: 100px;
   font-family: "Open Sans", sans-serif;
-  font-size: 0.8em;
+  font-size: 1em;
   font-weight: 400;
   color: #262626;
   outline: none;
@@ -996,7 +1004,7 @@ ul {
 #write-series select, #update-series select, #write-episode select, #update-episode select {
   width: 500px;
   font-family: "Open Sans", sans-serif;
-  font-size: 0.8em;
+  font-size: 1em;
   font-weight: 400;
   color: #262626;
   border-radius: 5px;
@@ -1036,6 +1044,10 @@ ul {
 
 .price, #number {
   width: 30px !important;
+}
+
+#dateEpisode {
+  width: 150px !important;
 }
 
 /*# sourceMappingURL=style.css.map */

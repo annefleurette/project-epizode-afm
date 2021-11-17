@@ -33,7 +33,6 @@ class SeriesController {
         // On récupère les résultats de la recherche
         // Séries
         $researchSeriesResults = $seriesManager->getResearchSeriesResults('%'.$postkeyword.'%');
-        var_dump($researchSeriesResults);
         // Auteurs
         $researchAuthorsResults = $seriesManager->getResearchAuthorsResults('%'.$postkeyword.'%');
         // Episodes

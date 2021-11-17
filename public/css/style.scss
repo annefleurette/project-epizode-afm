@@ -21,6 +21,7 @@ $padding-button: 5px 20px;
 
 .hidden, #hidden {
     display: none;
+	
 }
 
 .no, .center {
@@ -784,7 +785,7 @@ ul {
 			padding: 20px;
 		}
 		@media all and (max-width: 450px) {
-			width: 100%;
+			width: 85%;
 			padding: 20px;
 		}
 	}
@@ -854,7 +855,7 @@ padding-left: 0;
 			width: 500px;
 			height: 70px;
 			font-family: $typo-primary;
-			font-size: 0.8em;
+			font-size: 1em;
 			font-weight: 400;
 			color: $color-black;
 			outline: none;
@@ -936,7 +937,7 @@ padding-left: 0;
 		width: 500px;
 		height: 70px;
 		font-family: $typo-primary;
-		font-size: 0.8em;
+		font-size: 1em;
 		font-weight: 400;
 		color: $color-black;
 		outline: none;
@@ -958,13 +959,21 @@ padding-left: 0;
 	height: 100px;
 }
 
+table.dataTable.dtr-inline.collapsed>tbody>tr>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr>th.dtr-control:before {
+	background-color: $color-secondary;
+}
+
+table.dataTable.dtr-inline.collapsed>tbody>tr.parent>td.dtr-control:before, table.dataTable.dtr-inline.collapsed>tbody>tr.parent>th.dtr-control:before {
+	background-color: $color-grey;
+}
+
 /* Mise en forme de l'écriture de séries et épisodes */
 
 #write-series, #update-series, #write-episode, #update-episode {
 	input {
 		font-family: $typo-primary;
 		width: 500px;
-		font-size: 0.8em;
+		font-size: 1em;
 		font-weight: 400;
 		color: $color-black;
 		@media all and (max-width: 540px) {
@@ -975,7 +984,7 @@ padding-left: 0;
 		width: 500px;
 		height: 100px;
 		font-family: $typo-primary;
-		font-size: 0.8em;
+		font-size: 1em;
 		font-weight: 400;
 		color: $color-black;
 		outline: none;
@@ -987,7 +996,7 @@ padding-left: 0;
 	select {
 		width: 500px;
 		font-family: $typo-primary;
-		font-size: 0.8em;
+		font-size: 1em;
 		font-weight: 400;
 		color: $color-black;
 		border-radius: 5px;
@@ -1028,5 +1037,9 @@ padding-left: 0;
 
 .price, #number {
 	width: 30px!important;
+}
+
+#dateEpisode {
+	width: 150px!important;
 }
 

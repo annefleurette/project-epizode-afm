@@ -84,7 +84,7 @@ ob_start();
     }
     ?>
 </section>
-<section class="elementContent hidden" data-tab="2"> <!-- Section avec les informations sur les séries -->
+<section class="elementContent" data-tab="2"> <!-- Section avec les informations sur les séries -->
     <h2>Liste des séries</h2>
     <?php
     // S'il existe au moins une série
@@ -213,7 +213,7 @@ ob_start();
     }
     ?>
 </section>
-<section class="elementContent hidden" data-tab="3"> <!-- Section avec les informations sur les épisodes -->
+<section class="elementContent" data-tab="3"> <!-- Section avec les informations sur les épisodes -->
     <div>
         <!-- Les épisodes signalés -->
         <h2>Episodes signalés</h2>
@@ -389,7 +389,7 @@ ob_start();
         ?>
     </div>
 </section>
-<section class="elementContent hidden" data-tab="4"> <!-- Section avec les informations sur les commentaires -->
+<section class="elementContent" data-tab="4"> <!-- Section avec les informations sur les commentaires -->
     <div>
         <!-- Les commentaires signaléq -->
         <h2>Commentaires signalés</h2>
