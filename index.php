@@ -124,6 +124,19 @@ try {
 						case 'deleteAccount':
 							$membersController->deleteAccount();
 						break;
+						case 'forgetPassword':
+							$membersController->forgetPassword();
+						break;
+						case 'forgetPassword_post':
+							$seriesController->displayHomepage();
+							
+						return;
+						case 'resetPassword':
+							$seriesController->displayHomepage();
+						return;
+						case 'resetPassword_post':
+							$seriesController->displayHomepage();
+						return;
 						// Series
 						case 'homepage':
 							$seriesController->displayHomepage();
@@ -385,7 +398,8 @@ try {
 						require('src/View/404error.php');
 					}
 					break;
-				case 'addLike':
+				case 'addLike
+				':
 					$episodesController->addLike($_GET['idepisode']);
 					break;
 				case 'removeLike':
