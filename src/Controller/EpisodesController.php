@@ -55,7 +55,7 @@ class EpisodesController {
                 {
                     // On enregistre le nouvel épisode
                     $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "inprogress", null, $seriesId, $postprice, $postpromotion, $postsigns, $postmeta);
-                    header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
+                    header("Location: updateSeries/" .$seriesId. "/2");
                 }else{
                     $_SESSION['tempNumber'] = $postnumber;
                     $_SESSION['tempTitle'] = $posttitle;
@@ -64,7 +64,7 @@ class EpisodesController {
                     $_SESSION['tempPromotion'] = $postpromotion;
                     $_SESSION['metaEpisode'] = $postmeta;
                     $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
-                    header("Location: index.php?action=writeEpisode&idmember&idseries=" .$seriesId);
+                    header("Location: writeEpisode/" .$seriesId);
                 }
             }else{
                 // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
@@ -75,7 +75,7 @@ class EpisodesController {
                 $_SESSION['tempPromotion'] = $postpromotion;
                 $_SESSION['metaEpisode'] = $postmeta;
                 $_SESSION['error'] = "Vous avez déjà publié ce numéro d'épisode ou cet épisode n'est pas le suivant du dernier épisode publié ! Le dernier épisode de la série publié est le numéro " . $count_episode_published;
-                header("Location: index.php?action=writeEpisode&idmember&idseries=" .$seriesId);
+                header("Location: writeEpisode/" .$seriesId);
             }
         }else{ // Si le bouton Publier est choisi
             // Enregistrement de l'épisode à publier dans la base de données
@@ -105,7 +105,7 @@ class EpisodesController {
                             $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $seriesId, $postprice, $postpromotion, $postsigns, $postmeta);
                             // On passe la série en publiée
                             $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
-                            header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
+                            header("Location: updateSeries/" .$seriesId. "/2");
                         }else{
                             // On prépare des variables de session temporaires pour anticiper les erreurs
                             $_SESSION['tempNumber'] = $postnumber;
@@ -115,7 +115,7 @@ class EpisodesController {
                             $_SESSION['tempPromotion'] = $postpromotion;
                             $_SESSION['metaEpisode'] = $postmeta;
                             $_SESSION['error'] = "Vous devez publier votre épisode à une date postérieure au dernier épisode publié, c'est-à-dire le " . $episode_unitary_published['date'];
-                            header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
+                            header("Location: writeEpisode/" .$seriesId);
                         }
                     }else{
                         $_SESSION['tempNumber'] = $postnumber;
@@ -125,7 +125,7 @@ class EpisodesController {
                         $_SESSION['tempPromotion'] = $postpromotion;
                         $_SESSION['metaEpisode'] = $postmeta;
                         $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
-                        header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
+                        header("Location: writeEpisode/" .$seriesId);
                     }
                 }else{
                     // On prépare des variables de session temporaires pour anticiper les erreurs
@@ -136,7 +136,7 @@ class EpisodesController {
                     $_SESSION['tempPromotion'] = $postpromotion;
                     $_SESSION['metaEpisode'] = $postmeta;
                     $_SESSION['error'] = "Vous avez déjà publié ce numéro d'épisode ou cet épisode n'est pas le suivant du dernier épisode publié ! Le dernier épisode de la série publié est le numéro " . $count_episode_published;
-                    header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
+                    header("Location: writeEpisode/" .$seriesId);
                 }
             }else{
                 // On prépare des variables de session temporaires pour anticiper les erreurs
@@ -147,7 +147,7 @@ class EpisodesController {
                 $_SESSION['tempPromotion'] = $postpromotion;
                 $_SESSION['metaEpisode'] = $postmeta;
                 $_SESSION['error'] = "La date saisie n'est pas au bon format";
-                header("Location: index.php?action=writeEpisode&idseries=" .$seriesId);
+                header("Location: writeEpisode/" .$seriesId);
             }
         }
     }
@@ -234,7 +234,7 @@ class EpisodesController {
                 {
                     // On modifie l'épisode
                     $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "inprogress", null, $postprice, $postpromotion, $postsigns, $postmeta, $episodeId);
-                    header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
+                    header("Location: updateSeries/" .$seriesId. "/2");
                 }else{
                     $_SESSION['tempNumber'] = $postnumber;
                     $_SESSION['tempTitle'] = $posttitle;
@@ -243,7 +243,7 @@ class EpisodesController {
                     $_SESSION['tempPromotion'] = $postpromotion;
                     $_SESSION['metaEpisode'] = $postmeta;
                     $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
-                    header("Location: index.php?action=updateEpisode&idseries=" .$seriesId . "&idepisode=" .$episodeId);
+                    header("Location: updateEpisode/" .$seriesId . "/" .$episodeId);
                 }
             }else{
                 // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
@@ -254,7 +254,7 @@ class EpisodesController {
                 $_SESSION['tempPromotion'] = $postpromotion;
                 $_SESSION['metaEpisode'] = $postmeta;
                 $_SESSION['error'] = "Vous avez déjà publié ce numéro d'épisode ou cet épisode n'est pas le suivant du dernier épisode publié ! Le dernier épisode de la série publié est le numéro " . $count_episode_published;
-                header("Location: index.php?action=updateEpisode&idseries=" .$seriesId . "&idepisode=" .$episodeId);
+                header("Location: updateEpisode/" .$seriesId . "/" .$episodeId);
             }
         }else{ // Si le bouton Publier est choisi
             // Modification de l'épisode à publier dans la base de données
@@ -289,7 +289,7 @@ class EpisodesController {
                             $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "published", $oneEpisode['date'], $postprice, $postpromotion, $postsigns, $postmeta, $episodeId);  
                             $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
                         }
-                        header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
+                        header("Location: updateSeries/" .$seriesId. "/2");
                     }else{
                         $_SESSION['tempNumber'] = $postnumber;
                         $_SESSION['tempTitle'] = $posttitle;
@@ -298,7 +298,7 @@ class EpisodesController {
                         $_SESSION['tempPromotion'] = $postpromotion;
                         $_SESSION['metaEpisode'] = $postmeta;
                         $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
-                        header("Location: index.php?action=updateEpisode&idseries=" .$seriesId . "&idepisode=" .$episodeId);
+                        header("Location: updateEpisode/" .$seriesId . "/" .$episodeId);
                         }
                 }else{
                     // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
@@ -309,7 +309,7 @@ class EpisodesController {
                     $_SESSION['tempPromotion'] = $postpromotion;
                     $_SESSION['metaEpisode'] = $postmeta;
                     $_SESSION['error'] = "Vous avez déjà publié ce numéro d'épisode ou cet épisode n'est pas le suivant du dernier épisode publié ! Le dernier épisode de la série publié est le numéro " . $count_episode_published;
-                    header("Location: index.php?action=updateEpisode&idseries=" .$seriesId . "&idepisode=" .$episodeId);
+                    header("Location: updateEpisode/" .$seriesId . "/" .$episodeId);
                 }
             }else{
                 // Si le montant de la promotion est bien inférieur au montant du prix
@@ -326,7 +326,7 @@ class EpisodesController {
                         $updateEpisode = $episodesManager->updateEpisode($oneEpisode['number'], $posttitle, $postcontent, "published", $oneEpisode['date'], $postprice, $postpromotion, $postsigns, $postmeta, $episodeId);
                         $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
                     }
-                    header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
+                    header("Location: updateSeries/" .$seriesId. "/2");
                 }else{
                     $_SESSION['tempNumber'] = $postnumber;
                     $_SESSION['tempTitle'] = $posttitle;
@@ -335,7 +335,7 @@ class EpisodesController {
                     $_SESSION['tempPromotion'] = $postpromotion;
                     $_SESSION['metaEpisode'] = $postmeta;
                     $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
-                    header("Location: index.php?action=updateEpisode&idseries=" .$seriesId . "&idepisode=" .$episodeId);
+                    header("Location: updateEpisode/" .$seriesId . "/" .$episodeId);
                 }
             }        
         } 
@@ -362,7 +362,7 @@ class EpisodesController {
                 if($nbepisodes < 1){
                     $updateSeriesStatus = $seriesManager->updateSeriesStatus("inprogress", $seriesId);
                 }
-                header("Location: index.php?action=updateSeries&idseries=" .$seriesId. "&tab=2");
+                header("Location: updateSeries/" .$seriesId. "/2");
             }else{
                 require('./src/View/404error.php');
             }
@@ -386,7 +386,7 @@ class EpisodesController {
         if($nbepisodes < 1){
             $updateSeriesStatus = $seriesManager->updateSeriesStatus("inprogress", $idSeriesEpisode);
         }
-        header("Location: index.php?action=admin&tab=3"); 
+        header("Location: admin/3"); 
     }
 
     public function displayEpisode($seriesId, $episodeNumber, $episodeId)
@@ -473,7 +473,7 @@ class EpisodesController {
         // On enlève le signalement d'un épisode
         $alert = 0;
         $updateAlertEpisode = $episodesManager->updateEpisodeAlert($alert, $episodeId);
-        header("Location: Location: index.php?action=admin&tab=3"); 
+        header("Location: Location: admin/3"); 
     }
 
 }

@@ -24,8 +24,8 @@ ob_start();
         </p>
     </form>
     <div class="form-connected">
-        <p><a href ="index.php?action=subscription">Créer un compte</a></p>
-        <p><a href ="index.php?action=forgetPassword">Mot de passe oublié ?</a></p>
+        <p><a href ="subscription">Créer un compte</a></p>
+        <p><a href ="forgetPassword">Mot de passe oublié ?</a></p>
     </div>
 </section>
 <?php $body_content = ob_get_clean();

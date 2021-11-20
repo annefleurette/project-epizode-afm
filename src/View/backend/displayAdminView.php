@@ -57,13 +57,13 @@ ob_start();
                         echo $date->format('d/m/Y');
                         ?>  
                     </td>
-                    <td><a href="index.php?action=displayMember&idmember=<?php echo $memberInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
+                    <td><a href="displayMember/<?php echo $memberInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
                     <?php
                     // Pour ne pas se supprimer soi-même
                     if($memberInfo['id'] != $_SESSION['idmember'])
                     {
                     ?>
-                        <td class="delete"><a href="index.php?action=deleteMember&idmember=<?php echo $memberInfo['id']; ?>">Supprimer</a></td>
+                        <td class="delete"><a href="deleteMember/<?php echo $memberInfo['id']; ?>">Supprimer</a></td>
                     <?php
                     }else{
                         echo "<td></td>";
@@ -196,8 +196,8 @@ ob_start();
                         echo $date->format('d/m/Y');
                         ?>
                     </td>
-                    <td><a href="index.php?action=displaySeries&idseries=<?php echo $seriesInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
-                    <td class="delete"><a href="index.php?action=adminDeleteSeries&idseries=<?php echo $seriesInfo['id']; ?>">Supprimer</a></td>
+                    <td><a href="displaySeries/<?php echo $seriesInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
+                    <td class="delete"><a href="adminDeleteSeries/<?php echo $seriesInfo['id']; ?>">Supprimer</a></td>
                 </tr>
                 <?php
                 }
@@ -283,8 +283,8 @@ ob_start();
                             echo $date->format('d/m/Y');
                             ?>
                         </td>
-                        <td><a href="index.php?action=displayEpisode&idseries=<?php echo $alertEpisodeInfo['seriesid']; ?>&number=<?php echo $alertEpisodeInfo['number']; ?>&idepisode=<?php echo $alertEpisodeInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
-                        <td class="delete"><a href="index.php?action=adminDeleteEpisode&idepisode=<?php echo $alertEpisodeInfo['id']; ?>">Supprimer</a></td>
+                        <td><a href="displayEpisode/<?php echo $alertEpisodeInfo['seriesid']; ?>/<?php echo $alertEpisodeInfo['number']; ?>/<?php echo $alertEpisodeInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
+                        <td class="delete"><a href="adminDeleteEpisode/<?php echo $alertEpisodeInfo['id']; ?>">Supprimer</a></td>
                         <td><a href="index.php?action=removeAlertEpisode_post&idepisode=<?php echo $alertEpisodeInfo['id']; ?>">Annuler l'alerte</a></td>
                     </tr>
                     <?php
@@ -371,8 +371,8 @@ ob_start();
                             ?>
                         </td>
                         <td><?php echo $episodeInfo['salesNumber']; ?></td>
-                        <td><a href="index.php?action=displayEpisode&idseries=<?php echo $episodeInfo['seriesid']; ?>&number=<?php echo $episodeInfo['number']; ?>&idepisode=<?php echo $episodeInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
-                        <td class="delete"><a href="index.php?action=adminDeleteEpisode&idepisode=<?php echo $episodeInfo['id']; ?>">Supprimer</a></td>
+                        <td><a href="displayEpisode/<?php echo $episodeInfo['seriesid']; ?>/<?php echo $episodeInfo['number']; ?>/<?php echo $episodeInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
+                        <td class="delete"><a href="adminDeleteEpisode/<?php echo $episodeInfo['id']; ?>">Supprimer</a></td>
                     </tr>
                     <?php
                     }
@@ -423,7 +423,7 @@ ob_start();
                         <td><?php echo $alertCommentInfo['episode']; ?></td>
                         <td><?php echo $alertCommentInfo['content']; ?></td>
                         <td><?php echo $alertCommentInfo['date']; ?></td>
-                        <td class="delete"><a href="index.php?action=deleteComment&idcomment=<?php echo $alertCommentInfo['id']; ?>">Supprimer</a></td>
+                        <td class="delete"><a href="deleteComment/<?php echo $alertCommentInfo['id']; ?>">Supprimer</a></td>
                         <td><a href="index.php?action=removeAlertComment_post&idcomment=<?php echo $alertCommentInfo['id']; ?>">Annuler l'alerte</a></td>
                     </tr>
                     <?php
@@ -472,7 +472,7 @@ ob_start();
                         <td><?php echo $commentInfo['episode']; ?></td>
                         <td><?php echo $commentInfo['content']; ?></td>
                         <td><?php echo $commentInfo['date']; ?></td>
-                        <td class="delete"><a href="index.php?action=deleteComment&idcomment=<?php echo $commentInfo['id']; ?>">Supprimer</a></td>
+                        <td class="delete"><a href="deleteComment/<?php echo $commentInfo['id']; ?>">Supprimer</a></td>
                     </tr>
                     <?php
                     }

@@ -96,7 +96,7 @@ ob_start();
 </section>
 <section id="update-series-episodes" class="elementContent hidden" data-tab="2"> <!-- Section qui affiche les données sur les épisodes de la série -->
     <h1>Les épisodes de ma série</h1>
-    <p class="newseries"><a class="btn btn-violet" href="index.php?action=writeEpisode&idseries=<?php echo $seriesId; ?>">+ J'écris un nouvel épisode !</a></p>
+    <p class="newseries"><a class="btn btn-violet" href="writeEpisode/<?php echo $seriesId; ?>">+ J'écris un nouvel épisode !</a></p>
     <?php
     // S'il existe au moins un épisode
     if($oneSeriesUserData['numberEpisodes']!== "0")
@@ -159,12 +159,12 @@ ob_start();
                         ?>
                         <p><?php echo $episodedata['price']; ?> euros</p>
                         <p class="social-info"><i class="fas fa-heart"></i><?php echo $episodedata['likesNumber']; ?></p>
-                        <p><a class="btn btn-purple" href ="index.php?action=lookEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">Aperçu</a></p>
-                        <p><a class="btn btn-purple" href="index.php?action=updateEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">Modifier</a></p>
+                        <p><a class="btn btn-purple" href ="lookEpisode/<?php echo $seriesId; ?>/<?php echo $episodedata['id']; ?>">Aperçu</a></p>
+                        <p><a class="btn btn-purple" href="updateEpisode/<?php echo $seriesId; ?>/<?php echo $episodedata['id']; ?>">Modifier</a></p>
                         <?php if((($episodedata['number'] == $nbepisodes) AND ($episodedata['publishing'] === "published")) OR ($episodedata['publishing'] === "inprogress"))
                         {
                         ?>    
-                            <p><a class="btn btn-grey delete" href="index.php?action=userDeleteEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">SUPPRIMER</a></p>
+                            <p><a class="btn btn-grey delete" href="userDeleteEpisode/<?php echo $seriesId; ?>/<?php echo $episodedata['id']; ?>">Supprimer</a></p>
                         <?php    
                         }
                         ?> 

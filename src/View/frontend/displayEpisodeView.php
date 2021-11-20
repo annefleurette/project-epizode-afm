@@ -7,7 +7,7 @@ ob_start();
 <section id="episode"> <!-- Section avec l'épisode -->
         <h1 <?php if(strlen($episode_unitary_published['title']) >= 30 AND strlen($episode_unitary_published['title']) <= 70){ echo "class=medium-title";}elseif(strlen($episode_unitary_published['title']) > 70){ echo "class=big-title";}?>><?php echo $episode_unitary_published['title']; ?></h1>
         <div class="episode-data">
-            <p><a href="index.php?action=displaySeries&idseries=<?php echo $seriesId; ?>"><?php echo $oneSeriesPublicData['title']; ?></a> : épisode <?php echo $episode_unitary_published['number']; ?></p>
+            <p><a href="displaySeries/idseries=<?php echo $seriesId; ?>"><?php echo $oneSeriesPublicData['title']; ?></a> : épisode <?php echo $episode_unitary_published['number']; ?></p>
             <p><?php echo $episode_unitary_published['timeReading']; ?> minute(s) de lecture</p>
             <div class="episode-data-social">
                 <p class="social-info"><i class="fas fa-heart"></i><span id="nbLikes"><?php echo $episodeLikes[0]; ?></span></p>
@@ -55,18 +55,18 @@ ob_start();
         <?php  
         }else{
         ?>
-            <p class="button-next"><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode suivant</a></p>
+            <p class="button-next"><a class="btn btn-purple" href="displayEpisode/<?php echo $seriesId; ?>/<?php echo $episode_next; ?>/<?php echo $episode_unitary_published['id']; ?>">Episode suivant</a></p>
         <?php
         }
     }elseif($episode_current >= $totalepisodes)
     {
     ?>
-        <p class="button-prev"><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode précédent</a></p>
+        <p class="button-prev"><a class="btn btn-purple" href="displayEpisode/<?php echo $seriesId; ?>/<?php echo $episode_before; ?>/<?php echo $episode_unitary_published['id']; ?>">Episode précédent</a></p>
     <?php
     }else{
     ?>
         <div class="button-prevnext">
-            <p class="button-prev"><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_before; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode précédent</a></p>
+            <p class="button-prev"><a class="btn btn-purple" href="displayEpisode/<?php echo $seriesId; ?>/<?php echo $episode_before; ?>/<?php echo $episode_unitary_published['id']; ?>">Episode précédent</a></p>
             <?php
             if(!isset($_SESSION['level']) AND $episode_current > 2) // On accède à la suite des épisodes que si on est connecté. Dans un temps 2 il faudra aussi payer pour les séries éditeurs
             {
@@ -75,7 +75,7 @@ ob_start();
             <?php
             }else{
             ?>
-                <p class="button-next"><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episode_next; ?>&idepisode=<?php echo $episode_unitary_published['id']; ?>">Episode suivant</a></p>
+                <p class="button-next"><a class="btn btn-purple" href="displayEpisode/<?php echo $seriesId; ?>/<?php echo $episode_next; ?>/<?php echo $episode_unitary_published['id']; ?>">Episode suivant</a></p>
             <?php
             }
             ?>
@@ -105,7 +105,7 @@ ob_start();
                         ?>
                             <div class="member">
                                 <p><img src="<?php echo $comment_data['logo']; ?>" alt="<?php echo $comment_data['altlogo']; ?>"/></p>
-                                <p><a href="index.php?action=displayMember&idmember=<?php echo $comment_data['idmember']; ?>"><?php echo $comment_data['name']; ?></a></p>
+                                <p><a href="displayMember/<?php echo $comment_data['idmember']; ?>"><?php echo $comment_data['name']; ?></a></p>
                             </div>
                         <!-- Si l'auteur est un autre utilisateur -->
                         <?php
@@ -113,7 +113,7 @@ ob_start();
                         ?> 
                             <div class="member"> 
                                 <p><img src="<?php echo $comment_data['avatar']; ?>" alt="<?php echo $comment_data['altavatar']; ?>"/></p>  
-                                <p><a href="index.php?action=displayMember&idmember=<?php echo $comment_data['idmember']; ?>"><?php echo $comment_data['pseudo']; ?></a></p>
+                                <p><a href="displayMember/idmember=<?php echo $comment_data['idmember']; ?>"><?php echo $comment_data['pseudo']; ?></a></p>
                             </div>
                         <?php
                         }
@@ -152,7 +152,7 @@ ob_start();
     if(!isset($_SESSION['pseudo']))
     {
     ?>
-        <p>Vous devez être connecté(e) pour laisser un commentaire. <a href="index.php?action=subscription">S'inscrire</a> ou <a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">se connecter</a>.</p>
+        <p>Vous devez être connecté(e) pour laisser un commentaire. <a href="subscription">S'inscrire</a> ou <a href="index.php?action=login&ref=displayEpisode&idseries=<?php echo $seriesId; ?>&number=<?php echo $episodeNumber; ?>&idepisode=<?php echo $episodeId; ?>">se connecter</a>.</p>
     <?php
     }else{
     ?>

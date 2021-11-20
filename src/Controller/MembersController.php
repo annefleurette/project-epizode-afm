@@ -46,11 +46,11 @@ class MembersController {
 					$confirmation = "confirmed";
 					$addMember = $membersManager->addMember($postpseudo, $postemail, $pass_hache, $type, $confirmation, $token);
 					$_SESSION['validation'] = "Merci pour votre inscription " .$postpseudo. " et bienvenue dans la communauté Epizode !";
-					header('Location: index.php?action=login');
+					header('Location: login');
 					//Envoi d'un email de confirmation
 					$to      = $postemail;
 					$subject = 'Confirmation d\'inscription';
-					$message = 'Merci, nous vous confirmons votre inscription à Epizode ! Pour se connecter : www.epizode.fr';
+					$message = 'Merci, nous vous confirmons votre inscription à Epizode ! Pour se connecter : https://www.epizode.fr';
 					$headers = array(
 					'From' => 'no-reply@epizode.fr',
 					);
@@ -59,19 +59,19 @@ class MembersController {
 					$_SESSION['tempPseudo'] = $postpseudo;
 					$_SESSION['tempEmail'] = $postemail;
                     $_SESSION['error'] = "Les mots de passe ne correspondent pas";
-                    header("Location: index.php?action=subscription");
+                    header("Location: subscription");
 				}
 			}else{
                 $_SESSION['tempPseudo'] = $postpseudo;
                 $_SESSION['tempEmail'] = $postemail;
                 $_SESSION['error'] = "Cette adresse email n'existe pas";
-                header("Location: index.php?action=subscription");
+                header("Location: subscription");
 			}
 		}else{
             $_SESSION['tempPseudo'] = $postpseudo;
             $_SESSION['tempEmail'] = $postemail;
             $_SESSION['error'] = "Ce pseudo ou cette adresse email est déjà utilisé(e)";
-            header("Location: index.php?action=subscription");
+            header("Location: subscription");
 		}	
 	}
 
@@ -103,7 +103,7 @@ class MembersController {
 		{
             $_SESSION['tempEmail'] = $postemail;
             $_SESSION['error'] = "Mauvais identifiant ou mot de passe";
-            header("Location: index.php?action=login");
+            header("Location: login");
 		// S'il existe bien
 		}else{
 			// Si le mot de passe est correct
@@ -123,26 +123,26 @@ class MembersController {
 				if($_SESSION['type'] == "admin")
 				{
 					if(isset($_SESSION['previousurl'])) {
-						header('Location: index.php' .$_SESSION['previousurl']);
+						header('Location: ' .$_SESSION['previousurl']);
 						unset($_SESSION['previousurl']);
 					}else{
-						header('Location: index.php?action=admin'); 
+						header('Location: admin'); 
 						unset($_SESSION['previousurl']);
 					}
 				}elseif($_SESSION['type'] == "publisher" OR $_SESSION['type'] == "user")
 				{
 					if(isset($_SESSION['previousurl'])) {
-						header('Location: index.php' .$_SESSION['previousurl']);
+						header('Location: ' .$_SESSION['previousurl']);
 						unset($_SESSION['previousurl']);
 					}else{
-						header('Location: index.php?action=dashboard'); 
+						header('Location: dashboard'); 
 						unset($_SESSION['previousurl']);
 					}
 				}
 			}else{
                 $_SESSION['tempEmail'] = $postemail;
                 $_SESSION['error'] = "Mauvais identifiant ou mot de passe";
-                header("Location: index.php?action=login");
+                header("Location: login");
 			}
 		}
 	}
@@ -163,7 +163,7 @@ class MembersController {
 		{
             $_SESSION['tempEmail'] = $postemail;
             $_SESSION['error'] = "Mauvais identifiant";
-            header("Location: index.php?action=forgetPassword");
+            header("Location: forgetPassword");
 		// Si le membre existe
 		}else{
 			// Génération d'un token
@@ -172,13 +172,13 @@ class MembersController {
 			//Envoi d'un email de réinitialisation
 			$to      = $postemail;
 			$subject = 'Réinitialisation du mot de passe';
-			$message = 'Vous avez oublié votre mot de passe, cliquez ici pour le réinitialiser : www.epizode.fr/index.php?action=resetPassword&token=' .$memberInfo['token'];
+			$message = 'Vous avez oublié votre mot de passe, cliquez ici pour le réinitialiser : https://www.epizode.fr/resetPassword/' .$token;
 			$headers = array(
 				'From' => 'no-reply@epizode.fr',
 			);
 			mail($to, $subject, $message, $headers);
 			$_SESSION['confirm'] = "Un email de réinitialisation de mot de passe vient de vous être envoyé !";
-			header("Location: index.php?action=homepage");
+			header("Location: homepage");
 		}
 	}
 
@@ -191,7 +191,7 @@ class MembersController {
 		// Si le membre n'existe pas
 		if(!$userInfo)
 		{
-            header("Location: index.php?action=403error");
+            header("Location: 403error");
 		// Si le membre existe
 		}else{
 			require('./src/View/frontend/displayResetPasswordView.php');
@@ -216,10 +216,10 @@ class MembersController {
 			$token = uniqid();
 			$updateToken = $membersManager->updateToken($userInfo['id'], $token);
 			$_SESSION['confirm'] = "Le nouveau mot de passe est bien enregistré";
-            header("Location: index.php?action=login");
+            header("Location: login");
 		}else{
             $_SESSION['error'] = "Les mots de passe ne correspondent pas";
-            header("Location: index.php?action=resetPassword&token=" .$gettoken);
+            header("Location: resetPassword/" .$gettoken);
 		}
 	}
 
@@ -325,28 +325,28 @@ class MembersController {
 									$logoId = $membersManager->getLogoId($imageId);
 									// On modifie le contenu
 									$updateQuickPublisherMember = $membersManager->updateQuickPublisherMember($postemail, $pass_hache, $postdescription, $logoId, $_SESSION['idmember']);
-									header("Location: index.php?action=account");
+									header("Location: account");
 								}else{
 									// On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
 									$_SESSION['tempDescription'] = $postdescription;
 									$_SESSION['error'] = "Le fichier n'est pas une image";
-									header("Location: index.php?action=account");
+									header("Location: account");
 								}
 							}else{
 								// On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
 								$_SESSION['tempDescription'] = $postdescription;
 								$_SESSION['error'] = "Le fichier est trop volumineux";
-								header("Location: index.php?action=account");
+								header("Location: account");
 							}
 						}else{
 						// Si une image n'est pas ajoutée
 						$updateQuickPublisherMember = $membersManager->updateQuickPublisherMember($postemail, $pass_hache, $postdescription, $userProfile['idlogo'], $_SESSION['idmember']);
-						header("Location: index.php?action=account");
+						header("Location: account");
 						}
 					}else{
 						$_SESSION['tempDescription'] = $postdescription;
 						$_SESSION['error'] = "Les mots de passe ne correspondent pas";
-						header("Location: index.php?action=account");
+						header("Location: account");
 					}
 				}else{
 				// Si le mot de passe ne change pas	
@@ -383,34 +383,34 @@ class MembersController {
 								$logoId = $membersManager->getLogoId($imageId);
 								// On modifie le contenu
 								$updateQuickPublisherMember = $membersManager->updateQuickPublisherMember($postemail, $userProfile['password'], $postdescription, $logoId, $_SESSION['idmember']);
-								header("Location: index.php?action=account");
+								header("Location: account");
 							}else{
 								// On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
 								$_SESSION['tempDescription'] = $postdescription;
 								$_SESSION['error'] = "Le fichier n'est pas une image";
-								header("Location: index.php?action=account");
+								header("Location: account");
 							}
 						}else{
 							// On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
 							$_SESSION['tempDescription'] = $postdescription;
 							$_SESSION['error'] = "Le fichier est trop volumineux";
-							header("Location: index.php?action=account");
+							header("Location: account");
 						}
 					}else{
 						// Si une image n'est pas ajoutée
 						$updateQuickPublisherMember = $membersManager->updateQuickPublisherMember($postemail, $userProfile['password'], $postdescription, intval($userProfile['idlogo']), intval($_SESSION['idmember']));
-						header("Location: index.php?action=account");
+						header("Location: account");
 					}
 				}
 			}else{
 				$_SESSION['tempDescription'] = $postdescription;
                 $_SESSION['error'] = "Cette adresse email n'existe pas";
-                header("Location: index.php?action=account");
+                header("Location: account");
 			}
 		}else{
 			$_SESSION['tempDescription'] = $postdescription;
             $_SESSION['error'] = "Cette adresse email est déjà utilisé(e)";
-            header("Location: index.php?action=account");
+            header("Location: account");
 		}	
 	}
 
@@ -447,11 +447,11 @@ class MembersController {
 						$idAvatar = $membersManager->getIdAvatar(intval($idImage));
 						// On modifie les informations du membre
 						$updateQuickUserMember = $membersManager->updateQuickUserMember($postemail, $pass_hache, $postdescription, intval($idAvatar), $_SESSION['idmember']);
-						header("Location: index.php?action=account");
+						header("Location: account");
 					}else{
 						$_SESSION['tempDescription'] = $postdescription;
 						$_SESSION['error'] = "Les mots de passe ne correspondent pas";
-						header("Location: index.php?action=account");
+						header("Location: account");
 					}
 				}else{
 					// On récupère l'id de l'image sélectionnée comme avatar
@@ -460,17 +460,17 @@ class MembersController {
 					$idAvatar = $membersManager->getIdAvatar(intval($idImage));
 					// On modifie les informations du membre
 					$updateQuickUserMember = $membersManager->updateQuickUserMember($postemail, $userProfile['password'], $postdescription, intval($idAvatar), $_SESSION['idmember']);
-					header("Location: index.php?action=account");
+					header("Location: account");
 				}
 			}else{
 				$_SESSION['tempDescription'] = $postdescription;
                 $_SESSION['error'] = "Cette adresse email n'existe pas";
-                header("Location: index.php?action=account");
+                header("Location: account");
 			}
 		}else{
 			$_SESSION['tempDescription'] = $postdescription;
             $_SESSION['error'] = "Cette adresse email est déjà utilisé(e)";
-            header("Location: index.php?action=account");
+            header("Location: account");
 		}	
 	}
 
@@ -480,7 +480,7 @@ class MembersController {
 		$_SESSION = array();
 		// Déconnexion
 		session_destroy();
-		header('Location: index.php?action=homepage'); 
+		header('Location: homepage'); 
 	}
 
 	public function displayMember($getidmember)
@@ -530,7 +530,7 @@ class MembersController {
 		}
         // On supprime définitivement le membre
         $deleteMember = $membersManager->deleteMember($memberId);
-        header('Location: index.php?action=admin&tab=1');
+        header('Location: admin/1');
     }
 
 	public function deleteAccount()
@@ -542,7 +542,7 @@ class MembersController {
 		// Comme le membre éditeur a été ajouté manuellement on pensera à supprimer son logo de la base de données
         $_SESSION = array();
 		session_destroy();
-		header('Location: index.php?action=homepage'); 
+		header('Location: homepage'); 
     }
 
 }

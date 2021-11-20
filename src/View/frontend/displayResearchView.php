@@ -71,7 +71,7 @@ ob_start();
                             }
                             ?>
                             <br />
-                            <p><a class="btn btn-purple" href="index.php?action=displaySeries&idseries=<?php echo $seriesResults['id']; ?>">Découvrir la série à lire</a></p>
+                            <p><a class="btn btn-purple" href="displaySeries/<?php echo $seriesResults['id']; ?>">Découvrir la série à lire</a></p>
                         </figcaption>
                     </figure>
                     <div class="research-summary">
@@ -128,7 +128,7 @@ ob_start();
                         ?>
                         <p class="research-series__data"><?php echo $authorsResults['numberWritings']; ?> série(s) écrite(s)</p>
                         <br />
-                        <p class="research-series__data"><a class="btn btn-purple" href="index.php?action=displayMember&idmember=<?php echo $authorsResults['id']; ?>">Découvrir le membre</a></p>
+                        <p class="research-series__data"><a class="btn btn-purple" href="displayMember/<?php echo $authorsResults['id']; ?>">Découvrir le membre</a></p>
                     </article>
                 </li>
             <?php
@@ -211,7 +211,7 @@ ob_start();
                             }
                             ?>
                         <br />
-                        <p class="research-series__data"><a class="btn btn-purple" href="index.php?action=displayEpisode&idseries=<?php echo $episodesResults['idseries']; ?>&number=<?php echo $episodesResults['number']; ?>&idepisode=<?php echo $episodesResults['id']; ?>">Découvrir l'épisode à lire</a></p>
+                        <p class="research-series__data"><a class="btn btn-purple" href="displayEpisode/<?php echo $episodesResults['idseries']; ?>/<?php echo $episodesResults['number']; ?>/<?php echo $episodesResults['id']; ?>">Découvrir l'épisode à lire</a></p>
                     </article>
                 </li>
             <?php

@@ -19,7 +19,7 @@ class CommentsController {
         $postcomment = htmlspecialchars($postcomment);
         // Enregistrer un commentaire
         $addComment = $commentsManager->addComment($_SESSION['idmember'], $episodeId, $postcomment);
-        header("Location: index.php?action=displayEpisode&idseries=" .$seriesId. "&number=" .$episodeNumber. "&idepisode=" .$episodeId);
+        header("Location: displayEpisode/" .$seriesId. "/" .$episodeNumber. "/" .$episodeId);
     }
 
     public function deleteComment($commentId)
@@ -28,7 +28,7 @@ class CommentsController {
         $commentId = htmlspecialchars($commentId);
         // On supprime le commentaire
         $deleteComment = $commentsManager->deleteComment($commentId);
-        header("Location: index.php?action=admin&tab=4"); 
+        header("Location: admin/4"); 
     }
 
     public function addAlertComment($commentId)
@@ -47,6 +47,6 @@ class CommentsController {
         // On enlève le signalement d'un commentaire
         $alert = 0;
         $updateAlertComment = $commentsManager->updateCommentAlert($alert, $commentId);
-        header("Location: index.php?action=admin&tab=4"); 
+        header("Location: admin/4"); 
     }
 }

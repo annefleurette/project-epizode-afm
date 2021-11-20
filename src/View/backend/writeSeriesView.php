@@ -67,7 +67,7 @@ ob_start();
             <input class="write-validation btn btn-purple" type="submit" name="save" value="Valider">
         </p>
     </form>
-    <p class="center"><a class="btn btn-grey" href="index.php?action=dashboard">Annuler</a>
+    <p class="center"><a class="btn btn-grey" href="dashboard">Annuler</a>
 </section>
 <?php $body_content = ob_get_clean();
 require('./src/View/template.php');

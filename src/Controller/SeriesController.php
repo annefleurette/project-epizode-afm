@@ -103,7 +103,7 @@ class SeriesController {
                         $_SESSION['tempTags'] = $postseriestag;
                         $_SESSION['tempMetaSeries'] = $postmeta;
                         $_SESSION['error'] = "Le fichier n'est pas une image";
-                        header("Location: index.php?action=writeSeries");
+                        header("Location: writeSeries");
                     }
                 }else{
                     // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
@@ -115,7 +115,7 @@ class SeriesController {
                     $_SESSION['tempTags'] = $postseriestag;
                     $_SESSION['tempMetaSeries'] = $postmeta;
                     $_SESSION['error'] = "Le fichier est trop volumineux";
-                    header("Location: index.php?action=writeSeries");
+                    header("Location: writeSeries");
                 }
             }else{
                 $coverId = 253; // Affiche par défaut
@@ -146,7 +146,7 @@ class SeriesController {
                 // On associe le tag à la série
                 $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
             }
-            header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
+            header("Location: updateSeries/" .$seriesId);
         }else{
             // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
             $_SESSION['tempAuthorname'] = $postauthorname;
@@ -157,7 +157,7 @@ class SeriesController {
             $_SESSION['tempTags'] = $postseriestag;
             $_SESSION['tempMetaSeries'] = $postmeta;
             $_SESSION['error'] = "Vous avez déjà créé une série avec le même titre !";
-            header("Location: index.php?action=writeSeries");
+            header("Location: writeSeries");
         }
     }
 
@@ -286,7 +286,7 @@ class SeriesController {
                                 // On associe le tag à la série
                                 $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
                             }
-                            header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
+                            header("Location: updateSeries/" .$seriesId);
                     }else{
                         // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
                         $_SESSION['tempAuthorname'] = $postauthorname;
@@ -297,7 +297,7 @@ class SeriesController {
                         $_SESSION['tempTags'] = $postseriestag;
                         $_SESSION['tempMetaSeries'] = $postmeta;
                         $_SESSION['error'] = "Le fichier n'est pas une image !";
-                        header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
+                        header("Location: updateSeries/" .$seriesId);
                     }
                 }else{
                     // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
@@ -309,7 +309,7 @@ class SeriesController {
                     $_SESSION['tempTags'] = $postseriestag;
                     $_SESSION['tempMetaSeries'] = $postmeta;
                     $_SESSION['error'] = "Le fichier est trop volumineux";
-                    header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
+                    header("Location: updateSeries/" .$seriesId);
                 }
             }
             // Si l'image de couverture ne change pas
@@ -346,7 +346,7 @@ class SeriesController {
                 // On associe le tag à la série
                 $addTagSeries = $seriesManager->addTagSeries($tagId, $seriesId);
             }
-            header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
+            header("Location: updateSeries/" .$seriesId);
         }else{
             // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
             $_SESSION['tempAuthorname'] = $postauthorname;
@@ -357,7 +357,7 @@ class SeriesController {
             $_SESSION['tempTags'] = $postseriestag;
             $_SESSION['tempMetaSeries'] = $postmeta;
             $_SESSION['error'] = "Vous avez déjà créé une série avec le même titre !";
-            header("Location: index.php?action=updateSeries&idseries=" .$seriesId);
+            header("Location: updateSeries/" .$seriesId);
         }
     }
 
@@ -386,7 +386,7 @@ class SeriesController {
                 }
             // On supprime définitivement la série
             $deleteSeries = $seriesManager->deleteSeries($seriesId);
-            header("Location: index.php?action=dashboard&tab=2");   
+            header("Location: dashboard/2");   
         }else{
             require('./src/View/403error.php');
         }
@@ -414,7 +414,7 @@ class SeriesController {
         }
         // On supprime définitivement la série
         $deleteSeries = $seriesManager->deleteSeries($seriesId);
-        header("Location: index.php?action=admin&tab=2"); 
+        header("admin/2"); 
     }
 
     public function displaySeries($seriesId)
@@ -480,7 +480,7 @@ class SeriesController {
         $seriesId = htmlspecialchars($seriesId);
         // On retire une série à sa bibliothèque depuis son tableau de bord
         $deleteSubscription = $seriesManager->deleteSubscription($seriesId, $_SESSION['idmember']);
-        header("Location: index.php?action=dashboard");
+        header("Location: dashboard");
     }
     
 }

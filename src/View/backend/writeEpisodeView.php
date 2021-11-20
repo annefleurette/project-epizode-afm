@@ -57,7 +57,7 @@ ob_start();
             <input class="write-validation btn btn-purple" type="submit" name="publish" value="Publier">
         </p>
         <p>
-            <a class="btn btn-grey" href="index.php?action=updateSeries&idseries=<?php echo $seriesId; ?>">Annuler</a>
+            <a class="btn btn-grey" href="updateSeries/<?php echo $seriesId; ?>">Annuler</a>
         </p>
     </form>
 </section>

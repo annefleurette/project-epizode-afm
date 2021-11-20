@@ -114,7 +114,7 @@ ob_start();
             <input class="btn btn-purple" type="submit" value="Modifier">
         </p>
     </form>
-    <p class="delete center"><a class="btn btn-grey" href="index.php?action=deleteAccount">Supprimer mon compte</a></p>
+    <p class="delete center"><a class="btn btn-grey" href="deleteAccount">Supprimer mon compte</a></p>
 </section>
 <script type="text/javascript" src="./public/js/password.js"></script>
 <script type="text/javascript" src="./public/js/delete.js"></script>

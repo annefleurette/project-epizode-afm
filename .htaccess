@@ -1,0 +1,38 @@
+# On suit les liens symboliques 
+Options +FollowSymlinks 
+# Activation du mod rewrite d'Apache 
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_]+)$ ./index.php?action=$1 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)$ ./index.php?action=$1&idseries=$2 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)$ ./index.php?action=$1&idepisode=$2 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)$ ./index.php?action=$1&idcomment=$2 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)$ ./index.php?action=$1&idmember=$2 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_]+)/([a-zA-Z0-9_]+)$ ./index.php?action=$1&token=$2 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)$ ./index.php?action=$1&tab=$2 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_]+)/([a-zA-Z0-9_]+)$ ./index.php?action=$1&keyword=$2 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)/([0-9]+)$ ./index.php?action=$1&idseries=$2&idepisode=$3 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)/([0-9]+)$ ./index.php?action=$1&idseries=$2&tab=$3 [L]
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^([a-zA-Z0-9_]+)/([0-9]+)/([0-9]+)/([0-9]+)$ ./index.php?action=$1&idseries=$2&number=$3&idepisode=$4 [L]

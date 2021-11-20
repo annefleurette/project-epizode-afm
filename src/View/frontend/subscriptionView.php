@@ -28,7 +28,7 @@ ob_start();
         </p>
     </form>
     <div class="form-connected">
-        <p>Vous avez déjà un compte, <a href="index.php?action=login">connectez-vous</a></p>
+        <p>Vous avez déjà un compte, <a href="login">connectez-vous</a></p>
         <p>Si vous êtes un éditeur, contactez-nous directement : editeur@epizode.fr</p>
     </div>
 </section>
