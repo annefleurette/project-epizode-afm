@@ -539,6 +539,7 @@ class MembersController {
         // On supprime définitivement son compte
 		session_start();
         $deleteMember = $membersManager->deleteMember($_SESSION['idmember']);
+		// Comme le membre éditeur a été ajouté manuellement on pensera à supprimer son logo de la base de données
         $_SESSION = array();
 		session_destroy();
 		header('Location: index.php?action=homepage'); 

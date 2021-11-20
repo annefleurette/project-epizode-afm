@@ -118,7 +118,7 @@ class SeriesController {
                     header("Location: index.php?action=writeSeries");
                 }
             }else{
-                $coverId = 239; // Affiche par défaut
+                $coverId = 253; // Affiche par défaut
             }
             // On enregistre la nouvelle série
             $addNewSeries = $seriesManager->addSeries($postseriestitle, $postseriessummary, intval($_SESSION['idmember']), $pricing, $publishing, $postseriesright, $coverId, $postauthorname, $postauthordescription, $postmeta);
@@ -372,7 +372,7 @@ class SeriesController {
             // On récupère l'URL de l'image déjà enregistrée pour la série
             $imageSeriesUrl = $seriesManager->getImageSeriesUrl($seriesId);
             // On évite de supprimer l'image par défaut
-            if($imageSeriesUrl != "./public/images/cover_default.png")
+            if($imageSeriesUrl != "./public/images/poster_default.png")
             {
                 $imageSeriesUrlShort = substr($imageSeriesUrl, 2);
                 $DirUrlShort = substr(__DIR__, 0, -14);

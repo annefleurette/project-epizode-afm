@@ -3,8 +3,8 @@ if(document.getElementById('like') != undefined || document.getElementById('disl
     // Ajouter un like
     document.getElementById('like').addEventListener('click', () => {
         let idepisode = document.getElementById('idepisode').value;
-        //fetch('http://localhost:8888/p5/project-epizode-afm/index.php?action=addLike&idepisode=' + idepisode)
-        fetch('http://www.epizode.fr/index.php?action=addLike&idepisode=' + idepisode)
+        fetch('http://localhost:8888/p5/project-epizode-afm/index.php?action=addLike&idepisode=' + idepisode)
+        //fetch('http://www.epizode.fr/index.php?action=addLike&idepisode=' + idepisode)
         .then(res => res.json())
         .then(responseServer => {
             console.log(responseServer);
@@ -18,8 +18,8 @@ if(document.getElementById('like') != undefined || document.getElementById('disl
     // Enlever un like
     document.getElementById('dislike').addEventListener('click', () => {
         let idepisode = document.getElementById('idepisode').value;
-        //fetch('http://localhost:8888/p5/project-epizode-afm/index.php?action=removeLike&idepisode=' + idepisode)
-        fetch('http://www.epizode.fr/index.php?action=removeLike&idepisode=' + idepisode)
+        fetch('http://localhost:8888/p5/project-epizode-afm/index.php?action=removeLike&idepisode=' + idepisode)
+        //fetch('http://www.epizode.fr/index.php?action=removeLike&idepisode=' + idepisode)
         .then(res => res.json())
         .then(responseServer => {
             console.log(responseServer);

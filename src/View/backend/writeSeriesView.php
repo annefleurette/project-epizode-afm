@@ -60,7 +60,7 @@ ob_start();
         </p>
         <p>
             <label for="metaSeries">Metadescription de la série (maximum 160 caractères)</label><br />
-            <textarea id="metaSeries" name="metaSeries" minlength="1" maxlength="160"><?php if(isset($_SESSION['tempMetaSeries'])){echo $_SESSION['tempMetaSeries'];}else{echo NULL;}?></textarea>
+            <textarea id="metaSeries" name="metaSeries" maxlength="160"><?php if(isset($_SESSION['tempMetaSeries'])){echo $_SESSION['tempMetaSeries'];}else{echo "Découvrez le contenu de votre série en exclusivité sur Epizode ! Des séries originales et passionnantes à lire partout, à tout moment !";}?></textarea>
             <?php if(isset($_SESSION['tempMetaSeries'])){unset($_SESSION['tempMetaSeries']);}?>
         </p>
         <p>

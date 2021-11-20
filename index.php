@@ -118,7 +118,7 @@ try {
 						{
 							$membersController->displayMember($_GET['idmember']);
 						}else{
-							require('src/View/403error.php');
+							require('src/View/404error.php');
 						}
 						break;
 						case 'deleteAccount':
@@ -166,7 +166,7 @@ try {
 						case 'writeSeries_post':
 							if(isset($_POST['titleSeries']) AND isset($_POST['descriptionSeries']) AND isset($_POST['rights']) AND isset($_POST['tags']))
 							{
-								$seriesController->writeSeriesPost((isset($_POST['author'])) ? $_POST['author'] : null, (isset($_POST['descriptionAuthor'])) ? $_POST['descriptionAuthor'] : null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], (isset($_POST['metaSeries'])) ? $_POST['metaSeries'] : null);
+								$seriesController->writeSeriesPost((isset($_POST['author'])) ? $_POST['author'] : null, (isset($_POST['descriptionAuthor'])) ? $_POST['descriptionAuthor'] : null, $_POST['titleSeries'], $_POST['descriptionSeries'], $_POST['rights'], $_POST['tags'], $_POST['metaSeries']);
 							}else{
 								require('src/View/404error.php');
 							}
@@ -227,7 +227,7 @@ try {
 								$episodesController->writeEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, $_POST['numberEpisode'], $_POST['titleEpisode'], $_POST['contentEpisode'], (isset($_POST['priceEpisode'])) ? $_POST['priceEpisode'] : 0, (isset($_POST['promotionEpisode'])) ? $_POST['promotionEpisode'] : 0, (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : null, $_POST['nbCharacters'], (isset($_POST['metaEpisode'])) ? $_POST['metaEpisode'] : null, $_GET['idseries']);
 							
 							}else{
-								require('src/View/403error.php');
+								require('src/View/404error.php');
 							}
 							break;
 						case 'lookEpisode':
@@ -354,7 +354,7 @@ try {
 					{
 						$membersController->displayMember($_GET['idmember']);
 					}else{
-						require('src/View/403error.php');
+						require('src/View/404error.php');
 					}
 					break;
 				// Séries
