@@ -10,12 +10,14 @@ if(document.getElementById('alertepisode') != undefined)
 }
 
 // Signaler un commentaire
-if(document.getElementById('alertcomment') != undefined)
+if(document.getElementsByClassName('alertcomment') != undefined)
 {
-    document.getElementById('alertcomment').addEventListener('click', () => {
+    Array.from(document.getElementsByClassName("alertcomment")).forEach(elt => {
+        elt.addEventListener('click', () => { 
         let idcomment = document.getElementById('idcommentalert').value;
         fetch('https://www.epizode.fr/index.php?action=addAlertComment&idcomment=' + idcomment);
         //fetch('http://localhost:8888/p5/project-epizode-afm/index.php?action=addAlertComment&idcomment=' + idcomment);
         alert("Votre signalement a bien été envoyé à l'administration");
+        })
     })
 }

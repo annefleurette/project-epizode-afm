@@ -128,7 +128,7 @@ ob_start();
                         {
                         ?>
                             <input type="hidden" id="idcommentalert" value=<?php echo $comment_data['id']; ?>>
-                            <p class="btn__alert"><button id="alertcomment" class="btn btn-grey">Signaler</button></p>
+                            <p class="btn__alert"><button class="alertcomment btn btn-grey">Signaler</button></p>
                         <?php
                         }
                         ?>
