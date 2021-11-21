@@ -151,24 +151,23 @@ class EpisodesManager extends Manager
     	return $deleteCoinsPack;
 	}
 	// On ajoute un nouvel épisode
-	public function addEpisode($number, $title, $content, $publishing_status, $datepublication, $id_series, $price, $promotion, $signs_number, $meta)
+	public function addEpisode($number, $title, $content, $publishing_status, $id_series, $price, $promotion, $signs_number, $meta)
 	{
 		$db = $this->dbConnect();
-		$addEpisode = $db->prepare('INSERT INTO episodes(number, title, content, publishing_status, date_publication, date_modification, id_series, price, alert_status, promotion, signs_number, meta_description) VALUES(?, ?, ?, ?, ?, NOW(), ?, ?, 0, ?, ?, ?)');
-		$addEpisode->execute(array($number, $title, $content, $publishing_status, $datepublication, $id_series, $price, $promotion, $signs_number, $meta));
+		$addEpisode = $db->prepare('INSERT INTO episodes(number, title, content, publishing_status, date_publication, date_modification, id_series, price, alert_status, promotion, signs_number, meta_description) VALUES(?, ?, ?, ?, NOW(), NOW(), ?, ?, 0, ?, ?, ?)');
+		$addEpisode->execute(array($number, $title, $content, $publishing_status, $id_series, $price, $promotion, $signs_number, $meta));
 	    return $addEpisode;
 	}
 	// On modifie un épisode
-	public function updateEpisode($number, $title, $content, $publishing_status, $datepublication, $price, $promotion, $signs_number, $meta, $idepisode)
+	public function updateEpisode($number, $title, $content, $publishing_status, $price, $promotion, $signs_number, $meta, $idepisode)
 	{
 		$db = $this->dbConnect();
-		$updateEpisode = $db->prepare('UPDATE episodes SET number = :newnumber, title = :newtitle, content = :newcontent, publishing_status = :newpublishing_status, date_publication = :newdatepublication, date_modification = NOW(), price = :newprice, promotion = :newpromotion, signs_number = :newsigns_number, meta_description = :newmeta_description WHERE id = :id');
+		$updateEpisode = $db->prepare('UPDATE episodes SET number = :newnumber, title = :newtitle, content = :newcontent, publishing_status = :newpublishing_status, date_publication = NOW(), date_modification = NOW(), price = :newprice, promotion = :newpromotion, signs_number = :newsigns_number, meta_description = :newmeta_description WHERE id = :id');
 		$updateEpisode->execute(array(
 			'newnumber' => $number,
 			'newtitle' => $title,
 			'newcontent' => $content,
 			'newpublishing_status' => $publishing_status,
-			'newdatepublication' => $datepublication,
 			'newprice' => $price,
 			'newpromotion' => $promotion,
 			'newsigns_number' => $signs_number,

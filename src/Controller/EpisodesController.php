@@ -25,7 +25,7 @@ class EpisodesController {
         }
     }
 
-    public function writeEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice, $postpromotion, $postdate, $postsigns, $postmeta, $seriesId)
+    public function writeEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice, $postpromotion, $postsigns, $postmeta, $seriesId)
     {
         $episodesManager = new EpisodesManager();
         $seriesManager = new SeriesManager();
@@ -42,7 +42,6 @@ class EpisodesController {
             $posttitle = htmlspecialchars($posttitle);
             $postprice = htmlspecialchars($postprice);
             $postpromotion = htmlspecialchars($postpromotion);
-            $postdate = htmlspecialchars($postdate);
             $postsigns = htmlspecialchars($postsigns);
             $postmeta = htmlspecialchars($postmeta);
             $seriesId = htmlspecialchars($seriesId);
@@ -54,7 +53,7 @@ class EpisodesController {
                 if ($postpromotion <= $postprice)
                 {
                     // On enregistre le nouvel épisode
-                    $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "inprogress", null, $seriesId, $postprice, $postpromotion, $postsigns, $postmeta);
+                    $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "inprogress", $seriesId, $postprice, $postpromotion, $postsigns, $postmeta);
                     header("Location: updateSeries/" .$seriesId. "/2");
                 }else{
                     $_SESSION['tempNumber'] = $postnumber;
@@ -79,63 +78,35 @@ class EpisodesController {
             }
         }else{ // Si le bouton Publier est choisi
             // Enregistrement de l'épisode à publier dans la base de données
-            // Si la date est bien au bon format
-            if(preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9])$/", $postdate))
-            {
-                $postnumber = htmlspecialchars($postnumber);
-                $posttitle = htmlspecialchars($posttitle);
-                $postprice = htmlspecialchars($postprice);
-                $postpromotion = htmlspecialchars($postpromotion);
-                $postsigns = htmlspecialchars($postsigns);
-                $seriesId = htmlspecialchars($seriesId);
-                $postdate = htmlspecialchars($postdate);
-                $postmeta = htmlspecialchars($postmeta);
-                // Si le numéro d'épisode n'existe pas déjà parmi les épisodes publiés et si ce numéro est bien le +1 du dernier épisode publié
-                $episode_unitary_published = $episodesManager->getEpisodePublished($postnumber, $seriesId);
-                $current_episode = intval($postnumber);
-                if(empty($episode_unitary_published) AND ($current_episode === $count_episode_publishable))
-                { // On publie un nouvel épisode
-                    // Si le montant de la promotion est bien inférieur au montant du prix
-                    if ($postpromotion <= $postprice)
-                    {
-                        // Si la date de l'épisode à publier est bien postérieure au dernier épisode publié
-                        $episode_unitary_published = $episodesManager->getEpisodePublished($count_episode_published, $seriesId);
-                        if(strtotime($postdate) > strtotime($episode_unitary_published['date']))
-                        {
-                            $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $seriesId, $postprice, $postpromotion, $postsigns, $postmeta);
-                            // On passe la série en publiée
-                            $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
-                            header("Location: updateSeries/" .$seriesId. "/2");
-                        }else{
-                            // On prépare des variables de session temporaires pour anticiper les erreurs
-                            $_SESSION['tempNumber'] = $postnumber;
-                            $_SESSION['tempTitle'] = $posttitle;
-                            $_SESSION['tempContent'] = $postcontent;
-                            $_SESSION['tempPrice'] = $postprice;
-                            $_SESSION['tempPromotion'] = $postpromotion;
-                            $_SESSION['metaEpisode'] = $postmeta;
-                            $_SESSION['error'] = "Vous devez publier votre épisode à une date postérieure au dernier épisode publié, c'est-à-dire le " . $episode_unitary_published['date'];
-                            header("Location: writeEpisode/" .$seriesId);
-                        }
-                    }else{
-                        $_SESSION['tempNumber'] = $postnumber;
-                        $_SESSION['tempTitle'] = $posttitle;
-                        $_SESSION['tempContent'] = $postcontent;
-                        $_SESSION['tempPrice'] = $postprice;
-                        $_SESSION['tempPromotion'] = $postpromotion;
-                        $_SESSION['metaEpisode'] = $postmeta;
-                        $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
-                        header("Location: writeEpisode/" .$seriesId);
-                    }
+            $postnumber = htmlspecialchars($postnumber);
+            $posttitle = htmlspecialchars($posttitle);
+            $postprice = htmlspecialchars($postprice);
+            $postpromotion = htmlspecialchars($postpromotion);
+            $postsigns = htmlspecialchars($postsigns);
+            $seriesId = htmlspecialchars($seriesId);
+            $postmeta = htmlspecialchars($postmeta);
+            // Si le numéro d'épisode n'existe pas déjà parmi les épisodes publiés et si ce numéro est bien le +1 du dernier épisode publié
+            $episode_unitary_published = $episodesManager->getEpisodePublished($postnumber, $seriesId);
+            $current_episode = intval($postnumber);
+            if(empty($episode_unitary_published) AND ($current_episode === $count_episode_publishable))
+            { // On publie un nouvel épisode
+                // Si le montant de la promotion est bien inférieur au montant du prix
+                if ($postpromotion <= $postprice)
+                {
+                    // Si la date de l'épisode à publier est bien postérieure au dernier épisode publié
+                    $episode_unitary_published = $episodesManager->getEpisodePublished($count_episode_published, $seriesId);
+                    $addEpisode = $episodesManager->addEpisode($postnumber, $posttitle, $postcontent, "published", $seriesId, $postprice, $postpromotion, $postsigns, $postmeta);
+                    // On passe la série en publiée
+                    $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
+                    header("Location: updateSeries/" .$seriesId. "/2");
                 }else{
-                    // On prépare des variables de session temporaires pour anticiper les erreurs
                     $_SESSION['tempNumber'] = $postnumber;
                     $_SESSION['tempTitle'] = $posttitle;
                     $_SESSION['tempContent'] = $postcontent;
                     $_SESSION['tempPrice'] = $postprice;
                     $_SESSION['tempPromotion'] = $postpromotion;
                     $_SESSION['metaEpisode'] = $postmeta;
-                    $_SESSION['error'] = "Vous avez déjà publié ce numéro d'épisode ou cet épisode n'est pas le suivant du dernier épisode publié ! Le dernier épisode de la série publié est le numéro " . $count_episode_published;
+                    $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
                     header("Location: writeEpisode/" .$seriesId);
                 }
             }else{
@@ -146,7 +117,7 @@ class EpisodesController {
                 $_SESSION['tempPrice'] = $postprice;
                 $_SESSION['tempPromotion'] = $postpromotion;
                 $_SESSION['metaEpisode'] = $postmeta;
-                $_SESSION['error'] = "La date saisie n'est pas au bon format";
+                $_SESSION['error'] = "Vous avez déjà publié ce numéro d'épisode ou cet épisode n'est pas le suivant du dernier épisode publié ! Le dernier épisode de la série publié est le numéro " . $count_episode_published;
                 header("Location: writeEpisode/" .$seriesId);
             }
         }
@@ -202,7 +173,7 @@ class EpisodesController {
         }  
     }
 
-    public function updateEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice, $postpromotion, $postdate, $postsigns, $postmeta, $seriesId, $episodeId)
+    public function updateEpisodePost($postsave, $postnumber, $posttitle, $postcontent, $postprice, $postpromotion, $postsigns, $postmeta, $seriesId, $episodeId)
     {
         $episodesManager = new EpisodesManager();
         $seriesManager = new SeriesManager();
@@ -233,7 +204,7 @@ class EpisodesController {
                 if ($postpromotion <= $postprice)
                 {
                     // On modifie l'épisode
-                    $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "inprogress", null, $postprice, $postpromotion, $postsigns, $postmeta, $episodeId);
+                    $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "inprogress", $postprice, $postpromotion, $postsigns, $postmeta, $episodeId);
                     header("Location: updateSeries/" .$seriesId. "/2");
                 }else{
                     $_SESSION['tempNumber'] = $postnumber;
@@ -277,18 +248,9 @@ class EpisodesController {
                     // Si le montant de la promotion est bien inférieur au montant du prix
                     if ($postpromotion <= $postprice)
                     {
-                        // Si la date est bien au bon format
-                        if(isset($postdate) AND preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9])$/", $postdate))
-                        {
-                            $postdate = htmlspecialchars($postdate);
-                            // On modifie l'épisode
-                            $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "published", $postdate, $postprice, $postpromotion, $postsigns, $postmeta, $episodeId);
-                            $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
-                        }else{
-                            // On modifie l'épisode
-                            $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "published", $oneEpisode['date'], $postprice, $postpromotion, $postsigns, $postmeta, $episodeId);  
-                            $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
-                        }
+                        // On modifie l'épisode
+                        $updateEpisode = $episodesManager->updateEpisode($postnumber, $posttitle, $postcontent, "published", $postprice, $postpromotion, $postsigns, $postmeta, $episodeId);
+                        $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
                         header("Location: updateSeries/" .$seriesId. "/2");
                     }else{
                         $_SESSION['tempNumber'] = $postnumber;
@@ -315,17 +277,9 @@ class EpisodesController {
                 // Si le montant de la promotion est bien inférieur au montant du prix
                 if ($postpromotion <= $postprice)
                 {
-                    if(isset($postdate) AND preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9])$/", $postdate))
-                    {
-                        $postdate = htmlspecialchars($postdate);
-                        // On modifie l'épisode
-                        $updateEpisode = $episodesManager->updateEpisode($oneEpisode['number'], $posttitle, $postcontent, "published", $postdate, $postprice, $postpromotion, $postsigns, $postmeta, $episodeId);
-                        $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
-                    }else{
-                        // On modifie l'épisode
-                        $updateEpisode = $episodesManager->updateEpisode($oneEpisode['number'], $posttitle, $postcontent, "published", $oneEpisode['date'], $postprice, $postpromotion, $postsigns, $postmeta, $episodeId);
-                        $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
-                    }
+                    // On modifie l'épisode
+                    $updateEpisode = $episodesManager->updateEpisode($oneEpisode['number'], $posttitle, $postcontent, "published", $postprice, $postpromotion, $postsigns, $postmeta, $episodeId);
+                    $updateSeriesStatus = $seriesManager->updateSeriesStatus("published", $seriesId);
                     header("Location: updateSeries/" .$seriesId. "/2");
                 }else{
                     $_SESSION['tempNumber'] = $postnumber;

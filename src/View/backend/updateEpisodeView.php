@@ -70,15 +70,10 @@ ob_start();
             {
             ?>
                 <input class="write-validation btn btn-purple" class="btn btn-purple" type="submit" name="save" value="Enregistrer">
-                <input class="write-validation btn btn-purple" class="btn btn-purple" id="triggerElt" type="button" name="button" value="Publier">
+                <input class="write-validation btn btn-purple" type="submit" name="publish" value="Publier">
             <?php
             }
             ?>
-        </p>
-        <p id="hidden">
-            <label for="dateEpisode">Date de publication</label>
-            <input id ="dateEpisode" type="datetime-local" name="dateEpisode" value="<?php echo date('Y-m-dTH:i', strtotime('+2 hours')); ?>" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9])">
-            <input class="write-validation btn btn-purple" type="submit" name="publish" value="Publier">
         </p>
         <p>
             <a class="btn btn-grey center" href="updateSeries/<?php echo $seriesId; ?>/2">Annuler</a>
@@ -86,7 +81,6 @@ ob_start();
     </form>
 </section>
 <script type="text/javascript" src="./public/js/signcounter.js"></script>
-<script type="text/javascript" src="./public/js/trigger.js"></script>
 <?php $body_content = ob_get_clean();
 require('./src/View/template.php');
 ?>

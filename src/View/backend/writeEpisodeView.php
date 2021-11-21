@@ -46,14 +46,7 @@ ob_start();
         <?php
         }
         ?>
-        <p id="trigger">
             <input class="write-validation btn btn-purple" type="submit" name="save" value="Enregistrer">
-            <input class="write-validation btn btn-purple" id="triggerElt" type="button" name="button" value="Publier">
-        </p>
-        <p id="hidden">
-            <label for="dateEpisode">Date de publication</label>
-            <input id ="dateEpisode" type="datetime-local" name="dateEpisode" value="<?php echo date('Y-m-dTH:i', strtotime('+2 hours')); ?>" pattern="[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])T([0-1][0-9]|2[0-3]):([0-5][0-9])">
-            <br/>
             <input class="write-validation btn btn-purple" type="submit" name="publish" value="Publier">
         </p>
         <p>
@@ -62,7 +55,6 @@ ob_start();
     </form>
 </section>
 <script type="text/javascript" src="./public/js/signcounter.js"></script>
-<script type="text/javascript" src="./public/js/trigger.js"></script>
 <?php $body_content = ob_get_clean();
 require('./src/View/template.php');
 ?>
