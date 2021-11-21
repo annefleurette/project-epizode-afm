@@ -57,7 +57,7 @@ ob_start();
         <?php
         }
         ?>
-        <p id="trigger">
+        <p>
             <?php
             // Si on choisit de publier
             if($oneEpisode['publishing'] === "published")
