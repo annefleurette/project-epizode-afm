@@ -250,7 +250,7 @@ try {
 						case 'updateEpisode_post':
 							if(isset($_POST['titleEpisode']) AND isset($_POST['contentEpisode']) AND isset($_POST['nbCharacters']) AND isset($_GET['idseries']) AND isset($_GET['idepisode']))
 							{
-								$episodesController->updateEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, (isset($_POST['numberEpisode'])) ? $_POST['numberEpisode'] : null, $_POST['titleEpisode'], $_POST['contentEpisode'], (isset($_POST['priceEpisode'])) ? $_POST['priceEpisode'] : 0, (isset($_POST['promotionEpisode'])) ? $_POST['promotionEpisode'] : 0, (isset($_POST['dateEpisode'])) ? $_POST['dateEpisode'] : date('Y-m-dTH:i', strtotime('+2 hours')), $_POST['nbCharacters'], (isset($_POST['metaEpisode'])) ? $_POST['metaEpisode'] : null, $_GET['idseries'], $_GET['idepisode']);
+								$episodesController->updateEpisodePost((isset($_POST['save'])) ? $_POST['save'] : null, (isset($_POST['numberEpisode'])) ? $_POST['numberEpisode'] : null, $_POST['titleEpisode'], $_POST['contentEpisode'], (isset($_POST['priceEpisode'])) ? $_POST['priceEpisode'] : 0, (isset($_POST['promotionEpisode'])) ? $_POST['promotionEpisode'] : 0, $_POST['nbCharacters'], (isset($_POST['metaEpisode'])) ? $_POST['metaEpisode'] : null, $_GET['idseries'], $_GET['idepisode']);
 							}else{
 								require('src/View/404error.php');
 							}						
@@ -378,12 +378,6 @@ try {
 						require('src/View/404error.php');
 					}
 					break;
-					case 'addSubscription':
-						$seriesController->addSubscription($_GET['idseries']);
-					break;
-					case 'removeSubscription':
-						$seriesController->removeSubscription($_GET['idseries']);
-					break;
 				// Episodes
 				case 'displayEpisode':
 					if(isset($_GET['idseries']) AND isset($_GET['number']) AND isset($_GET['idepisode']))
@@ -397,13 +391,6 @@ try {
 					}else{
 						require('src/View/404error.php');
 					}
-					break;
-				case 'addLike
-				':
-					$episodesController->addLike($_GET['idepisode']);
-					break;
-				case 'removeLike':
-					$episodesController->removeLike($_GET['idepisode']);
 					break;
 				default:
 				require('src/View/404error.php');

@@ -427,7 +427,7 @@ class EpisodesController {
         // On enlève le signalement d'un épisode
         $alert = 0;
         $updateAlertEpisode = $episodesManager->updateEpisodeAlert($alert, $episodeId);
-        header("Location: Location: admin/3"); 
+        header("Location: admin/3"); 
     }
 
 }

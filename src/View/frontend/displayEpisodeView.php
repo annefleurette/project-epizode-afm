@@ -105,7 +105,7 @@ ob_start();
                         ?>
                             <div class="member">
                                 <p><img src="<?php echo $comment_data['logo']; ?>" alt="<?php echo $comment_data['altlogo']; ?>"/></p>
-                                <p><a href="displayMember/<?php echo $comment_data['idmember']; ?>"><?php echo $comment_data['name']; ?></a></p>
+                                <p><a href="index.php?action=displayMember&idmember=<?php echo $comment_data['idmember']; ?>"><?php echo $comment_data['name']; ?></a></p>
                             </div>
                         <!-- Si l'auteur est un autre utilisateur -->
                         <?php
@@ -113,7 +113,7 @@ ob_start();
                         ?> 
                             <div class="member"> 
                                 <p><img src="<?php echo $comment_data['avatar']; ?>" alt="<?php echo $comment_data['altavatar']; ?>"/></p>  
-                                <p><a href="displayMember/idmember=<?php echo $comment_data['idmember']; ?>"><?php echo $comment_data['pseudo']; ?></a></p>
+                                <p><a href="index.php?action=displayMember&idmember=idmember=<?php echo $comment_data['idmember']; ?>"><?php echo $comment_data['pseudo']; ?></a></p>
                             </div>
                         <?php
                         }
@@ -127,7 +127,7 @@ ob_start();
                         if ($_SESSION != NULL)
                         {
                         ?>
-                            <input type="hidden" id="idcommentalert" value=<?php echo $comment_data['id']; ?>>
+                            <input type="hidden" class="idcommentalert" value=<?php echo $comment_data['id']; ?>>
                             <p class="btn__alert"><button class="alertcomment btn btn-grey">Signaler</button></p>
                         <?php
                         }

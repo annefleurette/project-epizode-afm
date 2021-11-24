@@ -96,7 +96,7 @@ ob_start();
                                 <p><a href="displaySeries/<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
                                 <div class="member">
                                     <img src="<?php echo $seriesTopFive['logo']; ?>" alt="<?php echo $seriesTopFive['alt']; ?>" />
-                                    <p><a href="displayMember/<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['publisher']; ?></a></p>
+                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['publisher']; ?></a></p>
                                 </div>
                                 <p><?php echo $seriesTopFive['author']; ?></p>
                                 <p><?php echo $seriesTopFive['numberSubscribers']; ?> abonné(s)</p>
@@ -133,7 +133,7 @@ ob_start();
                                 <p><a href="displaySeries/<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
                                 <div class="member">
                                     <img src="<?php echo $seriesTopFive['avatar']; ?>" alt="<?php echo $seriesTopFive['alt']; ?>" />
-                                    <p><a href="displayMember/<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['author']; ?></a></p>
+                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['author']; ?></a></p>
                                 </div>
                                 <p><?php echo $seriesTopFive['numberSubscribers']; ?> abonné(s)</p>
                             </div>

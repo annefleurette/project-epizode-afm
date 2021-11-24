@@ -12,7 +12,7 @@ ob_start();
         </div>
         <section id="look-content">
             <p class="episode-content-text"><?php echo $oneEpisodesUser['content']; ?></p>
-            <p class="center"><a class="btn btn-grey" href="updateSeries/<?php echo $seriesId; ?>/2">Retour</a></p>
+            <p class="center"><a class="btn btn-grey" href="updateSeries/<?php echo $seriesId; ?>">Retour</a></p>
         </section>
     </section>
 <?php

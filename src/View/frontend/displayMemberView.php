@@ -154,7 +154,7 @@ if($userPublicData['type'] == "user")
                                     ?>
                                         <div class="member">
                                             <img src="<?php echo $allSubscriptionSeries['logo']; ?>" alt="<?php echo $allSubscriptionSeries['altlogo']; ?>"/>
-                                            <p><a href="displayMember/<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['publisher']; ?></a></p>
+                                            <p><a href="index.php?action=displayMember&idmember=<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['publisher']; ?></a></p>
                                         </div>
                                     <?php
                                     // Si la série est écrite par un autre utilisateur
@@ -162,7 +162,7 @@ if($userPublicData['type'] == "user")
                                     ?>
                                         <div class="member">
                                             <img src="<?php echo $allSubscriptionSeries['avatar']; ?>" alt="<?php echo $allSubscriptionSeries['altavatar']; ?>"/>
-                                            <p><a href="displayMember/<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['member']; ?></a></p>
+                                            <p><a href="index.php?action=displayMember&idmember=<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['member']; ?></a></p>
                                         </div>
                                     <?php
                                     }

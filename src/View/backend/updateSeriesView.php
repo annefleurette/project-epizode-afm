@@ -5,7 +5,7 @@ ob_start();
 ?>
 <nav class="menu__second"> <!-- Navigation entre les données de la série et les données des épisodes -->
     <ul>
-        <li class="elementTab" data-index="1"><sapn>Ma série</span></li>
+        <li class="elementTab" data-index="1"><span>Ma série</span></li>
         <li class="elementTab" data-index="2"><span>Mes épisodes</span></li>
     </ul>
 </nav>
@@ -164,7 +164,7 @@ ob_start();
                         <?php if((($episodedata['number'] == $nbepisodes) AND ($episodedata['publishing'] === "published")) OR ($episodedata['publishing'] === "inprogress"))
                         {
                         ?>    
-                            <p><a class="btn btn-grey delete" href="userDeleteEpisode/<?php echo $seriesId; ?>/<?php echo $episodedata['id']; ?>">Supprimer</a></p>
+                            <p><a class="btn btn-grey delete" href="index.php?action=userDeleteEpisode&idseries=<?php echo $seriesId; ?>&idepisode=<?php echo $episodedata['id']; ?>">Supprimer</a></p>
                         <?php    
                         }
                         ?> 

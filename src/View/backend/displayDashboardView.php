@@ -80,7 +80,7 @@ ob_start();
                             ?>
                                 <div class="member">
                                         <p class="figure-bloc-member"><img src="<?php echo $subscriptionSeries['logo']; ?>" alt="<?php echo $subscriptionSeries['altlogo']; ?>"/></p>
-                                        <p><a href="displayMember/<?php echo $subscriptionSeries['idmember']; ?>"><?php echo $subscriptionSeries['publisher']; ?></a></p>
+                                        <p><a href="index.php?action=displayMember&idmember=<?php echo $subscriptionSeries['idmember']; ?>"><?php echo $subscriptionSeries['publisher']; ?></a></p>
                                 </div>
                             <?php
                             // Si la série est écrite par un autre utilisateur
@@ -89,7 +89,7 @@ ob_start();
                             ?>  
                                 <div class="member">
                                     <p class="figure-bloc-member"><img src="<?php echo $subscriptionSeries['avatar']; ?>" alt="<?php echo $subscriptionSeries['altavatar']; ?>"/></p>  
-                                    <p><a href="displayMember/<?php echo $subscriptionSeries['idmember']; ?>"><?php echo $subscriptionSeries['member']; ?></a></p>
+                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $subscriptionSeries['idmember']; ?>"><?php echo $subscriptionSeries['member']; ?></a></p>
                                 </div>
                             <?php
                             }

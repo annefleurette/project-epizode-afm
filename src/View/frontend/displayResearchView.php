@@ -128,7 +128,7 @@ ob_start();
                         ?>
                         <p class="research-series__data"><?php echo $authorsResults['numberWritings']; ?> série(s) écrite(s)</p>
                         <br />
-                        <p class="research-series__data"><a class="btn btn-purple" href="displayMember/<?php echo $authorsResults['id']; ?>">Découvrir le membre</a></p>
+                        <p class="research-series__data"><a class="btn btn-purple" href="index.php?action=displayMember&idmember=<?php echo $authorsResults['id']; ?>">Découvrir le membre</a></p>
                     </article>
                 </li>
             <?php

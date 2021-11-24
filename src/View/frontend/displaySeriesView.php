@@ -16,13 +16,13 @@ ob_start();
                 {
                 ?>
                     <p class="figure-bloc-member"><img src="<?php echo $oneSeriesPublicData['logo']; ?>" alt="<?php echo $oneSeriesPublicData['altlogo']; ?>"/></p>
-                    <p><a href="displayMember/<?php echo $oneSeriesPublicData['idmember']; ?>"><?php echo $oneSeriesPublicData['publisher']; ?></a></p>
+                    <p><a href="index.php?action=displayMember&idmember=<?php echo $oneSeriesPublicData['idmember']; ?>"><?php echo $oneSeriesPublicData['publisher']; ?></a></p>
                 <?php
                 // Si la série est écrite par un autre utilisateur
                 }else{
                 ?>  
                     <p class="figure-bloc-member"><img src="<?php echo $oneSeriesPublicData['avatar']; ?>" alt="<?php echo $oneSeriesPublicData['altavatar']; ?>"/></p>  
-                    <p><a href="displayMember/<?php echo $oneSeriesPublicData['idmember']; ?>"><?php echo $oneSeriesPublicData['member']; ?></a></p>
+                    <p><a href="index.php?action=displayMember&idmember=<?php echo $oneSeriesPublicData['idmember']; ?>"><?php echo $oneSeriesPublicData['member']; ?></a></p>
                 <?php
                 }
                 ?>
@@ -201,14 +201,14 @@ ob_start();
                                 {
                                 ?>
                                     <p class="figure-bloc-member"><img src="<?php echo $allTagsSeries[$i][$j]['logo']; ?>" alt="<?php echo $allTagsSeries[$i][$j]['altlogo']; ?>"/></p>
-                                    <p><a href="displayMember/<?php echo $allTagsSeries[$i][$j]['idmember']; ?>"><?php echo $allTagsSeries[$i][$j]['publisher']; ?></a></p>
+                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $allTagsSeries[$i][$j]['idmember']; ?>"><?php echo $allTagsSeries[$i][$j]['publisher']; ?></a></p>
                                 <?php
                                 // Si la série est écrite par un autre utilisateur
                                 }elseif($allTagsSeries[$i][$j]['type'] === "user")
                                 {
                                 ?>  
                                     <p class="figure-bloc-member"><img src="<?php echo $allTagsSeries[$i][$j]['avatar']; ?>" alt="<?php echo $allTagsSeries[$i][$j]['altavatar']; ?>"/></p>  
-                                    <p><a href="displayMember/<?php echo $allTagsSeries[$i][$j]['idmember']; ?>"><?php echo $allTagsSeries[$i][$j]['member']; ?></a></p>
+                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $allTagsSeries[$i][$j]['idmember']; ?>"><?php echo $allTagsSeries[$i][$j]['member']; ?></a></p>
                                 <?php
                                 }
                                 ?>
