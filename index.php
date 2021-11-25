@@ -125,8 +125,8 @@ try {
 							$membersController->deleteAccount();
 						break;
 						case 'forgetPassword':
-							$membersController->forgetPassword();
-						break;
+							$seriesController->displayHomepage();
+						return;
 						case 'forgetPassword_post':
 							$seriesController->displayHomepage();
 							
