@@ -57,7 +57,7 @@ ob_start();
                         echo $date->format('d/m/Y');
                         ?>  
                     </td>
-                    <td><a href="index.php?action=displayMember&idmember=<?php echo $memberInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
+                    <td><a href="displayMember/member/<?php echo $memberInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
                     <?php
                     // Pour ne pas se supprimer soi-même
                     if($memberInfo['id'] != $_SESSION['idmember'])
@@ -196,7 +196,7 @@ ob_start();
                         echo $date->format('d/m/Y');
                         ?>
                     </td>
-                    <td><a href="displaySeries/<?php echo $seriesInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
+                    <td><a href="displaySeries/series/<?php echo $seriesInfo['id']; ?>" TARGET=_BLANK>Voir</a></td>
                     <td class="delete"><a href="index.php?action=adminDeleteSeries&idseries=<?php echo $seriesInfo['id']; ?>">Supprimer</a></td>
                 </tr>
                 <?php

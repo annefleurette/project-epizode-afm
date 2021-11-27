@@ -80,7 +80,7 @@ ob_start();
                             ?>
                                 <div class="member">
                                         <p class="figure-bloc-member"><img src="<?php echo $subscriptionSeries['logo']; ?>" alt="<?php echo $subscriptionSeries['altlogo']; ?>"/></p>
-                                        <p><a href="index.php?action=displayMember&idmember=<?php echo $subscriptionSeries['idmember']; ?>"><?php echo $subscriptionSeries['publisher']; ?></a></p>
+                                        <p><a href="displayMember/member/<?php echo $subscriptionSeries['idmember']; ?>"><?php echo $subscriptionSeries['publisher']; ?></a></p>
                                 </div>
                             <?php
                             // Si la série est écrite par un autre utilisateur
@@ -89,7 +89,7 @@ ob_start();
                             ?>  
                                 <div class="member">
                                     <p class="figure-bloc-member"><img src="<?php echo $subscriptionSeries['avatar']; ?>" alt="<?php echo $subscriptionSeries['altavatar']; ?>"/></p>  
-                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $subscriptionSeries['idmember']; ?>"><?php echo $subscriptionSeries['member']; ?></a></p>
+                                    <p><a href="displayMember/member/<?php echo $subscriptionSeries['idmember']; ?>"><?php echo $subscriptionSeries['member']; ?></a></p>
                                 </div>
                             <?php
                             }
@@ -105,7 +105,7 @@ ob_start();
                             <p><?php echo $subscriptionSeries['numberEpisodes']; ?> épisode(s)</p>
                             <p class="tags"><?php echo $subscriptionSeries['tags']; ?></p>
                             <br />
-                            <p><a class="btn btn-purple" href="displaySeries/<?php echo $subscriptionSeries['id']; ?>">Lire la série</a></p>
+                            <p><a class="btn btn-purple" href="displaySeries/series/<?php echo $subscriptionSeries['id']; ?>">Lire la série</a></p>
                             <p><a class="btn btn-grey" href="index.php?action=removeSubscriptionLibrary&idseries=<?php echo $subscriptionSeries['id']; ?>">Retirer la série de ma bibliothèque</a></p>
                         </figcaption>
                     </figure>
@@ -139,7 +139,7 @@ ob_start();
                     <figure>
                         <img class="cover" src="<?php echo $seriesMember['cover']; ?>" alt="<?php echo $seriesMember['altcover']; ?>"/>
                         <figcaption>
-                            <h3><a href="displaySeries/<?php echo $seriesMember['id']; ?>"><?php echo $seriesMember['title']; ?></a></h3>
+                            <h3><a href="displaySeries/series/<?php echo $seriesMember['id']; ?>"><?php echo $seriesMember['title']; ?></a></h3>
                             <p><?php echo $seriesMember['numberEpisodes']; ?> épisode(s)</p>
                             <p><?php echo $seriesMember['numberSubscribers']; ?> abonné(s)</p>
                             <?php
@@ -157,7 +157,7 @@ ob_start();
                             <?php
                             }
                             ?>
-                            <p><a class="btn btn-purple" href="updateSeries/<?php echo $seriesMember['id']; ?>">Continuer l'écriture de la série</a></p>
+                            <p><a class="btn btn-purple" href="updateSeries/series/<?php echo $seriesMember['id']; ?>">Continuer l'écriture de la série</a></p>
                             <p><a class="delete btn btn-grey" href="userDeleteSeries/<?php echo $seriesMember['id']; ?>">Supprimer la série</a></p>
                         </figcaption>
                     </article>

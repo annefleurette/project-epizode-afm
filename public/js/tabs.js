@@ -18,9 +18,9 @@ window.addEventListener('load', () => {
 	const urlComposed = window.location.href.split('/');
 	console.log(urlComposed);
 	let tabId = parseInt(urlComposed[urlComposed.length - 1]); // on récupère le numéro du tab
-	if(urlComposed[3]==='updateSeries' && urlComposed.length === 5){ // Dans le cas spécifique updateSeries
+	if(urlComposed[3]==='updateSeries' && urlComposed.length === 6){ // Dans le cas spécifique updateSeries
 		tabId = 1;
-	}else if(urlComposed[3]==='displayMember' && urlComposed.length === 5){ // Dans le cas spécifique displayMember
+	}else if(urlComposed[3]==='displayMember' && urlComposed.length === 6){ // Dans le cas spécifique displayMember
 		tabId = 1;
 	}
 	console.log('tabId', tabId);

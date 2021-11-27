@@ -76,7 +76,7 @@ ob_start();
             ?>
         </p>
         <p>
-            <a class="btn btn-grey center" href="updateSeries/<?php echo $seriesId; ?>/2">Annuler</a>
+            <a class="btn btn-grey center" href="updateSeries/series/<?php echo $seriesId; ?>/2">Annuler</a>
         </p>
     </form>
 </section>

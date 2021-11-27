@@ -96,7 +96,7 @@ ob_start();
 </section>
 <section id="update-series-episodes" class="elementContent hidden" data-tab="2"> <!-- Section qui affiche les données sur les épisodes de la série -->
     <h1>Les épisodes de ma série</h1>
-    <p class="newseries"><a class="btn btn-violet" href="writeEpisode/<?php echo $seriesId; ?>">+ J'écris un nouvel épisode !</a></p>
+    <p class="newseries"><a class="btn btn-violet" href="writeEpisode/series/<?php echo $seriesId; ?>">+ J'écris un nouvel épisode !</a></p>
     <?php
     // S'il existe au moins un épisode
     if($oneSeriesUserData['numberEpisodes']!== "0")

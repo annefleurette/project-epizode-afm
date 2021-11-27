@@ -57,7 +57,7 @@ ob_start();
                                 }
                                 ?>
                                 <br />
-                                <div><a class="btn btn-purple" href="displaySeries/<?php echo $newSeries['id']; ?>">Découvrir la série à lire</a></div>
+                                <div><a class="btn btn-purple" href="displaySeries/series/<?php echo $newSeries['id']; ?>">Découvrir la série à lire</a></div>
                             </figcaption>
                         </figure>
                     </li>
@@ -93,10 +93,10 @@ ob_start();
                             <p class="topten-5-ranking"><?php echo $key +1; ?></p>
                             <img class="cover cover-5" src="<?php echo $seriesTopFive['cover']; ?>" alt="<?php echo $seriesTopFive['altcover']; ?>" />
                             <div class="series-data">
-                                <p><a href="displaySeries/<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
+                                <p><a href="displaySeries/series/<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
                                 <div class="member">
                                     <img src="<?php echo $seriesTopFive['logo']; ?>" alt="<?php echo $seriesTopFive['alt']; ?>" />
-                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['publisher']; ?></a></p>
+                                    <p><a href="displayMember/member/<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['publisher']; ?></a></p>
                                 </div>
                                 <p><?php echo $seriesTopFive['author']; ?></p>
                                 <p><?php echo $seriesTopFive['numberSubscribers']; ?> abonné(s)</p>
@@ -130,10 +130,10 @@ ob_start();
                             <p class="topten-5-ranking"><?php echo $key +1; ?></p>
                             <img class="cover cover-5" src="<?php echo $seriesTopFive['cover']; ?>" alt="<?php echo $seriesTopFive['altcover']; ?>" />
                             <div class="series-data">
-                                <p><a href="displaySeries/<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
+                                <p><a href="displaySeries/series/<?php echo $seriesTopFive['id']; ?>"><?php echo $seriesTopFive['title']; ?></a></p>
                                 <div class="member">
                                     <img src="<?php echo $seriesTopFive['avatar']; ?>" alt="<?php echo $seriesTopFive['alt']; ?>" />
-                                    <p><a href="index.php?action=displayMember&idmember=<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['author']; ?></a></p>
+                                    <p><a href="displayMember/member/<?php echo $seriesTopFive['idmember']; ?>"><?php echo $seriesTopFive['author']; ?></a></p>
                                 </div>
                                 <p><?php echo $seriesTopFive['numberSubscribers']; ?> abonné(s)</p>
                             </div>

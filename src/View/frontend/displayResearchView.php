@@ -71,7 +71,7 @@ ob_start();
                             }
                             ?>
                             <br />
-                            <p><a class="btn btn-purple" href="displaySeries/<?php echo $seriesResults['id']; ?>">Découvrir la série à lire</a></p>
+                            <p><a class="btn btn-purple" href="displaySeries/series/<?php echo $seriesResults['id']; ?>">Découvrir la série à lire</a></p>
                         </figcaption>
                     </figure>
                     <div class="research-summary">
@@ -128,7 +128,7 @@ ob_start();
                         ?>
                         <p class="research-series__data"><?php echo $authorsResults['numberWritings']; ?> série(s) écrite(s)</p>
                         <br />
-                        <p class="research-series__data"><a class="btn btn-purple" href="index.php?action=displayMember&idmember=<?php echo $authorsResults['id']; ?>">Découvrir le membre</a></p>
+                        <p class="research-series__data"><a class="btn btn-purple" href="displayMember/member/<?php echo $authorsResults['id']; ?>">Découvrir le membre</a></p>
                     </article>
                 </li>
             <?php

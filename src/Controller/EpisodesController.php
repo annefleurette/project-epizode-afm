@@ -63,7 +63,7 @@ class EpisodesController {
                     $_SESSION['tempPromotion'] = $postpromotion;
                     $_SESSION['metaEpisode'] = $postmeta;
                     $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
-                    header("Location: writeEpisode/" .$seriesId);
+                    header("Location: writeEpisode/series/" .$seriesId);
                 }
             }else{
                 // On prépare des variables de session temporaires pour anticiper les erreurs et éviter à l'utilisateur de resaisir toutes ses données
@@ -74,7 +74,7 @@ class EpisodesController {
                 $_SESSION['tempPromotion'] = $postpromotion;
                 $_SESSION['metaEpisode'] = $postmeta;
                 $_SESSION['error'] = "Vous avez déjà publié ce numéro d'épisode ou cet épisode n'est pas le suivant du dernier épisode publié ! Le dernier épisode de la série publié est le numéro " . $count_episode_published;
-                header("Location: writeEpisode/" .$seriesId);
+                header("Location: writeEpisode/series/" .$seriesId);
             }
         }else{ // Si le bouton Publier est choisi
             // Enregistrement de l'épisode à publier dans la base de données
@@ -107,7 +107,7 @@ class EpisodesController {
                     $_SESSION['tempPromotion'] = $postpromotion;
                     $_SESSION['metaEpisode'] = $postmeta;
                     $_SESSION['error'] = "Saisissez une promotion inférieure ou égale au prix de votre épisode";
-                    header("Location: writeEpisode/" .$seriesId);
+                    header("Location: writeEpisode/series/" .$seriesId);
                 }
             }else{
                 // On prépare des variables de session temporaires pour anticiper les erreurs
@@ -118,7 +118,7 @@ class EpisodesController {
                 $_SESSION['tempPromotion'] = $postpromotion;
                 $_SESSION['metaEpisode'] = $postmeta;
                 $_SESSION['error'] = "Vous avez déjà publié ce numéro d'épisode ou cet épisode n'est pas le suivant du dernier épisode publié ! Le dernier épisode de la série publié est le numéro " . $count_episode_published;
-                header("Location: writeEpisode/" .$seriesId);
+                header("Location: writeEpisode/series" .$seriesId);
             }
         }
     }
@@ -375,6 +375,8 @@ class EpisodesController {
                 $episode_current = intval($episodeNumber);
                 $episode_before = $episode_current - 1;
                 $episode_next = $episode_current + 1;
+                $next_episode_unitary_published = $episodesManager->getEpisodePublished($episode_next, $seriesId);
+                $prev_episode_unitary_published = $episodesManager->getEpisodePublished($episode_before, $seriesId);
                 // On affiche les commentaires de l'épisode
                 $episodeCommentsList = $commentsManager->getCommentsEpisode($episode_unitary_published["id"]);
                 // On compte le nombre de commentaires

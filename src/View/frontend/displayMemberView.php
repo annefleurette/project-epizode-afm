@@ -105,7 +105,7 @@ ob_start();
                                 }
                                 ?>
                                 <br />
-                                <div><a class="btn btn-purple" href="displaySeries/<?php echo $allSeriesMember['id']; ?>">Découvrir la série à lire</a></div>
+                                <div><a class="btn btn-purple" href="displaySeries/series/<?php echo $allSeriesMember['id']; ?>">Découvrir la série à lire</a></div>
                             </figcaption>
                         </figure>
                     </li>
@@ -154,7 +154,7 @@ if($userPublicData['type'] == "user")
                                     ?>
                                         <div class="member">
                                             <img src="<?php echo $allSubscriptionSeries['logo']; ?>" alt="<?php echo $allSubscriptionSeries['altlogo']; ?>"/>
-                                            <p><a href="index.php?action=displayMember&idmember=<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['publisher']; ?></a></p>
+                                            <p><a href="displayMember/member/<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['publisher']; ?></a></p>
                                         </div>
                                     <?php
                                     // Si la série est écrite par un autre utilisateur
@@ -162,7 +162,7 @@ if($userPublicData['type'] == "user")
                                     ?>
                                         <div class="member">
                                             <img src="<?php echo $allSubscriptionSeries['avatar']; ?>" alt="<?php echo $allSubscriptionSeries['altavatar']; ?>"/>
-                                            <p><a href="index.php?action=displayMember&idmember=<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['member']; ?></a></p>
+                                            <p><a href="displayMember/member/<?php echo $allSubscriptionSeries['idmember']; ?>"><?php echo $allSubscriptionSeries['member']; ?></a></p>
                                         </div>
                                     <?php
                                     }
@@ -185,7 +185,7 @@ if($userPublicData['type'] == "user")
                                     }
                                     ?>
                                     <br/>
-                                    <div><a class="btn btn-purple" href="displaySeries/<?php echo $allSubscriptionSeries['id']; ?>">Découvrir la série à lire</a></div>
+                                    <div><a class="btn btn-purple" href="displaySeries/series/<?php echo $allSubscriptionSeries['id']; ?>">Découvrir la série à lire</a></div>
                                 </figcaption>
                             </figure>
                         </li>
